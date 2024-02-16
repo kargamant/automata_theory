@@ -1,6 +1,6 @@
 #include <string>
-#include "State.h"
-#include "Locked.h"
+#include "../State/State.h"
+#include "../Locked/Locked.h"
 
 class Turnstile
 {

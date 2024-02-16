@@ -1,6 +1,6 @@
 #include "State.h"
-#include "Locked.h"
-#include "Unlocked.h"
+#include "../Locked/Locked.h"
+#include "../Unlocked/Unlocked.h"
 
 State* State::idToState(StateId id)
 {
