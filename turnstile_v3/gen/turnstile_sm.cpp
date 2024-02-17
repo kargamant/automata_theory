@@ -5,7 +5,7 @@
 // from file : turnstile.sm
 //
 
-#include "Header"
+#include "../Turnstile/Turnstile.h"
 #include "turnstile_sm.h"
 
 using namespace statemap;
