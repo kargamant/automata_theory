@@ -1,0 +1,19 @@
+%header Header
+
+%class Turnstile
+%package turnstile
+
+%start MainMap::Locked
+%map MainMap
+%%
+Locked
+{
+	pass nil {alarm();}
+	dropCoin Unlocked {unlock();}
+}
+Unlocked
+{
+	pass Locked {lock();}
+	dropCoin nil {thanks();}
+}
+%%
