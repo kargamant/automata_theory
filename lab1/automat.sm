@@ -1,0 +1,74 @@
+%header Translator.h
+
+%class Translator
+%package Translator
+
+%start MainMap::F
+%map MainMap
+%%
+
+Default
+{
+	readNext() [ctxt.lastRead()!=eof] Incorrect {incorrect();}
+	readNext() [ctxt.lastRead()==eof] nil {shutDown();}
+}
+
+F
+{
+	readNext() [ctxt.lastRead()=='f'] O {}
+}
+
+O
+{
+	readNext() [ctxt.lastRead()=='o'] R {}
+}
+
+R
+{
+	readNext() [ctxt.lastRead()=='r'] Space {}
+}
+
+Space
+{
+	readNext() [ctxt.lastRead()==' '] Word {}
+	readNext() [ctxt.lastRead()=='i'] I {}
+	readNext() [ctxt.lastRead()=='('] OpenBracket {}
+	readNext() [ctxt.lastRead()==')'] CloseBracket {}
+}
+
+Word
+{
+	readNext() [ctxt.lastRead()!=' '] nil {}
+	readNext() [ctxt.lastRead()==' '] Space {}
+}
+
+I
+{
+	readNext() [ctxt.lastRead()=='n'] N {}
+}
+
+N
+{
+	readNext() [ctxt.lastRead()==' '] Space {}
+}
+
+OpenBracket
+{
+	readNext() [ctxt.lastRead()!=' '] Word {}
+}
+
+CloseBracket
+{
+	readNext() Correct {correct();}
+}
+
+Correct
+{
+	readNext() [ctxt.lastRead()=='f'] F {}
+}
+
+Incorrect
+{
+	readNext() [ctxt.lastRead()=='f'] F {}
+}
+%%
