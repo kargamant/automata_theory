@@ -43,7 +43,7 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=eof)
+        if (ctxt.lastRead()!=0)
         {
             context.getState().Exit(context);
             context.clearState();
@@ -59,7 +59,7 @@ namespace Translator
             }
             context.getState().Entry(context);
         }
-        else if (ctxt.lastRead()==eof)
+        else if (ctxt.lastRead()==0)
     
     {
             TranslatorState& endState = context.getState();

@@ -9,8 +9,8 @@
 
 Default
 {
-	readNext() [ctxt.lastRead()!=eof] Incorrect {incorrect();}
-	readNext() [ctxt.lastRead()==eof] nil {shutDown();}
+	readNext() [ctxt.lastRead()!=0] Incorrect {incorrect();}
+	readNext() [ctxt.lastRead()==0] nil {shutDown();}
 }
 
 F

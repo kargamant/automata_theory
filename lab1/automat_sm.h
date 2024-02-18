@@ -11,7 +11,7 @@
 
 #define SMC_USES_IOSTREAMS
 
-#include <statemap.h>
+#include "../smc_sources/lib/C++/statemap.h"
 
 namespace Translator
 {
