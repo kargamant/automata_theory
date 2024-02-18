@@ -20,11 +20,14 @@ namespace Translator
     class MainMap_F;
     class MainMap_O;
     class MainMap_R;
-    class MainMap_Space;
-    class MainMap_Word;
+    class MainMap_Space1;
+    class MainMap_Variable;
+    class MainMap_Space2;
     class MainMap_I;
     class MainMap_N;
     class MainMap_OpenBracket;
+    class MainMap_Word;
+    class MainMap_Space3;
     class MainMap_CloseBracket;
     class MainMap_Correct;
     class MainMap_Incorrect;
@@ -59,11 +62,14 @@ namespace Translator
         static MainMap_F F;
         static MainMap_O O;
         static MainMap_R R;
-        static MainMap_Space Space;
-        static MainMap_Word Word;
+        static MainMap_Space1 Space1;
+        static MainMap_Variable Variable;
+        static MainMap_Space2 Space2;
         static MainMap_I I;
         static MainMap_N N;
         static MainMap_OpenBracket OpenBracket;
+        static MainMap_Word Word;
+        static MainMap_Space3 Space3;
         static MainMap_CloseBracket CloseBracket;
         static MainMap_Correct Correct;
         static MainMap_Incorrect Incorrect;
@@ -114,22 +120,33 @@ namespace Translator
         virtual void readNext(automatContext& context);
     };
 
-    class MainMap_Space :
+    class MainMap_Space1 :
         public MainMap_Default
     {
     public:
-        MainMap_Space(const char * const name, const int stateId)
+        MainMap_Space1(const char * const name, const int stateId)
         : MainMap_Default(name, stateId)
         {};
 
         virtual void readNext(automatContext& context);
     };
 
-    class MainMap_Word :
+    class MainMap_Variable :
         public MainMap_Default
     {
     public:
-        MainMap_Word(const char * const name, const int stateId)
+        MainMap_Variable(const char * const name, const int stateId)
+        : MainMap_Default(name, stateId)
+        {};
+
+        virtual void readNext(automatContext& context);
+    };
+
+    class MainMap_Space2 :
+        public MainMap_Default
+    {
+    public:
+        MainMap_Space2(const char * const name, const int stateId)
         : MainMap_Default(name, stateId)
         {};
 
@@ -163,6 +180,28 @@ namespace Translator
     {
     public:
         MainMap_OpenBracket(const char * const name, const int stateId)
+        : MainMap_Default(name, stateId)
+        {};
+
+        virtual void readNext(automatContext& context);
+    };
+
+    class MainMap_Word :
+        public MainMap_Default
+    {
+    public:
+        MainMap_Word(const char * const name, const int stateId)
+        : MainMap_Default(name, stateId)
+        {};
+
+        virtual void readNext(automatContext& context);
+    };
+
+    class MainMap_Space3 :
+        public MainMap_Default
+    {
+    public:
+        MainMap_Space3(const char * const name, const int stateId)
         : MainMap_Default(name, stateId)
         {};
 

@@ -25,7 +25,7 @@ namespace Translator
 	{
 		if(fs.eof()) lastChar=0;
 		else fs>>lastChar;
-		std::cout<<"last char: "<<lastChar<<std::endl;
+		std::cout<<"last char: "<<lastChar<<" ; current state: "<<fsm.getState().getName()<<std::endl;
 		fsm.readNext();
 	}
 

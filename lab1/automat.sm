@@ -25,21 +25,24 @@ O
 
 R
 {
-	readNext() [ctxt.lastRead()=='r'] Space {}
+	readNext() [ctxt.lastRead()=='r'] Space1 {}
 }
 
-Space
+Space1
 {
-	readNext() [ctxt.lastRead()==' '] Word {}
-	readNext() [ctxt.lastRead()=='i'] I {}
-	readNext() [ctxt.lastRead()=='('] OpenBracket {}
-	readNext() [ctxt.lastRead()==')'] CloseBracket {}
+	readNext() [ctxt.lastRead()==' '] Variable {}
 }
 
-Word
+Variable
 {
 	readNext() [ctxt.lastRead()!=' '] nil {}
-	readNext() [ctxt.lastRead()==' '] Space {}
+	readNext() [ctxt.lastRead()==' '] Space2 {}
+}
+
+Space2
+{
+	readNext() [ctxt.lastRead()=='i'] I {}
+	readNext() [ctxt.lastRead()=='('] OpenBracket {}
 }
 
 I
@@ -49,12 +52,25 @@ I
 
 N
 {
-	readNext() [ctxt.lastRead()==' '] Space {}
+	readNext() [ctxt.lastRead()==' '] Space2 {}
 }
 
 OpenBracket
 {
 	readNext() [ctxt.lastRead()!=' '] Word {}
+}
+
+Word
+{
+	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!=')'] nil {}
+	readNext() [ctxt.lastRead()==' '] Space3 {}
+	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
+}
+
+Space3
+{
+	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!=')'] Word {}
+	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
 }
 
 CloseBracket

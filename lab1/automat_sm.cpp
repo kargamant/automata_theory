@@ -16,14 +16,17 @@ namespace Translator
     MainMap_F MainMap::F("MainMap::F", 0);
     MainMap_O MainMap::O("MainMap::O", 1);
     MainMap_R MainMap::R("MainMap::R", 2);
-    MainMap_Space MainMap::Space("MainMap::Space", 3);
-    MainMap_Word MainMap::Word("MainMap::Word", 4);
-    MainMap_I MainMap::I("MainMap::I", 5);
-    MainMap_N MainMap::N("MainMap::N", 6);
-    MainMap_OpenBracket MainMap::OpenBracket("MainMap::OpenBracket", 7);
-    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 8);
-    MainMap_Correct MainMap::Correct("MainMap::Correct", 9);
-    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 10);
+    MainMap_Space1 MainMap::Space1("MainMap::Space1", 3);
+    MainMap_Variable MainMap::Variable("MainMap::Variable", 4);
+    MainMap_Space2 MainMap::Space2("MainMap::Space2", 5);
+    MainMap_I MainMap::I("MainMap::I", 6);
+    MainMap_N MainMap::N("MainMap::N", 7);
+    MainMap_OpenBracket MainMap::OpenBracket("MainMap::OpenBracket", 8);
+    MainMap_Word MainMap::Word("MainMap::Word", 9);
+    MainMap_Space3 MainMap::Space3("MainMap::Space3", 10);
+    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 11);
+    MainMap_Correct MainMap::Correct("MainMap::Correct", 12);
+    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 13);
 
     void TranslatorState::readNext(automatContext& context)
     {
@@ -129,7 +132,7 @@ namespace Translator
         {
             context.getState().Exit(context);
             // No actions.
-            context.setState(MainMap::Space);
+            context.setState(MainMap::Space1);
             context.getState().Entry(context);
         }
         else
@@ -140,7 +143,7 @@ namespace Translator
 
     }
 
-    void MainMap_Space::readNext(automatContext& context)
+    void MainMap_Space1::readNext(automatContext& context)
     {
         Translator& ctxt = context.getOwner();
 
@@ -148,33 +151,10 @@ namespace Translator
         {
             context.getState().Exit(context);
             // No actions.
-            context.setState(MainMap::Word);
+            context.setState(MainMap::Variable);
             context.getState().Entry(context);
         }
-        else if (ctxt.lastRead()=='i')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::I);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()=='(')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::OpenBracket);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==')')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::CloseBracket);
-            context.getState().Entry(context);
-        }        else
+        else
         {
              MainMap_Default::readNext(context);
         }
@@ -182,7 +162,7 @@ namespace Translator
 
     }
 
-    void MainMap_Word::readNext(automatContext& context)
+    void MainMap_Variable::readNext(automatContext& context)
     {
         Translator& ctxt = context.getOwner();
 
@@ -195,7 +175,33 @@ namespace Translator
     {
             context.getState().Exit(context);
             // No actions.
-            context.setState(MainMap::Space);
+            context.setState(MainMap::Space2);
+            context.getState().Entry(context);
+        }        else
+        {
+             MainMap_Default::readNext(context);
+        }
+
+
+    }
+
+    void MainMap_Space2::readNext(automatContext& context)
+    {
+        Translator& ctxt = context.getOwner();
+
+        if (ctxt.lastRead()=='i')
+        {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::I);
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()=='(')
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::OpenBracket);
             context.getState().Entry(context);
         }        else
         {
@@ -232,7 +238,7 @@ namespace Translator
         {
             context.getState().Exit(context);
             // No actions.
-            context.setState(MainMap::Space);
+            context.setState(MainMap::Space2);
             context.getState().Entry(context);
         }
         else
@@ -255,6 +261,63 @@ namespace Translator
             context.getState().Entry(context);
         }
         else
+        {
+             MainMap_Default::readNext(context);
+        }
+
+
+    }
+
+    void MainMap_Word::readNext(automatContext& context)
+    {
+        Translator& ctxt = context.getOwner();
+
+        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!=')')
+        {
+            // No actions.
+        }
+        else if (ctxt.lastRead()==' ')
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::Space3);
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==')')
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::CloseBracket);
+            context.getState().Entry(context);
+        }        else
+        {
+             MainMap_Default::readNext(context);
+        }
+
+
+    }
+
+    void MainMap_Space3::readNext(automatContext& context)
+    {
+        Translator& ctxt = context.getOwner();
+
+        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!=')')
+        {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::Word);
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==')')
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::CloseBracket);
+            context.getState().Entry(context);
+        }        else
         {
              MainMap_Default::readNext(context);
         }
