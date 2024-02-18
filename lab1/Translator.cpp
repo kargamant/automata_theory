@@ -1,4 +1,5 @@
 #include "Translator.h"
+#include <format>
 
 namespace Translator
 {
@@ -25,19 +26,27 @@ namespace Translator
 	{
 		if(fs.eof()) lastChar=0;
 		else fs>>lastChar;
-		std::cout<<"last char: "<<lastChar<<" ; current state: "<<fsm.getState().getName()<<std::endl;
+		if(lastChar!='\n') line+=lastChar;
+//		std::cout<<"last char: "<<lastChar<<" ; current state: "<<fsm.getState().getName()<<std::endl;
 		fsm.readNext();
 	}
 
 
 	void Translator::correct(std::ostream& stream)
 	{
-		stream<<"Processed line is correct"<<std::endl;
+		stream<<std::format("Processed line: \"{}\" is correct", line)<<std::endl;
+		line="";
 	}
 	
 	void Translator::incorrect(std::ostream& stream)
 	{
-		stream<<"Processed line is incorrect"<<std::endl;
+		while(lastChar!='\n')
+		{
+			fs>>lastChar;
+			if(lastChar!='\n') line+=lastChar;
+		}
+		stream<<std::format("Processed line: \"{}\" is incorrect", line)<<std::endl;	
+		line="";
 	}
 	void Translator::run()
 	{

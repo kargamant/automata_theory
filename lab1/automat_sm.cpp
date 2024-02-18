@@ -166,7 +166,7 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ')
+        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n')
         {
             // No actions.
         }
@@ -253,7 +253,7 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ')
+        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n')
         {
             context.getState().Exit(context);
             // No actions.
@@ -272,7 +272,7 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!=')')
+        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!=')' && ctxt.lastRead()!='\n')
         {
             // No actions.
         }
@@ -303,7 +303,7 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!=')')
+        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!=')' && ctxt.lastRead()!='\n')
         {
             context.getState().Exit(context);
             // No actions.
@@ -354,7 +354,7 @@ namespace Translator
         {
             context.getState().Exit(context);
             // No actions.
-            context.setState(MainMap::F);
+            context.setState(MainMap::O);
             context.getState().Entry(context);
         }
         else
@@ -373,7 +373,7 @@ namespace Translator
         {
             context.getState().Exit(context);
             // No actions.
-            context.setState(MainMap::F);
+            context.setState(MainMap::O);
             context.getState().Entry(context);
         }
         else

@@ -35,7 +35,7 @@ Space1
 
 Variable
 {
-	readNext() [ctxt.lastRead()!=' '] nil {}
+	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n'] nil {}
 	readNext() [ctxt.lastRead()==' '] Space2 {}
 }
 
@@ -57,19 +57,19 @@ N
 
 OpenBracket
 {
-	readNext() [ctxt.lastRead()!=' '] Word {}
+	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n'] Word {}
 }
 
 Word
 {
-	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!=')'] nil {}
+	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!=')' && ctxt.lastRead()!='\n'] nil {}
 	readNext() [ctxt.lastRead()==' '] Space3 {}
 	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
 }
 
 Space3
 {
-	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!=')'] Word {}
+	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!=')' && ctxt.lastRead()!='\n'] Word {}
 	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
 }
 
@@ -80,11 +80,11 @@ CloseBracket
 
 Correct
 {
-	readNext() [ctxt.lastRead()=='f'] F {}
+	readNext() [ctxt.lastRead()=='f'] O {}
 }
 
 Incorrect
 {
-	readNext() [ctxt.lastRead()=='f'] F {}
+	readNext() [ctxt.lastRead()=='f'] O {}
 }
 %%

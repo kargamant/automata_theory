@@ -1,1 +1,6 @@
 for k in (abc bcaa saklda )
+For k in (om nom nom)
+for i in ( )
+for t in (ik ik)
+for abo ba in (1 2 3)
+for aboba in (1 2 3)

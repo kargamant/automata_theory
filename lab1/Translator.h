@@ -9,6 +9,7 @@ namespace Translator
 	{
 		private:
 			char lastChar;
+			std::string line;
 			std::fstream fs;
 			automatContext fsm;
 		public:
