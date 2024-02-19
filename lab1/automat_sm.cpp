@@ -149,12 +149,16 @@ namespace Translator
 
         if (ctxt.lastRead()==' ')
         {
+            // No actions.
+        }
+        else if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && !ctxt.isNumber())
+    
+    {
             context.getState().Exit(context);
             // No actions.
             context.setState(MainMap::Variable);
             context.getState().Entry(context);
-        }
-        else
+        }        else
         {
              MainMap_Default::readNext(context);
         }
@@ -166,7 +170,7 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n')
+        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.isValidRead())
         {
             // No actions.
         }
@@ -189,8 +193,13 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()=='i')
+        if (ctxt.lastRead()==' ')
         {
+            // No actions.
+        }
+        else if (ctxt.lastRead()=='i')
+    
+    {
             context.getState().Exit(context);
             // No actions.
             context.setState(MainMap::I);

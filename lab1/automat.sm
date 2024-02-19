@@ -30,17 +30,19 @@ R
 
 Space1
 {
-	readNext() [ctxt.lastRead()==' '] Variable {}
+	readNext() [ctxt.lastRead()==' '] nil {}
+	readNext() [ctxt.lastRead()!=' ' && ctxt.isValidRead() && !ctxt.isNumber()] Variable {}
 }
 
 Variable
 {
-	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n'] nil {}
+	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.isValidRead()] nil {}
 	readNext() [ctxt.lastRead()==' '] Space2 {}
 }
 
 Space2
 {
+	readNext() [ctxt.lastRead()==' '] nil {}
 	readNext() [ctxt.lastRead()=='i'] I {}
 	readNext() [ctxt.lastRead()=='('] OpenBracket {}
 }

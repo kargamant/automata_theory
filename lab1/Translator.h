@@ -23,5 +23,7 @@ namespace Translator
 			void incorrect(std::ostream& stream=std::cout);
 			void shutDown() {fs.close();}
 			void run();
+			bool isValidRead() {return (lastChar>=97 && lastChar<=122) || (lastChar>=65 && lastChar<=90) || isNumber();}
+			bool isNumber() {return (lastChar>=48 && lastChar<=57);}
 	};
 }
