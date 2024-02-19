@@ -23,10 +23,13 @@ namespace Translator
     MainMap_N MainMap::N("MainMap::N", 7);
     MainMap_OpenBracket MainMap::OpenBracket("MainMap::OpenBracket", 8);
     MainMap_Word MainMap::Word("MainMap::Word", 9);
-    MainMap_Space3 MainMap::Space3("MainMap::Space3", 10);
-    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 11);
-    MainMap_Correct MainMap::Correct("MainMap::Correct", 12);
-    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 13);
+    MainMap_SingleQoute MainMap::SingleQoute("MainMap::SingleQoute", 10);
+    MainMap_DoubleQoute MainMap::DoubleQoute("MainMap::DoubleQoute", 11);
+    MainMap_AfterQoute MainMap::AfterQoute("MainMap::AfterQoute", 12);
+    MainMap_Space3 MainMap::Space3("MainMap::Space3", 13);
+    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 14);
+    MainMap_Correct MainMap::Correct("MainMap::Correct", 15);
+    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 16);
 
     void TranslatorState::readNext(automatContext& context)
     {
@@ -262,14 +265,29 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n')
+        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.lastRead()!=39 && ctxt.lastRead()!=34)
         {
             context.getState().Exit(context);
             // No actions.
             context.setState(MainMap::Word);
             context.getState().Entry(context);
         }
-        else
+        else if (ctxt.lastRead()==39)
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::SingleQoute);
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==34)
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::DoubleQoute);
+            context.getState().Entry(context);
+        }        else
         {
              MainMap_Default::readNext(context);
         }
@@ -281,7 +299,7 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!=')' && ctxt.lastRead()!='\n')
+        if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n')
         {
             // No actions.
         }
@@ -308,12 +326,123 @@ namespace Translator
 
     }
 
+    void MainMap_SingleQoute::readNext(automatContext& context)
+    {
+        Translator& ctxt = context.getOwner();
+
+        if (ctxt.lastRead()!=39 && ctxt.lastRead()!='\n')
+        {
+            // No actions.
+        }
+        else if (ctxt.lastRead()=='\n')
+    
+    {
+            context.getState().Exit(context);
+            context.clearState();
+            try
+            {
+                ctxt.incorrect();
+                context.setState(MainMap::Incorrect);
+            }
+            catch (...)
+            {
+                context.setState(MainMap::Incorrect);
+                throw;
+            }
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==39)
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::AfterQoute);
+            context.getState().Entry(context);
+        }        else
+        {
+             MainMap_Default::readNext(context);
+        }
+
+
+    }
+
+    void MainMap_DoubleQoute::readNext(automatContext& context)
+    {
+        Translator& ctxt = context.getOwner();
+
+        if (ctxt.lastRead()!=34 && ctxt.lastRead()!='\n')
+        {
+            // No actions.
+        }
+        else if (ctxt.lastRead()=='\n')
+    
+    {
+            context.getState().Exit(context);
+            context.clearState();
+            try
+            {
+                ctxt.incorrect();
+                context.setState(MainMap::Incorrect);
+            }
+            catch (...)
+            {
+                context.setState(MainMap::Incorrect);
+                throw;
+            }
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==34)
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::AfterQoute);
+            context.getState().Entry(context);
+        }        else
+        {
+             MainMap_Default::readNext(context);
+        }
+
+
+    }
+
+    void MainMap_AfterQoute::readNext(automatContext& context)
+    {
+        Translator& ctxt = context.getOwner();
+
+        if (ctxt.lastRead()==' ')
+        {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::Space3);
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==')')
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::CloseBracket);
+            context.getState().Entry(context);
+        }        else
+        {
+             MainMap_Default::readNext(context);
+        }
+
+
+    }
+
     void MainMap_Space3::readNext(automatContext& context)
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!=')' && ctxt.lastRead()!='\n')
+        if (ctxt.lastRead()==' ')
         {
+            // No actions.
+        }
+        else if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n')
+    
+    {
             context.getState().Exit(context);
             // No actions.
             context.setState(MainMap::Word);
@@ -325,6 +454,22 @@ namespace Translator
             context.getState().Exit(context);
             // No actions.
             context.setState(MainMap::CloseBracket);
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==39)
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::SingleQoute);
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==34)
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::DoubleQoute);
             context.getState().Entry(context);
         }        else
         {
