@@ -30,13 +30,13 @@ std::fstream openSafe(std::string fileName)
 	return fs;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
-	char c=0;
+	if(argc<3) throw std::invalid_argument("Error. Not all files specified.");
 	std::string line;
 
 	//reading regular expresiion
-	std::fstream reg=openSafe("regexp.txt");
+	std::fstream reg=openSafe(argv[1]);
 	std::string regexp=readLine(reg);
 	reg.close();
 
@@ -44,24 +44,9 @@ int main()
 	std::regex re(regexp);
 	
 	//reading file with test strings
-	std::fstream fs=openSafe("../input.txt");
-	/*std::fstream fs("../input.txt");
-	if(!fs.is_open())
-	{
-		fs.close();
-		fs.open("../input.txt", std::ios::in);
-		fs.close();
-		fs.open("../input.txt");
-	}
-	fs.unsetf(fs.skipws);*/
+	std::fstream fs=openSafe(argv[2]);
 	while(!fs.eof())
 	{
-		/*while(c!='\n' && !fs.eof())
-		{
-			//std::cout<<c<<std::endl;
-			fs>>c;
-			if(c!='\n') line+=c;
-		}*/
 		line=readLine(fs);
 
 		//finding matches
@@ -74,7 +59,6 @@ int main()
 			std::cout<<std::format("Line \"{}\" is incorrect", line)<<std::endl;
 		}
 		line="";
-		c=0;
 	}
 	fs.close();
 	return 0;
