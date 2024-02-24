@@ -19,3 +19,4 @@ for i in  ('po')
 while i
 for for in (a 'd')
 for u in (2abc)
+for u in (abc2'ddd' )
