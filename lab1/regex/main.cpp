@@ -3,25 +3,49 @@
 #include <format>
 #include <fstream>
 
+std::string readLine(std::fstream& fs)
+{
+	char c=0;
+	std::string line;
+
+	while(c!='\n' && !fs.eof()) 
+	{
+		fs>>c;
+		if(c!='\n') line+=c;
+	}
+	return line;
+}
+
+std::fstream openSafe(std::string fileName)
+{
+	std::fstream fs(fileName);
+	fs.unsetf(fs.skipws);
+	if(!fs.is_open())
+	{
+		fs.close();
+		fs.open(fileName, std::ios::in);
+		fs.close();
+		fs.open(fileName);
+	}
+	return fs;
+}
+
 int main()
 {
 	char c=0;
 	std::string line;
 
-	std::string regexp;
-	std::fstream reg("regexp.txt");
-	reg.unsetf(reg.skipws);
-	while(c!='\n' && !reg.eof()) 
-	{
-		reg>>c;
-		if(c!='\n') regexp+=c;
-	}
+	//reading regular expresiion
+	std::fstream reg=openSafe("regexp.txt");
+	std::string regexp=readLine(reg);
 	reg.close();
-	c=0;
 
 	std::cout<<"finding matches with regexp: \""<<regexp<<"\""<<std::endl;
 	std::regex re(regexp);
-	std::fstream fs("../input.txt");
+	
+	//reading file with test strings
+	std::fstream fs=openSafe("../input.txt");
+	/*std::fstream fs("../input.txt");
 	if(!fs.is_open())
 	{
 		fs.close();
@@ -29,17 +53,19 @@ int main()
 		fs.close();
 		fs.open("../input.txt");
 	}
-	fs.unsetf(fs.skipws);
+	fs.unsetf(fs.skipws);*/
 	while(!fs.eof())
 	{
-		while(c!='\n' && !fs.eof())
+		/*while(c!='\n' && !fs.eof())
 		{
 			//std::cout<<c<<std::endl;
 			fs>>c;
 			if(c!='\n') line+=c;
-		}
-		std::smatch ms;
-		if(std::regex_match(line, ms, re))
+		}*/
+		line=readLine(fs);
+
+		//finding matches
+		if(std::regex_match(line, re))
 		{
 			std::cout<<std::format("Line \"{}\" is correct", line)<<std::endl;
 		}

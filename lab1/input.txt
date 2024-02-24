@@ -16,3 +16,5 @@ for i in  ('ab cdefg'  'uioqiwe18237186*&**&(!)')
 for i in  ('abcdefg'  'uioqiwe18237186*&**&(!))
 for i in  ("wladislaugh baby dont hurt me" "dont hurt me"     nomore 1 2 3)
 for i in  ('po')
+while i
+for for in (a 'd')
