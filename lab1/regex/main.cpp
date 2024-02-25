@@ -35,7 +35,6 @@ int main(int argc, char* argv[])
 	if(argc<2) throw std::invalid_argument("Error. Not all files specified.");
 	std::string line;
 
-	std::cout<<"hello"<<std::endl;
 	//reading regular expresiion
 	std::fstream reg;
 	if(argc==3) 
@@ -45,14 +44,13 @@ int main(int argc, char* argv[])
 	else reg=openSafe("regexp.txt");
 	std::string regexp=readLine(reg);
 	reg.close();
-	std::cout<<"hello"<<std::endl;
 
 	std::cout<<"finding matches with regexp: \""<<regexp<<"\""<<std::endl;
 	std::regex re(regexp);
 	
 	//reading file with test strings
 	std::fstream fs;
-	if(argc==3 ) fs=openSafe(argv[2]);
+	if(argc==3) fs=openSafe(argv[2]);
 	else fs=openSafe(argv[1]);
 	while(!fs.eof())
 	{

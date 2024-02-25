@@ -50,7 +50,9 @@ void Tester::testAll(int lines)
 	for(std::string imp: implimentations)
 	{
 		std::cout<<imp<<" output:"<<std::endl;
-		std::string request="../"+basedDir+"/"+imp+"/main "+filename;
+		std::string request;
+		if(imp!="regex") request="../"+basedDir+"/"+imp+"/main "+filename;
+		else request="../"+basedDir+"/"+imp+"/main "+"../"+basedDir+"/"+imp+"/regexp.txt "+filename;
 		std::system(request.c_str());
 	}
 }
