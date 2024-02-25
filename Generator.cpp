@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
 #include <time.h>
+#include "Generator.h"
 
-std::string genNum(int length=1)
+std::string Generator::genNum(int length)
 {
 	std::string result;
 	for(int i=0; i<length; i++) 
@@ -12,13 +13,13 @@ std::string genNum(int length=1)
 	}
 	return result;
 }
-char genChar(bool lowerCase=true)
+char Generator::genChar(bool lowerCase)
 {
 	if(!lowerCase) return 65+std::rand()%26;
 	else return 97+std::rand()%26;
 }
 
-char genBadChar()
+char Generator::genBadChar()
 {
 	char c=32+std::rand()%15;
 	while(c=='\'' || c=='"')
@@ -28,12 +29,12 @@ char genBadChar()
 	return c;
 }
 
-int genChoice(int options=2)
+int Generator::genChoice(int options)
 {
 	return std::rand()%options;
 }
 
-std::string genId(int length)
+std::string Generator::genId(int length)
 {
 	std::string result;
 	result+=genChar(genChoice());
@@ -46,7 +47,7 @@ std::string genId(int length)
 	return result;
 }
 
-std::string genStringLiteral(int length, bool doubleQoutes=false)
+std::string Generator::genStringLiteral(int length, bool doubleQoutes)
 {
 	std::string result;
 	if(doubleQoutes) result+="\"";
@@ -66,14 +67,14 @@ std::string genStringLiteral(int length, bool doubleQoutes=false)
 	return result;
 }
 
-std::string genSpaces(int length)
+std::string Generator::genSpaces(int length)
 {
 	std::string result;
 	for(int i=0; i<length; i++) result+=" ";
 	return result;
 }
 
-std::string genCorrectString(int varLength, int maxSpacesLength, int words)
+std::string Generator::genCorrectString(int varLength, int maxSpacesLength, int words)
 {
 	std::string result;
 	result+="for";
@@ -109,13 +110,10 @@ std::string genIncorrectString();
 int main()
 {
 	std::srand(time(NULL));
-//	int length=0;
-//	std::cin>>length;
-//	std::cout<<genId(length)<<std::endl;
-//	std::cout<<genStringLiteral(length)<<std::endl;
+	Generator generator;
 	int varLength, maxSpacesLength, words;
 	std::cout<<"Input varLength, maxSpacesLength, words: ";
 	std::cin>>varLength>>maxSpacesLength>>words;
-	std::cout<<genCorrectString(varLength, maxSpacesLength, words)<<std::endl;
+	std::cout<<generator.genCorrectString(varLength, maxSpacesLength, words)<<std::endl;
 	return 0;
 }
