@@ -74,7 +74,7 @@ std::string Generator::genSpaces(int length)
 	return result;
 }
 
-std::string Generator::genCorrectString(int varLength, int maxSpacesLength, int words)
+std::string Generator::genCorrectString()
 {
 	std::string result;
 	result+="for";
@@ -107,13 +107,3 @@ std::string Generator::genCorrectString(int varLength, int maxSpacesLength, int 
 }
 std::string genIncorrectString();
 
-int main()
-{
-	std::srand(time(NULL));
-	Generator generator;
-	int varLength, maxSpacesLength, words;
-	std::cout<<"Input varLength, maxSpacesLength, words: ";
-	std::cin>>varLength>>maxSpacesLength>>words;
-	std::cout<<generator.genCorrectString(varLength, maxSpacesLength, words)<<std::endl;
-	return 0;
-}

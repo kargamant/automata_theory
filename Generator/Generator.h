@@ -1,7 +1,11 @@
-
+#pragma once
+#include <string>
 class Generator
 {
 	private:
+		int varLength;
+		int maxSpacesLength;
+		int words;
 		std::string lastGenerated;
 		std::string genNum(int length=1);
 		char genChar(bool lowerCase=true);
@@ -11,5 +15,8 @@ class Generator
 		std::string genStringLiteral(int length, bool doubleQoutes=false);
 		std::string genSpaces(int length);
 	public:
-		std::string genCorrectString(int varLength, int maxSpacesLength, int words);
+		Generator(int varLength, int maxSpacesLength, int words) : varLength(varLength), maxSpacesLength(maxSpacesLength), words(words)
+	{
+	}
+		std::string genCorrectString();
 };
