@@ -118,6 +118,11 @@ std::string Generator::genAbsRandString(int length)
 		int choice=genChoice();
 		if(choice)
 		{
+			char c=genBadChar();
+			while(c==' ' || c==0)
+			{
+				c=genBadChar();
+			}
 			result+=genBadChar();
 		}
 		else
@@ -131,7 +136,7 @@ std::string Generator::genAbsRandString(int length)
 
 std::string Generator::genIncorrectString(std::vector<std::string> cases)
 {
-	std::srand(time(NULL));
+	//std::srand(time(NULL));
 	int choice=genChoice(cases.size());
 	std::string result=cases[choice];
 	result=std::regex_replace(result, std::regex("<var>"), genId(varLength));

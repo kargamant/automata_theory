@@ -13,7 +13,6 @@ class Generator
 		std::string genNum(int length=1);
 		char genChar(bool lowerCase=true);
 		char genBadChar();
-		int genChoice(int options=2);
 		std::string genId(int length);
 		std::string genStringLiteral(int length, bool doubleQoutes=false);
 		std::string genSpaces(int length);
@@ -24,4 +23,5 @@ class Generator
 	}
 		std::string genCorrectString();
 		std::string genIncorrectString(std::vector<std::string> cases);
+		int genChoice(int options=2);
 };

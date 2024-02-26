@@ -2,6 +2,7 @@
 #include <iostream>
 
 std::vector<std::string> Tester::implimentations={"smc", "regex", "flex"};
+std::string Tester::incorrectCasesFile="incorrect_cases.txt";
 std::string Tester::readLine(std::fstream& fs)
 {
 	char c=0;
@@ -15,18 +16,18 @@ std::string Tester::readLine(std::fstream& fs)
 	return line;
 }
 
-std::fstream Tester::openSafe(std::string fileName)
+std::fstream Tester::openSafe(std::string fileName, std::ios_base::openmode mode)
 {
 	//filename=fileName;
-	std::fstream fs(fileName, std::ios::out);
+	std::fstream fs(fileName, mode);
 	if(!fs.is_open())
 	{
 		fs.close();
-		fs.open(fileName, std::ios::out);
+		fs.open(fileName, mode);
 		fs.close();
 		fs.open(fileName);
 	}
-	//fs.unsetf(fs.skipws);
+	fs.unsetf(fs.skipws);
 	return fs;
 }
 
@@ -36,9 +37,24 @@ Tester::Tester(std::string filename, std::string basedDir, Generator& gen) : fil
 
 void Tester::writeToPull(int lines)
 {
+	std::fstream load=openSafe("../Tester/"+incorrectCasesFile, std::ios::in);
+	std::vector<std::string> cases;
+	while(!load.eof())
+	{
+		cases.push_back(readLine(load));
+	}
 	for(int i=0; i<lines; i++)
 	{
-		std::string toWrite=generator.genCorrectString();
+		int choice=generator.genChoice();
+		std::string toWrite;
+		if(choice) 
+		{
+			toWrite=generator.genCorrectString();
+		}
+		else
+		{
+			toWrite=generator.genIncorrectString(cases);
+		}
 		fs<<toWrite<<std::endl;
 	}
 }
@@ -49,7 +65,7 @@ void Tester::testAll(int lines)
 	//fs.close();
 	for(std::string imp: implimentations)
 	{
-		std::cout<<imp<<" output:"<<std::endl;
+		std::cout<<std::endl<<imp<<" output:"<<std::endl;
 		std::string request;
 		if(imp!="regex") request="../"+basedDir+"/"+imp+"/main "+filename;
 		else request="../"+basedDir+"/"+imp+"/main "+"../"+basedDir+"/"+imp+"/regexp.txt "+filename;
