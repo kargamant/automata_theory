@@ -2,6 +2,9 @@
 #include <string>
 #include <time.h>
 #include "Generator.h"
+#include <regex>
+#include <random>
+#include <time.h>
 
 std::string Generator::genNum(int length)
 {
@@ -103,7 +106,82 @@ std::string Generator::genCorrectString()
 		result+=genSpaces(1+std::rand()%maxSpacesLength);
 	}
 	result+=")";
+	lastGenerated=result;
 	return result;
 }
-std::string genIncorrectString();
+
+std::string Generator::genAbsRandString(int length)
+{
+	std::string result;
+	for(int i=0; i<length; i++)
+	{
+		int choice=genChoice();
+		if(choice)
+		{
+			result+=genBadChar();
+		}
+		else
+		{
+			result+=genChar();
+		}
+	}
+	return result;
+}
+
+
+std::string Generator::genIncorrectString(std::vector<std::string> cases)
+{
+	std::srand(time(NULL));
+	int choice=genChoice(cases.size());
+	std::string result=cases[choice];
+	result=std::regex_replace(result, std::regex("<var>"), genId(varLength));
+	result=std::regex_replace(result, std::regex("<abs_rand>"), genAbsRandString(varLength));
+	result=std::regex_replace(result, std::regex("<int>"), genNum());
+	return result;
+	//cases
+	//<abs_rand>
+	//for <abs_rand>
+	//for <abs_rand> in
+	//for  in <abs_rand>
+	//for <var> in (
+	//for <var> in )
+	//for <var> in ()
+	//for <var> in (<abs_rand>)
+	//for    <var>   <abs_rand>    in ()
+	//for    <var>    in()
+	//for    <int><var>     in  ()
+	//for <var>    in ( )
+	//for <var>  in ('<abs_rand>)
+	//for <var>  in (<abs_rand>')
+	//for <var>  in ("<abs_rand>)
+	//for <var>  in (<abs_rand>")
+	//for <var>  in (         "<abs_rand>"<var>  )
+	//for <var>  in (         "<abs_rand>"<int>  )
+	//for <var>  in (         "<abs_rand>"<other string literal>  )
+	//for <var>  in (         <var>"<abs_rand>"  )
+	//for <var>  in (         <int>"<abs_rand>"  )
+	//for <var>  in (         <other string literal>"<abs_rand>"  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

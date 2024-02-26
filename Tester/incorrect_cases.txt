@@ -1,0 +1,22 @@
+<abs_rand>
+for <abs_rand>
+for <abs_rand> in
+for  in <abs_rand>
+for <var> in (
+for <var> in )
+for <var> in ()
+for <var> in (<abs_rand>)
+for    <var>   <abs_rand>    in ()
+for    <var>    in()
+for    <int><var>     in  ()
+for <var>    in ( )
+for <var>  in ('<abs_rand>)
+for <var>  in (<abs_rand>')
+for <var>  in ("<abs_rand>)
+for <var>  in (<abs_rand>")
+for <var>  in (         "<abs_rand>"<var>  )
+for <var>  in (         "<abs_rand>"<int>  )
+for <var>  in (         "<abs_rand>"<other string literal>  )
+for <var>  in (         <var>"<abs_rand>"  )
+for <var>  in (         <int>"<abs_rand>"  )
+for <var>  in (         <other string literal>"<abs_rand>"  )
