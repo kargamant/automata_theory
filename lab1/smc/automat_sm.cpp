@@ -272,6 +272,14 @@ namespace Translator
             context.setState(MainMap::Word);
             context.getState().Entry(context);
         }
+        else if (ctxt.lastRead()==' ')
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::Space3);
+            context.getState().Entry(context);
+        }
         else if (ctxt.lastRead()==39)
     
     {

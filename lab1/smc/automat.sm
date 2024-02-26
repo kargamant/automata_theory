@@ -60,6 +60,7 @@ N
 OpenBracket
 {
 	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.lastRead()!=39 && ctxt.lastRead()!=34] Word {}
+	readNext() [ctxt.lastRead()==' '] Space3 {}
 	readNext() [ctxt.lastRead()==39] SingleQoute {}
 	readNext() [ctxt.lastRead()==34] DoubleQoute {}
 }

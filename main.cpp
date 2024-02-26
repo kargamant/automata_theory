@@ -13,7 +13,7 @@ int main()
 	std::cin>>varLength>>maxSpacesLength>>words;
 	Generator generator{varLength, maxSpacesLength, words};
 	Tester tester{"pull.txt", "lab1", generator};
-	tester.testAll();
+	tester.testAll(5);
 	//std::cout<<generator.genCorrectString()<<std::endl;
 	return 0;
 }
