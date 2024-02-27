@@ -27,14 +27,14 @@ namespace Translator
 		if(fs.eof()) lastChar=0;
 		else fs>>lastChar;
 		if(lastChar!='\n') line+=lastChar;
-//		std::cout<<"last char: "<<lastChar<<" ; current state: "<<fsm.getState().getName()<<std::endl;
+		if(debugInfo) std::cout<<"last char: "<<lastChar<<" ; current state: "<<fsm.getState().getName()<<std::endl;
 		fsm.readNext();
 	}
 
 
 	void Translator::correct(std::ostream& stream)
 	{
-		stream<<std::format("Processed line: \"{}\" is correct", line)<<std::endl;
+		if(outputInfo) stream<<std::format("Processed line: \"{}\" is correct", line)<<std::endl;
 		line="";
 	}
 	
@@ -45,7 +45,7 @@ namespace Translator
 			fs>>lastChar;
 			if(lastChar!='\n') line+=lastChar;
 		}
-		stream<<std::format("Processed line: \"{}\" is incorrect", line)<<std::endl;	
+		if(outputInfo) stream<<std::format("Processed line: \"{}\" is incorrect", line)<<std::endl;	
 		line="";
 	}
 	void Translator::run()

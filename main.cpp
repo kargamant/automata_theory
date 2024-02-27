@@ -29,6 +29,7 @@ int main()
 	Generator generator{varLength, maxSpacesLength, words};
 	Tester tester{"pull.txt", "lab1", generator};
 	tester.testAll(5);
+	tester.timing(10);
 	//std::cout<<generator.genCorrectString()<<std::endl;
 	return 0;
 }

@@ -1,5 +1,6 @@
 #include "Tester.h"
 #include <iostream>
+#include <chrono>
 
 std::vector<std::string> Tester::implimentations={"smc", "regex", "flex"};
 std::string Tester::incorrectCasesFile="incorrect_cases.txt";
@@ -72,5 +73,24 @@ void Tester::testAll(int lines)
 		std::system(request.c_str());
 	}
 }
+
+void Tester::timing(int lines)
+{
+	writeToPull(lines);
+	std::fstream results=openSafe("timing.txt", std::ios::out);
+	for(std::string imp: implimentations)
+	{
+		if(imp=="flex") std::system(std::string("make no_out -C ../"+basedDir+"/flex").c_str());
+		std::string request="../"+basedDir+"/"+imp+"/main "+filename+" --no-output";
+		auto start=std::chrono::system_clock::now();
+		std::system(request.c_str());
+		auto end=std::chrono::system_clock::now();
+		auto duration=std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
+		results<<imp+" "+std::to_string(duration.count())<<std::endl;
+	}
+}
+
+
+
 
 

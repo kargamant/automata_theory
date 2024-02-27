@@ -32,12 +32,14 @@ std::fstream openSafe(std::string fileName)
 
 int main(int argc, char* argv[])
 {
+	bool outputInfo=true;
 	if(argc<2) throw std::invalid_argument("Error. Not all files specified.");
+	if(std::string(argv[argc-1])=="--no-output") outputInfo=false;	
 	std::string line;
 
 	//reading regular expresiion
 	std::fstream reg;
-	if(argc==3) 
+	if(argc==3 && outputInfo) 
 	{
 		reg=openSafe(argv[1]);
 	}
@@ -45,12 +47,12 @@ int main(int argc, char* argv[])
 	std::string regexp=readLine(reg);
 	reg.close();
 
-	std::cout<<"finding matches with regexp: \""<<regexp<<"\""<<std::endl;
+	if(outputInfo) std::cout<<"finding matches with regexp: \""<<regexp<<"\""<<std::endl;
 	std::regex re(regexp);
 	
 	//reading file with test strings
 	std::fstream fs;
-	if(argc==3) fs=openSafe(argv[2]);
+	if(argc==3 && outputInfo) fs=openSafe(argv[2]);
 	else fs=openSafe(argv[1]);
 	while(!fs.eof())
 	{
@@ -59,11 +61,11 @@ int main(int argc, char* argv[])
 		//finding matches
 		if(std::regex_match(line, re))
 		{
-			std::cout<<std::format("Line \"{}\" is correct", line)<<std::endl;
+			if(outputInfo) std::cout<<std::format("Line \"{}\" is correct", line)<<std::endl;
 		}
 		else
 		{
-			std::cout<<std::format("Line \"{}\" is incorrect", line)<<std::endl;
+			if(outputInfo) std::cout<<std::format("Line \"{}\" is incorrect", line)<<std::endl;
 		}
 		line="";
 	}

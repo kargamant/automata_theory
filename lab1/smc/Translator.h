@@ -8,6 +8,8 @@ namespace Translator
 	class Translator  
 	{
 		private:
+			bool debugInfo=false;
+			bool outputInfo=true;
 			char lastChar;
 			std::string line;
 			std::fstream fs;
@@ -25,5 +27,8 @@ namespace Translator
 			void run();
 			bool isValidRead() {return (lastChar>=97 && lastChar<=122) || (lastChar>=65 && lastChar<=90) || isNumber();}
 			bool isNumber() {return (lastChar>=48 && lastChar<=57);}
+
+			Translator& setDebugInfo(bool ndebugInfo) {debugInfo=ndebugInfo; return *this;}
+			Translator& setOutputInfo(bool noutputInfo) {outputInfo=noutputInfo; return *this;}
 	};
 }

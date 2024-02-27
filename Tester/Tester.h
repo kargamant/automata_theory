@@ -18,5 +18,6 @@ class Tester
 	public:
 		Tester(std::string filename, std::string basedDir, Generator& gen);
 		void testAll(int lines=1);
+		void timing(int lines=1);
 		Tester& setGenerator(Generator& ngen) {generator=ngen; return *this;}
 };
