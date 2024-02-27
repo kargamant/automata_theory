@@ -77,10 +77,11 @@ void Tester::testAll(int lines)
 void Tester::timing(int lines)
 {
 	writeToPull(lines);
-	std::fstream results=openSafe("timing.txt", std::ios::out);
+	std::vector<int> resVec;
 	for(std::string imp: implimentations)
 	{
-		std::cout<<std::endl<<imp<<" output:"<<std::endl;
+		std::fstream results=openSafe(imp+"_timing.txt", std::ios::app);
+		//std::cout<<std::endl<<imp<<" output:"<<std::endl;
 		//if(imp=="flex") std::system(std::string("make no_out -C ../"+basedDir+"/flex").c_str());
 		std::string request;
 		if(imp=="flex") request="../"+basedDir+"/"+imp+"/main "+filename;
@@ -90,7 +91,39 @@ void Tester::timing(int lines)
 		std::system(request.c_str());
 		auto end=std::chrono::system_clock::now();
 		auto duration=std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
-		results<<imp+" "+std::to_string(duration.count())<<std::endl;
+		results<<std::to_string(lines)+" "+std::to_string(duration.count())<<std::endl;
+		resVec.push_back(duration.count());
+	}
+	table.insert({lines, resVec});
+}
+
+
+void Tester::clearTimingData()
+{
+	for(std::string imp: implimentations)
+	{
+		std::fstream results=openSafe(imp+"_timing.txt", std::ios::out);
+		results.close();
+	}
+}
+
+
+void Tester::displayResultsTable(std::ostream& stream)
+{
+	stream<<"     ";
+	for(std::string imp: implimentations)
+	{
+		stream<<imp<<" ";
+	}
+	stream<<std::endl;
+	for(auto it: table)
+	{
+		stream<<it.first<<" ";
+		for(auto res: it.second)
+		{
+			stream<<res<<" ";
+		}
+		stream<<std::endl;
 	}
 }
 

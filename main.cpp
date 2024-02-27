@@ -34,7 +34,13 @@ int main()
 	std::cout<<"test results:"<<std::endl;
 	tester.testAll(testLines);
 	std::cout<<"timing:"<<std::endl;
-	tester.timing(timingLines);
+	tester.clearTimingData();
+	while(timingLines!=0)
+	{
+		tester.timing(timingLines);
+		timingLines/=10;
+	}
+	tester.displayResultsTable();
 	//std::cout<<generator.genCorrectString()<<std::endl;
 	return 0;
 }

@@ -2,10 +2,12 @@
 #include <string>
 #include <fstream>
 #include "../Generator/Generator.h"
+#include <iostream>
 
 class Tester
 {
 	private:
+		std::unordered_map<int, std::vector<int>> table;
 		static std::vector<std::string> implimentations;
 		static std::string incorrectCasesFile;
 		std::string basedDir;
@@ -20,4 +22,6 @@ class Tester
 		void testAll(int lines=1);
 		void timing(int lines=1);
 		Tester& setGenerator(Generator& ngen) {generator=ngen; return *this;}
+		void clearTimingData();
+		void displayResultsTable(std::ostream& stream=std::cout);
 };
