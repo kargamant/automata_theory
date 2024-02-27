@@ -1,1 +1,1 @@
-execute_process(COMMAND make WORKING_DIRECTORY ../lab1/flex/)
+execute_process(COMMAND make no_out WORKING_DIRECTORY ../lab1/flex/)

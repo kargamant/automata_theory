@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 
 	//reading regular expresiion
 	std::fstream reg;
-	if(argc==3 && outputInfo) 
+	if(argc==3 && outputInfo || argc==4 && !outputInfo) 
 	{
 		reg=openSafe(argv[1]);
 	}
@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 	
 	//reading file with test strings
 	std::fstream fs;
-	if(argc==3 && outputInfo) fs=openSafe(argv[2]);
+	if(argc==3 && outputInfo || argc==4 && !outputInfo) fs=openSafe(argv[2]);
 	else fs=openSafe(argv[1]);
 	while(!fs.eof())
 	{

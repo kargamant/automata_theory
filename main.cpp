@@ -28,8 +28,13 @@ int main()
 	std::cin>>varLength>>maxSpacesLength>>words;
 	Generator generator{varLength, maxSpacesLength, words};
 	Tester tester{"pull.txt", "lab1", generator};
-	tester.testAll(5);
-	tester.timing(10);
+	std::cout<<"Now enter number of testing lines and timing lines: "<<std::endl;
+	int testLines, timingLines;
+	std::cin>>testLines>>timingLines;
+	std::cout<<"test results:"<<std::endl;
+	tester.testAll(testLines);
+	std::cout<<"timing:"<<std::endl;
+	tester.timing(timingLines);
 	//std::cout<<generator.genCorrectString()<<std::endl;
 	return 0;
 }

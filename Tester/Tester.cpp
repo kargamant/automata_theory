@@ -80,8 +80,12 @@ void Tester::timing(int lines)
 	std::fstream results=openSafe("timing.txt", std::ios::out);
 	for(std::string imp: implimentations)
 	{
-		if(imp=="flex") std::system(std::string("make no_out -C ../"+basedDir+"/flex").c_str());
-		std::string request="../"+basedDir+"/"+imp+"/main "+filename+" --no-output";
+		std::cout<<std::endl<<imp<<" output:"<<std::endl;
+		//if(imp=="flex") std::system(std::string("make no_out -C ../"+basedDir+"/flex").c_str());
+		std::string request;
+		if(imp=="flex") request="../"+basedDir+"/"+imp+"/main "+filename;
+		else if(imp=="regex") request="../"+basedDir+"/"+imp+"/main "+"../"+basedDir+"/"+imp+"/regexp.txt "+filename+" --no-output";
+		else request="../"+basedDir+"/"+imp+"/main "+filename+" --no-output";
 		auto start=std::chrono::system_clock::now();
 		std::system(request.c_str());
 		auto end=std::chrono::system_clock::now();
