@@ -31,7 +31,7 @@ namespace SmcRecognizer
 	{
 		isCorrect=false;
 	}
-	void SmcRecognizer::run(std::istream& in, std::ostream& out)
+	/*void SmcRecognizer::run(std::istream& in, std::ostream& out)
 	{
 		in.unsetf(in.skipws);
 		while(!in.eof())
@@ -50,11 +50,9 @@ namespace SmcRecognizer
 			line.pop_back();
 			out<<line<<": "<<result<<std::endl;
 			line="";
-			isCorrect=false;
-			isStopped=false;
 			lastChar=0;
 		}
-	}
+	}*/
 	bool SmcRecognizer::checkString(std::string& str)
 	{
 		for(char c: str)
@@ -64,6 +62,9 @@ namespace SmcRecognizer
 			if(debugInfo) std::cout<<"last char: "<<lastChar<<" ; current state: "<<fsm.getState().getName()<<std::endl;
 			if(isStopped || isCorrect) break;
 		}
-		return isCorrect;
+		bool res=isCorrect;
+		isCorrect=false;
+		isStopped=false;
+		return res;
 	}
 }

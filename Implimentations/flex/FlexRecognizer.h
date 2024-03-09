@@ -8,5 +8,5 @@ class FlexRecognizer : public Recognizer, public yyFlexLexer
 {
 	public:
 		bool checkString(std::string& str) override;
-		void run(std::istream& in, std::ostream& out);
+		//void run(std::istream& in, std::ostream& out);
 };

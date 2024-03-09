@@ -10,7 +10,7 @@ bool FlexRecognizer::checkString(std::string& str)
 }
 
 
-void FlexRecognizer::run(std::istream& in, std::ostream& out)
+/*void FlexRecognizer::run(std::istream& in, std::ostream& out)
 {
 	in.unsetf(in.skipws);
 	char c=0;
@@ -33,4 +33,4 @@ void FlexRecognizer::run(std::istream& in, std::ostream& out)
 		line="";
 		c=0;
 	}
-}
+}*/

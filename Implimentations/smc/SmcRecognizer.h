@@ -13,8 +13,8 @@ namespace SmcRecognizer
 			bool isStopped=false;
 			bool debugInfo=false;
 			//bool outputInfo=true;
-			char lastChar;
-			std::string line;
+			//char lastChar;
+			//std::string line;
 			//std::fstream fs;
 			automatContext fsm;
 		public:
@@ -25,11 +25,11 @@ namespace SmcRecognizer
 
 			//friend automatContext;
 			//void readNext();
-			char lastRead() {return lastChar;}
+			//char lastRead() {return lastChar;}
 			void correct(std::ostream& stream=std::cout);
 			void incorrect(std::ostream& stream=std::cout);
 			//void shutDown() {fs.close();}
-			void run(std::istream& in, std::ostream& out) override;
+			//void run(std::istream& in, std::ostream& out) override;
 			bool isValidRead() {return (lastChar>=97 && lastChar<=122) || (lastChar>=65 && lastChar<=90) || isNumber();}
 			bool isNumber() {return (lastChar>=48 && lastChar<=57);}
 
