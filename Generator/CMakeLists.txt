@@ -1,1 +1,1 @@
-add_library(generator Generator.cpp)
+add_library(generator Generator.cpp main.cpp)

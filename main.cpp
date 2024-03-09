@@ -27,12 +27,12 @@ int main()
 	std::cout<<"Input varLength, maxSpacesLength, words: ";
 	std::cin>>varLength>>maxSpacesLength>>words;
 	Generator generator{varLength, maxSpacesLength, words};
-	Tester tester{"pull.txt", "lab1", generator};
-	std::cout<<"Now enter number of testing lines and timing lines: "<<std::endl;
-	int testLines, timingLines;
-	std::cin>>testLines>>timingLines;
-	std::cout<<"test results:"<<std::endl;
-	tester.testAll(testLines);
+	Tester tester{generator};
+	std::cout<<"Now enter number of timing lines: "<<std::endl;
+	int timingLines;
+	std::cin>>timingLines;
+	//std::cout<<"test results:"<<std::endl;
+	//tester.testAll(testLines);
 	std::cout<<"timing:"<<std::endl;
 	tester.clearTimingData();
 	while(timingLines!=0)

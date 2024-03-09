@@ -1,7 +1,7 @@
 #include "Recognizer.h"
 #include <iostream>
 
-void Recognizer::run(std::istream& in, std::ostream& out)
+void Recognizer::run(std::istream& in, std::ostream& out, bool noOutput)
 {
 	in.unsetf(in.skipws);
 	while(!in.eof())
@@ -18,7 +18,7 @@ void Recognizer::run(std::istream& in, std::ostream& out)
 		if(in.eof()) break;
 		bool result=checkString(line);
 		line.pop_back();
-		out<<line<<": "<<result<<std::endl;
+		if(!noOutput) out<<line<<": "<<result<<std::endl;
 		line="";
 		lastChar=0;
 	}

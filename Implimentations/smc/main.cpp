@@ -18,13 +18,20 @@ int main(int argc, char* argv[])
 	}*/
 	SmcRecognizer::SmcRecognizer automat;
 	//automat.setDebugInfo(true);
-	if(argc==2) 
+	if(argc==2)
 	{
-		std::fstream fs{argv[1], std::ios::out};
-		fs.close();
-		fs.open(argv[1]);
-		automat.run(std::cin, fs);
+		if(std::string(argv[1])=="--no-output") 
+		{
+			automat.run(std::cin, std::cout, true);
+		}
+		else
+		{
+			std::fstream fs{argv[1], std::ios::out};
+			fs.close();
+			fs.open(argv[1]);
+			automat.run(std::cin, fs);
+		}
 	}
-	else automat.run(std::cin, std::cout);
+	else automat.run();
 	return 0;
 }
