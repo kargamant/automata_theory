@@ -466,6 +466,7 @@ static const flex_int16_t yy_chk[251] =
 #line 1 "rules.l"
 #line 3 "rules.l"
 #include <iostream>
+#include <fstream>
 #include "FlexRecognizer.h"
 //for[\s]+([a-zA-Z][\w]+|[a-zA-Z])[\s]+in[\s]+\((?:[\w\s]+|\'([^\']+|)\'|\"([^\"]+|)\")+\)
 //{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}(({ID}|{STRING}|{DIGIT}+)+|" "("?!"{CBRACKET})){CBRACKET}	{printf("line \"%s\" is correct\n", yytext);}
@@ -474,8 +475,8 @@ static const flex_int16_t yy_chk[251] =
 //Cases to cover:
 //for i in (abc 'popop'  123 )
 //for i in (abc 'popop'  123)
-#line 478 "lex.yy.cc"
 #line 479 "lex.yy.cc"
+#line 480 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -607,10 +608,10 @@ YY_DECL
 		}
 
 	{
-#line 25 "rules.l"
+#line 26 "rules.l"
 
 
-#line 614 "lex.yy.cc"
+#line 615 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -670,26 +671,26 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 27 "rules.l"
+#line 28 "rules.l"
 {return 1; }
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 28 "rules.l"
+#line 29 "rules.l"
 {return 1; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 29 "rules.l"
+#line 30 "rules.l"
 {return 0; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 31 "rules.l"
+#line 32 "rules.l"
 ECHO;
 	YY_BREAK
-#line 693 "lex.yy.cc"
+#line 694 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1652,7 +1653,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 31 "rules.l"
+#line 32 "rules.l"
 
 int main(int argc, char* argv[])
 {
@@ -1663,9 +1664,17 @@ int main(int argc, char* argv[])
 		yyFlexLexer::yyout=fopen(filename, "w");
 	}*/
 	FlexRecognizer rec;
-	std::string line="for i in (0)";	
-	int result=rec.checkString(line);
-	std::cout<<"res: "<<result<<std::endl;
+	if(argc==2)
+	{
+		std::fstream fs{argv[1], std::ios::out};
+		fs.close();
+		fs.open(argv[1]);
+		rec.run(std::cin, fs);
+	}
+	else rec.run(std::cin, std::cout);
+	//std::string line="for i in (0)";	
+	//int result=rec.checkString(line);
+	//std::cout<<"res: "<<result<<std::endl;
 	//int result=yylex();
 	//if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
 	//else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);

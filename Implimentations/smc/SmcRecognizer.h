@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../../Recognizer/Recognizer.h"
+#include "../Recognizer/Recognizer.h"
 
 namespace SmcRecognizer
 {
@@ -29,7 +29,7 @@ namespace SmcRecognizer
 			void correct(std::ostream& stream=std::cout);
 			void incorrect(std::ostream& stream=std::cout);
 			//void shutDown() {fs.close();}
-			void run(std::istream& in, std::ostream& out);
+			void run(std::istream& in, std::ostream& out) override;
 			bool isValidRead() {return (lastChar>=97 && lastChar<=122) || (lastChar>=65 && lastChar<=90) || isNumber();}
 			bool isNumber() {return (lastChar>=48 && lastChar<=57);}
 

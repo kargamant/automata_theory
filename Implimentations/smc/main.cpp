@@ -17,9 +17,10 @@ int main(int argc, char* argv[])
 		}
 	}*/
 	SmcRecognizer::SmcRecognizer automat;
-	std::fstream fs;
 	if(argc==2) 
 	{
+		std::fstream fs{argv[1], std::ios::out};
+		fs.close();
 		fs.open(argv[1]);
 		automat.run(std::cin, fs);
 	}

@@ -1,5 +1,1 @@
-line "for u in" is incorrect
-
-line "for g    in (0)" is correct
-
-line "" is incorrect
+a;lsfkas;fk: 0

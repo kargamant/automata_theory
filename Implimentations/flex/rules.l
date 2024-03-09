@@ -1,6 +1,7 @@
 %option c++
 %{
 #include <iostream>
+#include <fstream>
 #include "FlexRecognizer.h"
 //for[\s]+([a-zA-Z][\w]+|[a-zA-Z])[\s]+in[\s]+\((?:[\w\s]+|\'([^\']+|)\'|\"([^\"]+|)\")+\)
 //{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}(({ID}|{STRING}|{DIGIT}+)+|" "("?!"{CBRACKET})){CBRACKET}	{printf("line \"%s\" is correct\n", yytext);}
@@ -38,9 +39,17 @@ int main(int argc, char* argv[])
 		yyFlexLexer::yyout=fopen(filename, "w");
 	}*/
 	FlexRecognizer rec;
-	std::string line="for i in (0)";	
-	int result=rec.checkString(line);
-	std::cout<<"res: "<<result<<std::endl;
+	if(argc==2)
+	{
+		std::fstream fs{argv[1], std::ios::out};
+		fs.close();
+		fs.open(argv[1]);
+		rec.run(std::cin, fs);
+	}
+	else rec.run(std::cin, std::cout);
+	//std::string line="for i in (0)";	
+	//int result=rec.checkString(line);
+	//std::cout<<"res: "<<result<<std::endl;
 	//int result=yylex();
 	//if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
 	//else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
