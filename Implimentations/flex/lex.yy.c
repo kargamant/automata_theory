@@ -511,8 +511,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "rules_no_out.l"
-#line 2 "rules_no_out.l"
+#line 1 "rules.l"
+#line 2 "rules.l"
 #include <stdio.h>
 //for[\s]+([a-zA-Z][\w]+|[a-zA-Z])[\s]+in[\s]+\((?:[\w\s]+|\'([^\']+|)\'|\"([^\"]+|)\")+\)
 //{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}(({ID}|{STRING}|{DIGIT}+)+|" "("?!"{CBRACKET})){CBRACKET}	{printf("line \"%s\" is correct\n", yytext);}
@@ -739,7 +739,7 @@ YY_DECL
 		}
 
 	{
-#line 23 "rules_no_out.l"
+#line 23 "rules.l"
 
 
 #line 746 "lex.yy.c"
@@ -802,23 +802,23 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 25 "rules_no_out.l"
-{}
+#line 25 "rules.l"
+{return 1; }
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 26 "rules_no_out.l"
-{}
+#line 26 "rules.l"
+{return 1; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 27 "rules_no_out.l"
-{}
+#line 27 "rules.l"
+{return 0; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 29 "rules_no_out.l"
+#line 29 "rules.l"
 ECHO;
 	YY_BREAK
 #line 825 "lex.yy.c"
@@ -1826,7 +1826,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 29 "rules_no_out.l"
+#line 29 "rules.l"
 
 int main(int argc, char* argv[])
 {
@@ -1834,10 +1834,21 @@ int main(int argc, char* argv[])
 	if(argc!=1)
 	{
 		filename=argv[1];
-		yyin=fopen(filename, "r");
+		yyout=fopen(filename, "w");
 	}
-	yylex();
-	fclose(yyin);
+	
+	//int result=yylex();
+	//if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
+	//else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
+	yyin=stdin;
+	do 
+	{
+		int result=yylex();
+		if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
+		else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
+		//clearerr(yyin);
+	}while(*yytext!='\0');
+	fclose(yyout);
 	return 0;
 }
 

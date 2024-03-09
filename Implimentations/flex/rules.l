@@ -22,9 +22,9 @@ CBRACKET ")"
 
 %%
 
-{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}" "*(({ID}|{STRING}|{DIGIT}+)" "+)+{CBRACKET}	{printf("line \"%s\" is correct\n", yytext);}
-{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}" "*(({ID}|{STRING}|{DIGIT}+)(" "+|{CBRACKET}))+	{printf("line \"%s\" is correct\n", yytext);}
-.*	{printf("line \"%s\" is incorrect\n", yytext);}
+{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}" "*(({ID}|{STRING}|{DIGIT}+)" "+)+{CBRACKET}	{return 1; }
+{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}" "*(({ID}|{STRING}|{DIGIT}+)(" "+|{CBRACKET}))+	{return 1; }
+.*	{return 0; }
 
 %%
 int main(int argc, char* argv[])
@@ -33,9 +33,20 @@ int main(int argc, char* argv[])
 	if(argc!=1)
 	{
 		filename=argv[1];
-		yyin=fopen(filename, "r");
+		yyout=fopen(filename, "w");
 	}
-	yylex();
-	fclose(yyin);
+	
+	//int result=yylex();
+	//if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
+	//else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
+	yyin=stdin;
+	do 
+	{
+		int result=yylex();
+		if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
+		else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
+		//clearerr(yyin);
+	}while(*yytext!='\0');
+	fclose(yyout);
 	return 0;
 }

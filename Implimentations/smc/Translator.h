@@ -12,7 +12,7 @@ namespace Translator
 			bool isCorrect=false;
 			bool isStopped=false;
 			bool debugInfo=false;
-			bool outputInfo=true;
+			//bool outputInfo=true;
 			char lastChar;
 			std::string line;
 			//std::fstream fs;
@@ -34,7 +34,7 @@ namespace Translator
 			bool isNumber() {return (lastChar>=48 && lastChar<=57);}
 
 			Translator& setDebugInfo(bool ndebugInfo) {debugInfo=ndebugInfo; return *this;}
-			Translator& setOutputInfo(bool noutputInfo) {outputInfo=noutputInfo; return *this;}
+			//Translator& setOutputInfo(bool noutputInfo) {outputInfo=noutputInfo; return *this;}
 			Translator& setStopped(bool nstop) {isStopped=nstop; return *this;}
 			//std::fstream& getFs() {return fs;}
 	};
