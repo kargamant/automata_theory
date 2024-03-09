@@ -1,6 +1,6 @@
 SET(CMAKE_CXX_STANDARD, 20)
 cmake_minimum_required(VERSION 3.16)
-project(Generator)
+project(Translator)
 add_subdirectory(Generator)
 add_subdirectory(Tester)
 add_subdirectory(Implimentations)

@@ -4,8 +4,8 @@
 
 std::vector<std::string> Tester::implimentations={"smc", "regex", "flex"};
 std::string Tester::incorrectCasesFile="incorrect_cases.txt";
-std::string basedDir="Implimentations";
-/*std::string Tester::readLine(std::fstream& fs)
+std::string Tester::basedDir="Implimentations";
+std::string Tester::readLine(std::fstream& fs)
 {
 	char c=0;
 	std::string line;
@@ -33,7 +33,7 @@ std::fstream Tester::openSafe(std::string fileName, std::ios_base::openmode mode
 	return fs;
 }
 
-Tester::Tester(std::string filename, std::string basedDir, Generator& gen) : filename(filename), fs(openSafe(filename)), basedDir(basedDir), generator(gen)
+/*Tester::Tester(std::string filename, std::string basedDir, Generator& gen) : filename(filename), fs(openSafe(filename)), basedDir(basedDir), generator(gen)
 {
 }*/
 
