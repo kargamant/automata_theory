@@ -1,10 +1,10 @@
-#include "Translator.h"
+#include "SmcRecognizer.h"
 #include <format>
 
-namespace Translator
+namespace SmcRecognizer
 {
 
-	Translator::Translator() : fsm(*this) //, fs("file.txt") 
+	SmcRecognizer::SmcRecognizer() : fsm(*this) //, fs("file.txt") 
 	{
 		/*if(!fs.is_open())
 		{
@@ -16,22 +16,22 @@ namespace Translator
 		fs.unsetf(fs.skipws);*/
 	}
 
-	/*Translator::Translator(std::string& fileName) : fsm(*this), fs(std::fstream())
+	/*SmcRecognizer::SmcRecognizer(std::string& fileName) : fsm(*this), fs(std::fstream())
 	{
 		fs.open(fileName, std::ios::in);
 		fs.unsetf(fs.skipws);
 	}*/
 
-	void Translator::correct(std::ostream& stream)
+	void SmcRecognizer::correct(std::ostream& stream)
 	{
 		isCorrect=true;
 	}
 	
-	void Translator::incorrect(std::ostream& stream)
+	void SmcRecognizer::incorrect(std::ostream& stream)
 	{
 		isCorrect=false;
 	}
-	void Translator::run(std::istream& in, std::ostream& out)
+	void SmcRecognizer::run(std::istream& in, std::ostream& out)
 	{
 		in.unsetf(in.skipws);
 		while(!in.eof())
@@ -55,7 +55,7 @@ namespace Translator
 			lastChar=0;
 		}
 	}
-	bool Translator::checkString(std::string& str)
+	bool SmcRecognizer::checkString(std::string& str)
 	{
 		for(char c: str)
 		{

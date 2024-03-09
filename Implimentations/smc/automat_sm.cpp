@@ -5,12 +5,12 @@
 // from file : automat.sm
 //
 
-#include "Translator.h"
+#include "SmcRecognizer.h"
 #include "automat_sm.h"
 
 using namespace statemap;
 
-namespace Translator
+namespace SmcRecognizer
 {
     // Static class declarations.
     MainMap_F MainMap::F("MainMap::F", 0);
@@ -31,12 +31,12 @@ namespace Translator
     MainMap_Correct MainMap::Correct("MainMap::Correct", 15);
     MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 16);
 
-    void TranslatorState::readNext(automatContext& context)
+    void SmcRecognizerState::readNext(automatContext& context)
     {
         Default(context);
     }
 
-    void TranslatorState::Default(automatContext& context)
+    void SmcRecognizerState::Default(automatContext& context)
     {
         throw (
             TransitionUndefinedException(
@@ -47,7 +47,7 @@ namespace Translator
 
     void MainMap_Default::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()!=1)
         {
@@ -72,7 +72,7 @@ namespace Translator
             // No actions.
         }        else
         {
-             TranslatorState::readNext(context);
+             SmcRecognizerState::readNext(context);
         }
 
 
@@ -80,7 +80,7 @@ namespace Translator
 
     void MainMap_F::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()=='f')
         {
@@ -99,7 +99,7 @@ namespace Translator
 
     void MainMap_O::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()=='o')
         {
@@ -118,7 +118,7 @@ namespace Translator
 
     void MainMap_R::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()=='r')
         {
@@ -137,7 +137,7 @@ namespace Translator
 
     void MainMap_Space1::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()==' ')
         {
@@ -160,7 +160,7 @@ namespace Translator
 
     void MainMap_Variable::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.isValidRead())
         {
@@ -183,7 +183,7 @@ namespace Translator
 
     void MainMap_Space2::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()==' ')
         {
@@ -214,7 +214,7 @@ namespace Translator
 
     void MainMap_I::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()=='n')
         {
@@ -233,7 +233,7 @@ namespace Translator
 
     void MainMap_N::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()==' ')
         {
@@ -252,7 +252,7 @@ namespace Translator
 
     void MainMap_OpenBracket::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.lastRead()!=39 && ctxt.lastRead()!=34)
         {
@@ -294,7 +294,7 @@ namespace Translator
 
     void MainMap_Word::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n')
         {
@@ -325,7 +325,7 @@ namespace Translator
 
     void MainMap_SingleQoute::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()!=39 && ctxt.lastRead()!='\n')
         {
@@ -366,7 +366,7 @@ namespace Translator
 
     void MainMap_DoubleQoute::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()!=34 && ctxt.lastRead()!='\n')
         {
@@ -407,7 +407,7 @@ namespace Translator
 
     void MainMap_AfterQoute::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()==' ')
         {
@@ -433,7 +433,7 @@ namespace Translator
 
     void MainMap_Space3::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()==' ')
         {
@@ -480,7 +480,7 @@ namespace Translator
 
     void MainMap_CloseBracket::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         context.getState().Exit(context);
         context.clearState();
@@ -501,7 +501,7 @@ namespace Translator
 
     void MainMap_Correct::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()=='f')
         {
@@ -520,7 +520,7 @@ namespace Translator
 
     void MainMap_Incorrect::readNext(automatContext& context)
     {
-        Translator& ctxt = context.getOwner();
+        SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()=='f')
         {

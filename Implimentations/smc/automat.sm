@@ -1,7 +1,7 @@
-%header Translator.h
+%header SmcRecognizer.h
 
-%class Translator
-%package Translator
+%class SmcRecognizer
+%package SmcRecognizer
 
 %start MainMap::F
 %map MainMap

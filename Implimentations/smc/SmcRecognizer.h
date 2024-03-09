@@ -4,9 +4,9 @@
 #include <fstream>
 #include "../../Recognizer/Recognizer.h"
 
-namespace Translator
+namespace SmcRecognizer
 {
-	class Translator : public Recognizer
+	class SmcRecognizer : public Recognizer
 	{
 		private:
 			bool isCorrect=false;
@@ -18,8 +18,8 @@ namespace Translator
 			//std::fstream fs;
 			automatContext fsm;
 		public:
-			Translator();
-			//Translator(std::string& fileName); 
+			SmcRecognizer();
+			//SmcRecognizer(std::string& fileName); 
 			
 			bool checkString(std::string& str) override;
 
@@ -33,9 +33,9 @@ namespace Translator
 			bool isValidRead() {return (lastChar>=97 && lastChar<=122) || (lastChar>=65 && lastChar<=90) || isNumber();}
 			bool isNumber() {return (lastChar>=48 && lastChar<=57);}
 
-			Translator& setDebugInfo(bool ndebugInfo) {debugInfo=ndebugInfo; return *this;}
-			//Translator& setOutputInfo(bool noutputInfo) {outputInfo=noutputInfo; return *this;}
-			Translator& setStopped(bool nstop) {isStopped=nstop; return *this;}
+			SmcRecognizer& setDebugInfo(bool ndebugInfo) {debugInfo=ndebugInfo; return *this;}
+			//SmcRecognizer& setOutputInfo(bool noutputInfo) {outputInfo=noutputInfo; return *this;}
+			SmcRecognizer& setStopped(bool nstop) {isStopped=nstop; return *this;}
 			//std::fstream& getFs() {return fs;}
 	};
 }

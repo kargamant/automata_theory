@@ -1,10 +1,10 @@
-#include "Translator.h"
+#include "SmcRecognizer.h"
 
 int main(int argc, char* argv[])
 {
 	/*if(argc==1) throw std::invalid_argument("Error. No file specified");
 	std::string fileName=argv[1];
-	Translator::Translator automat(fileName);
+	SmcRecognizer::SmcRecognizer automat(fileName);
 	if(argc==3)
 	{
 		if(std::string(argv[2])=="--no-output")
@@ -16,9 +16,13 @@ int main(int argc, char* argv[])
 			automat.setDebugInfo(true);
 		}
 	}*/
-	Translator::Translator automat;
-	//std::fstream fs("file_f.txt", std::ios::in);
-	//fs.unsetf(fs.skipws);
-	automat.run(std::cin, std::cout);
+	SmcRecognizer::SmcRecognizer automat;
+	std::fstream fs;
+	if(argc==2) 
+	{
+		fs.open(argv[1]);
+		automat.run(std::cin, fs);
+	}
+	else automat.run(std::cin, std::cout);
 	return 0;
 }

@@ -13,7 +13,7 @@
 
 #include "statemap.h"
 
-namespace Translator
+namespace SmcRecognizer
 {
     // Forward declarations.
     class MainMap;
@@ -35,16 +35,16 @@ namespace Translator
     class MainMap_Correct;
     class MainMap_Incorrect;
     class MainMap_Default;
-    class TranslatorState;
+    class SmcRecognizerState;
     class automatContext;
-    class Translator;
+    class SmcRecognizer;
 
-    class TranslatorState :
+    class SmcRecognizerState :
         public statemap::State
     {
     public:
 
-        TranslatorState(const char * const name, const int stateId)
+        SmcRecognizerState(const char * const name, const int stateId)
         : statemap::State(name, stateId)
         {};
 
@@ -82,12 +82,12 @@ namespace Translator
     };
 
     class MainMap_Default :
-        public TranslatorState
+        public SmcRecognizerState
     {
     public:
 
         MainMap_Default(const char * const name, const int stateId)
-        : TranslatorState(name, stateId)
+        : SmcRecognizerState(name, stateId)
         {};
 
         virtual void readNext(automatContext& context);
@@ -285,12 +285,12 @@ namespace Translator
     {
     public:
 
-        explicit automatContext(Translator& owner)
+        explicit automatContext(SmcRecognizer& owner)
         : FSMContext(MainMap::F),
           _owner(owner)
         {};
 
-        automatContext(Translator& owner, const statemap::State& state)
+        automatContext(SmcRecognizer& owner, const statemap::State& state)
         : FSMContext(state),
           _owner(owner)
         {};
@@ -301,19 +301,19 @@ namespace Translator
             return;
         }
 
-        inline Translator& getOwner()
+        inline SmcRecognizer& getOwner()
         {
             return (_owner);
         };
 
-        inline TranslatorState& getState()
+        inline SmcRecognizerState& getState()
         {
             if (_state == NULL)
             {
                 throw statemap::StateUndefinedException();
             }
 
-            return dynamic_cast<TranslatorState&>(*_state);
+            return dynamic_cast<SmcRecognizerState&>(*_state);
         };
 
         inline void readNext()
@@ -322,7 +322,7 @@ namespace Translator
         };
 
     private:
-        Translator& _owner;
+        SmcRecognizer& _owner;
     };
 }
 

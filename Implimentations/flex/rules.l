@@ -1,5 +1,7 @@
+%option c++
 %{
-#include <stdio.h>
+#include <iostream>
+#include "FlexRecognizer.h"
 //for[\s]+([a-zA-Z][\w]+|[a-zA-Z])[\s]+in[\s]+\((?:[\w\s]+|\'([^\']+|)\'|\"([^\"]+|)\")+\)
 //{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}(({ID}|{STRING}|{DIGIT}+)+|" "("?!"{CBRACKET})){CBRACKET}	{printf("line \"%s\" is correct\n", yytext);}
 //SPACE_CONDITION (?(?={CBRACKET})|" "*|" "+)
@@ -29,24 +31,27 @@ CBRACKET ")"
 %%
 int main(int argc, char* argv[])
 {
-	const char* filename;
+	/*const char* filename;
 	if(argc!=1)
 	{
 		filename=argv[1];
-		yyout=fopen(filename, "w");
-	}
-	
+		yyFlexLexer::yyout=fopen(filename, "w");
+	}*/
+	FlexRecognizer rec;
+	std::string line="for i in (0)";	
+	int result=rec.checkString(line);
+	std::cout<<"res: "<<result<<std::endl;
 	//int result=yylex();
 	//if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
 	//else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
-	yyin=stdin;
+	/*yyin=stdin;
 	do 
 	{
 		int result=yylex();
 		if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
 		else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
 		//clearerr(yyin);
-	}while(*yytext!='\0');
-	fclose(yyout);
+	}while(*yytext!='\0');*/
+	//fclose(yyout);
 	return 0;
 }
