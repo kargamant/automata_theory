@@ -25,8 +25,8 @@ CBRACKET ")"
 
 %%
 
-{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}" "*(({ID}|{STRING}|{DIGIT}+)" "+)+{CBRACKET}	{return 1; }
-{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}" "*(({ID}|{STRING}|{DIGIT}+)(" "+|{CBRACKET}))+	{return 1; }
+{FOR}[" "\t]+{ID}[" "\t]+{IN}[" "\t]+{OBRACKET}[" "\t]*(({ID}|{STRING}|{DIGIT}+)[" "\t]+)+{CBRACKET}	{return 1; }
+{FOR}[" "\t]+{ID}[" "\t]+{IN}[" "\t]+{OBRACKET}[" "\t]*(({ID}|{STRING}|{DIGIT}+)([" "\t]+|{CBRACKET}))+	{return 1; }
 .*	{return 0; }
 
 %%

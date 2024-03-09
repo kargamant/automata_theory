@@ -3,7 +3,7 @@
 %class SmcRecognizer
 %package SmcRecognizer
 
-%start MainMap::F
+%start MainMap::Start
 %map MainMap
 %%
 
@@ -13,36 +13,41 @@ Default
 	readNext() [ctxt.lastRead()==0] nil {}
 }
 
+Start
+{
+	readNext() [ctxt.lastRead()=='f'] F {}
+}
+
 F
 {
-	readNext() [ctxt.lastRead()=='f'] O {}
+	readNext() [ctxt.lastRead()=='o'] O {}
 }
 
 O
 {
-	readNext() [ctxt.lastRead()=='o'] R {}
+	readNext() [ctxt.lastRead()=='r'] R {}
 }
 
 R
 {
-	readNext() [ctxt.lastRead()=='r'] Space1 {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] Space1 {}
 }
 
 Space1
 {
-	readNext() [ctxt.lastRead()==' '] nil {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] nil {}
 	readNext() [ctxt.lastRead()!=' ' && ctxt.isValidRead() && !ctxt.isNumber()] Variable {}
 }
 
 Variable
 {
 	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.isValidRead()] nil {}
-	readNext() [ctxt.lastRead()==' '] Space2 {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] Space2 {}
 }
 
 Space2
 {
-	readNext() [ctxt.lastRead()==' '] nil {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] nil {}
 	readNext() [ctxt.lastRead()=='i'] I {}
 	readNext() [ctxt.lastRead()=='('] OpenBracket {}
 }
@@ -54,13 +59,13 @@ I
 
 N
 {
-	readNext() [ctxt.lastRead()==' '] Space2 {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] Space2 {}
 }
 
 OpenBracket
 {
 	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.lastRead()!=39 && ctxt.lastRead()!=34] Word {}
-	readNext() [ctxt.lastRead()==' '] Space3 {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] Space3 {}
 	readNext() [ctxt.lastRead()==39] SingleQoute {}
 	readNext() [ctxt.lastRead()==34] DoubleQoute {}
 }
@@ -68,7 +73,7 @@ OpenBracket
 Word
 {
 	readNext() [ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n'] nil {}
-	readNext() [ctxt.lastRead()==' '] Space3 {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] Space3 {}
 	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
 }
 
@@ -88,13 +93,13 @@ DoubleQoute
 
 AfterQoute
 {
-	readNext() [ctxt.lastRead()==' '] Space3 {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] Space3 {}
 	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
 }
 
 Space3
 {
-	readNext() [ctxt.lastRead()==' '] nil {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] nil {}
 	readNext() [ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n'] Word {}
 	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
 	readNext() [ctxt.lastRead()==39] SingleQoute {}
@@ -108,11 +113,11 @@ CloseBracket
 
 Correct
 {
-	readNext() [ctxt.lastRead()=='f'] O {}
+	readNext() [ctxt.lastRead()=='f'] F {}
 }
 
 Incorrect
 {
-	readNext() [ctxt.lastRead()=='f'] O {}
+	readNext() [ctxt.lastRead()=='f'] F {}
 }
 %%

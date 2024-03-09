@@ -17,6 +17,7 @@ int main(int argc, char* argv[])
 		}
 	}*/
 	SmcRecognizer::SmcRecognizer automat;
+	//automat.setDebugInfo(true);
 	if(argc==2) 
 	{
 		std::fstream fs{argv[1], std::ios::out};

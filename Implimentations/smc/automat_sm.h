@@ -17,6 +17,7 @@ namespace SmcRecognizer
 {
     // Forward declarations.
     class MainMap;
+    class MainMap_Start;
     class MainMap_F;
     class MainMap_O;
     class MainMap_R;
@@ -62,6 +63,7 @@ namespace SmcRecognizer
     {
     public:
 
+        static MainMap_Start Start;
         static MainMap_F F;
         static MainMap_O O;
         static MainMap_R R;
@@ -88,6 +90,17 @@ namespace SmcRecognizer
 
         MainMap_Default(const char * const name, const int stateId)
         : SmcRecognizerState(name, stateId)
+        {};
+
+        virtual void readNext(automatContext& context);
+    };
+
+    class MainMap_Start :
+        public MainMap_Default
+    {
+    public:
+        MainMap_Start(const char * const name, const int stateId)
+        : MainMap_Default(name, stateId)
         {};
 
         virtual void readNext(automatContext& context);
@@ -286,7 +299,7 @@ namespace SmcRecognizer
     public:
 
         explicit automatContext(SmcRecognizer& owner)
-        : FSMContext(MainMap::F),
+        : FSMContext(MainMap::Start),
           _owner(owner)
         {};
 

@@ -13,23 +13,24 @@ using namespace statemap;
 namespace SmcRecognizer
 {
     // Static class declarations.
-    MainMap_F MainMap::F("MainMap::F", 0);
-    MainMap_O MainMap::O("MainMap::O", 1);
-    MainMap_R MainMap::R("MainMap::R", 2);
-    MainMap_Space1 MainMap::Space1("MainMap::Space1", 3);
-    MainMap_Variable MainMap::Variable("MainMap::Variable", 4);
-    MainMap_Space2 MainMap::Space2("MainMap::Space2", 5);
-    MainMap_I MainMap::I("MainMap::I", 6);
-    MainMap_N MainMap::N("MainMap::N", 7);
-    MainMap_OpenBracket MainMap::OpenBracket("MainMap::OpenBracket", 8);
-    MainMap_Word MainMap::Word("MainMap::Word", 9);
-    MainMap_SingleQoute MainMap::SingleQoute("MainMap::SingleQoute", 10);
-    MainMap_DoubleQoute MainMap::DoubleQoute("MainMap::DoubleQoute", 11);
-    MainMap_AfterQoute MainMap::AfterQoute("MainMap::AfterQoute", 12);
-    MainMap_Space3 MainMap::Space3("MainMap::Space3", 13);
-    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 14);
-    MainMap_Correct MainMap::Correct("MainMap::Correct", 15);
-    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 16);
+    MainMap_Start MainMap::Start("MainMap::Start", 0);
+    MainMap_F MainMap::F("MainMap::F", 1);
+    MainMap_O MainMap::O("MainMap::O", 2);
+    MainMap_R MainMap::R("MainMap::R", 3);
+    MainMap_Space1 MainMap::Space1("MainMap::Space1", 4);
+    MainMap_Variable MainMap::Variable("MainMap::Variable", 5);
+    MainMap_Space2 MainMap::Space2("MainMap::Space2", 6);
+    MainMap_I MainMap::I("MainMap::I", 7);
+    MainMap_N MainMap::N("MainMap::N", 8);
+    MainMap_OpenBracket MainMap::OpenBracket("MainMap::OpenBracket", 9);
+    MainMap_Word MainMap::Word("MainMap::Word", 10);
+    MainMap_SingleQoute MainMap::SingleQoute("MainMap::SingleQoute", 11);
+    MainMap_DoubleQoute MainMap::DoubleQoute("MainMap::DoubleQoute", 12);
+    MainMap_AfterQoute MainMap::AfterQoute("MainMap::AfterQoute", 13);
+    MainMap_Space3 MainMap::Space3("MainMap::Space3", 14);
+    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 15);
+    MainMap_Correct MainMap::Correct("MainMap::Correct", 16);
+    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 17);
 
     void SmcRecognizerState::readNext(automatContext& context)
     {
@@ -78,11 +79,30 @@ namespace SmcRecognizer
 
     }
 
-    void MainMap_F::readNext(automatContext& context)
+    void MainMap_Start::readNext(automatContext& context)
     {
         SmcRecognizer& ctxt = context.getOwner();
 
         if (ctxt.lastRead()=='f')
+        {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::F);
+            context.getState().Entry(context);
+        }
+        else
+        {
+             MainMap_Default::readNext(context);
+        }
+
+
+    }
+
+    void MainMap_F::readNext(automatContext& context)
+    {
+        SmcRecognizer& ctxt = context.getOwner();
+
+        if (ctxt.lastRead()=='o')
         {
             context.getState().Exit(context);
             // No actions.
@@ -101,7 +121,7 @@ namespace SmcRecognizer
     {
         SmcRecognizer& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()=='o')
+        if (ctxt.lastRead()=='r')
         {
             context.getState().Exit(context);
             // No actions.
@@ -120,7 +140,7 @@ namespace SmcRecognizer
     {
         SmcRecognizer& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()=='r')
+        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
         {
             context.getState().Exit(context);
             // No actions.
@@ -139,7 +159,7 @@ namespace SmcRecognizer
     {
         SmcRecognizer& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()==' ')
+        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
         {
             // No actions.
         }
@@ -166,7 +186,7 @@ namespace SmcRecognizer
         {
             // No actions.
         }
-        else if (ctxt.lastRead()==' ')
+        else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
     
     {
             context.getState().Exit(context);
@@ -185,7 +205,7 @@ namespace SmcRecognizer
     {
         SmcRecognizer& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()==' ')
+        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
         {
             // No actions.
         }
@@ -235,7 +255,7 @@ namespace SmcRecognizer
     {
         SmcRecognizer& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()==' ')
+        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
         {
             context.getState().Exit(context);
             // No actions.
@@ -261,7 +281,7 @@ namespace SmcRecognizer
             context.setState(MainMap::Word);
             context.getState().Entry(context);
         }
-        else if (ctxt.lastRead()==' ')
+        else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
     
     {
             context.getState().Exit(context);
@@ -300,7 +320,7 @@ namespace SmcRecognizer
         {
             // No actions.
         }
-        else if (ctxt.lastRead()==' ')
+        else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
     
     {
             context.getState().Exit(context);
@@ -409,7 +429,7 @@ namespace SmcRecognizer
     {
         SmcRecognizer& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()==' ')
+        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
         {
             context.getState().Exit(context);
             // No actions.
@@ -435,7 +455,7 @@ namespace SmcRecognizer
     {
         SmcRecognizer& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()==' ')
+        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
         {
             // No actions.
         }
@@ -507,7 +527,7 @@ namespace SmcRecognizer
         {
             context.getState().Exit(context);
             // No actions.
-            context.setState(MainMap::O);
+            context.setState(MainMap::F);
             context.getState().Entry(context);
         }
         else
@@ -526,7 +546,7 @@ namespace SmcRecognizer
         {
             context.getState().Exit(context);
             // No actions.
-            context.setState(MainMap::O);
+            context.setState(MainMap::F);
             context.getState().Entry(context);
         }
         else
