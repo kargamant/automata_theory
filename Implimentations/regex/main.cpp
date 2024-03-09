@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 	std::string line;
 
 	//reading regular expresiion
-	std::fstream reg;
+	/*std::fstream reg;
 	if(argc==3 && outputInfo || argc==4 && !outputInfo) 
 	{
 		reg=openSafe(argv[1]);
@@ -47,8 +47,9 @@ int main(int argc, char* argv[])
 	std::string regexp=readLine(reg);
 	reg.close();
 
-	if(outputInfo) std::cout<<"finding matches with regexp: \""<<regexp<<"\""<<std::endl;
-	std::regex re(regexp);
+	if(outputInfo) std::cout<<"finding matches with regexp: \""<<regexp<<"\""<<std::endl;*/
+	std::regex re("for\s+([a-zA-Z][\w]+|[a-zA-Z])\s+in\s+\(\s*(((([a-zA-Z][\w]+|[a-zA-Z])|\'([^\']+|)\'|\"([^\"]+|)\"|[0-9]+)\s+(([a-zA-Z][\w]+|[a-zA-Z])|\'([^\']+|)\'|\"([^\"]+|)\"|[0-9]+|\s*)*)|(([a-zA-Z][\w]+|[a-zA-Z])|\'([^\']+|)\'|\"([^\"]+|)\"|[0-9]+))\)", std::regex_constants::optimize);
+
 	
 	//reading file with test strings
 	std::fstream fs;

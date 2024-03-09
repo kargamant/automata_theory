@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[])
 {
-	if(argc==1) throw std::invalid_argument("Error. No file specified");
+	/*if(argc==1) throw std::invalid_argument("Error. No file specified");
 	std::string fileName=argv[1];
 	Translator::Translator automat(fileName);
 	if(argc==3)
@@ -15,7 +15,10 @@ int main(int argc, char* argv[])
 		{
 			automat.setDebugInfo(true);
 		}
-	}
-	automat.run();
+	}*/
+	Translator::Translator automat;
+	//std::fstream fs("file_f.txt", std::ios::in);
+	//fs.unsetf(fs.skipws);
+	automat.run(std::cin, std::cout);
 	return 0;
 }

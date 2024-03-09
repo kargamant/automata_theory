@@ -1,0 +1,3 @@
+for   u    in (90  j)
+for koko kkk in ()
+for  i in ('ppp h')

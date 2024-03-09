@@ -49,13 +49,14 @@ namespace Translator
     {
         Translator& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=0)
+        if (ctxt.lastRead()!=1)
         {
             context.getState().Exit(context);
             context.clearState();
             try
             {
                 ctxt.incorrect();
+                ctxt.setStopped(true);
                 context.setState(MainMap::Incorrect);
             }
             catch (...)
@@ -68,19 +69,7 @@ namespace Translator
         else if (ctxt.lastRead()==0)
     
     {
-            TranslatorState& endState = context.getState();
-
-            context.clearState();
-            try
-            {
-                ctxt.shutDown();
-                context.setState(endState);
-            }
-            catch (...)
-            {
-                context.setState(endState);
-                throw;
-            }
+            // No actions.
         }        else
         {
              TranslatorState::readNext(context);
@@ -350,6 +339,7 @@ namespace Translator
             try
             {
                 ctxt.incorrect();
+                ctxt.setStopped(true);
                 context.setState(MainMap::Incorrect);
             }
             catch (...)
@@ -390,6 +380,7 @@ namespace Translator
             try
             {
                 ctxt.incorrect();
+                ctxt.setStopped(true);
                 context.setState(MainMap::Incorrect);
             }
             catch (...)

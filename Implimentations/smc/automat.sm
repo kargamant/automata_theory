@@ -9,8 +9,8 @@
 
 Default
 {
-	readNext() [ctxt.lastRead()!=0] Incorrect {incorrect();}
-	readNext() [ctxt.lastRead()==0] nil {shutDown();}
+	readNext() [ctxt.lastRead()!=1] Incorrect {incorrect(); setStopped(true);}
+	readNext() [ctxt.lastRead()==0] nil {}
 }
 
 F
@@ -75,14 +75,14 @@ Word
 SingleQoute
 {
 	readNext() [ctxt.lastRead()!=39 && ctxt.lastRead()!='\n'] nil {}
-	readNext() [ctxt.lastRead()=='\n'] Incorrect {incorrect();}
+	readNext() [ctxt.lastRead()=='\n'] Incorrect {incorrect(); setStopped(true);}
 	readNext() [ctxt.lastRead()==39] AfterQoute {}
 }
 
 DoubleQoute
 {
 	readNext() [ctxt.lastRead()!=34 && ctxt.lastRead()!='\n'] nil {}
-	readNext() [ctxt.lastRead()=='\n'] Incorrect {incorrect();}
+	readNext() [ctxt.lastRead()=='\n'] Incorrect {incorrect(); setStopped(true);}
 	readNext() [ctxt.lastRead()==34] AfterQoute {}
 }
 
