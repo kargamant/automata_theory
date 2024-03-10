@@ -1780,12 +1780,6 @@ void yyfree (void * ptr )
 
 int main(int argc, char* argv[])
 {
-	/*const char* filename;
-	if(argc!=1)
-	{
-		filename=argv[1];
-		yyFlexLexer::yyout=fopen(filename, "w");
-	}*/
 	FlexRecognizer rec;
 	if(argc==2)
 	{
@@ -1802,21 +1796,6 @@ int main(int argc, char* argv[])
 		}
 	}
 	else rec.run();
-	//std::string line="for i in (0)";	
-	//int result=rec.checkString(line);
-	//std::cout<<"res: "<<result<<std::endl;
-	//int result=yylex();
-	//if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
-	//else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
-	/*yyin=stdin;
-	do 
-	{
-		int result=yylex();
-		if(result) fprintf(yyout, "line \"%s\" is correct\n", yytext);
-		else fprintf(yyout, "line \"%s\" is incorrect\n", yytext);
-		//clearerr(yyin);
-	}while(*yytext!='\0');*/
-	//fclose(yyout);
 	return 0;
 }
 

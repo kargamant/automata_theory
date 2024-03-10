@@ -4,23 +4,9 @@
 namespace SmcRecognizer
 {
 
-	SmcRecognizer::SmcRecognizer() : fsm(*this) //, fs("file.txt") 
+	SmcRecognizer::SmcRecognizer() : fsm(*this)  
 	{
-		/*if(!fs.is_open())
-		{
-			fs.clear();
-			fs.open("file.txt", std::ios::out);
-			fs.close();
-			fs.open("file.txt", std::ios::in);
-		}
-		fs.unsetf(fs.skipws);*/
 	}
-
-	/*SmcRecognizer::SmcRecognizer(std::string& fileName) : fsm(*this), fs(std::fstream())
-	{
-		fs.open(fileName, std::ios::in);
-		fs.unsetf(fs.skipws);
-	}*/
 
 	void SmcRecognizer::correct(std::ostream& stream)
 	{
@@ -31,28 +17,7 @@ namespace SmcRecognizer
 	{
 		isCorrect=false;
 	}
-	/*void SmcRecognizer::run(std::istream& in, std::ostream& out)
-	{
-		in.unsetf(in.skipws);
-		while(!in.eof())
-		{
-			while(lastChar!='\n')
-			{
-				in>>lastChar;
-				if(in.eof()) 
-				{
-					break;
-				}
-				line+=lastChar;
-			}
-			if(in.eof()) break;
-			bool result=checkString(line);
-			line.pop_back();
-			out<<line<<": "<<result<<std::endl;
-			line="";
-			lastChar=0;
-		}
-	}*/
+
 	bool SmcRecognizer::checkString(std::string& str)
 	{
 		for(char c: str)

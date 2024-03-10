@@ -106,7 +106,6 @@ std::string Generator::genCorrectString()
 		result+=genSpaces(1+std::rand()%maxSpacesLength);
 	}
 	result+=")";
-	lastGenerated=result;
 	return result;
 }
 

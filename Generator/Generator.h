@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include <time.h>
+#include <ctime>
 
 class Generator
 {
@@ -10,7 +10,6 @@ class Generator
 		int varLength;
 		int maxSpacesLength;
 		int words;
-		std::string lastGenerated;
 		std::string genNum(int length=1);
 		char genChar(bool lowerCase=true);
 		char genBadChar();
@@ -21,7 +20,7 @@ class Generator
 	public:
 		Generator(int varLength, int maxSpacesLength, int words) : varLength(varLength), maxSpacesLength(maxSpacesLength), words(words)
 	{
-		std::srand(time(NULL));
+		std::srand(std::time(nullptr));
 	}
 		std::string genCorrectString();
 		std::string genIncorrectString(std::vector<std::string> cases);
