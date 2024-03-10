@@ -30,6 +30,7 @@ namespace SmcRecognizer
 		bool res=isCorrect;
 		isCorrect=false;
 		isStopped=false;
+		zeroWordsRead=true;
 		return res;
 	}
 }

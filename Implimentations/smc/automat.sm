@@ -64,10 +64,18 @@ N
 
 OpenBracket
 {
-	readNext() [ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.lastRead()!=39 && ctxt.lastRead()!=34] Word {}
+	readNext() [ctxt.isValidRead() && !ctxt.isNumber()] Word {setZeroWordsRead(false);}
+	readNext() [ctxt.isNumber()] Digit {setZeroWordsRead(false);}
 	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] Space3 {}
 	readNext() [ctxt.lastRead()==39] SingleQoute {}
 	readNext() [ctxt.lastRead()==34] DoubleQoute {}
+}
+
+Digit
+{
+	readNext() [ctxt.isNumber()] nil {}
+	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] Space3 {}
+	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
 }
 
 Word
@@ -81,14 +89,14 @@ SingleQoute
 {
 	readNext() [ctxt.lastRead()!=39 && ctxt.lastRead()!='\n'] nil {}
 	readNext() [ctxt.lastRead()=='\n'] Incorrect {incorrect(); setStopped(true);}
-	readNext() [ctxt.lastRead()==39] AfterQoute {}
+	readNext() [ctxt.lastRead()==39] AfterQoute {setZeroWordsRead(false);}
 }
 
 DoubleQoute
 {
 	readNext() [ctxt.lastRead()!=34 && ctxt.lastRead()!='\n'] nil {}
 	readNext() [ctxt.lastRead()=='\n'] Incorrect {incorrect(); setStopped(true);}
-	readNext() [ctxt.lastRead()==34] AfterQoute {}
+	readNext() [ctxt.lastRead()==34] AfterQoute {setZeroWordsRead(false);}
 }
 
 AfterQoute
@@ -100,8 +108,9 @@ AfterQoute
 Space3
 {
 	readNext() [ctxt.lastRead()==' ' || ctxt.lastRead()=='\t'] nil {}
-	readNext() [ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n'] Word {}
-	readNext() [ctxt.lastRead()==')'] CloseBracket {}	
+	readNext() [ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n' && !ctxt.isNumber()] Word {setZeroWordsRead(false);}
+	readNext() [ctxt.isNumber()] Digit {setZeroWordsRead(false);}
+	readNext() [ctxt.lastRead()==')' && !ctxt.getZeroWordsRead()] CloseBracket {}	
 	readNext() [ctxt.lastRead()==39] SingleQoute {}
 	readNext() [ctxt.lastRead()==34] DoubleQoute {}
 }

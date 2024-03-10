@@ -23,14 +23,15 @@ namespace SmcRecognizer
     MainMap_I MainMap::I("MainMap::I", 7);
     MainMap_N MainMap::N("MainMap::N", 8);
     MainMap_OpenBracket MainMap::OpenBracket("MainMap::OpenBracket", 9);
-    MainMap_Word MainMap::Word("MainMap::Word", 10);
-    MainMap_SingleQoute MainMap::SingleQoute("MainMap::SingleQoute", 11);
-    MainMap_DoubleQoute MainMap::DoubleQoute("MainMap::DoubleQoute", 12);
-    MainMap_AfterQoute MainMap::AfterQoute("MainMap::AfterQoute", 13);
-    MainMap_Space3 MainMap::Space3("MainMap::Space3", 14);
-    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 15);
-    MainMap_Correct MainMap::Correct("MainMap::Correct", 16);
-    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 17);
+    MainMap_Digit MainMap::Digit("MainMap::Digit", 10);
+    MainMap_Word MainMap::Word("MainMap::Word", 11);
+    MainMap_SingleQoute MainMap::SingleQoute("MainMap::SingleQoute", 12);
+    MainMap_DoubleQoute MainMap::DoubleQoute("MainMap::DoubleQoute", 13);
+    MainMap_AfterQoute MainMap::AfterQoute("MainMap::AfterQoute", 14);
+    MainMap_Space3 MainMap::Space3("MainMap::Space3", 15);
+    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 16);
+    MainMap_Correct MainMap::Correct("MainMap::Correct", 17);
+    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 18);
 
     void SmcRecognizerState::readNext(automatContext& context)
     {
@@ -274,11 +275,37 @@ namespace SmcRecognizer
     {
         SmcRecognizer& ctxt = context.getOwner();
 
-        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.lastRead()!=39 && ctxt.lastRead()!=34)
+        if (ctxt.isValidRead() && !ctxt.isNumber())
         {
             context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Word);
+            context.clearState();
+            try
+            {
+                ctxt.setZeroWordsRead(false);
+                context.setState(MainMap::Word);
+            }
+            catch (...)
+            {
+                context.setState(MainMap::Word);
+                throw;
+            }
+            context.getState().Entry(context);
+        }
+        else if (ctxt.isNumber())
+    
+    {
+            context.getState().Exit(context);
+            context.clearState();
+            try
+            {
+                ctxt.setZeroWordsRead(false);
+                context.setState(MainMap::Digit);
+            }
+            catch (...)
+            {
+                context.setState(MainMap::Digit);
+                throw;
+            }
             context.getState().Entry(context);
         }
         else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
@@ -303,6 +330,37 @@ namespace SmcRecognizer
             context.getState().Exit(context);
             // No actions.
             context.setState(MainMap::DoubleQoute);
+            context.getState().Entry(context);
+        }        else
+        {
+             MainMap_Default::readNext(context);
+        }
+
+
+    }
+
+    void MainMap_Digit::readNext(automatContext& context)
+    {
+        SmcRecognizer& ctxt = context.getOwner();
+
+        if (ctxt.isNumber())
+        {
+            // No actions.
+        }
+        else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::Space3);
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==')')
+    
+    {
+            context.getState().Exit(context);
+            // No actions.
+            context.setState(MainMap::CloseBracket);
             context.getState().Entry(context);
         }        else
         {
@@ -373,8 +431,17 @@ namespace SmcRecognizer
     
     {
             context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::AfterQoute);
+            context.clearState();
+            try
+            {
+                ctxt.setZeroWordsRead(false);
+                context.setState(MainMap::AfterQoute);
+            }
+            catch (...)
+            {
+                context.setState(MainMap::AfterQoute);
+                throw;
+            }
             context.getState().Entry(context);
         }        else
         {
@@ -414,8 +481,17 @@ namespace SmcRecognizer
     
     {
             context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::AfterQoute);
+            context.clearState();
+            try
+            {
+                ctxt.setZeroWordsRead(false);
+                context.setState(MainMap::AfterQoute);
+            }
+            catch (...)
+            {
+                context.setState(MainMap::AfterQoute);
+                throw;
+            }
             context.getState().Entry(context);
         }        else
         {
@@ -459,15 +535,41 @@ namespace SmcRecognizer
         {
             // No actions.
         }
-        else if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n')
+        else if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n' && !ctxt.isNumber())
     
     {
             context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Word);
+            context.clearState();
+            try
+            {
+                ctxt.setZeroWordsRead(false);
+                context.setState(MainMap::Word);
+            }
+            catch (...)
+            {
+                context.setState(MainMap::Word);
+                throw;
+            }
             context.getState().Entry(context);
         }
-        else if (ctxt.lastRead()==')')
+        else if (ctxt.isNumber())
+    
+    {
+            context.getState().Exit(context);
+            context.clearState();
+            try
+            {
+                ctxt.setZeroWordsRead(false);
+                context.setState(MainMap::Digit);
+            }
+            catch (...)
+            {
+                context.setState(MainMap::Digit);
+                throw;
+            }
+            context.getState().Entry(context);
+        }
+        else if (ctxt.lastRead()==')' && !ctxt.getZeroWordsRead())
     
     {
             context.getState().Exit(context);

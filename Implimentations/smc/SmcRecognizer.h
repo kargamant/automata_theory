@@ -12,6 +12,7 @@ namespace SmcRecognizer
 			bool isCorrect=false;
 			bool isStopped=false;
 			bool debugInfo=false;
+			bool zeroWordsRead=true;
 			automatContext fsm;
 		public:
 			SmcRecognizer();
@@ -25,5 +26,7 @@ namespace SmcRecognizer
 
 			SmcRecognizer& setDebugInfo(bool ndebugInfo) {debugInfo=ndebugInfo; return *this;}
 			SmcRecognizer& setStopped(bool nstop) {isStopped=nstop; return *this;}
+			SmcRecognizer& setZeroWordsRead(bool nzero) {zeroWordsRead=nzero; return *this;}
+			bool getZeroWordsRead() {return zeroWordsRead; }
 	};
 }

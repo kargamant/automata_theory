@@ -27,6 +27,7 @@ namespace SmcRecognizer
     class MainMap_I;
     class MainMap_N;
     class MainMap_OpenBracket;
+    class MainMap_Digit;
     class MainMap_Word;
     class MainMap_SingleQoute;
     class MainMap_DoubleQoute;
@@ -73,6 +74,7 @@ namespace SmcRecognizer
         static MainMap_I I;
         static MainMap_N N;
         static MainMap_OpenBracket OpenBracket;
+        static MainMap_Digit Digit;
         static MainMap_Word Word;
         static MainMap_SingleQoute SingleQoute;
         static MainMap_DoubleQoute DoubleQoute;
@@ -199,6 +201,17 @@ namespace SmcRecognizer
     {
     public:
         MainMap_OpenBracket(const char * const name, const int stateId)
+        : MainMap_Default(name, stateId)
+        {};
+
+        virtual void readNext(automatContext& context);
+    };
+
+    class MainMap_Digit :
+        public MainMap_Default
+    {
+    public:
+        MainMap_Digit(const char * const name, const int stateId)
         : MainMap_Default(name, stateId)
         {};
 
