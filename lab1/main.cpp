@@ -25,7 +25,7 @@ int main()
 	tester.clearTimingData();
 	while(timingLines!=0)
 	{
-		tester.timing(timingLines);
+		tester.timing(timingLines, timeMode::incorrectOnly);
 		timingLines/=10;
 	}
 	tester.displayResultsTable();

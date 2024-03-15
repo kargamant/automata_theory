@@ -4,6 +4,12 @@
 #include "../Generator/Generator.h"
 #include <iostream>
 
+enum class timeMode
+{
+	correctOnly,
+	incorrectOnly,
+	all
+};
 class Tester
 {
 	private:
@@ -16,7 +22,7 @@ class Tester
 		std::fstream openSafe(std::string fileName, std::ios_base::openmode mode=std::ios::out);
 	public:
 		Tester(Generator& gen) : generator(gen) {}
-		void timing(int lines=1);
+		void timing(int lines=1, timeMode mode=timeMode::all);
 		Tester& setGenerator(Generator& ngen) {generator=ngen; return *this;}
 		void clearTimingData();
 		void displayResultsTable(std::ostream& stream=std::cout);

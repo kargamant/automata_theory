@@ -38,12 +38,20 @@ int main(int argc, char* argv[])
 		cases.push_back(readLine(load));
 	}
 	int lines=1;
-	if(argc==2) lines=std::stoi(argv[1]);
+	if(argc>=2) lines=std::stoi(argv[1]);
+
 	Generator gen{3, 5, 3};
 
 	for(int i=0; i<lines; i++)
 	{
-		int choice=gen.genChoice();
+		int choice;
+		if(argc==3) 
+		{
+			if(std::string(argv[2])=="--correct") choice=1;
+			else if(std::string(argv[2])=="--incorrect") choice=0;
+			else choice=gen.genChoice(); 
+		}
+		else choice=gen.genChoice();
 		if(choice)
 		{
 			std::cout<<gen.genCorrectString()<<std::endl;

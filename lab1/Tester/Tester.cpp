@@ -34,10 +34,13 @@ std::fstream Tester::openSafe(std::string fileName, std::ios_base::openmode mode
 }
 
 
-void Tester::timing(int lines)
+void Tester::timing(int lines, timeMode mode)
 {
 	std::vector<int> resVec;
-	std::string genRequest="(cd ../Generator ; ./gen "+std::to_string(lines)+")";
+	std::string genRequest="(cd ../Generator ; ./gen "+std::to_string(lines);
+	if(mode==timeMode::correctOnly) genRequest+=" --correct )";
+	else if(mode==timeMode::incorrectOnly) genRequest+=" --incorrect )";
+	else genRequest+=" )";
 	for(std::string imp: implimentations)
 	{
 		std::fstream results=openSafe(imp+"_timing.txt", std::ios::app);

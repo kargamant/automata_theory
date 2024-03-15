@@ -6,7 +6,6 @@
 //for[\s]+([a-zA-Z][\w]+|[a-zA-Z])[\s]+in[\s]+\((?:[\w\s]+|\'([^\']+|)\'|\"([^\"]+|)\")+\)
 //{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}(({ID}|{STRING}|{DIGIT}+)+|" "("?!"{CBRACKET})){CBRACKET}	{printf("line \"%s\" is correct\n", yytext);}
 //SPACE_CONDITION (?(?={CBRACKET})|" "*|" "+)
-
 //Cases to cover:
 //for i in (abc 'popop'  123 )
 //for i in (abc 'popop'  123)

@@ -594,12 +594,11 @@ static const flex_int16_t yy_chk[660] =
 //for[\s]+([a-zA-Z][\w]+|[a-zA-Z])[\s]+in[\s]+\((?:[\w\s]+|\'([^\']+|)\'|\"([^\"]+|)\")+\)
 //{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}(({ID}|{STRING}|{DIGIT}+)+|" "("?!"{CBRACKET})){CBRACKET}	{printf("line \"%s\" is correct\n", yytext);}
 //SPACE_CONDITION (?(?={CBRACKET})|" "*|" "+)
-
 //Cases to cover:
 //for i in (abc 'popop'  123 )
 //for i in (abc 'popop'  123)
+#line 601 "lex.yy.cc"
 #line 602 "lex.yy.cc"
-#line 603 "lex.yy.cc"
 
 #define INITIAL 0
 
@@ -731,10 +730,10 @@ YY_DECL
 		}
 
 	{
-#line 26 "rules.l"
+#line 25 "rules.l"
 
 
-#line 738 "lex.yy.cc"
+#line 737 "lex.yy.cc"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -794,26 +793,26 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 28 "rules.l"
+#line 27 "rules.l"
 {return 1; }
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 29 "rules.l"
+#line 28 "rules.l"
 {return 1; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 30 "rules.l"
+#line 29 "rules.l"
 {return 0; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 32 "rules.l"
+#line 31 "rules.l"
 ECHO;
 	YY_BREAK
-#line 817 "lex.yy.cc"
+#line 816 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1776,7 +1775,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 32 "rules.l"
+#line 31 "rules.l"
 
 int main(int argc, char* argv[])
 {
