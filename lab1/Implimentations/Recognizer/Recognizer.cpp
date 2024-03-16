@@ -1,4 +1,4 @@
-#include "Recognizer.h"
+#include <Recognizer.h>
 #include <iostream>
 
 void Recognizer::run(std::istream& in, std::ostream& out, bool noOutput)

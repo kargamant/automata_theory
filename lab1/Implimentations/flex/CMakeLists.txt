@@ -1,1 +1,6 @@
-execute_process(COMMAND make WORKING_DIRECTORY ../Implimentations/flex)
+execute_process(COMMAND flex -+ rules.l WORKING_DIRECTORY ../Implimentations/flex)
+add_compile_options(-lfl)
+add_executable(main_flex lex.yy.cc ../Recognizer/Recognizer.cpp FlexRecognizer.cpp)
+set_property(TARGET main_flex PROPERTY OUTPUT_NAME main)
+target_link_libraries(main_flex recognizer)
+target_include_directories(main_flex PUBLIC .)

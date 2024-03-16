@@ -1,5 +1,5 @@
-#include "Generator/Generator.h"
-#include "Tester/Tester.h"
+#include <Generator.h>
+#include <Tester.h>
 #include <iostream>
 #include <string>
 #include <time.h>
@@ -23,10 +23,11 @@ int main()
 
 	std::cout<<"timing:"<<std::endl;
 	tester.clearTimingData();
+	int max_lines=timingLines;
 	while(timingLines!=0)
 	{
 		tester.timing(timingLines, timeMode::incorrectOnly);
-		timingLines-=50000;
+		timingLines-=0.1*max_lines;
 		std::cout<<timingLines<<" remain"<<std::endl;
 	}
 	tester.displayResultsTable();

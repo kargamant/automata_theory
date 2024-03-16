@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <time.h>
-#include "Generator.h"
+#include <Generator.h>
 #include <regex>
 #include <random>
 #include <time.h>

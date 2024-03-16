@@ -1,4 +1,4 @@
-#include "../Recognizer/Recognizer.h"
+#include <Recognizer.h>
 #include <string>
 #if !defined(yyFlexLexerOnce)
 #include <FlexLexer.h>

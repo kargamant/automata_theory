@@ -1,7 +1,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include "../Generator/Generator.h"
+#include <Generator.h>
 #include <iostream>
 
 enum class timeMode

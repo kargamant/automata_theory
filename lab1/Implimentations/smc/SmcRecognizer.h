@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "../Recognizer/Recognizer.h"
+#include <Recognizer.h>
 
 namespace SmcRecognizer
 {

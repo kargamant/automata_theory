@@ -1,4 +1,4 @@
-#include "../Recognizer/Recognizer.h"
+#include <Recognizer.h>
 #include <regex>
 
 class RegexRecognizer : public Recognizer
