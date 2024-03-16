@@ -20,7 +20,6 @@ while i
 for for in (a 'd')
 for u in (2abc)
 for u in (abc2'ddd' )
-for u in ("abc"f")
 for u in ('abc'f')
 for   M2i5   in     ( f   e563   7554   F63        UiP rObp       a4S     002       h979     )
 for LGa7  in (         LGa7 "c$#n"  )

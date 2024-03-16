@@ -26,7 +26,8 @@ int main()
 	while(timingLines!=0)
 	{
 		tester.timing(timingLines, timeMode::incorrectOnly);
-		timingLines/=10;
+		timingLines-=50000;
+		std::cout<<timingLines<<" remain"<<std::endl;
 	}
 	tester.displayResultsTable();
 	return 0;

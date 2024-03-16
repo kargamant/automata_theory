@@ -23,6 +23,6 @@ class Generator
 		std::srand(std::time(nullptr));
 	}
 		std::string genCorrectString();
-		std::string genIncorrectString(std::vector<std::string> cases);
+		std::string genIncorrectString(std::vector<std::string>& cases);
 		int genChoice(int options=2);
 };

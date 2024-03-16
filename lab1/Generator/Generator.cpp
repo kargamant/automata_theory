@@ -133,7 +133,7 @@ std::string Generator::genAbsRandString(int length)
 }
 
 
-std::string Generator::genIncorrectString(std::vector<std::string> cases)
+std::string Generator::genIncorrectString(std::vector<std::string>& cases)
 {
 	//std::srand(time(NULL));
 	int choice=genChoice(cases.size());
