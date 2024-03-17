@@ -19,9 +19,9 @@ class Generator
 		std::string genAbsRandString(int length);
 	public:
 		Generator(int varLength, int maxSpacesLength, int words) : varLength(varLength), maxSpacesLength(maxSpacesLength), words(words)
-	{
-		std::srand(std::time(nullptr));
-	}
+		{
+			std::srand(std::time(nullptr));
+		}
 		std::string genCorrectString();
 		std::string genIncorrectString(std::vector<std::string>& cases);
 		int genChoice(int options=2);

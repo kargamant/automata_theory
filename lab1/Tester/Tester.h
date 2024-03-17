@@ -21,9 +21,9 @@ class Tester
 		std::string readLine(std::fstream& fs);
 		std::fstream openSafe(std::string fileName, std::ios_base::openmode mode=std::ios::out);
 	public:
-		Tester(Generator& gen) : generator(gen) {}
+		Tester(const Generator& gen) : generator(gen) {}
 		void timing(int lines=1, timeMode mode=timeMode::all);
-		Tester& setGenerator(Generator& ngen) {generator=ngen; return *this;}
+		Tester& setGenerator(const Generator& ngen) {generator=ngen; return *this;}
 		void clearTimingData();
 		void displayResultsTable(std::ostream& stream=std::cout);
 };

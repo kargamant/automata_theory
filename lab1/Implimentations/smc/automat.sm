@@ -1,7 +1,6 @@
-%header SmcRecognizer.h
+%header ImpRecognizer.h
 
-%class SmcRecognizer
-%package SmcRecognizer
+%class ImpRecognizer
 
 %start MainMap::Start
 %map MainMap

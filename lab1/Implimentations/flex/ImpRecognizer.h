@@ -4,7 +4,8 @@
 #include <FlexLexer.h>
 #endif
 
-class FlexRecognizer : public Recognizer, public yyFlexLexer
+//private inheritance => it's no longer possible to create a pointer pointing to derived class
+class ImpRecognizer : public Recognizer, private yyFlexLexer
 {
 	public:
 		bool checkString(std::string& str) override;

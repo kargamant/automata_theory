@@ -41,7 +41,7 @@ void Tester::timing(int lines, timeMode mode)
 	if(mode==timeMode::correctOnly) genRequest+=" --correct )";
 	else if(mode==timeMode::incorrectOnly) genRequest+=" --incorrect )";
 	else genRequest+=" )";
-	for(std::string imp: implimentations)
+	for(const auto& imp: implimentations)
 	{
 		std::fstream results=openSafe(imp+"_timing.txt", std::ios::app);
 		std::string request=genRequest+" | "+"../"+basedDir+"/"+imp+"/main --no-output";
@@ -51,10 +51,10 @@ void Tester::timing(int lines, timeMode mode)
 		auto end=std::chrono::system_clock::now();
 		auto duration=std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
 		
-		results<<std::to_string(lines)+" "+std::to_string(duration.count())<<std::endl;
+		results<<lines<<" "<<duration.count()<<std::endl;
 		resVec.push_back(duration.count());
 	}
-	table.insert({lines, resVec});
+	table.emplace(lines, std::move(resVec));
 }
 
 
@@ -62,12 +62,13 @@ void Tester::clearTimingData()
 {
 	for(std::string imp: implimentations)
 	{
+		//std::filesystem remove
 		std::fstream results=openSafe(imp+"_timing.txt", std::ios::out);
 		results.close();
 	}
 }
 
-
+//реализовать с помощью std::ostream_iterator и std::copy
 void Tester::displayResultsTable(std::ostream& stream)
 {
 	stream<<"     ";

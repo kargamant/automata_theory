@@ -1,4 +1,3 @@
-add_executable(main_regex main.cpp RegexRecognizer.cpp ../Recognizer/Recognizer.cpp)
-set_property(TARGET main_regex PROPERTY OUTPUT_NAME main)
-target_link_libraries(main_regex recognizer)
-target_include_directories(main_regex PUBLIC .)
+add_library(regex_recognizer ImpRecognizer.cpp)
+target_include_directories(regex_recognizer PUBLIC .)
+target_link_libraries(regex_recognizer recognizer)

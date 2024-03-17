@@ -2,7 +2,7 @@
 %{
 #include <iostream>
 #include <fstream>
-#include "FlexRecognizer.h"
+#include "ImpRecognizer.h"
 //for[\s]+([a-zA-Z][\w]+|[a-zA-Z])[\s]+in[\s]+\((?:[\w\s]+|\'([^\']+|)\'|\"([^\"]+|)\")+\)
 //{FOR}" "+{ID}" "+{IN}" "+{OBRACKET}(({ID}|{STRING}|{DIGIT}+)+|" "("?!"{CBRACKET})){CBRACKET}	{printf("line \"%s\" is correct\n", yytext);}
 //SPACE_CONDITION (?(?={CBRACKET})|" "*|" "+)
@@ -29,9 +29,9 @@ CBRACKET ")"
 .*	{return 0; }
 
 %%
-int main(int argc, char* argv[])
+/*int main(int argc, char* argv[])
 {
-	FlexRecognizer rec;
+	ImpRecognizer rec;
 	if(argc==2)
 	{
 		if(std::string(argv[1])=="--no-output") 
@@ -48,4 +48,4 @@ int main(int argc, char* argv[])
 	}
 	else rec.run();
 	return 0;
-}
+}*/

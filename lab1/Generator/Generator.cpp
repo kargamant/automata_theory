@@ -72,9 +72,7 @@ std::string Generator::genStringLiteral(int length, bool doubleQoutes)
 
 std::string Generator::genSpaces(int length)
 {
-	std::string result;
-	for(int i=0; i<length; i++) result+=" ";
-	return result;
+	return std::string(" ", length);
 }
 
 std::string Generator::genCorrectString()

@@ -11,346 +11,343 @@
 
 #define SMC_USES_IOSTREAMS
 
-#include "statemap.h"
+#include <statemap.h>
 
-namespace SmcRecognizer
+// Forward declarations.
+class MainMap;
+class MainMap_Start;
+class MainMap_F;
+class MainMap_O;
+class MainMap_R;
+class MainMap_Space1;
+class MainMap_Variable;
+class MainMap_Space2;
+class MainMap_I;
+class MainMap_N;
+class MainMap_OpenBracket;
+class MainMap_Digit;
+class MainMap_Word;
+class MainMap_SingleQoute;
+class MainMap_DoubleQoute;
+class MainMap_AfterQoute;
+class MainMap_Space3;
+class MainMap_CloseBracket;
+class MainMap_Correct;
+class MainMap_Incorrect;
+class MainMap_Default;
+class ImpRecognizerState;
+class automatContext;
+class ImpRecognizer;
+
+class ImpRecognizerState :
+    public statemap::State
 {
-    // Forward declarations.
-    class MainMap;
-    class MainMap_Start;
-    class MainMap_F;
-    class MainMap_O;
-    class MainMap_R;
-    class MainMap_Space1;
-    class MainMap_Variable;
-    class MainMap_Space2;
-    class MainMap_I;
-    class MainMap_N;
-    class MainMap_OpenBracket;
-    class MainMap_Digit;
-    class MainMap_Word;
-    class MainMap_SingleQoute;
-    class MainMap_DoubleQoute;
-    class MainMap_AfterQoute;
-    class MainMap_Space3;
-    class MainMap_CloseBracket;
-    class MainMap_Correct;
-    class MainMap_Incorrect;
-    class MainMap_Default;
-    class SmcRecognizerState;
-    class automatContext;
-    class SmcRecognizer;
+public:
 
-    class SmcRecognizerState :
-        public statemap::State
+    ImpRecognizerState(const char * const name, const int stateId)
+    : statemap::State(name, stateId)
+    {};
+
+    virtual void Entry(automatContext&) {};
+    virtual void Exit(automatContext&) {};
+
+    virtual void readNext(automatContext& context);
+
+protected:
+
+    virtual void Default(automatContext& context);
+};
+
+class MainMap
+{
+public:
+
+    static MainMap_Start Start;
+    static MainMap_F F;
+    static MainMap_O O;
+    static MainMap_R R;
+    static MainMap_Space1 Space1;
+    static MainMap_Variable Variable;
+    static MainMap_Space2 Space2;
+    static MainMap_I I;
+    static MainMap_N N;
+    static MainMap_OpenBracket OpenBracket;
+    static MainMap_Digit Digit;
+    static MainMap_Word Word;
+    static MainMap_SingleQoute SingleQoute;
+    static MainMap_DoubleQoute DoubleQoute;
+    static MainMap_AfterQoute AfterQoute;
+    static MainMap_Space3 Space3;
+    static MainMap_CloseBracket CloseBracket;
+    static MainMap_Correct Correct;
+    static MainMap_Incorrect Incorrect;
+};
+
+class MainMap_Default :
+    public ImpRecognizerState
+{
+public:
+
+    MainMap_Default(const char * const name, const int stateId)
+    : ImpRecognizerState(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Start :
+    public MainMap_Default
+{
+public:
+    MainMap_Start(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_F :
+    public MainMap_Default
+{
+public:
+    MainMap_F(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_O :
+    public MainMap_Default
+{
+public:
+    MainMap_O(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_R :
+    public MainMap_Default
+{
+public:
+    MainMap_R(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Space1 :
+    public MainMap_Default
+{
+public:
+    MainMap_Space1(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Variable :
+    public MainMap_Default
+{
+public:
+    MainMap_Variable(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Space2 :
+    public MainMap_Default
+{
+public:
+    MainMap_Space2(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_I :
+    public MainMap_Default
+{
+public:
+    MainMap_I(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_N :
+    public MainMap_Default
+{
+public:
+    MainMap_N(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_OpenBracket :
+    public MainMap_Default
+{
+public:
+    MainMap_OpenBracket(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Digit :
+    public MainMap_Default
+{
+public:
+    MainMap_Digit(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Word :
+    public MainMap_Default
+{
+public:
+    MainMap_Word(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_SingleQoute :
+    public MainMap_Default
+{
+public:
+    MainMap_SingleQoute(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_DoubleQoute :
+    public MainMap_Default
+{
+public:
+    MainMap_DoubleQoute(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_AfterQoute :
+    public MainMap_Default
+{
+public:
+    MainMap_AfterQoute(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Space3 :
+    public MainMap_Default
+{
+public:
+    MainMap_Space3(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_CloseBracket :
+    public MainMap_Default
+{
+public:
+    MainMap_CloseBracket(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Correct :
+    public MainMap_Default
+{
+public:
+    MainMap_Correct(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class MainMap_Incorrect :
+    public MainMap_Default
+{
+public:
+    MainMap_Incorrect(const char * const name, const int stateId)
+    : MainMap_Default(name, stateId)
+    {};
+
+    virtual void readNext(automatContext& context);
+};
+
+class automatContext :
+    public statemap::FSMContext
+{
+public:
+
+    explicit automatContext(ImpRecognizer& owner)
+    : FSMContext(MainMap::Start),
+      _owner(owner)
+    {};
+
+    automatContext(ImpRecognizer& owner, const statemap::State& state)
+    : FSMContext(state),
+      _owner(owner)
+    {};
+
+    virtual void enterStartState()
     {
-    public:
+        getState().Entry(*this);
+        return;
+    }
 
-        SmcRecognizerState(const char * const name, const int stateId)
-        : statemap::State(name, stateId)
-        {};
-
-        virtual void Entry(automatContext&) {};
-        virtual void Exit(automatContext&) {};
-
-        virtual void readNext(automatContext& context);
-
-    protected:
-
-        virtual void Default(automatContext& context);
+    inline ImpRecognizer& getOwner()
+    {
+        return (_owner);
     };
 
-    class MainMap
+    inline ImpRecognizerState& getState()
     {
-    public:
-
-        static MainMap_Start Start;
-        static MainMap_F F;
-        static MainMap_O O;
-        static MainMap_R R;
-        static MainMap_Space1 Space1;
-        static MainMap_Variable Variable;
-        static MainMap_Space2 Space2;
-        static MainMap_I I;
-        static MainMap_N N;
-        static MainMap_OpenBracket OpenBracket;
-        static MainMap_Digit Digit;
-        static MainMap_Word Word;
-        static MainMap_SingleQoute SingleQoute;
-        static MainMap_DoubleQoute DoubleQoute;
-        static MainMap_AfterQoute AfterQoute;
-        static MainMap_Space3 Space3;
-        static MainMap_CloseBracket CloseBracket;
-        static MainMap_Correct Correct;
-        static MainMap_Incorrect Incorrect;
-    };
-
-    class MainMap_Default :
-        public SmcRecognizerState
-    {
-    public:
-
-        MainMap_Default(const char * const name, const int stateId)
-        : SmcRecognizerState(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Start :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Start(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_F :
-        public MainMap_Default
-    {
-    public:
-        MainMap_F(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_O :
-        public MainMap_Default
-    {
-    public:
-        MainMap_O(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_R :
-        public MainMap_Default
-    {
-    public:
-        MainMap_R(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Space1 :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Space1(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Variable :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Variable(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Space2 :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Space2(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_I :
-        public MainMap_Default
-    {
-    public:
-        MainMap_I(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_N :
-        public MainMap_Default
-    {
-    public:
-        MainMap_N(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_OpenBracket :
-        public MainMap_Default
-    {
-    public:
-        MainMap_OpenBracket(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Digit :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Digit(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Word :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Word(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_SingleQoute :
-        public MainMap_Default
-    {
-    public:
-        MainMap_SingleQoute(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_DoubleQoute :
-        public MainMap_Default
-    {
-    public:
-        MainMap_DoubleQoute(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_AfterQoute :
-        public MainMap_Default
-    {
-    public:
-        MainMap_AfterQoute(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Space3 :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Space3(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_CloseBracket :
-        public MainMap_Default
-    {
-    public:
-        MainMap_CloseBracket(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Correct :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Correct(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class MainMap_Incorrect :
-        public MainMap_Default
-    {
-    public:
-        MainMap_Incorrect(const char * const name, const int stateId)
-        : MainMap_Default(name, stateId)
-        {};
-
-        virtual void readNext(automatContext& context);
-    };
-
-    class automatContext :
-        public statemap::FSMContext
-    {
-    public:
-
-        explicit automatContext(SmcRecognizer& owner)
-        : FSMContext(MainMap::Start),
-          _owner(owner)
-        {};
-
-        automatContext(SmcRecognizer& owner, const statemap::State& state)
-        : FSMContext(state),
-          _owner(owner)
-        {};
-
-        virtual void enterStartState()
+        if (_state == NULL)
         {
-            getState().Entry(*this);
-            return;
+            throw statemap::StateUndefinedException();
         }
 
-        inline SmcRecognizer& getOwner()
-        {
-            return (_owner);
-        };
-
-        inline SmcRecognizerState& getState()
-        {
-            if (_state == NULL)
-            {
-                throw statemap::StateUndefinedException();
-            }
-
-            return dynamic_cast<SmcRecognizerState&>(*_state);
-        };
-
-        inline void readNext()
-        {
-            getState().readNext(*this);
-        };
-
-    private:
-        SmcRecognizer& _owner;
+        return dynamic_cast<ImpRecognizerState&>(*_state);
     };
-}
+
+    inline void readNext()
+    {
+        getState().readNext(*this);
+    };
+
+private:
+    ImpRecognizer& _owner;
+};
 
 
 #endif // AUTOMAT_SM_H

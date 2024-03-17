@@ -5,659 +5,656 @@
 // from file : automat.sm
 //
 
-#include "SmcRecognizer.h"
+#include "ImpRecognizer.h"
 #include "automat_sm.h"
 
 using namespace statemap;
 
-namespace SmcRecognizer
+// Static class declarations.
+MainMap_Start MainMap::Start("MainMap::Start", 0);
+MainMap_F MainMap::F("MainMap::F", 1);
+MainMap_O MainMap::O("MainMap::O", 2);
+MainMap_R MainMap::R("MainMap::R", 3);
+MainMap_Space1 MainMap::Space1("MainMap::Space1", 4);
+MainMap_Variable MainMap::Variable("MainMap::Variable", 5);
+MainMap_Space2 MainMap::Space2("MainMap::Space2", 6);
+MainMap_I MainMap::I("MainMap::I", 7);
+MainMap_N MainMap::N("MainMap::N", 8);
+MainMap_OpenBracket MainMap::OpenBracket("MainMap::OpenBracket", 9);
+MainMap_Digit MainMap::Digit("MainMap::Digit", 10);
+MainMap_Word MainMap::Word("MainMap::Word", 11);
+MainMap_SingleQoute MainMap::SingleQoute("MainMap::SingleQoute", 12);
+MainMap_DoubleQoute MainMap::DoubleQoute("MainMap::DoubleQoute", 13);
+MainMap_AfterQoute MainMap::AfterQoute("MainMap::AfterQoute", 14);
+MainMap_Space3 MainMap::Space3("MainMap::Space3", 15);
+MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 16);
+MainMap_Correct MainMap::Correct("MainMap::Correct", 17);
+MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 18);
+
+void ImpRecognizerState::readNext(automatContext& context)
 {
-    // Static class declarations.
-    MainMap_Start MainMap::Start("MainMap::Start", 0);
-    MainMap_F MainMap::F("MainMap::F", 1);
-    MainMap_O MainMap::O("MainMap::O", 2);
-    MainMap_R MainMap::R("MainMap::R", 3);
-    MainMap_Space1 MainMap::Space1("MainMap::Space1", 4);
-    MainMap_Variable MainMap::Variable("MainMap::Variable", 5);
-    MainMap_Space2 MainMap::Space2("MainMap::Space2", 6);
-    MainMap_I MainMap::I("MainMap::I", 7);
-    MainMap_N MainMap::N("MainMap::N", 8);
-    MainMap_OpenBracket MainMap::OpenBracket("MainMap::OpenBracket", 9);
-    MainMap_Digit MainMap::Digit("MainMap::Digit", 10);
-    MainMap_Word MainMap::Word("MainMap::Word", 11);
-    MainMap_SingleQoute MainMap::SingleQoute("MainMap::SingleQoute", 12);
-    MainMap_DoubleQoute MainMap::DoubleQoute("MainMap::DoubleQoute", 13);
-    MainMap_AfterQoute MainMap::AfterQoute("MainMap::AfterQoute", 14);
-    MainMap_Space3 MainMap::Space3("MainMap::Space3", 15);
-    MainMap_CloseBracket MainMap::CloseBracket("MainMap::CloseBracket", 16);
-    MainMap_Correct MainMap::Correct("MainMap::Correct", 17);
-    MainMap_Incorrect MainMap::Incorrect("MainMap::Incorrect", 18);
+    Default(context);
+}
 
-    void SmcRecognizerState::readNext(automatContext& context)
+void ImpRecognizerState::Default(automatContext& context)
+{
+    throw (
+        TransitionUndefinedException(
+            (context.getState()).getName(),
+            context.getTransition()));
+
+}
+
+void MainMap_Default::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()!=1)
     {
-        Default(context);
-    }
-
-    void SmcRecognizerState::Default(automatContext& context)
-    {
-        throw (
-            TransitionUndefinedException(
-                (context.getState()).getName(),
-                context.getTransition()));
-
-    }
-
-    void MainMap_Default::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()!=1)
-        {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.incorrect();
-                ctxt.setStopped(true);
-                context.setState(MainMap::Incorrect);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::Incorrect);
-                throw;
-            }
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==0)
-    
-    {
-            // No actions.
-        }        else
-        {
-             SmcRecognizerState::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_Start::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()=='f')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::F);
-            context.getState().Entry(context);
-        }
-        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_F::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()=='o')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::O);
-            context.getState().Entry(context);
-        }
-        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_O::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()=='r')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::R);
-            context.getState().Entry(context);
-        }
-        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_R::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Space1);
-            context.getState().Entry(context);
-        }
-        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_Space1::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-        {
-            // No actions.
-        }
-        else if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && !ctxt.isNumber())
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Variable);
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_Variable::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.isValidRead())
-        {
-            // No actions.
-        }
-        else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Space2);
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_Space2::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-        {
-            // No actions.
-        }
-        else if (ctxt.lastRead()=='i')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::I);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()=='(')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::OpenBracket);
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_I::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()=='n')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::N);
-            context.getState().Entry(context);
-        }
-        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_N::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Space2);
-            context.getState().Entry(context);
-        }
-        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_OpenBracket::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.isValidRead() && !ctxt.isNumber())
-        {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.setZeroWordsRead(false);
-                context.setState(MainMap::Word);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::Word);
-                throw;
-            }
-            context.getState().Entry(context);
-        }
-        else if (ctxt.isNumber())
-    
-    {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.setZeroWordsRead(false);
-                context.setState(MainMap::Digit);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::Digit);
-                throw;
-            }
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Space3);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==39)
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::SingleQoute);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==34)
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::DoubleQoute);
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_Digit::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.isNumber())
-        {
-            // No actions.
-        }
-        else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Space3);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==')')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::CloseBracket);
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_Word::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n')
-        {
-            // No actions.
-        }
-        else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Space3);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==')')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::CloseBracket);
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_SingleQoute::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()!=39 && ctxt.lastRead()!='\n')
-        {
-            // No actions.
-        }
-        else if (ctxt.lastRead()=='\n')
-    
-    {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.incorrect();
-                ctxt.setStopped(true);
-                context.setState(MainMap::Incorrect);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::Incorrect);
-                throw;
-            }
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==39)
-    
-    {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.setZeroWordsRead(false);
-                context.setState(MainMap::AfterQoute);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::AfterQoute);
-                throw;
-            }
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_DoubleQoute::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()!=34 && ctxt.lastRead()!='\n')
-        {
-            // No actions.
-        }
-        else if (ctxt.lastRead()=='\n')
-    
-    {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.incorrect();
-                ctxt.setStopped(true);
-                context.setState(MainMap::Incorrect);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::Incorrect);
-                throw;
-            }
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==34)
-    
-    {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.setZeroWordsRead(false);
-                context.setState(MainMap::AfterQoute);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::AfterQoute);
-                throw;
-            }
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_AfterQoute::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::Space3);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==')')
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::CloseBracket);
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_Space3::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
-        {
-            // No actions.
-        }
-        else if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n' && !ctxt.isNumber())
-    
-    {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.setZeroWordsRead(false);
-                context.setState(MainMap::Word);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::Word);
-                throw;
-            }
-            context.getState().Entry(context);
-        }
-        else if (ctxt.isNumber())
-    
-    {
-            context.getState().Exit(context);
-            context.clearState();
-            try
-            {
-                ctxt.setZeroWordsRead(false);
-                context.setState(MainMap::Digit);
-            }
-            catch (...)
-            {
-                context.setState(MainMap::Digit);
-                throw;
-            }
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==')' && !ctxt.getZeroWordsRead())
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::CloseBracket);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==39)
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::SingleQoute);
-            context.getState().Entry(context);
-        }
-        else if (ctxt.lastRead()==34)
-    
-    {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::DoubleQoute);
-            context.getState().Entry(context);
-        }        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_CloseBracket::readNext(automatContext& context)
-    {
-        SmcRecognizer& ctxt = context.getOwner();
-
         context.getState().Exit(context);
         context.clearState();
         try
         {
-            ctxt.correct();
-            context.setState(MainMap::Correct);
+            ctxt.incorrect();
+            ctxt.setStopped(true);
+            context.setState(MainMap::Incorrect);
         }
         catch (...)
         {
-            context.setState(MainMap::Correct);
+            context.setState(MainMap::Incorrect);
             throw;
         }
         context.getState().Entry(context);
-
-
     }
+    else if (ctxt.lastRead()==0)
 
-    void MainMap_Correct::readNext(automatContext& context)
     {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()=='f')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::F);
-            context.getState().Entry(context);
-        }
-        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
-    }
-
-    void MainMap_Incorrect::readNext(automatContext& context)
+        // No actions.
+    }    else
     {
-        SmcRecognizer& ctxt = context.getOwner();
-
-        if (ctxt.lastRead()=='f')
-        {
-            context.getState().Exit(context);
-            // No actions.
-            context.setState(MainMap::F);
-            context.getState().Entry(context);
-        }
-        else
-        {
-             MainMap_Default::readNext(context);
-        }
-
-
+         ImpRecognizerState::readNext(context);
     }
+
+
+}
+
+void MainMap_Start::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()=='f')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::F);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_F::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()=='o')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::O);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_O::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()=='r')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::R);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_R::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::Space1);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_Space1::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+    {
+        // No actions.
+    }
+    else if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && !ctxt.isNumber())
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::Variable);
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_Variable::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()!=' ' && ctxt.lastRead()!='\n' && ctxt.isValidRead())
+    {
+        // No actions.
+    }
+    else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::Space2);
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_Space2::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+    {
+        // No actions.
+    }
+    else if (ctxt.lastRead()=='i')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::I);
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()=='(')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::OpenBracket);
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_I::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()=='n')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::N);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_N::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::Space2);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_OpenBracket::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.isValidRead() && !ctxt.isNumber())
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.setZeroWordsRead(false);
+            context.setState(MainMap::Word);
+        }
+        catch (...)
+        {
+            context.setState(MainMap::Word);
+            throw;
+        }
+        context.getState().Entry(context);
+    }
+    else if (ctxt.isNumber())
+
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.setZeroWordsRead(false);
+            context.setState(MainMap::Digit);
+        }
+        catch (...)
+        {
+            context.setState(MainMap::Digit);
+            throw;
+        }
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::Space3);
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==39)
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::SingleQoute);
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==34)
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::DoubleQoute);
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_Digit::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.isNumber())
+    {
+        // No actions.
+    }
+    else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::Space3);
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==')')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::CloseBracket);
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_Word::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n')
+    {
+        // No actions.
+    }
+    else if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::Space3);
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==')')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::CloseBracket);
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_SingleQoute::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()!=39 && ctxt.lastRead()!='\n')
+    {
+        // No actions.
+    }
+    else if (ctxt.lastRead()=='\n')
+
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.incorrect();
+            ctxt.setStopped(true);
+            context.setState(MainMap::Incorrect);
+        }
+        catch (...)
+        {
+            context.setState(MainMap::Incorrect);
+            throw;
+        }
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==39)
+
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.setZeroWordsRead(false);
+            context.setState(MainMap::AfterQoute);
+        }
+        catch (...)
+        {
+            context.setState(MainMap::AfterQoute);
+            throw;
+        }
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_DoubleQoute::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()!=34 && ctxt.lastRead()!='\n')
+    {
+        // No actions.
+    }
+    else if (ctxt.lastRead()=='\n')
+
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.incorrect();
+            ctxt.setStopped(true);
+            context.setState(MainMap::Incorrect);
+        }
+        catch (...)
+        {
+            context.setState(MainMap::Incorrect);
+            throw;
+        }
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==34)
+
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.setZeroWordsRead(false);
+            context.setState(MainMap::AfterQoute);
+        }
+        catch (...)
+        {
+            context.setState(MainMap::AfterQoute);
+            throw;
+        }
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_AfterQoute::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::Space3);
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==')')
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::CloseBracket);
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_Space3::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()==' ' || ctxt.lastRead()=='\t')
+    {
+        // No actions.
+    }
+    else if (ctxt.lastRead()!=' ' && ctxt.isValidRead() && ctxt.lastRead()!='\n' && !ctxt.isNumber())
+
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.setZeroWordsRead(false);
+            context.setState(MainMap::Word);
+        }
+        catch (...)
+        {
+            context.setState(MainMap::Word);
+            throw;
+        }
+        context.getState().Entry(context);
+    }
+    else if (ctxt.isNumber())
+
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.setZeroWordsRead(false);
+            context.setState(MainMap::Digit);
+        }
+        catch (...)
+        {
+            context.setState(MainMap::Digit);
+            throw;
+        }
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==')' && !ctxt.getZeroWordsRead())
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::CloseBracket);
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==39)
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::SingleQoute);
+        context.getState().Entry(context);
+    }
+    else if (ctxt.lastRead()==34)
+
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::DoubleQoute);
+        context.getState().Entry(context);
+    }    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_CloseBracket::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    context.getState().Exit(context);
+    context.clearState();
+    try
+    {
+        ctxt.correct();
+        context.setState(MainMap::Correct);
+    }
+    catch (...)
+    {
+        context.setState(MainMap::Correct);
+        throw;
+    }
+    context.getState().Entry(context);
+
+
+}
+
+void MainMap_Correct::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()=='f')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::F);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
+}
+
+void MainMap_Incorrect::readNext(automatContext& context)
+{
+    ImpRecognizer& ctxt = context.getOwner();
+
+    if (ctxt.lastRead()=='f')
+    {
+        context.getState().Exit(context);
+        // No actions.
+        context.setState(MainMap::F);
+        context.getState().Entry(context);
+    }
+    else
+    {
+         MainMap_Default::readNext(context);
+    }
+
+
 }
 
 //
