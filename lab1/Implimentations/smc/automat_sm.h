@@ -43,7 +43,7 @@ class ImpRecognizerState :
     public statemap::State
 {
 public:
-
+	friend ImpRecognizer;
     ImpRecognizerState(const char * const name, const int stateId)
     : statemap::State(name, stateId)
     {};
@@ -88,6 +88,7 @@ class MainMap_Default :
 {
 public:
 
+	friend ImpRecognizer;
     MainMap_Default(const char * const name, const int stateId)
     : ImpRecognizerState(name, stateId)
     {};
@@ -99,6 +100,7 @@ class MainMap_Start :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Start(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -110,6 +112,7 @@ class MainMap_F :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_F(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -121,6 +124,7 @@ class MainMap_O :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_O(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -132,6 +136,7 @@ class MainMap_R :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_R(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -143,6 +148,7 @@ class MainMap_Space1 :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Space1(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -154,6 +160,7 @@ class MainMap_Variable :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Variable(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -165,6 +172,7 @@ class MainMap_Space2 :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Space2(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -176,6 +184,7 @@ class MainMap_I :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_I(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -187,6 +196,7 @@ class MainMap_N :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_N(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -198,6 +208,7 @@ class MainMap_OpenBracket :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_OpenBracket(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -209,6 +220,7 @@ class MainMap_Digit :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Digit(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -220,6 +232,7 @@ class MainMap_Word :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Word(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -231,6 +244,7 @@ class MainMap_SingleQoute :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_SingleQoute(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -242,6 +256,7 @@ class MainMap_DoubleQoute :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_DoubleQoute(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -253,6 +268,7 @@ class MainMap_AfterQoute :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_AfterQoute(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -264,6 +280,7 @@ class MainMap_Space3 :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Space3(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -275,6 +292,7 @@ class MainMap_CloseBracket :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_CloseBracket(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -286,6 +304,7 @@ class MainMap_Correct :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Correct(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -297,6 +316,7 @@ class MainMap_Incorrect :
     public MainMap_Default
 {
 public:
+	friend ImpRecognizer;
     MainMap_Incorrect(const char * const name, const int stateId)
     : MainMap_Default(name, stateId)
     {};
@@ -309,6 +329,7 @@ class automatContext :
 {
 public:
 
+	friend ImpRecognizer;
     explicit automatContext(ImpRecognizer& owner)
     : FSMContext(MainMap::Start),
       _owner(owner)

@@ -1,29 +1,18 @@
 #include "ImpRecognizer.h"
 #include <format>
 
-
-ImpRecognizer::ImpRecognizer() : fsm(*this)  
+ImpRecognizer::ImpRecognizer() : fsm(*this) {}
+bool ImpRecognizer::checkString(const std::string& str)
 {
-}
-
-void ImpRecognizer::correct(std::ostream& stream)
-{
-	isCorrect=true;
-}
-
-void ImpRecognizer::incorrect(std::ostream& stream)
-{
-	isCorrect=false;
-}
-
-bool ImpRecognizer::checkString(std::string& str)
-{
-	std::cout<<"Hey. I am smc!"<<std::endl;
 	for(char c: str)
 	{
 		lastChar=c;
 		fsm.readNext();
-		if(debugInfo) std::cout<<"last char: "<<lastChar<<" ; current state: "<<fsm.getState().getName()<<std::endl;
+
+		#ifdef DEBUG_INFO
+		std::cout<<"last char: "<<lastChar<<" ; current state: "<<fsm.getState().getName()<<std::endl;
+		#endif
+
 		if(isStopped || isCorrect) break;
 	}
 	bool res=isCorrect;

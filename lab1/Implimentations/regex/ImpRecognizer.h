@@ -5,8 +5,6 @@ class ImpRecognizer : public Recognizer
 {
 	private:
 		static const std::regex re;
-		//std::regex re;
 	public:
-		//RegexRecognizer() : re(str, std::regex_constants::optimize) {}
-		bool checkString(std::string& str) override;
+		bool checkString(const std::string& str) override;
 };

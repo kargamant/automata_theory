@@ -29,7 +29,7 @@ void run(std::istream& in, std::ostream& out, Recognizer& rec, bool noOutput=tru
 int main()
 {
 	Recognizer* rec=new ImpRecognizer();
-	run(std::cin, std::cout, *rec, false);	
+	run(std::cin, std::cout, *rec, false);
 	delete rec;
 	return 0;
 }
