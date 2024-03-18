@@ -5,6 +5,7 @@
 #include "../Implimentations/flex/ImpRecognizer.h"
 #include "../Implimentations/regex/ImpRecognizer.h"
 #include "../Implimentations/smc/ImpRecognizer.h"
+#include <iterator>
 
 std::vector<std::string> Tester::implimentations={"smc", "flex", "regex"};
 
@@ -99,7 +100,16 @@ void Tester::clearTimingData()
 //реализовать с помощью std::ostream_iterator и std::copy
 void Tester::displayResultsTable(std::ostream& stream)
 {
-	stream<<"     ";
+	stream<<"	";
+	std::copy(implimentations.begin(), implimentations.end(), std::ostream_iterator<std::string>(stream, " "));
+	stream<<std::endl;
+	for(auto& it: table)
+	{
+		stream<<it.first<<" ";
+		std::copy(it.second.begin(), it.second.end(), std::ostream_iterator<int>(stream, " "));
+		stream<<std::endl;
+	}
+	/*stream<<"     ";
 	for(std::string imp: implimentations)
 	{
 		stream<<imp<<" ";
@@ -113,7 +123,7 @@ void Tester::displayResultsTable(std::ostream& stream)
 			stream<<res<<" ";
 		}
 		stream<<std::endl;
-	}
+	}*/
 }
 
 

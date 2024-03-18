@@ -26,6 +26,6 @@ class Tester
 		void timing(std::vector<std::string>& str_vec);
 		void timingFromTo(std::vector<std::string>& str_vec, int from, int to=0, double relatedStep=0.1);
 		void clearTimingData();
-		void displayResultsTable(std::ostream& stream=std::cout);
 		void writeResults();
+		void displayResultsTable(std::ostream& stream=std::cout);
 };

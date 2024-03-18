@@ -31,6 +31,6 @@ int main()
 	tester.clearTimingData();
 	tester.timingFromTo(str_vec, timingLines, 0, 0.1);
 	tester.writeResults();
-	//tester.displayResultsTable();
+	tester.displayResultsTable();
 	return 0;
 }
