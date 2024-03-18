@@ -31,7 +31,7 @@ std::string readLine(std::fstream& fs)
 
 int main(int argc, char* argv[])
 {
-	std::fstream load=openSafe("incorrect_cases.txt", std::ios::in);
+	std::fstream load=openSafe("../txts/incorrect_cases.txt", std::ios::in);
 	std::vector<std::string> cases;
 	while(!load.eof())
 	{
