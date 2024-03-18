@@ -11,8 +11,9 @@
 
 #define SMC_USES_IOSTREAMS
 
-#include <statemap.h>
-
+#include "statemap.h"
+namespace Smc
+{
 // Forward declarations.
 class MainMap;
 class MainMap_Start;
@@ -369,7 +370,7 @@ public:
 private:
     ImpRecognizer& _owner;
 };
-
+}
 
 #endif // AUTOMAT_SM_H
 

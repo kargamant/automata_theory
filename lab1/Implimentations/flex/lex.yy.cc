@@ -1777,24 +1777,4 @@ void yyfree (void * ptr )
 
 #line 31 "rules.l"
 
-/*int main(int argc, char* argv[])
-{
-	ImpRecognizer rec;
-	if(argc==2)
-	{
-		if(std::string(argv[1])=="--no-output") 
-		{
-			rec.run(std::cin, std::cout, true);
-		}
-		else
-		{
-			std::fstream fs{argv[1], std::ios::out};
-			fs.close();
-			fs.open(argv[1]);
-			rec.run(std::cin, fs);
-		}
-	}
-	else rec.run();
-	return 0;
-}*/
 

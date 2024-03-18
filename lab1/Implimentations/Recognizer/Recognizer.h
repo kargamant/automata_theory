@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#pragma once
 class Recognizer
 {
 	public:

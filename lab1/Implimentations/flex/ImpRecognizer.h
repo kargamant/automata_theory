@@ -6,8 +6,11 @@
 
 //private inheritance => it's no longer possible to create a pointer pointing to derived class
 
-class ImpRecognizer : public Recognizer, private yyFlexLexer
+namespace Flex
 {
-	public:
-		bool checkString(const std::string& str) override;
-};
+	class ImpRecognizer : public Recognizer, private yyFlexLexer
+	{
+		public:
+			bool checkString(const std::string& str) override;
+	};
+}

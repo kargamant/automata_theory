@@ -9,7 +9,8 @@
 #include "automat_sm.h"
 
 using namespace statemap;
-
+namespace Smc
+{
 // Static class declarations.
 MainMap_Start MainMap::Start("MainMap::Start", 0);
 MainMap_F MainMap::F("MainMap::F", 1);
@@ -656,7 +657,7 @@ void MainMap_Incorrect::readNext(automatContext& context)
 
 
 }
-
+}
 //
 // Local variables:
 //  buffer-read-only: t

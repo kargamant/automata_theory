@@ -1,6 +1,14 @@
 #include <ImpRecognizer.h>
 #include <iostream>
 
+#ifdef FLEX 
+using namespace Flex;
+#elif defined SMC
+using namespace Smc;
+#elif defined REGEX
+using namespace Regex;
+#endif
+
 void run(std::istream& in, std::ostream& out, Recognizer& rec, bool noOutput=true)
 {
 	char c;

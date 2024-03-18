@@ -1,6 +1,9 @@
 #include "Tester.h"
-#include <iostream>
+#include <iostream> 
 #include <chrono>
+#include "../Implimentations/flex/ImpRecognizer.h"
+#include "../Implimentations/regex/ImpRecognizer.h"
+#include "../Implimentations/smc/ImpRecognizer.h"
 
 std::vector<std::string> Tester::implimentations={"smc", "regex", "flex"};
 std::string Tester::incorrectCasesFile="incorrect_cases.txt";
@@ -34,10 +37,33 @@ std::fstream Tester::openSafe(std::string fileName, std::ios_base::openmode mode
 }
 
 
-void Tester::timing(int lines, timeMode mode)
+int Tester::timeImp(Recognizer& rec, const std::vector<std::string>& str_vec)
+{
+	auto start=std::chrono::system_clock::now();
+	for(auto& str: str_vec)
+	{
+		rec.checkString(str);
+	}
+	auto end=std::chrono::system_clock::now();
+	auto duration=std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count();
+	return duration;
+}
+
+std::vector<int> Tester::timing(std::vector<std::string> str_vec)
 {
 	std::vector<int> resVec;
-	std::string genRequest="(cd ../Generator ; ./gen "+std::to_string(lines);
+	Recognizer* smc=new Smc::ImpRecognizer();
+	Recognizer* flex=new Flex::ImpRecognizer();
+	Recognizer* regex=new Regex::ImpRecognizer();
+	
+	resVec.push_back(timeImp(*smc, str_vec));
+	resVec.push_back(timeImp(*flex, str_vec));
+	resVec.push_back(timeImp(*regex, str_vec));
+	delete smc;
+	delete flex;
+	delete regex;
+	return resVec;
+	/*std::string genRequest="(cd ../Generator ; ./gen "+std::to_string(lines);
 	if(mode==timeMode::correctOnly) genRequest+=" --correct )";
 	else if(mode==timeMode::incorrectOnly) genRequest+=" --incorrect )";
 	else genRequest+=" )";
@@ -53,8 +79,8 @@ void Tester::timing(int lines, timeMode mode)
 		
 		results<<lines<<" "<<duration.count()<<std::endl;
 		resVec.push_back(duration.count());
-	}
-	table.emplace(lines, std::move(resVec));
+	}*/
+	//table.emplace(lines, std::move(resVec));
 }
 
 
