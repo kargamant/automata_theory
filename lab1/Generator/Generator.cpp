@@ -1,13 +1,20 @@
 #include <iostream>
 #include <string>
-#include <time.h>
+#include <chrono>
 #include <Generator.h>
 #include <regex>
 #include <random>
-#include <time.h>
+
+void Generator::updateSeed()
+{
+	std::random_device rd;
+	engine.seed(rd());
+	//engine.seed(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+}
 
 std::string Generator::genNum(int length)
 {
+	//updateSeed();
 	std::uniform_int_distribution<int> db(48, 57); 
 
 	std::string result;
@@ -17,6 +24,7 @@ std::string Generator::genNum(int length)
 }
 char Generator::genChar(bool lowerCase)
 {
+	//updateSeed();
 	if(!lowerCase) 
 	{
 		std::uniform_int_distribution<int> db(65, 90);
@@ -31,12 +39,15 @@ char Generator::genChar(bool lowerCase)
 
 char Generator::genBadChar()
 {
-	std::discrete_distribution<int> db({33, 35, 36, 37, 38, 40, 41, 42, 43, 44, 45});
-	return db(engine);
+	constexpr char badChars[11]={33, 35, 36, 37, 38, 40, 41, 42, 43, 44, 45};
+	//updateSeed();
+	std::discrete_distribution<int> db(0, 10);
+	return badChars[db(engine)];
 }
 
 int Generator::genChoice(int options)
 {
+	//updateSeed();
 	std::uniform_int_distribution<int> db(0, options);
 	return db(engine);
 }
@@ -57,25 +68,26 @@ std::string Generator::genStringLiteral(int length, bool doubleQoutes)
 	result.reserve(length+2);
 
 	if(doubleQoutes) result+="\"";
-	else result+="\'";
+	else result+="'";
 	
 	std::generate_n(std::back_inserter(result), length, [&]() mutable {return genChoice() ? genBadChar() : genChar(genChoice());} );
 
 	if(doubleQoutes) result+="\"";
-	else result+="\'";
+	else result+="'";
 	return result;
 }
 
 std::string Generator::genSpaces(int length)
 {
-	return std::string(" ", length);
+	return std::string(length, ' ');
 }
 
 std::string Generator::genCorrectString()
 {
 	std::string result;
 	result.reserve(7+varLength*(words+1)+maxSpacesLength*(5+words));	
-
+	
+	//updateSeed();
 	std::uniform_int_distribution<int> db_spaces(1, maxSpacesLength);
 	result+="for";
 	result+=genSpaces(db_spaces(engine));
@@ -88,6 +100,7 @@ std::string Generator::genCorrectString()
 	
 	for(int i=0; i<words; i++)
 	{
+		updateSeed();
 		int choice=genChoice(3);
 		std::uniform_int_distribution<int> db_var(1, varLength);
 
