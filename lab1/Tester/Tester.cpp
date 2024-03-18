@@ -1,13 +1,12 @@
 #include "Tester.h"
+#include <filesystem>
 #include <iostream> 
 #include <chrono>
 #include "../Implimentations/flex/ImpRecognizer.h"
 #include "../Implimentations/regex/ImpRecognizer.h"
 #include "../Implimentations/smc/ImpRecognizer.h"
 
-std::vector<std::string> Tester::implimentations={"smc", "regex", "flex"};
-std::string Tester::incorrectCasesFile="incorrect_cases.txt";
-std::string Tester::basedDir="Implimentations";
+std::vector<std::string> Tester::implimentations={"smc", "flex", "regex"};
 
 std::string Tester::readLine(std::fstream& fs)
 {
@@ -49,7 +48,7 @@ int Tester::timeImp(Recognizer& rec, const std::vector<std::string>& str_vec)
 	return duration;
 }
 
-std::vector<int> Tester::timing(std::vector<std::string> str_vec)
+void Tester::timing(std::vector<std::string>& str_vec)
 {
 	std::vector<int> resVec;
 	Recognizer* smc=new Smc::ImpRecognizer();
@@ -62,35 +61,38 @@ std::vector<int> Tester::timing(std::vector<std::string> str_vec)
 	delete smc;
 	delete flex;
 	delete regex;
-	return resVec;
-	/*std::string genRequest="(cd ../Generator ; ./gen "+std::to_string(lines);
-	if(mode==timeMode::correctOnly) genRequest+=" --correct )";
-	else if(mode==timeMode::incorrectOnly) genRequest+=" --incorrect )";
-	else genRequest+=" )";
-	for(const auto& imp: implimentations)
-	{
-		std::fstream results=openSafe(imp+"_timing.txt", std::ios::app);
-		std::string request=genRequest+" | "+"../"+basedDir+"/"+imp+"/main --no-output";
-
-		auto start=std::chrono::system_clock::now();
-		std::system(request.c_str());
-		auto end=std::chrono::system_clock::now();
-		auto duration=std::chrono::duration_cast<std::chrono::milliseconds>(end-start);
-		
-		results<<lines<<" "<<duration.count()<<std::endl;
-		resVec.push_back(duration.count());
-	}*/
-	//table.emplace(lines, std::move(resVec));
+	table.emplace(str_vec.size(), std::move(resVec));
 }
 
+void Tester::timingFromTo(std::vector<std::string>& str_vec, int from, int to, double relatedStep)
+{
+	int max_lines=from;
+	while(from!=to)
+	{
+		timing(str_vec);
+		from-=relatedStep*max_lines;
+		str_vec.resize(from);
+	}
+}
+
+void Tester::writeResults()
+{
+	for(int i=0; i<implimentations.size(); i++)
+	{
+		std::fstream results=openSafe(implimentations[i]+"_timing.txt", std::ios::app);
+		for(auto& it: table)
+		{
+			results<<it.first<<" "<<it.second[i]<<std::endl;
+		}
+	}
+}
 
 void Tester::clearTimingData()
 {
-	for(std::string imp: implimentations)
+	table.clear();
+	for(auto& imp: implimentations)
 	{
-		//std::filesystem remove
-		std::fstream results=openSafe(imp+"_timing.txt", std::ios::out);
-		results.close();
+		std::filesystem::remove(imp+"_timing.txt");
 	}
 }
 

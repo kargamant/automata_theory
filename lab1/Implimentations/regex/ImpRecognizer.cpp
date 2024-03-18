@@ -2,7 +2,7 @@
 
 namespace Regex
 {
-	const std::regex ImpRecognizer::re=std::regex("for\\s+([a-zA-Z][\\w]+|[a-zA-Z])\\s+in\\s+\\(\\s*(((([a-zA-Z][\\w]+|[a-zA-Z])|'([^']+|)'|\"([^\"]+|)\"|[0-9]+)\\s+(([a-zA-Z][\\w]+|[a-zA-Z])|'([^']+|)'|\"([^\"]+|)\"|[0-9]+|\\s*)*)|(([a-zA-Z][\\w]+|[a-zA-Z])|'([^']+|)'|\"([^\"]+|)\"|[0-9]+))\\)(\\n)*");
+	const std::regex ImpRecognizer::re=std::regex("for\\s+([a-zA-Z][\\w]+|[a-zA-Z])\\s+in\\s+\\(\\s*(((([a-zA-Z][\\w]+|[a-zA-Z])|'([^']+|)'|\"([^\"]+|)\"|[0-9]+)\\s+(([a-zA-Z][\\w]+|[a-zA-Z])|'([^']+|)'|\"([^\"]+|)\"|[0-9]+|\\s*)*)|(([a-zA-Z][\\w]+|[a-zA-Z])|'([^']+|)'|\"([^\"]+|)\"|[0-9]+))\\)(\\n)*", std::regex_constants::optimize);
 
 	bool ImpRecognizer::checkString(const std::string& str)
 	{

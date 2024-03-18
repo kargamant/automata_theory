@@ -5,12 +5,12 @@
 #include <iostream>
 #include <Recognizer.h>
 
-enum class timeMode
+/*enum class timeMode
 {
 	correctOnly,
 	incorrectOnly,
 	all
-};
+};*/
 
 class Tester
 {
@@ -18,18 +18,14 @@ class Tester
 		std::unordered_map<int, std::vector<int>> table;
 
 		static std::vector<std::string> implimentations;
-		static std::string incorrectCasesFile;
-		static std::string basedDir;
 		
-		Generator generator;
 		std::string readLine(std::fstream& fs);
 		std::fstream openSafe(std::string fileName, std::ios_base::openmode mode=std::ios::out);
 		int timeImp(Recognizer& rec, const std::vector<std::string>& str_vec);
 	public:
-		Tester(const Generator& gen) : generator(gen) {}
-		
-		std::vector<int> timing(std::vector<std::string> str_vec);
-		Tester& setGenerator(const Generator& ngen) {generator=ngen; return *this;}
+		void timing(std::vector<std::string>& str_vec);
+		void timingFromTo(std::vector<std::string>& str_vec, int from, int to=0, double relatedStep=0.1);
 		void clearTimingData();
 		void displayResultsTable(std::ostream& stream=std::cout);
+		void writeResults();
 };
