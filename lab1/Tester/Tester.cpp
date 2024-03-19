@@ -9,34 +9,6 @@
 
 std::vector<std::string> Tester::implimentations={"smc", "flex", "regex"};
 
-std::string Tester::readLine(std::fstream& fs)
-{
-	char c=0;
-	std::string line;
-
-	while(c!='\n' && !fs.eof()) 
-	{
-		fs>>c;
-		if(c!='\n') line+=c;
-	}
-	return line;
-}
-
-std::fstream Tester::openSafe(std::string fileName, std::ios_base::openmode mode)
-{
-	std::fstream fs(fileName, mode);
-	if(!fs.is_open())
-	{
-		fs.close();
-		fs.open(fileName, mode);
-		fs.close();
-		fs.open(fileName);
-	}
-	fs.unsetf(fs.skipws);
-	return fs;
-}
-
-
 int Tester::timeImp(Recognizer& rec, const std::vector<std::string>& str_vec)
 {
 	auto start=std::chrono::system_clock::now();
@@ -80,7 +52,7 @@ void Tester::writeResults()
 {
 	for(int i=0; i<implimentations.size(); i++)
 	{
-		std::fstream results=openSafe(implimentations[i]+"_timing.txt", std::ios::app);
+		std::fstream results{implimentations[i]+"_timing.txt", std::ios::out};
 		for(auto& it: table)
 		{
 			results<<it.first<<" "<<it.second[i]<<std::endl;
@@ -109,21 +81,6 @@ void Tester::displayResultsTable(std::ostream& stream)
 		std::copy(it.second.begin(), it.second.end(), std::ostream_iterator<int>(stream, " "));
 		stream<<std::endl;
 	}
-	/*stream<<"     ";
-	for(std::string imp: implimentations)
-	{
-		stream<<imp<<" ";
-	}
-	stream<<std::endl;
-	for(auto it: table)
-	{
-		stream<<it.first<<" ";
-		for(auto res: it.second)
-		{
-			stream<<res<<" ";
-		}
-		stream<<std::endl;
-	}*/
 }
 
 
