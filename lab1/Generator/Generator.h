@@ -7,7 +7,6 @@
 class Generator
 {
 	private:
-		static std::vector<std::string> incorrect_cases;
 		int varLength;
 		int maxSpacesLength;
 		int words;
@@ -25,6 +24,7 @@ class Generator
 
 		std::mt19937 engine;
 	public:
+		static std::vector<std::string> incorrect_cases;
 		Generator(int varLength, int maxSpacesLength, int words) : varLength(varLength), maxSpacesLength(maxSpacesLength), words(words)
 		{
 			updateSeed();

@@ -36,8 +36,7 @@ void run(std::istream& in, std::ostream& out, Recognizer& rec, bool noOutput=tru
 
 int main()
 {
-	Recognizer* rec=new ImpRecognizer();
-	run(std::cin, std::cout, *rec, false);
-	delete rec;
+	ImpRecognizer rec=ImpRecognizer();
+	run(std::cin, std::cout, rec, false);
 	return 0;
 }

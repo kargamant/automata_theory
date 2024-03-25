@@ -17,7 +17,7 @@ class Tester
 	private:
 		std::unordered_map<int, std::vector<int>> table;
 
-		static std::vector<std::string> implimentations;
+		const static std::vector<std::string> implimentations;
 		
 		int timeImp(Recognizer& rec, const std::vector<std::string>& str_vec);
 	public:

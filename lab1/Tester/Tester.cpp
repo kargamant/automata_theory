@@ -7,7 +7,7 @@
 #include "../Implimentations/smc/ImpRecognizer.h"
 #include <iterator>
 
-std::vector<std::string> Tester::implimentations={"smc", "flex", "regex"};
+const std::vector<std::string> Tester::implimentations={"smc", "flex", "regex"};
 
 int Tester::timeImp(Recognizer& rec, const std::vector<std::string>& str_vec)
 {
@@ -24,16 +24,13 @@ int Tester::timeImp(Recognizer& rec, const std::vector<std::string>& str_vec)
 void Tester::timing(std::vector<std::string>& str_vec)
 {
 	std::vector<int> resVec;
-	Recognizer* smc=new Smc::ImpRecognizer();
-	Recognizer* flex=new Flex::ImpRecognizer();
-	Recognizer* regex=new Regex::ImpRecognizer();
+	Smc::ImpRecognizer smc=Smc::ImpRecognizer();
+	Flex::ImpRecognizer flex=Flex::ImpRecognizer();
+	Regex::ImpRecognizer regex=Regex::ImpRecognizer();
 	
-	resVec.push_back(timeImp(*smc, str_vec));
-	resVec.push_back(timeImp(*flex, str_vec));
-	resVec.push_back(timeImp(*regex, str_vec));
-	delete smc;
-	delete flex;
-	delete regex;
+	resVec.push_back(timeImp(smc, str_vec));
+	resVec.push_back(timeImp(flex, str_vec));
+	resVec.push_back(timeImp(regex, str_vec));
 	table.emplace(str_vec.size(), std::move(resVec));
 }
 
