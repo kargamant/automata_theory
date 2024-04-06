@@ -2,8 +2,6 @@
 #define AUTOMAT_H
 #include <unordered_map>
 #include "State.h"
-//maybe not build ast directly?
-#include "TreeLib/BinTree.h"
 
 namespace Regex
 {
@@ -14,7 +12,7 @@ namespace Regex
         char current;
     public:
         Automat() {}
-        Automat(Node* root);
+        //Automat(Node* root);
 
     };
 }
