@@ -5,7 +5,7 @@
 
 namespace Regex
 {
-    //std::string Regex::alphabet="|";
+    std::string Regex::alphabet="|+?.";
     AST Regex::formAst(const std::string& expr)
     {
         std::stack<int> open_indicies;
@@ -26,85 +26,64 @@ namespace Regex
                 }
             }
         }
-        std::cout<<"borders: "<<closest_pair.first<<" "<<closest_pair.second<<std::endl;
-        std::cout<<"distance: "<<(closest_pair.second-closest_pair.first)<<std::endl;
-        /*
-        //Number one algo
-        int oldLBracket=0;
-        int lBracket=0;
-        int rBracket=0;
-        int distance=std::numeric_limits<int>::max();
-        int counter=0;
-        for(int i=0; i<expr.length(); i++)
+        std::vector<AST> asts;
+        for(int i=closest_pair.first+1; i<closest_pair.second; i++)
         {
-            if(counter!=0 && expr[i]!=')') counter++;
-            else if(expr[i]==')')
-            {
-                counter--;
-                if(counter<distance)
-                {
-                    rBracket=i;
-                    distance=counter;
-                }
-                else
-                {
-                    lBracket=oldLBracket;
-                }
-            }
+            std::string node_name{expr[i]};
+            asts.emplace_back(node_name);
+        }
 
-            if(expr[i]=='(')
+        //looking for + or ?
+        for(int i=1; i<asts.size(); i++)
+        {
+            if(asts[i].root->name=="+" || asts[i].root->name=="?")
             {
-                counter=0;
-                counter++;
-                oldLBracket=lBracket;
-                lBracket=i;
+                AST new_ast=AST(asts[i].root, asts[i-1]);
+                asts.erase(asts.begin()+i-1);
+                asts[i-1]=new_ast;
             }
         }
 
-        std::cout<<"borders: "<<lBracket<<" "<<rBracket<<std::endl;
-        std::cout<<"distance: "<<distance<<std::endl;
-        return AST("a");
-        */
-        /*
-        for(int i=lBrackets+1; i<rBrackets; i++)
+        //concatinating ~
+        int i=1;
+        while(asts.size()!=1 && i<asts.size())
         {
-            if(isLetter(expr[i]))
+            if(asts[i].root->name!="|" && asts[i-1].root->name!="|")
             {
-                if(ast.isEmpty())
-                {
-                    std::shared_ptr<Node> aNode=std::make_shared<Node>(new Node(std::to_string(expr[i])));
-                    ast.insert(aNode);
-                }
-                else
-                {
-                    std::shared_ptr<Node> aNode=std::make_shared<Node>(new Node(std::to_string(expr[i])));
-                    std::shared_ptr<Node> catNode=std::make_shared<Node>(new Node("."));
-                    ast.insert(catNode);
-                    ast.insert(aNode);
-                }
+                AST new_ast=AST(asts[i-1], asts[i], std::shared_ptr<Node>(new Node("~")));
+                asts.erase(asts.begin()+i-1);
+                asts[i-1]=new_ast;
             }
-
+            else i++;
         }
 
-        for(int i=lBrackets+1; i<rBrackets; i++)
+        if(asts.size()!=1)
         {
-            if(expr[i])
-        }*/
-        /*Node* root=initNode();
-        //for now just expressions like a|b, then I'll make it more complicated
-        std::string leftOp, rightOp;
-        std::string& op=leftOp;
-        for(int i=0; i<expr.length(); i++)
-        {
-            if(expr[i]=="|")
+            //operation |
+            for(int i=0; i<asts.size(); i++)
             {
-                op=rightOp;
-                continue;
+                if(asts[i].root->name=="|")
+                {
+                    AST new_ast=AST(asts[i-1], asts[i+1], std::shared_ptr<Node>(new Node("|")));
+                    asts.erase(asts.begin()+i-1);
+                    asts.erase(asts.begin()+i-1);
+                    asts[i-1]=new_ast;
+                    i--;
+                }
             }
-            op+=expr[i];
         }
-        Node* left=initNode();
-        Node* right=initNode();*/
+
+        //check
+        for(auto& ast: asts)
+        {
+            std::cout<<"ast:"<<std::endl;
+            ast.print();
+            std::cout<<std::endl;
+        }
+        //std::cout<<"borders: "<<closest_pair.first<<" "<<closest_pair.second<<std::endl;
+        //std::cout<<"distance: "<<(closest_pair.second-closest_pair.first)<<std::endl;
+
+
         return AST("a");
     }
     void Regex::compile(const std::string& expr)
