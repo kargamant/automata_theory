@@ -45,7 +45,7 @@ namespace Regex
             std::cout<<std::endl;
         }
 
-        std::pair<int, int> expr_boundaries={0, asts.size()-1};
+        std::pair<int, int> expr_boundaries={0, asts.size()};
         bracketsPairToAst(expr_boundaries, asts);
         concatAsts(asts);
 
@@ -98,6 +98,13 @@ namespace Regex
                 closest_pair.second-=1;
                 asts[i-1]=new_ast;
             }
+            /*std::cout<<"+?iter check"<<std::endl;
+            for(auto& ast: asts)
+            {
+                std::cout<<"ast:"<<std::endl;
+                ast.print();
+                std::cout<<std::endl;
+            }*/
         }
 
         //concatinating ~
