@@ -6,7 +6,7 @@
 namespace Regex
 {
     std::string Regex::alphabet="|+?.";
-    AST Regex::formAst(const std::string& expr)
+    AST formAst(const std::string& expr)
     {
         int start_elements=0;
         std::vector<AST> asts;
@@ -62,7 +62,7 @@ namespace Regex
 
         return AST("a");
     }
-    std::pair<int, int> Regex::findClosestBrackets(std::vector<AST>& asts)
+    std::pair<int, int> findClosestBrackets(std::vector<AST>& asts)
     {
        std::stack<int> open_indicies;
        std::pair<int, int> closest_pair={0, std::numeric_limits<int>::max()};
@@ -85,7 +85,7 @@ namespace Regex
        return closest_pair;
     }
 
-    void Regex::bracketsPairToAst(std::pair<int, int>& closest_pair, std::vector<AST>& asts)
+    void bracketsPairToAst(std::pair<int, int>& closest_pair, std::vector<AST>& asts)
     {
 
         //looking for + or ?
@@ -140,7 +140,7 @@ namespace Regex
     }
 
 
-    void Regex::concatAsts(std::vector<AST>& asts)
+    void concatAsts(std::vector<AST>& asts)
     {
         while(asts.size()!=1)
         {

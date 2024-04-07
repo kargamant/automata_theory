@@ -3,19 +3,20 @@
 #include <string>
 //#include "Automat.h"
 #include <AST.h>
+using namespace Ast;
 
 namespace Regex
 {
+    AST formAst(const std::string& expr);
+    std::pair<int, int> findClosestBrackets(std::vector<AST>& asts);
+    void bracketsPairToAst(std::pair<int, int>& closest_pair, std::vector<AST>& asts);
+    void concatAsts(std::vector<AST>& asts);
     class Regex
     {
     private:
         static std::string alphabet;
         std::string ex;
         //Automat automat;
-        AST formAst(const std::string& expr);
-        std::pair<int, int> findClosestBrackets(std::vector<AST>& asts);
-        void bracketsPairToAst(std::pair<int, int>& closest_pair, std::vector<AST>& asts);
-        void concatAsts(std::vector<AST>& asts);
 
         bool isLetter(char c) {return (c>=97 && c<=122) || (c>=65 && c<=90);}
     public:
