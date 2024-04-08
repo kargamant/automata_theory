@@ -18,7 +18,7 @@ add_executable(main main.cpp Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     NFA/NFA.h
     NFA/NFA.cpp
     )
-target_link_libraries(main reg)
+target_link_libraries(main reg nfa)
 #target_link_libraries(main ast)
 
 #include(GNUInstallDirs)

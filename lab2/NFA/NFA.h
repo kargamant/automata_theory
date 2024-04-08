@@ -2,6 +2,7 @@
 #define AUTOMAT_H
 #include <unordered_map>
 #include <string>
+#include <iostream>
 
 namespace Nfa
 {
@@ -11,7 +12,7 @@ namespace Nfa
         //structure of table
         //from | <to, how>
         std::unordered_map<std::string, std::unordered_map<std::string, std::string>> stateMap;
-        std::string current;
+        std::vector<std::string> current;
         int id;
 
         void add_state(const std::string& name);
@@ -23,11 +24,12 @@ namespace Nfa
         NFA(int id, const std::string& transition);
         NFA(NFA& NFA1);
         NFA(NFA&& NFA1);
-        NFA(NFA& NFA1, NFA& NFA2, char op);
-        NFA(NFA& NFA1, char op);
+        //NFA(NFA& NFA1, NFA& NFA2, char op);
+        //NFA(NFA& NFA1, char op);
 
         std::string getStart() {return "start_"+std::to_string(id);}
         std::string getEnd() {return "end_"+std::to_string(id);}
+        void printNfa(std::ostream& stream=std::cout);
 
         NFA& operator<<(NFA& nfa);
 

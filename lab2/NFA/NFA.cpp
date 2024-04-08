@@ -1,5 +1,7 @@
 #include <NFA.h>
 #include <string>
+#include <iostream>
+#include <format>
 
 namespace Nfa
 {
@@ -31,11 +33,11 @@ namespace Nfa
 
     NFA::NFA(NFA&& NFA1) :  stateMap(NFA1.stateMap), current(NFA1.current), id(NFA1.id)
     {
-        NFA1.current="";
+        NFA1.current={""};
         NFA1.stateMap.clear();
     }
 
-    NFA::NFA(int id, const std::string& transition) : id(id), current("start_"+std::to_string(id))
+    NFA::NFA(int id, const std::string& transition) : id(id), current({"start_"+std::to_string(id)})
     {
         add_state("start_"+std::to_string(id));
         add_state("end_"+std::to_string(id));
@@ -50,6 +52,7 @@ namespace Nfa
         }
         return *this;
     }
+
 
 
     NFA plusNFA(NFA& NFA1)
@@ -77,7 +80,9 @@ namespace Nfa
     NFA catNFA(NFA& NFA1, NFA& NFA2)
     {
         NFA nfa{NFA1};
+        auto stateMap_copy=NFA2.stateMap;
         nfa<<NFA2;
+        NFA2.stateMap=stateMap_copy;
         nfa.id=NFA1.id+NFA2.id;
         nfa.add_state(nfa.getStart());
         nfa.add_state(nfa.getEnd());
@@ -93,7 +98,9 @@ namespace Nfa
     NFA orNFA(NFA& NFA1, NFA& NFA2)
     {
         NFA nfa{NFA1};
+        auto stateMap_copy=NFA2.stateMap;
         nfa<<NFA2;
+        NFA2.stateMap=stateMap_copy;
         nfa.id=NFA1.id+NFA2.id;
         nfa.add_state(nfa.getStart());
         nfa.add_state(nfa.getEnd());
@@ -105,4 +112,27 @@ namespace Nfa
         nfa.add_transition(NFA2.getEnd(), nfa.getEnd(), "");
         return nfa;
     }
+
+    void NFA::printNfa(std::ostream& stream)
+    {
+        stream<<"current_state_set:"<<std::endl;
+        std::copy(current.begin(), current.end(), std::ostream_iterator<std::string>(stream, " "));
+        stream<<std::endl;
+
+        stream<<"defined transitions:"<<std::endl;
+        for(auto& state: stateMap)
+        {
+            stream<<state.first<<" | ";
+            for(auto& transition: state.second)
+            {
+                stream<<std::format("(\"{}\", \"{}\")", transition.first, transition.second)<<" ;";
+            }
+            stream<<std::endl;
+        }
+        stream<<std::endl;
+    }
+
 }
+
+
+
