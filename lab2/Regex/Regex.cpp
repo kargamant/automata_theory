@@ -60,7 +60,7 @@ namespace Regex
         //std::cout<<"distance: "<<(closest_pair.second-closest_pair.first)<<std::endl;
 
 
-        return AST("a");
+        return asts[0];
     }
     std::pair<int, int> findClosestBrackets(std::vector<AST>& asts)
     {
@@ -150,8 +150,72 @@ namespace Regex
         }
     }
 
+    NFA formNfa(AST& ast, int id)
+    {
+        //std::cout<<"rec ast:"<<std::endl;
+        //ast.print();
+        if(ast.root->lNeighbour==nullptr && ast.root->rNeighbour==nullptr)
+        {
+            return NFA(id, ast.root->name);
+        }
+
+        NFA nfa1;
+        NFA nfa2;
+        if(ast.root->lNeighbour!=nullptr)
+        {
+            AST l_ast;
+            l_ast.root=ast.root->lNeighbour;
+            nfa1=formNfa(l_ast, id+1);
+        }
+
+        if(ast.root->rNeighbour!=nullptr)
+        {
+            AST r_ast;
+            r_ast.root=ast.root->rNeighbour;
+            nfa2=formNfa(r_ast, nfa1.getId()+1);
+        }
+
+        if(ast.root->lNeighbour==nullptr)
+        {
+            if(ast.root->name=="+")
+            {
+                return plusNFA(nfa2);
+            }
+            else if(ast.root->name=="?")
+            {
+                return optNFA(nfa2);
+            }
+        }
+        else if(ast.root->rNeighbour==nullptr)
+        {
+            if(ast.root->name=="+")
+            {
+                return plusNFA(nfa1);
+            }
+            else if(ast.root->name=="?")
+            {
+                return optNFA(nfa1);
+            }
+        }
+        else
+        {
+            if(ast.root->name=="|")
+            {
+                return orNFA(nfa1, nfa2);
+            }
+            else if(ast.root->name=="~")
+            {
+                return catNFA(nfa1, nfa2);
+            }
+        }
+
+
+    }
+
     void Regex::compile(const std::string& expr)
     {
-        formAst(expr);
+        AST ast=formAst(expr);
+        NFA nfa=formNfa(ast, 1);
+        nfa.printNfa();
     }
 }

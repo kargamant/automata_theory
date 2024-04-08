@@ -21,6 +21,7 @@ namespace Ast
     {
         public:
             std::shared_ptr<Node> root;
+            AST() : root(nullptr) {}
             AST(const std::string& name); //to create an ast of single node
             AST(std::shared_ptr<Node> node, AST& ast); //to make an ast
             AST(AST& lAst, AST& rAst, std::shared_ptr<Node> node);

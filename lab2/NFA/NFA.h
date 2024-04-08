@@ -11,16 +11,16 @@ namespace Nfa
     private:
         //structure of table
         //from | <to, how>
-        std::unordered_map<std::string, std::unordered_map<std::string, std::string>> stateMap;
+        std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> stateMap;
         std::vector<std::string> current;
         int id;
 
         void add_state(const std::string& name);
         void add_transition(const std::string& from, const std::string& to, const std::string& condition);
         void delete_state(const std::string& name);
-        void delete_transition(const std::string& from, const std::string& to);
+        void delete_transition(const std::string& from, const std::string& to, int i);
     public:
-        NFA();
+        NFA() : id(-1) {}
         NFA(int id, const std::string& transition);
         NFA(NFA& NFA1);
         NFA(NFA&& NFA1);
@@ -29,8 +29,10 @@ namespace Nfa
 
         std::string getStart() {return "start_"+std::to_string(id);}
         std::string getEnd() {return "end_"+std::to_string(id);}
+        int getId() {return id;}
         void printNfa(std::ostream& stream=std::cout);
 
+        NFA& operator=(NFA&& nfa);
         NFA& operator<<(NFA& nfa);
 
         friend NFA orNFA(NFA& NFA1, NFA& NFA2);

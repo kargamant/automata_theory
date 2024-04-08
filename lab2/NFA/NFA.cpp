@@ -7,12 +7,16 @@ namespace Nfa
 {
     void NFA::add_state(const std::string& name)
     {
-        stateMap.insert({name, std::unordered_map<std::string, std::string>()});
+        stateMap.insert({name, std::unordered_map<std::string, std::vector<std::string>>()});
     }
 
     void NFA::add_transition(const std::string& from, const std::string& to, const std::string& condition)
     {
-        stateMap[from].insert({to, condition});
+        if(stateMap[from].contains(to)) stateMap[from][to].push_back(condition);
+        else
+        {
+            stateMap[from].insert({to, {condition}});
+        }
     }
 
 
@@ -20,9 +24,9 @@ namespace Nfa
     {
         stateMap.erase(name);
     }
-    void NFA::delete_transition(const std::string& from, const std::string& to)
+    void NFA::delete_transition(const std::string& from, const std::string& to, int i)
     {
-        stateMap[from].erase(to);
+        stateMap[from][to].erase(stateMap[from][to].begin()+i);
     }
 
 
@@ -54,6 +58,16 @@ namespace Nfa
     }
 
 
+    NFA& NFA::operator=(NFA&& nfa)
+    {
+        if(&nfa!=this)
+        {
+            stateMap=nfa.stateMap;
+            current=nfa.current;
+            id=nfa.id;
+        }
+        return *this;
+    }
 
     NFA plusNFA(NFA& NFA1)
     {
@@ -125,7 +139,10 @@ namespace Nfa
             stream<<state.first<<" | ";
             for(auto& transition: state.second)
             {
-                stream<<std::format("(\"{}\", \"{}\")", transition.first, transition.second)<<" ;";
+                for(auto& condition: transition.second)
+                {
+                    stream<<std::format("(\"{}\", \"{}\")", transition.first, condition)<<" ;";
+                }
             }
             stream<<std::endl;
         }
