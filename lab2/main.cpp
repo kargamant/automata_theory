@@ -1,10 +1,10 @@
 #include <Regex.h>
-#include <NFA.h>
+#include <Automat.h>
 
 int main()
 {
     //(ba|b?|in|g+)kd((op?)l(ab(t+k?)cde+}?)p)+k?(ha+lalp?|ha+ram?)?
-    std::string expr="(ab+|c?)piska(sos|sas)+";
+    std::string expr="(abg+|c?)piska(sos|sas)+";
     Regex::Regex reg;
     reg.compile(expr);
 

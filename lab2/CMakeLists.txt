@@ -12,13 +12,12 @@ add_subdirectory(AST)
 #    AST/CMakeLists.txt
 #    Regex/CMakeLists.txt
 #)
-add_subdirectory(NFA)
+add_subdirectory(Automat)
 add_subdirectory(Regex)
 add_executable(main main.cpp Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
-    NFA/NFA.h
-    NFA/NFA.cpp
+    Automat/Automat.cpp Automat/Automat.h
     )
-target_link_libraries(main reg nfa)
+target_link_libraries(main reg automat)
 #target_link_libraries(main ast)
 
 #include(GNUInstallDirs)

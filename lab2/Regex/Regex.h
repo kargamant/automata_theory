@@ -3,14 +3,14 @@
 #include <string>
 //#include "Automat.h"
 #include <AST.h>
-#include <NFA.h>
+#include <Automat.h>
 using namespace Ast;
-using namespace Nfa;
+using namespace Automato;
 
 namespace Regex
 {
     AST formAst(const std::string& expr);
-    NFA formNfa(AST& ast, int id);
+    Automat formAutomat(AST& ast, int id);
     std::pair<int, int> findClosestBrackets(std::vector<AST>& asts);
     void bracketsPairToAst(std::pair<int, int>& closest_pair, std::vector<AST>& asts);
     void concatAsts(std::vector<AST>& asts);

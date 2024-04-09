@@ -150,62 +150,62 @@ namespace Regex
         }
     }
 
-    NFA formNfa(AST& ast, int id)
+    Automat formAutomat(AST& ast, int id)
     {
         //std::cout<<"rec ast:"<<std::endl;
         //ast.print();
         if(ast.root->lNeighbour==nullptr && ast.root->rNeighbour==nullptr)
         {
-            return NFA(id, ast.root->name);
+            return Automat(id, ast.root->name);
         }
 
-        NFA nfa1;
-        NFA nfa2;
+        Automat nfa1;
+        Automat nfa2;
         if(ast.root->lNeighbour!=nullptr)
         {
             AST l_ast;
             l_ast.root=ast.root->lNeighbour;
-            nfa1=formNfa(l_ast, id+1);
+            nfa1=formAutomat(l_ast, id+1);
         }
 
         if(ast.root->rNeighbour!=nullptr)
         {
             AST r_ast;
             r_ast.root=ast.root->rNeighbour;
-            nfa2=formNfa(r_ast, nfa1.getId()+1);
+            nfa2=formAutomat(r_ast, nfa1.getId()+1);
         }
 
         if(ast.root->lNeighbour==nullptr)
         {
             if(ast.root->name=="+")
             {
-                return plusNFA(nfa2);
+                return plusAutomat(nfa2);
             }
             else if(ast.root->name=="?")
             {
-                return optNFA(nfa2);
+                return optAutomat(nfa2);
             }
         }
         else if(ast.root->rNeighbour==nullptr)
         {
             if(ast.root->name=="+")
             {
-                return plusNFA(nfa1);
+                return plusAutomat(nfa1);
             }
             else if(ast.root->name=="?")
             {
-                return optNFA(nfa1);
+                return optAutomat(nfa1);
             }
         }
         else
         {
             if(ast.root->name=="|")
             {
-                return orNFA(nfa1, nfa2);
+                return orAutomat(nfa1, nfa2);
             }
             else if(ast.root->name=="~")
             {
-                return catNFA(nfa1, nfa2);
+                return catAutomat(nfa1, nfa2);
             }
         }
 
@@ -215,7 +215,7 @@ namespace Regex
     void Regex::compile(const std::string& expr)
     {
         AST ast=formAst(expr);
-        NFA nfa=formNfa(ast, 1);
-        nfa.printNfa();
+        Automat automat=formAutomat(ast, 1);
+        automat.printAutomat();
     }
 }
