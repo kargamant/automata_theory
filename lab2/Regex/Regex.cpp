@@ -89,7 +89,7 @@ namespace Regex
     {
 
         //looking for + or ?
-        for(int i=closest_pair.first+2; i<closest_pair.second; i++)
+        for(int i=closest_pair.first+1; i<closest_pair.second; i++)
         {
             if(asts[i].root->name=="+" || asts[i].root->name=="?")
             {
@@ -156,7 +156,10 @@ namespace Regex
         //ast.print();
         if(ast.root->lNeighbour==nullptr && ast.root->rNeighbour==nullptr)
         {
-            return Automat(id, ast.root->name);
+            //std::cout<<"leaf_"<<ast.root->name<<std::endl;
+            Automat automat=Automat(id, ast.root->name);
+            //automat.printAutomat();
+            return automat;
         }
 
         Automat nfa1;
@@ -179,33 +182,51 @@ namespace Regex
         {
             if(ast.root->name=="+")
             {
-                return plusAutomat(nfa2);
+                //std::cout<<"+right_neighbour_"<<ast.root->rNeighbour->name<<std::endl;
+                Automat automat=plusAutomat(nfa2);
+                //automat.printAutomat();
+                return automat;
             }
             else if(ast.root->name=="?")
             {
-                return optAutomat(nfa2);
+                //std::cout<<"?right_neighbour_"<<ast.root->rNeighbour->name<<std::endl;
+                Automat automat=optAutomat(nfa2);
+                //automat.printAutomat();
+                return automat;
             }
         }
         else if(ast.root->rNeighbour==nullptr)
         {
             if(ast.root->name=="+")
             {
-                return plusAutomat(nfa1);
+                //std::cout<<"+left_neighbour_"<<ast.root->lNeighbour->name<<std::endl;
+                Automat automat=plusAutomat(nfa1);
+                //automat.printAutomat();
+                return automat;
             }
             else if(ast.root->name=="?")
             {
-                return optAutomat(nfa1);
+                //std::cout<<"?left_neighbour_"<<ast.root->lNeighbour->name<<std::endl;
+                Automat automat=optAutomat(nfa1);
+                //automat.printAutomat();
+                return automat;
             }
         }
         else
         {
             if(ast.root->name=="|")
             {
-                return orAutomat(nfa1, nfa2);
+                //std::cout<<ast.root->lNeighbour->name<<" | "<<ast.root->rNeighbour->name<<std::endl;
+                Automat automat=orAutomat(nfa1, nfa2);
+                //automat.printAutomat();
+                return automat;
             }
             else if(ast.root->name=="~")
             {
-                return catAutomat(nfa1, nfa2);
+                //std::cout<<ast.root->lNeighbour->name<<" ~ "<<ast.root->rNeighbour->name<<std::endl;
+                Automat automat=catAutomat(nfa1, nfa2);
+                //automat.printAutomat();
+                return automat;
             }
         }
 
