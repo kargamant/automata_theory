@@ -1,4 +1,5 @@
 #include <Automat.h>
+#include <cstdlib>
 #include <string>
 #include <iostream>
 #include <format>
@@ -180,6 +181,7 @@ namespace Automato
         }
         stream<<"}"<<std::endl;
     }
+
 }
 
 
