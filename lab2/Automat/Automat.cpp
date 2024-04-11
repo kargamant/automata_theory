@@ -164,6 +164,22 @@ namespace Automato
         stream<<std::endl;
     }
 
+    void Automat::printDot(std::ostream& stream)
+    {
+        stream<<"digraph"<<std::endl<<"{"<<std::endl;
+        for(auto& state: stateMap)
+        {
+            for(auto& transition: state.second)
+            {
+                for(auto& condition: transition.second)
+                {
+                    if(condition!="") stream<<state.first<<"->"<<transition.first<<" [label="<<condition<<"]"<<std::endl;
+                    else stream<<state.first<<"->"<<transition.first<<" [label=ε]"<<std::endl;
+                }
+            }
+        }
+        stream<<"}"<<std::endl;
+    }
 }
 
 

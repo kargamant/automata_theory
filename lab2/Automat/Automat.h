@@ -32,6 +32,7 @@ namespace Automato
         std::string getEnd() {return "end_"+std::to_string(id);}
         int getId() {return id;}
         void printAutomat(std::ostream& stream=std::cout);
+        void printDot(std::ostream& stream=std::cout);
 
         Automat& operator=(Automat&& automat);
         Automat& operator<<(Automat& automat);

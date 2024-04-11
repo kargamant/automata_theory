@@ -18,12 +18,12 @@ namespace Regex
         }
 
         //where do we start
-        for(auto& ast: asts)
+        /*for(auto& ast: asts)
         {
             std::cout<<"ast:"<<std::endl;
             ast.print();
             std::cout<<std::endl;
-        }
+        }*/
 
         while(start_elements!=0)
         {
@@ -37,25 +37,25 @@ namespace Regex
 
         }
 
-        std::cout<<"brackets parced:"<<std::endl;
+        /*std::cout<<"brackets parced:"<<std::endl;
         for(auto& ast: asts)
         {
             std::cout<<"ast:"<<std::endl;
             ast.print();
             std::cout<<std::endl;
-        }
+        }*/
 
         std::pair<int, int> expr_boundaries={0, asts.size()};
         bracketsPairToAst(expr_boundaries, asts);
         concatAsts(asts);
 
-        std::cout<<"end check"<<std::endl;
+        /*std::cout<<"end check"<<std::endl;
         for(auto& ast: asts)
         {
             std::cout<<"ast:"<<std::endl;
             ast.print();
             std::cout<<std::endl;
-        }
+        }*/
         //std::cout<<"borders: "<<closest_pair.first<<" "<<closest_pair.second<<std::endl;
         //std::cout<<"distance: "<<(closest_pair.second-closest_pair.first)<<std::endl;
 
@@ -236,7 +236,9 @@ namespace Regex
     void Regex::compile(const std::string& expr)
     {
         AST ast=formAst(expr);
-        Automat automat=formAutomat(ast, 1);
-        automat.printAutomat();
+        Automat nfa=formAutomat(ast, 1);
+        automat=std::move(nfa);
+        //automat.printAutomat();
+        //automat.printDot();
     }
 }
