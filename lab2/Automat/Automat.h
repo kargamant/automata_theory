@@ -9,10 +9,13 @@ namespace Automato
     class Automat
     {
     private:
+        static const std::string alphabet;
         //structure of table
         //from | <to, vector<how>>
         std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> stateMap;
         std::vector<std::string> current;
+        std::string start;
+        std::string end;
         int id;
 
         void add_state(const std::string& name);
@@ -42,12 +45,14 @@ namespace Automato
         friend Automat plusAutomat(Automat& Automat1);
         friend Automat optAutomat(Automat& Automat1);
         friend Automat anyAutomat(int id);
+        friend Automat nfaToDfa(Automat& automat);
     };
     Automat orAutomat(Automat& Automat1, Automat& Automat2);
     Automat catAutomat(Automat& Automat1, Automat& Automat2);
     Automat plusAutomat(Automat& Automat1);
     Automat optAutomat(Automat& Automat1);
     Automat anyAutomat(int id);
+    Automat nfaToDfa(Automat& automat);
 }
 
 #endif // AUTOMAT_H

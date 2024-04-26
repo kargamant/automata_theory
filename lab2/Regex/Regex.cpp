@@ -109,7 +109,9 @@ namespace Regex
 
         //concatinating ~
         int i=closest_pair.first+2;
-        while((closest_pair.second-closest_pair.first)!=2 && (i-closest_pair.first)<(closest_pair.second-closest_pair.first))
+        //std::cout<<closest_pair.first<<" "<<closest_pair.second<<" "<<asts.size()<<std::endl;
+        //if(closest_pair.first==0 && closest_pair.second==asts.size()) i--;
+        while((closest_pair.second-closest_pair.first)!=2 && i<closest_pair.second)
         {
             if(asts[i].root->name!="|" && asts[i-1].root->name!="|")
             {
@@ -120,8 +122,7 @@ namespace Regex
             }
             else i++;
         }
-
-        if(asts.size()!=1)
+        if(asts.size()!=1 && asts.size()!=closest_pair.second)
         {
             //operation |
             for(int i=closest_pair.first+1; i<closest_pair.second; i++)
@@ -150,7 +151,7 @@ namespace Regex
         }
     }
 
-    Automat formAutomat(AST& ast, int id)
+    Automat formNfa(AST& ast, int id)
     {
         //std::cout<<"rec ast:"<<std::endl;
         //ast.print();
@@ -168,14 +169,14 @@ namespace Regex
         {
             AST l_ast;
             l_ast.root=ast.root->lNeighbour;
-            nfa1=formAutomat(l_ast, id+1);
+            nfa1=formNfa(l_ast, id+1);
         }
 
         if(ast.root->rNeighbour!=nullptr)
         {
             AST r_ast;
             r_ast.root=ast.root->rNeighbour;
-            nfa2=formAutomat(r_ast, nfa1.getId()+1);
+            nfa2=formNfa(r_ast, nfa1.getId()+1);
         }
 
         if(ast.root->lNeighbour==nullptr)
@@ -236,8 +237,11 @@ namespace Regex
     void Regex::compile(const std::string& expr)
     {
         AST ast=formAst(expr);
-        Automat nfa=formAutomat(ast, 1);
+        //ast.print();
+        Automat nfa=formNfa(ast, 1);
+        //minimizeNfa(nfa);
         automat=std::move(nfa);
+        //automat.printAutomat();
         //automat.printAutomat();
         //automat.printDot();
     }

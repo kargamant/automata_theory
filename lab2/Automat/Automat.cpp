@@ -1,11 +1,13 @@
 #include <Automat.h>
-#include <cstdlib>
 #include <string>
 #include <iostream>
 #include <format>
+#include <set>
+#include <unordered_map>
 
 namespace Automato
 {
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyz0123456789";
     void Automat::add_state(const std::string& name)
     {
         stateMap.insert({name, std::unordered_map<std::string, std::vector<std::string>>()});
@@ -46,12 +48,12 @@ namespace Automato
         }
     }
 
-    Automat::Automat(Automat& Automat1) : current(Automat1.current), id(Automat1.id), stateMap(Automat1.stateMap)
+    Automat::Automat(Automat& Automat1) : current(Automat1.current), id(Automat1.id), stateMap(Automat1.stateMap), start(Automat1.start), end(Automat1.end)
     {
         //stateMap.merge(Automat1.stateMap);
     }
 
-    Automat::Automat(Automat&& Automat1) :  stateMap(Automat1.stateMap), current(Automat1.current), id(Automat1.id)
+    Automat::Automat(Automat&& Automat1) :  stateMap(Automat1.stateMap), current(Automat1.current), id(Automat1.id), start(Automat1.start), end(Automat1.end)
     {
         Automat1.current={""};
         Automat1.stateMap.clear();
@@ -62,6 +64,8 @@ namespace Automato
         add_state("start_"+std::to_string(id));
         add_state("end_"+std::to_string(id));
         add_transition("start_"+std::to_string(id), "end_"+std::to_string(id), transition);
+        start=getStart();
+        end=getEnd();
     }
 
     Automat& Automat::operator<<(Automat& automat)
@@ -69,6 +73,8 @@ namespace Automato
         if(this!=&automat && automat.id!=id)
         {
             stateMap.merge(automat.stateMap);
+            start=automat.start;
+            end=automat.end;
         }
         return *this;
     }
@@ -81,6 +87,8 @@ namespace Automato
             stateMap=automat.stateMap;
             current=automat.current;
             id=automat.id;
+            start=automat.start;
+            end=automat.end;
         }
         return *this;
     }
@@ -121,6 +129,8 @@ namespace Automato
         automat.add_transition(Automat2.getEnd(), automat.getEnd(), "");
 
         automat.add_transition(Automat1.getEnd(), Automat2.getStart(), "");
+        automat.start=automat.getStart();
+        automat.end=automat.getEnd();
 
         return automat;
     }
@@ -140,6 +150,8 @@ namespace Automato
 
         automat.add_transition(Automat1.getEnd(), automat.getEnd(), "");
         automat.add_transition(Automat2.getEnd(), automat.getEnd(), "");
+        automat.start=automat.getStart();
+        automat.end=automat.getEnd();
         return automat;
     }
 
@@ -148,7 +160,10 @@ namespace Automato
         stream<<"current_state_set:"<<std::endl;
         std::copy(current.begin(), current.end(), std::ostream_iterator<std::string>(stream, " "));
         stream<<std::endl;
-
+        stream<<"start_state:"<<std::endl;
+        stream<<start<<std::endl;
+        stream<<"end_state:"<<std::endl;
+        stream<<end<<std::endl;
         stream<<"defined transitions:"<<std::endl;
         for(auto& state: stateMap)
         {
@@ -182,6 +197,73 @@ namespace Automato
         stream<<"}"<<std::endl;
     }
 
+    Automat nfaToDfa(Automat& automat)
+    {
+        Automat dfa;
+        std::vector<std::vector<std::string>> toProcess;
+
+        std::vector<std::string> epsStart;
+        for(auto& transition: automat.stateMap[automat.start])
+        {
+            for(auto& condition: transition.second)
+            {
+                if(condition=="") epsStart.push_back(transition.first);
+            }
+        }
+        toProcess.push_back(epsStart);
+
+        for(auto& symb: Automat::alphabet)
+        {
+            for(int i=0; i<toProcess[0].size(); i++)
+            {
+                for(auto& transition: automat.stateMap[toProcess[0][i]])
+                {
+                    for(auto& condition: transition.second)
+                    {
+                        if(condition[0]==symb)
+                        {
+
+                        }
+                    }
+                }
+            }
+        }
+        //std::unordered_map<std::string, std::vector<std::string>> t_sets;
+        // for(auto& state: automat.stateMap)
+        // {
+        //     std::vector<std::string> t_set;
+        //     for(auto& transition: state.second)
+        //     {
+        //         for(auto& condition: transition.second)
+        //         {
+        //             if(condition=="")
+        //             {
+        //                 t_set.push_back(transition.first);
+        //             }
+        //         }
+        //     }
+        //     std::cout<<state.first<<" | t_set: ";
+        //     std::copy(t_set.begin(), t_set.end(), std::ostream_iterator<std::string>(std::cout, " "));
+        //     std::cout<<std::endl;
+        //     dfa.add_state(state.first+"_dfa");
+        //     for(auto& symb: Automat::alphabet)
+        //     {
+        //         for(auto& state: t_set)
+        //         {
+        //             for(auto& transition: automat.stateMap[state])
+        //             {
+        //                 for(auto& condition: transition.second)
+        //                 {
+        //                     if(condition[0]==symb)
+        //                     {
+
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+    }
 }
 
 

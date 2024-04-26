@@ -10,7 +10,8 @@ using namespace Automato;
 namespace Regex
 {
     AST formAst(const std::string& expr);
-    Automat formAutomat(AST& ast, int id);
+    Automat formNfa(AST& ast, int id);
+    Automat formDfa(Automat& nfa);
     std::pair<int, int> findClosestBrackets(std::vector<AST>& asts);
     void bracketsPairToAst(std::pair<int, int>& closest_pair, std::vector<AST>& asts);
     void concatAsts(std::vector<AST>& asts);
