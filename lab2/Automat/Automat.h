@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <set>
+#include <vector>
 
 namespace Automato
 {

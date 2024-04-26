@@ -3,6 +3,8 @@
 #include <iostream>
 #include <format>
 #include <set>
+#include <vector>
+#include <iterator>
 #include <unordered_map>
 
 namespace Automato
@@ -202,16 +204,15 @@ namespace Automato
         Automat dfa;
         std::set<std::string> start_candidates;
         start_candidates=formStateSet(automat, {automat.start}, "");
-        start_candidates.insert(automat.start);
 
-        //std::copy(start_candidates.begin(), start_candidates.end(), std::ostream_iterator<std::string>(std::cout, " "));
-        for(auto& candidate: start_candidates)
+        std::copy(start_candidates.begin(), start_candidates.end(), std::ostream_iterator<std::string>(std::cout, " "));
+        /*for(auto& candidate: start_candidates)
         {
             for(auto& symb: Automat::alphabet)
             {
 
             }
-        }
+        }*/
 
         return dfa;
     }
@@ -221,6 +222,7 @@ namespace Automato
         std::set<std::string> set;
         for(auto& state: stateSet)
         {
+            //set.insert(state);
             for(auto& st: automat.stateMap[state])
             {
                 for(auto& tr: st.second)
