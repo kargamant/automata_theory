@@ -241,6 +241,7 @@ namespace Regex
         Automat nfa=formNfa(ast, 1);
         //minimizeNfa(nfa);
         automat=std::move(nfa);
+        nfaToDfa(automat);
         //automat.printAutomat();
         //automat.printAutomat();
         //automat.printDot();

@@ -15,8 +15,9 @@ add_subdirectory(AST)
 add_subdirectory(Automat)
 add_subdirectory(Regex)
 file(COPY scripts DESTINATION .)
-add_executable(main main.cpp Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
+add_executable(main  Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     Automat/Automat.cpp Automat/Automat.h
+    main.cpp
     )
 target_link_libraries(main reg automat)
 #target_link_libraries(main ast)

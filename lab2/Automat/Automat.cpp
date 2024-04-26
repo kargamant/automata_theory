@@ -200,69 +200,39 @@ namespace Automato
     Automat nfaToDfa(Automat& automat)
     {
         Automat dfa;
-        std::vector<std::vector<std::string>> toProcess;
+        std::set<std::string> start_candidates;
+        start_candidates=formStateSet(automat, {automat.start}, "");
+        start_candidates.insert(automat.start);
 
-        std::vector<std::string> epsStart;
-        for(auto& transition: automat.stateMap[automat.start])
+        //std::copy(start_candidates.begin(), start_candidates.end(), std::ostream_iterator<std::string>(std::cout, " "));
+        for(auto& candidate: start_candidates)
         {
-            for(auto& condition: transition.second)
+            for(auto& symb: Automat::alphabet)
             {
-                if(condition=="") epsStart.push_back(transition.first);
+
             }
         }
-        toProcess.push_back(epsStart);
 
-        for(auto& symb: Automat::alphabet)
+        return dfa;
+    }
+
+    std::set<std::string> formStateSet(Automat& automat, const std::set<std::string>& stateSet, const std::string& transition)
+    {
+        std::set<std::string> set;
+        for(auto& state: stateSet)
         {
-            for(int i=0; i<toProcess[0].size(); i++)
+            for(auto& st: automat.stateMap[state])
             {
-                for(auto& transition: automat.stateMap[toProcess[0][i]])
+                for(auto& tr: st.second)
                 {
-                    for(auto& condition: transition.second)
-                    {
-                        if(condition[0]==symb)
-                        {
-
-                        }
-                    }
+                    if(tr==transition) set.insert(st.first);
                 }
             }
+            auto result=formStateSet(automat, set, transition);
+            std::move(result.begin(), result.end(), std::inserter<std::set<std::string>>(set, set.end()));
         }
-        //std::unordered_map<std::string, std::vector<std::string>> t_sets;
-        // for(auto& state: automat.stateMap)
-        // {
-        //     std::vector<std::string> t_set;
-        //     for(auto& transition: state.second)
-        //     {
-        //         for(auto& condition: transition.second)
-        //         {
-        //             if(condition=="")
-        //             {
-        //                 t_set.push_back(transition.first);
-        //             }
-        //         }
-        //     }
-        //     std::cout<<state.first<<" | t_set: ";
-        //     std::copy(t_set.begin(), t_set.end(), std::ostream_iterator<std::string>(std::cout, " "));
-        //     std::cout<<std::endl;
-        //     dfa.add_state(state.first+"_dfa");
-        //     for(auto& symb: Automat::alphabet)
-        //     {
-        //         for(auto& state: t_set)
-        //         {
-        //             for(auto& transition: automat.stateMap[state])
-        //             {
-        //                 for(auto& condition: transition.second)
-        //                 {
-        //                     if(condition[0]==symb)
-        //                     {
 
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        return set;
     }
 }
 
