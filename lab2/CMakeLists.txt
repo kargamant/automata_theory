@@ -17,7 +17,9 @@ add_subdirectory(Regex)
 add_subdirectory(StateSet)
 add_subdirectory(State)
 add_subdirectory(Transition)
-file(COPY scripts DESTINATION .)
+file(COPY genPng.sh DESTINATION .)
+file(COPY viz.py DESTINATION .)
+file(COPY regex_exp.txt DESTINATION .)
 add_executable(main  Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     Automat/Automat.cpp Automat/Automat.h
     main.cpp
@@ -25,6 +27,7 @@ add_executable(main  Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     StateSet/StateSet.cpp StateSet/StateSet.h
     State/State.cpp State/State.h
     Transition/Transition.cpp Transition/Transition.h
+    regex_exp.txt
 
     )
 target_link_libraries(main reg automat)

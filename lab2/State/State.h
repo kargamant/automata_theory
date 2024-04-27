@@ -5,6 +5,7 @@
 struct State
 {
     std::string name;
+    bool isAccepting;
     int id;
     State(const std::string& name, int id) : name(name), id(id) {}
     std::string getFullName() {return name+"_"+std::to_string(id);}

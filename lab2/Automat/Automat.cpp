@@ -203,6 +203,7 @@ namespace Automato
     Automat nfaToDfa(Automat& automat)
     {
         Automat dfa;
+        //std::cout<<"forming start candidates:"<<std::endl;
         StateSet start_candidates=formStateSet(automat, {automat.start}, "");
         start_candidates.set.insert(automat.start);
         std::queue<StateSet> queue;
