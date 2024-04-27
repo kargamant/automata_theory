@@ -10,7 +10,7 @@
 
 namespace Automato
 {
-    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyz0123456789";
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%$#@!";
     void Automat::add_state(const std::string& name)
     {
         stateMap.insert({name, std::unordered_map<std::string, std::vector<std::string>>()});
@@ -207,7 +207,7 @@ namespace Automato
             {
                 for(auto& condition: transition.second)
                 {
-                    if(condition!="") stream<<state.first<<"->"<<transition.first<<" [label="<<condition<<"]"<<std::endl;
+                    if(condition!="") stream<<state.first<<"->"<<transition.first<<" [label=\""<<condition<<"\"]"<<std::endl;
                     else stream<<state.first<<"->"<<transition.first<<" [label=ε]"<<std::endl;
                 }
             }

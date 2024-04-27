@@ -2,6 +2,7 @@
 #include <iostream>
 #include <limits>
 #include <stack>
+#include <chrono>
 
 namespace Regex
 {
@@ -238,18 +239,27 @@ namespace Regex
 
     void Regex::compile(const std::string& expr)
     {
+        double sum_time;
+
+        auto start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         AST ast=formAst(expr);
-        //ast.print();
-        //ast.print();
+        auto finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        sum_time+=finish.count()-start.count();
+        std::cout<<"AST built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+
+        start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat nfa=formNfa(ast, 1);
-        //nfa.printAutomat();
-        //nfa.printDot();
-        //nfa.printDot();
-        //minimizeNfa(nfa);
+        finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        sum_time+=finish.count()-start.count();
+        std::cout<<"NFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+
+        start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat dfa=nfaToDfa(nfa);
+        finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        sum_time+=finish.count()-start.count();
+        std::cout<<"DFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+
+        std::cout<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
         automat=std::move(dfa);
-        //automat.printAutomat();
-        //automat.printAutomat();
-        automat.printDot();
     }
 }
