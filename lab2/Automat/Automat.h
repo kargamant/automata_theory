@@ -51,6 +51,7 @@ namespace Automato
         friend Automat anyAutomat(int id);
         friend Automat nfaToDfa(Automat& automat);
         friend StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition);
+        friend Automat minimizeDfa(Automat& dfa);
     };
     Automat orAutomat(Automat& Automat1, Automat& Automat2);
     Automat catAutomat(Automat& Automat1, Automat& Automat2);
@@ -58,6 +59,7 @@ namespace Automato
     Automat optAutomat(Automat& Automat1);
     Automat anyAutomat(int id);
     Automat nfaToDfa(Automat& automat);
+    Automat minimizeDfa(Automat& dfa);
     StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition);
 }
 

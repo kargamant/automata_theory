@@ -3,7 +3,7 @@
 
 int StateSet::LAST_ID=0;
 
-void StateSet::print(std::ostream& stream)
+void StateSet::print(std::ostream& stream) const
 {
     stream<<name<<"_"<<id<<std::endl;
     stream<<"set: {";

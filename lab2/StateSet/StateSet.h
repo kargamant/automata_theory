@@ -10,7 +10,10 @@ struct StateSet
     std::string name;
     int id;
     StateSet(std::set<std::string>& set, std::string name="StateSet") : set(set), name(name), id(LAST_ID+1) { LAST_ID++;}
-    StateSet(std::string state="amogus", std::string name="StateSet") : set({state}), name(name), id(LAST_ID+1) { LAST_ID++;}
-    void print(std::ostream& stream=std::cout);
+    StateSet(std::string state, std::string name="StateSet") : set({state}), name(name), id(LAST_ID+1) { LAST_ID++;}
+    StateSet() : name("StateSet"), id(LAST_ID+1) {LAST_ID++;}
+    void print(std::ostream& stream=std::cout) const;
+
+    bool operator<(const StateSet& set2) const {return set.size()<set2.set.size();}
     std::string getFullName() {return name+std::to_string(id);}
 };

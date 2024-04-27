@@ -29,7 +29,7 @@ namespace Regex
         Automat getAutomat() {return automat;}
 
         void compile(const std::string& expr);
-
+        void compilationTiming(const std::string& expr, std::ostream& stream);
     };
 
 }

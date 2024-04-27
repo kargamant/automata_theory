@@ -328,6 +328,103 @@ namespace Automato
         }
         return {set};
     }
+
+    Automat minimizeDfa(Automat& dfa)
+    {
+        std::set<StateSet> groups{dfa.accepting};
+        StateSet non_accepting;
+        for(auto& state: dfa.stateMap)
+        {
+            if(!dfa.accepting.contains(state.first)) non_accepting.set.insert(state.first);
+        }
+        groups.insert(non_accepting);
+
+        bool noChanges=false;
+        while(!noChanges)
+        {
+            std::cout<<"debug"<<std::endl;
+            for(auto& group: groups)
+            {
+                std::cout<<"Group:"<<std::endl;
+                group.print();
+            }
+            std::set<StateSet> new_groups;
+            noChanges=true;
+            for(auto& group: groups)
+            {
+                for(auto& state1: group.set)
+                {
+                    for(auto& state2: group.set)
+                    {
+                        if(state1==state2) break;
+                        for(auto& symb: Automat::alphabet)
+                        {
+                            std::string dest1;
+                            std::string dest2;
+                            for(auto& to: dfa.stateMap[state1])
+                            {
+                                bool isFound=false;
+                                for(auto& transition: to.second)
+                                {
+                                    if(transition==std::string{symb})
+                                    {
+                                        dest1=to.first;
+                                        isFound=true;
+                                        break;
+                                    }
+                                }
+                                if(isFound) break;
+                            }
+
+                            for(auto& to: dfa.stateMap[state2])
+                            {
+                                bool isFound=false;
+                                for(auto& transition: to.second)
+                                {
+                                    if(transition==std::string{symb})
+                                    {
+                                        dest2=to.first;
+                                        isFound=true;
+                                        break;
+                                    }
+                                }
+                                if(isFound) break;
+                            }
+                            if(dest1.empty() || dest2.empty()) continue;
+                            bool groupsCreated=false;
+                            for(auto& gr: groups)
+                            {
+                                if((gr.set.contains(dest1) && !gr.set.contains(dest2)) || (!gr.set.contains(dest1) && gr.set.contains(dest2)))
+                                {
+                                    groupsCreated=true;
+                                    StateSet ss1{state1};
+                                    StateSet ss2{state2};
+                                    new_groups.insert(ss1);
+                                    new_groups.insert(ss2);
+                                    break;
+                                }
+                            }
+                            if(groupsCreated) break;
+                        }
+                    }
+                }
+            }
+
+            if(!new_groups.empty())
+            {
+                std::cout<<"new ones:"<<std::endl;
+                std::cout<<new_groups.empty()<<std::endl;
+                for(auto& new_group: new_groups)
+                {
+                    std::cout<<"new Group:"<<std::endl;
+                    new_group.print();
+                }
+                noChanges=false;
+                groups.merge(new_groups);
+            }
+        }
+        return dfa;
+    }
 }
 
 

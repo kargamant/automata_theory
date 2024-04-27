@@ -15,6 +15,7 @@ namespace Regex
         {
             if(expr[i]=='(') start_elements++;
             std::string node_name{expr[i]};
+            //std::cout<<"node name: "<<node_name<<std::endl;
             asts.emplace_back(node_name);
         }
 
@@ -32,8 +33,9 @@ namespace Regex
 
             bracketsPairToAst(closest_pair, asts);
 
+            //std::cout<<closest_pair.first<<" "<<closest_pair.second<<" "<<asts.size()<<std::endl;
+            asts.erase(asts.begin()+closest_pair.second);
             asts.erase(asts.begin()+closest_pair.first);
-            asts.erase(asts.begin()+closest_pair.second-1);
             start_elements--;
 
         }
@@ -69,6 +71,7 @@ namespace Regex
        std::pair<int, int> closest_pair={0, std::numeric_limits<int>::max()};
        for(int i=0; i<asts.size(); i++)
        {
+           //asts[i].print();
            if(asts[i].root->name=="(")
            {
                open_indicies.push(i);
@@ -239,27 +242,42 @@ namespace Regex
 
     void Regex::compile(const std::string& expr)
     {
-        double sum_time;
+        AST ast=formAst(expr);
+        //ast.print();
+
+        Automat nfa=formNfa(ast, 1);
+        //nfa.printAutomat();
+
+        Automat dfa=nfaToDfa(nfa);
+        //dfa.printAutomat();
+        //minimizeDfa(dfa);
+        automat=std::move(dfa);
+    }
+
+    void Regex::compilationTiming(const std::string& expr, std::ostream& stream)
+    {
+        double sum_time=0;
 
         auto start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         AST ast=formAst(expr);
         auto finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
-        std::cout<<"AST built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        stream<<"AST built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat nfa=formNfa(ast, 1);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
-        std::cout<<"NFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        stream<<"NFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat dfa=nfaToDfa(nfa);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
-        std::cout<<"DFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        stream<<"DFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
 
-        std::cout<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
+        stream<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
         automat=std::move(dfa);
+
     }
 }
