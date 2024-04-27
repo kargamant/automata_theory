@@ -6,6 +6,8 @@
 struct StateSet
 {
     static int LAST_ID;
+    bool isStarting;
+    bool isAccepting;
     std::set<std::string> set;
     std::string name;
     int id;

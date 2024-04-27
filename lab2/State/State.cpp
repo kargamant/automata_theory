@@ -2,5 +2,8 @@
 
 void State::print(std::ostream& stream)
 {
-    stream<<getFullName()<<std::endl;
+    stream<<name<<std::endl;
+    stream<<"isStarting: "<<isStarting<<std::endl;
+    stream<<"isAccepting: "<<isAccepting<<std::endl;
+
 }

@@ -6,19 +6,51 @@
 #include <vector>
 #include <StateSet.h>
 #include <State.h>
+#include <Transition.h>
+#include <memory>
 
 namespace Automato
 {
+    struct StateHash
+    {
+        std::size_t operator()(const State& key) const
+        {
+            return std::hash<std::string>()(key.name);
+        }
+    };
+
+    struct nonConstStateHash
+    {
+        std::size_t operator()(State& key)
+        {
+            return std::hash<std::string>()(key.name);
+        }
+    };
+    struct StateEqual
+    {
+        bool operator()(const State& key1, const State& key2) const
+        {
+            return (key1.name == key2.name);
+        }
+    };
+
+    struct nonConstStateEqual
+    {
+        bool operator()(State& key1, State& key2)
+        {
+            return (key1.name == key2.name);
+        }
+    };
     class Automat
     {
     private:
         static const std::string alphabet;
         //structure of table
         //from | <to, vector<how>>
-        std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> stateMap;
-        std::vector<std::string> current;
-        std::string start;
-        std::string end;
+        std::unordered_map<State, std::unordered_map<State, std::vector<Transition>, StateHash, StateEqual>, StateHash, StateEqual> stateMap;
+        std::vector<State> current;
+        std::shared_ptr<State> start;
+        std::shared_ptr<State> end;
         int id;
 
         void add_state(const std::string& name);

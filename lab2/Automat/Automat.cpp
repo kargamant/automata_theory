@@ -13,15 +13,15 @@ namespace Automato
     const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyz0123456789";
     void Automat::add_state(const std::string& name)
     {
-        stateMap.insert({name, std::unordered_map<std::string, std::vector<std::string>>()});
+        stateMap.insert({{name}, std::unordered_map<State, std::vector<Transition>, StateHash, StateEqual>()});
     }
 
     void Automat::add_transition(const std::string& from, const std::string& to, const std::string& condition)
     {
-        if(stateMap[from].contains(to)) stateMap[from][to].push_back(condition);
+        if(stateMap[from].contains(to)) stateMap[from][to].push_back({from, to, condition});
         else
         {
-            stateMap[from].insert({to, {condition}});
+            stateMap[from].insert({to, {from, to, condition}});
         }
     }
 
@@ -43,7 +43,7 @@ namespace Automato
     {
         for(int i=0; i<stateMap[from][to].size(); i++)
         {
-            if(stateMap[from][to][i]==condition)
+            if(stateMap[from][to][i].tr==condition)
             {
                 delete_transition(from, to, i);
                 break;
@@ -58,7 +58,7 @@ namespace Automato
 
     Automat::Automat(Automat&& Automat1) :  stateMap(Automat1.stateMap), current(Automat1.current), id(Automat1.id), start(Automat1.start), end(Automat1.end)
     {
-        Automat1.current={""};
+        Automat1.current={};
         Automat1.stateMap.clear();
     }
 
@@ -69,6 +69,8 @@ namespace Automato
         add_transition("start_"+std::to_string(id), "end_"+std::to_string(id), transition);
         start=getStart();
         end=getEnd();
+        start.isStarting=true;
+        end.isAccepting=true;
     }
 
     Automat& Automat::operator<<(Automat& automat)
@@ -110,6 +112,7 @@ namespace Automato
         Automat automat{Automat1};
 
         automat.add_transition(Automat1.getStart(), Automat1.getEnd(), "");
+        Automat1.start.isAccepting=true;
         return automat;
     }
 
@@ -120,6 +123,10 @@ namespace Automato
 
     Automat catAutomat(Automat& Automat1, Automat& Automat2)
     {
+        Automat1.start.isStarting=false;
+        Automat1.end.isAccepting=false;
+        Automat2.start.isStarting=false;
+        Automat2.end.isAccepting=false;
         Automat automat{Automat1};
         auto stateMap_copy=Automat2.stateMap;
         automat<<Automat2;
@@ -134,12 +141,17 @@ namespace Automato
         automat.add_transition(Automat1.getEnd(), Automat2.getStart(), "");
         automat.start=automat.getStart();
         automat.end=automat.getEnd();
-
+        automat.start.isStarting=true;
+        automat.end.isAccepting=true;
         return automat;
     }
 
     Automat orAutomat(Automat& Automat1, Automat& Automat2)
     {
+        Automat1.start.isStarting=false;
+        Automat1.end.isAccepting=false;
+        Automat2.start.isStarting=false;
+        Automat2.end.isAccepting=false;
         Automat automat{Automat1};
         auto stateMap_copy=Automat2.stateMap;
         automat<<Automat2;
@@ -192,6 +204,8 @@ namespace Automato
             {
                 for(auto& condition: transition.second)
                 {
+                    if(state.first==start) stream<<state.first<<"[color=\"red\"]"<<std::endl;
+                    else if(state.first==end) stream<<state.first<<"[color=\"green\"]"<<std::endl;
                     if(condition!="") stream<<state.first<<"->"<<transition.first<<" [label="<<condition<<"]"<<std::endl;
                     else stream<<state.first<<"->"<<transition.first<<" [label=ε]"<<std::endl;
                 }
@@ -202,6 +216,7 @@ namespace Automato
 
     Automat nfaToDfa(Automat& automat)
     {
+        std::string accepting=automat.end;
         Automat dfa;
         //std::cout<<"forming start candidates:"<<std::endl;
         StateSet start_candidates=formStateSet(automat, {automat.start}, "");
@@ -210,6 +225,7 @@ namespace Automato
         queue.push(start_candidates);
         std::vector<StateSet> added_sets;
         added_sets.push_back(start_candidates);
+        dfa.start=start_candidates.getFullName();
         //start_candidates.print();
         dfa.add_state(start_candidates.getFullName());
         while(!queue.empty())
