@@ -251,6 +251,13 @@ namespace Automato
                 auto symb_set=formStateSet(automat, candidate, {symb});
                 auto eps_set=formStateSet(automat, symb_set, "");
                 eps_set.set.merge(symb_set.set);
+                /*if(eps_set.getFullName()=="StateSet48791" || eps_set.getFullName()=="StateSet48494")
+                {
+                    std::cout<<"debug"<<std::endl;
+                    eps_set.print();
+                }*/
+                //std::cout<<eps_set.getFullName()<<std::endl;
+                //std::cout<<eps_set.set.empty()<<std::endl;
                 if(!eps_set.set.empty())
                 {
                     bool isNew=true;
@@ -285,10 +292,10 @@ namespace Automato
 
         for(auto& added_set: added_sets)
         {
-            std::cout<<added_set.getFullName()<<std::endl;
+            //std::cout<<added_set.getFullName()<<std::endl;
             for(auto& state: added_set.set)
             {
-                std::cout<<state<<std::endl<<std::endl;
+                //std::cout<<state<<std::endl<<std::endl;
                 if(automat.accepting.contains(state))
                 {
                     dfa.accepting.insert(added_set.getFullName());
@@ -296,8 +303,6 @@ namespace Automato
                 }
             }
         }
-        //std::cout<<"especcially for 1344:"<<std::endl;
-        //std::cout<<automat.stateMap.contains("start_1344")<<std::endl;
         return dfa;
     }
 

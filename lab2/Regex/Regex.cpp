@@ -157,10 +157,10 @@ namespace Regex
         //ast.print();
         if(ast.root->lNeighbour==nullptr && ast.root->rNeighbour==nullptr)
         {
-            std::cout<<"leaf_"<<ast.root->name<<std::endl;
+            //std::cout<<"leaf_"<<ast.root->name<<std::endl;
             Automat automat=Automat(id, ast.root->name);
-            automat.printAutomat();
-            std::cout<<"root name: \""<<ast.root->name<<"\""<<std::endl;
+            //automat.printAutomat();
+            //std::cout<<"root name: \""<<ast.root->name<<"\""<<std::endl;
             return automat;
         }
 
@@ -186,14 +186,14 @@ namespace Regex
             {
                 //std::cout<<"+right_neighbour_"<<ast.root->rNeighbour->name<<std::endl;
                 Automat automat=plusAutomat(nfa2);
-                automat.printAutomat();
+                //automat.printAutomat();
                 return automat;
             }
             else if(ast.root->name=="?")
             {
                 //std::cout<<"?right_neighbour_"<<ast.root->rNeighbour->name<<std::endl;
                 Automat automat=optAutomat(nfa2);
-                automat.printAutomat();
+                //automat.printAutomat();
                 return automat;
             }
         }
@@ -203,14 +203,14 @@ namespace Regex
             {
                 //std::cout<<"+left_neighbour_"<<ast.root->lNeighbour->name<<std::endl;
                 Automat automat=plusAutomat(nfa1);
-                automat.printAutomat();
+                //automat.printAutomat();
                 return automat;
             }
             else if(ast.root->name=="?")
             {
                 //std::cout<<"?left_neighbour_"<<ast.root->lNeighbour->name<<std::endl;
                 Automat automat=optAutomat(nfa1);
-                automat.printAutomat();
+                //automat.printAutomat();
                 return automat;
             }
         }
@@ -220,7 +220,7 @@ namespace Regex
             {
                 //std::cout<<ast.root->lNeighbour->name<<" | "<<ast.root->rNeighbour->name<<std::endl;
                 Automat automat=orAutomat(nfa1, nfa2);
-                automat.printAutomat();
+                //automat.printAutomat();
                 return automat;
             }
             else if(ast.root->name=="~")
@@ -228,7 +228,7 @@ namespace Regex
                 //std::cout<<ast.root->lNeighbour->name<<" ~ "<<ast.root->rNeighbour->name<<std::endl;
                 //if(ast.root->rNeighbour->name.empty())
                 Automat automat=catAutomat(nfa1, nfa2);
-                automat.printAutomat();
+                //automat.printAutomat();
                 return automat;
             }
         }
@@ -239,11 +239,11 @@ namespace Regex
     void Regex::compile(const std::string& expr)
     {
         AST ast=formAst(expr);
-        ast.print();
+        //ast.print();
         //ast.print();
         Automat nfa=formNfa(ast, 1);
-        nfa.printAutomat();
-        nfa.printDot();
+        //nfa.printAutomat();
+        //nfa.printDot();
         //nfa.printDot();
         //minimizeNfa(nfa);
         Automat dfa=nfaToDfa(nfa);

@@ -1,1 +1,1 @@
-(brat|bro+)+abc
+(hal?al|bebra+)(ko)+

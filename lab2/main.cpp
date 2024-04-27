@@ -8,7 +8,8 @@ int main()
     //minimization exp (brat|bro+)abc
     std::ifstream fs{"regex_exp.txt"};
     std::string expr;
-    std::getline(fs, expr);
+    fs>>expr;
+    fs.close();
     Regex::Regex reg;
     reg.compile(expr);
     //reg.getAutomat().printAutomat();
