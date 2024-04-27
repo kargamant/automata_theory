@@ -17,6 +17,7 @@ namespace Automato
         //from | <to, vector<how>>
         std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> stateMap;
         std::vector<std::string> current;
+        std::set<std::string> accepting;
         std::string start;
         std::string end;
         int id;

@@ -5,17 +5,24 @@ namespace Ast
 
     AST::AST(const std::string& name) : root(new Node(name))
     {
+        if(name.empty())
+        {
+            root=nullptr;
+        }
     }
 
     AST::AST(std::shared_ptr<Node> node, AST& ast) : root(node)
     {
-        root->lNeighbour=ast.root;
+        if(!ast.root->name.empty()) root->lNeighbour=ast.root;
+        else root->lNeighbour=nullptr;
     }
 
     AST::AST(AST& lAst, AST& rAst, std::shared_ptr<Node> node) : root(node)
     {
-        root->lNeighbour=lAst.root;
-        root->rNeighbour=rAst.root;
+        if(!lAst.root->name.empty()) root->lNeighbour=lAst.root;
+        else root->lNeighbour=nullptr;
+        if(!rAst.root->name.empty()) root->rNeighbour=rAst.root;
+        else root->rNeighbour=nullptr;
     }
 
     int Node::printNode(std::ostream& stream, int spaces)
