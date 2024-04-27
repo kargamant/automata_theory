@@ -12,16 +12,19 @@ add_subdirectory(AST)
 #  PRIVATE
 #    AST/CMakeLists.txt
 #    Regex/CMakeLists.txt
-#)
 add_subdirectory(Automat)
 add_subdirectory(Regex)
 add_subdirectory(StateSet)
+add_subdirectory(State)
+add_subdirectory(Transition)
 file(COPY scripts DESTINATION .)
 add_executable(main  Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     Automat/Automat.cpp Automat/Automat.h
     main.cpp
     StateMap/StateMap.cpp StateMap/StateMap.h
     StateSet/StateSet.cpp StateSet/StateSet.h
+    State/State.cpp State/State.h
+    Transition/Transition.cpp Transition/Transition.h
 
     )
 target_link_libraries(main reg automat)

@@ -240,8 +240,8 @@ namespace Regex
         //ast.print();
         Automat nfa=formNfa(ast, 1);
         //minimizeNfa(nfa);
-        automat=std::move(nfa);
-        nfaToDfa(automat);
+        Automat dfa=nfaToDfa(nfa);
+        automat=std::move(dfa);
         //automat.printAutomat();
         //automat.printAutomat();
         //automat.printDot();

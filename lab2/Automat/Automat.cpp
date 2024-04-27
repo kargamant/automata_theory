@@ -207,7 +207,10 @@ namespace Automato
         start_candidates.set.insert(automat.start);
         std::queue<StateSet> queue;
         queue.push(start_candidates);
-
+        std::vector<StateSet> added_sets;
+        added_sets.push_back(start_candidates);
+        start_candidates.print();
+        dfa.add_state(start_candidates.getFullName());
         while(!queue.empty())
         {
             auto candidate=queue.front();
@@ -217,17 +220,31 @@ namespace Automato
                 auto symb_set=formStateSet(automat, candidate, {symb});
                 auto eps_set=formStateSet(automat, symb_set, "");
                 eps_set.set.merge(symb_set.set);
-                queue.push(eps_set);
                 if(!eps_set.set.empty())
                 {
-                    std::cout<<std::format("Z_eps(T_{}({}))=", symb, candidate.getFullName());
-                    eps_set.print();
-                    queue.push(eps_set);
+                    bool isNew=true;
+                    for(auto& added_set: added_sets)
+                    {
+                        if(added_set.set==eps_set.set)
+                        {
+                            isNew=false;
+                            break;
+                        }
+                    }
+                    if(isNew)
+                    {
+                        queue.push(eps_set);
+                        std::cout<<std::format("Z_eps(T_{}({}))=", symb, candidate.getFullName());
+                        eps_set.print();
+                        added_sets.push_back(eps_set);
+
+                        dfa.add_state(eps_set.getFullName());
+                        dfa.add_transition(candidate.getFullName(), eps_set.getFullName(), {symb});
+                    }
                 }
             }
             queue.pop();
         }
-
         return dfa;
     }
 

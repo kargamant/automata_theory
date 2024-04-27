@@ -1,6 +1,7 @@
 #include <set>
 #include <string>
 #include <iostream>
+#include <State.h>
 
 struct StateSet
 {

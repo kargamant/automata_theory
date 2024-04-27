@@ -1,3 +1,2 @@
-(cd .. ; ./main.exe) > ../automato.dot
+(cd .. ; ./main) > ../automato.dot
 python3 viz.py
-gthumb ../automato.png

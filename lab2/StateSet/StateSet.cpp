@@ -10,3 +10,4 @@ void StateSet::print(std::ostream& stream)
     std::copy(set.begin(), set.end(), std::ostream_iterator<std::string>(stream, ", "));
     stream<<"}"<<std::endl;
 }
+

@@ -7,7 +7,7 @@ int main()
     std::string expr="(brat|bro+)";
     Regex::Regex reg;
     reg.compile(expr);
-    reg.getAutomat().printAutomat();
+    //reg.getAutomat().printAutomat();
     reg.getAutomat().printDot();
 
     return 0;

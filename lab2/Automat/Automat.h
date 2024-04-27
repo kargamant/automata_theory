@@ -3,9 +3,9 @@
 #include <unordered_map>
 #include <string>
 #include <iostream>
-#include <set>
 #include <vector>
 #include <StateSet.h>
+#include <State.h>
 
 namespace Automato
 {
