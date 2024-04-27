@@ -4,6 +4,8 @@ project(lab2 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_compile_options(-g)
+
 add_subdirectory(AST)
 
 #target_sources(lab2
@@ -13,10 +15,14 @@ add_subdirectory(AST)
 #)
 add_subdirectory(Automat)
 add_subdirectory(Regex)
+add_subdirectory(StateSet)
 file(COPY scripts DESTINATION .)
 add_executable(main  Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     Automat/Automat.cpp Automat/Automat.h
     main.cpp
+    StateMap/StateMap.cpp StateMap/StateMap.h
+    StateSet/StateSet.cpp StateSet/StateSet.h
+
     )
 target_link_libraries(main reg automat)
 #target_link_libraries(main ast)

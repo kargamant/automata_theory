@@ -5,6 +5,7 @@
 #include <iostream>
 #include <set>
 #include <vector>
+#include <StateSet.h>
 
 namespace Automato
 {
@@ -48,7 +49,7 @@ namespace Automato
         friend Automat optAutomat(Automat& Automat1);
         friend Automat anyAutomat(int id);
         friend Automat nfaToDfa(Automat& automat);
-        friend std::set<std::string> formStateSet(Automat& automat, const std::set<std::string>& stateSet, const std::string& transition);
+        friend StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition);
     };
     Automat orAutomat(Automat& Automat1, Automat& Automat2);
     Automat catAutomat(Automat& Automat1, Automat& Automat2);
@@ -56,7 +57,7 @@ namespace Automato
     Automat optAutomat(Automat& Automat1);
     Automat anyAutomat(int id);
     Automat nfaToDfa(Automat& automat);
-    std::set<std::string> formStateSet(Automat& automat, const std::set<std::string>& stateSet, const std::string& transition);
+    StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition);
 }
 
 #endif // AUTOMAT_H

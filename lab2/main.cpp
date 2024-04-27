@@ -8,6 +8,7 @@ int main()
     Regex::Regex reg;
     reg.compile(expr);
     reg.getAutomat().printAutomat();
+    reg.getAutomat().printDot();
 
     return 0;
 }

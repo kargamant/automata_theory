@@ -6,6 +6,7 @@
 #include <vector>
 #include <iterator>
 #include <unordered_map>
+#include <queue>
 
 namespace Automato
 {
@@ -202,39 +203,55 @@ namespace Automato
     Automat nfaToDfa(Automat& automat)
     {
         Automat dfa;
-        std::set<std::string> start_candidates;
-        start_candidates=formStateSet(automat, {automat.start}, "");
+        StateSet start_candidates=formStateSet(automat, {automat.start}, "");
+        start_candidates.set.insert(automat.start);
+        std::queue<StateSet> queue;
+        queue.push(start_candidates);
 
-        std::copy(start_candidates.begin(), start_candidates.end(), std::ostream_iterator<std::string>(std::cout, " "));
-        /*for(auto& candidate: start_candidates)
+        while(!queue.empty())
         {
+            auto candidate=queue.front();
+
             for(auto& symb: Automat::alphabet)
             {
-
+                auto symb_set=formStateSet(automat, candidate, {symb});
+                auto eps_set=formStateSet(automat, symb_set, "");
+                eps_set.set.merge(symb_set.set);
+                queue.push(eps_set);
+                if(!eps_set.set.empty())
+                {
+                    std::cout<<std::format("Z_eps(T_{}({}))=", symb, candidate.getFullName());
+                    eps_set.print();
+                    queue.push(eps_set);
+                }
             }
-        }*/
+            queue.pop();
+        }
 
         return dfa;
     }
 
-    std::set<std::string> formStateSet(Automat& automat, const std::set<std::string>& stateSet, const std::string& transition)
+    StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition)
     {
         std::set<std::string> set;
-        for(auto& state: stateSet)
+        for(auto& state: stateSet.set)
         {
-            //set.insert(state);
             for(auto& st: automat.stateMap[state])
             {
                 for(auto& tr: st.second)
                 {
-                    if(tr==transition) set.insert(st.first);
+                    if(tr==transition)
+                    {
+                        set.insert(st.first);
+                        break;
+                    }
                 }
             }
             auto result=formStateSet(automat, set, transition);
-            std::move(result.begin(), result.end(), std::inserter<std::set<std::string>>(set, set.end()));
+            std::move(result.set.begin(), result.set.end(), std::inserter<std::set<std::string>>(set, set.end()));
+            //set.emplace(state);
         }
-
-        return set;
+        return {set};
     }
 }
 
