@@ -209,11 +209,25 @@ namespace Automato
         queue.push(start_candidates);
         std::vector<StateSet> added_sets;
         added_sets.push_back(start_candidates);
-        start_candidates.print();
+        //start_candidates.print();
         dfa.add_state(start_candidates.getFullName());
         while(!queue.empty())
         {
+            //bool isNew=true;
             auto candidate=queue.front();
+            /*for(auto& added_set: added_sets)
+            {
+                if(added_set.set==candidate.set && candidate.set!=start_candidates.set)
+                {
+                    isNew=false;
+                    break;
+                }
+            }
+            if(!isNew)
+            {
+                queue.pop();
+                continue;
+            }*/
 
             for(auto& symb: Automat::alphabet)
             {
@@ -223,23 +237,29 @@ namespace Automato
                 if(!eps_set.set.empty())
                 {
                     bool isNew=true;
+                    StateSet same;
                     for(auto& added_set: added_sets)
                     {
                         if(added_set.set==eps_set.set)
                         {
                             isNew=false;
+                            same=added_set;
                             break;
                         }
                     }
                     if(isNew)
                     {
                         queue.push(eps_set);
-                        std::cout<<std::format("Z_eps(T_{}({}))=", symb, candidate.getFullName());
-                        eps_set.print();
-                        added_sets.push_back(eps_set);
+                        //std::cout<<std::format("Z_eps(T_{}({}))=", symb, candidate.getFullName());
+                        //eps_set.print();
+                        added_sets.push_back(candidate);
 
                         dfa.add_state(eps_set.getFullName());
                         dfa.add_transition(candidate.getFullName(), eps_set.getFullName(), {symb});
+                    }
+                    else //if(eps_set.set==candidate.set)
+                    {
+                        dfa.add_transition(candidate.getFullName(), same.getFullName(), {symb});
                     }
                 }
             }
