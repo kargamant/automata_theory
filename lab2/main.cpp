@@ -6,7 +6,8 @@ int main()
 {
     //(ba|b?|in|g+)kd((op?)l(ab(t+k?)cde+}?)p)+k?(ha+lalp?|ha+ram?)?
     //(hal?al|bebra+)Yasos(biba|boba)?
-    //minimization exp (brat|bro+)abc
+    //minimization monkey examples (aaab?)+, (pok+|pak+)+
+    //less monkey example ((uc)?pok+|pak+)+
     std::ifstream fs{"regex_exp.txt"};
     std::string expr;
     fs>>expr;

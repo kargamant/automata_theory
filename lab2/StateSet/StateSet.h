@@ -14,6 +14,6 @@ struct StateSet
     StateSet() : name("StateSet"), id(LAST_ID+1) {LAST_ID++;}
     void print(std::ostream& stream=std::cout) const;
 
-    bool operator<(const StateSet& set2) const {return set.size()<set2.set.size();}
+    bool operator<(const StateSet& set2) const {return set<set2.set;}
     std::string getFullName() {return name+std::to_string(id);}
 };

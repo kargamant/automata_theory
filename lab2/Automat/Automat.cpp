@@ -7,10 +7,11 @@
 #include <iterator>
 #include <unordered_map>
 #include <queue>
+#include <algorithm>
 
 namespace Automato
 {
-    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%$#@!";
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%$#@!.";
     void Automat::add_state(const std::string& name)
     {
         stateMap.insert({name, std::unordered_map<std::string, std::vector<std::string>>()});
@@ -340,23 +341,32 @@ namespace Automato
         groups.insert(non_accepting);
 
         bool noChanges=false;
+        std::set<StateSet> new_groups;
         while(!noChanges)
         {
+            int set_size=new_groups.size();
             std::cout<<"debug"<<std::endl;
             for(auto& group: groups)
             {
                 std::cout<<"Group:"<<std::endl;
                 group.print();
             }
-            std::set<StateSet> new_groups;
             noChanges=true;
+            std::vector<StateSet> to_eliminate;
+            std::set<std::pair<std::string, std::string>> checked_groups;
             for(auto& group: groups)
             {
+                StateSet group_copy=group;
+                if(group.set.size()==1) continue;
                 for(auto& state1: group.set)
                 {
                     for(auto& state2: group.set)
                     {
-                        if(state1==state2) break;
+                        if(state1==state2) continue;
+                        if(checked_groups.contains({state1, state2}) || checked_groups.contains({state2, state1})) continue;
+                        else checked_groups.insert({state1, state2});
+                        std::cout<<"states pair:"<<std::endl;
+                        std::cout<<"( "<<state1<<", "<<state2<<" )"<<std::endl;
                         for(auto& symb: Automat::alphabet)
                         {
                             std::string dest1;
@@ -390,30 +400,65 @@ namespace Automato
                                 }
                                 if(isFound) break;
                             }
-                            if(dest1.empty() || dest2.empty()) continue;
+                            std::cout<<"symb: "<<symb<<std::endl;
+                            std::cout<<"destinations: "<<dest1<<" "<<dest2<<std::endl;
+                            if(dest1.empty() && dest2.empty()) continue;
+                            else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty()))
+                            {
+                                //StateSet ss1{state1};
+                                StateSet ss2{state2};
+
+                                //new_groups.insert(ss1);
+                                new_groups.insert(ss2);
+
+                                //group_copy.set.erase(state1);
+                                group_copy.set.erase(state2);
+
+                                if(!group_copy.set.empty()) new_groups.insert(group_copy);
+                                else to_eliminate.push_back(group);
+
+                                std::cout<<"changes:"<<std::endl;
+                                for(auto& gr: new_groups) gr.print();
+                                break;
+                            }
                             bool groupsCreated=false;
                             for(auto& gr: groups)
                             {
                                 if((gr.set.contains(dest1) && !gr.set.contains(dest2)) || (!gr.set.contains(dest1) && gr.set.contains(dest2)))
                                 {
                                     groupsCreated=true;
-                                    StateSet ss1{state1};
+                                    //StateSet ss1{state1};
                                     StateSet ss2{state2};
-                                    new_groups.insert(ss1);
+
+                                    //new_groups.insert(ss1);
                                     new_groups.insert(ss2);
+
+                                    //group_copy.set.erase(state1);
+                                    group_copy.set.erase(state2);
+
+                                    if(!group_copy.set.empty()) new_groups.insert(group_copy);
+                                    else to_eliminate.push_back(group);
+
+                                    std::cout<<"changes:"<<std::endl;
+                                    for(auto& gr: new_groups) gr.print();
                                     break;
                                 }
                             }
+
+                            //danger zone
+                            //groups.erase(group);
+                            //groups.insert(gr);
                             if(groupsCreated) break;
                         }
                     }
                 }
             }
 
-            if(!new_groups.empty())
+            if(set_size!=new_groups.size() && !new_groups.empty())
             {
                 std::cout<<"new ones:"<<std::endl;
-                std::cout<<new_groups.empty()<<std::endl;
+                std::cout<<new_groups.size()<<std::endl;
+                //std::cout<<new_groups.empty()<<std::endl;
                 for(auto& new_group: new_groups)
                 {
                     std::cout<<"new Group:"<<std::endl;
@@ -422,6 +467,13 @@ namespace Automato
                 noChanges=false;
                 groups.merge(new_groups);
             }
+            for(auto& target_group: to_eliminate) groups.erase(target_group);
+        }
+        std::cout<<"end:"<<std::endl;
+        for(auto& group: groups)
+        {
+            std::cout<<"Group:"<<std::endl;
+            group.print();
         }
         return dfa;
     }

@@ -250,7 +250,7 @@ namespace Regex
 
         Automat dfa=nfaToDfa(nfa);
         //dfa.printAutomat();
-        //minimizeDfa(dfa);
+        minimizeDfa(dfa);
         automat=std::move(dfa);
     }
 
@@ -263,12 +263,14 @@ namespace Regex
         auto finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
         stream<<"AST built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        //ast.print();
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat nfa=formNfa(ast, 1);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
         stream<<"NFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        //nfa.printAutomat();
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat dfa=nfaToDfa(nfa);
