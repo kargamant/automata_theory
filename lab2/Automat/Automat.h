@@ -16,7 +16,7 @@ namespace Automato
         //structure of table
         //from | <to, vector<how>>
         std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> stateMap;
-        std::vector<std::string> current;
+        std::set<std::string> current;
         std::set<std::string> accepting;
         std::string start;
         std::string end;
@@ -40,6 +40,7 @@ namespace Automato
         int getId() {return id;}
         void printAutomat(std::ostream& stream=std::cout);
         void printDot(std::ostream& stream=std::cout);
+        bool verifyStr(const std::string& str, std::string& result);
 
         Automat& operator=(Automat&& automat);
         Automat& operator<<(Automat& automat);

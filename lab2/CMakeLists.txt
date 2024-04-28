@@ -20,6 +20,7 @@ add_subdirectory(Transition)
 file(COPY genPng.sh DESTINATION .)
 file(COPY viz.py DESTINATION .)
 file(COPY regex_exp.txt DESTINATION .)
+file(COPY line.txt DESTINATION .)
 add_executable(main  Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     Automat/Automat.cpp Automat/Automat.h
     main.cpp

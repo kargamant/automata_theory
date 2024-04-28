@@ -32,6 +32,7 @@ namespace Regex
         void compilationWithLogging(const std::string& expr, std::ostream& stream);
     };
 
+    bool re_search(const std::string& str, std::string& result, Regex& re);
 }
 
 #endif // REGEX_H

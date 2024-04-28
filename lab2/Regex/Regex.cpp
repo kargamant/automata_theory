@@ -298,4 +298,21 @@ namespace Regex
         automat=std::move(minDfa);
 
     }
+
+    bool re_search(const std::string& str, std::string& result, Regex& re)
+    {
+        //re.getAutomat().printAutomat();
+        return re.getAutomat().verifyStr(str, result);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

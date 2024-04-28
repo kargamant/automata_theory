@@ -553,6 +553,38 @@ namespace Automato
         //minDfa.printDot();
         return minDfa;
     }
+
+
+    bool Automat::verifyStr(const std::string& str, std::string& result)
+    {
+        bool isValid=false;
+        current.clear();
+        current.insert(start);
+        for(int i=0; i<str.size(); i++)
+        {
+            isValid=false;
+            auto next_state=formStateSet(*this, current, {str[i]});
+            if(next_state.set.empty())
+            {
+                break;
+            }
+            auto eps_set=formStateSet(*this, next_state.set, "");
+            if(!eps_set.set.empty()) next_state.set.merge(eps_set.set);
+
+            current=next_state.set;
+            result+=str[i];
+            for(auto& acc: accepting)
+            {
+                if(current.contains(acc))
+                {
+                    isValid=true;
+                    break;
+                }
+            }
+        }
+
+        return isValid;
+    }
 }
 
 
