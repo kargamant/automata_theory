@@ -11,7 +11,7 @@
 
 namespace Automato
 {
-    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%$#@!.";
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%$#@!. ";
     void Automat::add_state(const std::string& name)
     {
         stateMap.insert({name, std::unordered_map<std::string, std::vector<std::string>>()});
@@ -558,23 +558,33 @@ namespace Automato
     }
 
 
-    bool Automat::verifyStr(const std::string& str, std::string& result)
+    bool Automat::verifyStr(const std::string& str, std::string& result, bool isNfa)
     {
         bool isValid=false;
+        bool isFound=false;
+
         current.clear();
         current.insert(start);
+
         for(int i=0; i<str.size(); i++)
         {
-            //StateSet(current).print();
             isValid=false;
-            std::string transition{str[i]};
-            auto next_state=formStateSet(*this, current, transition, false);
+            auto next_state=formStateSet(*this, current, {str[i]}, isNfa);
+
             if(next_state.set.empty())
             {
-                break;
+                if(isFound) break;
+                current.clear();
+                current.insert(start);
+                result.clear();
+                continue;
             }
-            auto eps_set=formStateSet(*this, next_state.set, "");
-            if(!eps_set.set.empty()) next_state.set.merge(eps_set.set);
+
+            if(isNfa)
+            {
+                auto eps_set=formStateSet(*this, next_state.set, "");
+                if(!eps_set.set.empty()) next_state.set.merge(eps_set.set);
+            }
 
             current=next_state.set;
             result+=str[i];
@@ -583,6 +593,7 @@ namespace Automato
                 if(current.contains(acc))
                 {
                     isValid=true;
+                    isFound=true;
                     break;
                 }
             }

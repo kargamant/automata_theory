@@ -40,7 +40,7 @@ namespace Automato
         int getId() {return id;}
         void printAutomat(std::ostream& stream=std::cout);
         void printDot(std::ostream& stream=std::cout);
-        bool verifyStr(const std::string& str, std::string& result);
+        bool verifyStr(const std::string& str, std::string& result, bool isNfa=false);
 
         Automat& operator=(Automat&& automat);
         Automat& operator<<(Automat& automat);
