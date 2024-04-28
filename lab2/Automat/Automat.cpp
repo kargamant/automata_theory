@@ -359,6 +359,8 @@ namespace Automato
             {
                 StateSet group_copy=group;
                 if(group.set.size()==1) continue;
+
+                bool groupsCreated=false;
                 for(auto& state1: group.set)
                 {
 
@@ -407,58 +409,58 @@ namespace Automato
                             if(dest1.empty() && dest2.empty()) continue;
                             else if((dest1.empty() && !dest2.empty() && dest2!=state1) || (!dest1.empty() && dest2.empty() && dest1!=state2))
                             {
+                                groupsCreated=true;
                                 StateSet ss1{state1};
-                                StateSet ss2{state2};
+                                //StateSet ss2{state2};
 
-                                for(auto& state: group.set)
+                                /*for(auto& state: group.set)
                                 {
                                     if(state!=state1 && state!=state2)
                                     {
                                         ss1.set.insert(state);
                                         ss2.set.insert(state);
                                     }
-                                }
+                                }*/
                                 new_groups.insert(ss1);
-                                new_groups.insert(ss2);
+                                //new_groups.insert(ss2);
                                 to_eliminate.push_back(group);
 
-                                //group_copy.set.erase(state1);
+                                group_copy.set.erase(state1);
                                 //group_copy.set.erase(state2);
 
-                                //if(!group_copy.set.empty()) new_groups.insert(group_copy);
-                                //to_eliminate.push_back(group);
+                                if(!group_copy.set.empty()) new_groups.insert(group_copy);
+                                to_eliminate.push_back(group);
 
                                 std::cout<<"changes:"<<std::endl;
                                 for(auto& gr: new_groups) gr.print();
                                 break;
                             }
                             else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty())) continue;
-                            bool groupsCreated=false;
                             for(auto& gr: groups)
                             {
                                 if((gr.set.contains(dest1) && !gr.set.contains(dest2)) || (!gr.set.contains(dest1) && gr.set.contains(dest2)))
                                 {
                                     groupsCreated=true;
-                                    StateSet ss1{state1};
+                                    //StateSet ss1{state1};
                                     StateSet ss2{state2};
 
 
-                                    for(auto& state: group.set)
+                                    /*for(auto& state: group.set)
                                     {
                                         if(state!=state1 && state!=state2)
                                         {
                                             ss1.set.insert(state);
                                             ss2.set.insert(state);
                                         }
-                                    }
-                                    new_groups.insert(ss1);
+                                    }*/
+                                    //new_groups.insert(ss1);
                                     new_groups.insert(ss2);
                                     to_eliminate.push_back(group);
                                     //group_copy.set.erase(state1);
-                                    //group_copy.set.erase(state2);
+                                    group_copy.set.erase(state2);
 
-                                    //if(!group_copy.set.empty()) new_groups.insert(group_copy);
-                                    //to_eliminate.push_back(group);
+                                    if(!group_copy.set.empty()) new_groups.insert(group_copy);
+                                    to_eliminate.push_back(group);
 
                                     std::cout<<"changes:"<<std::endl;
                                     for(auto& gr: new_groups) gr.print();
@@ -471,9 +473,12 @@ namespace Automato
                             //groups.insert(gr);
                             if(groupsCreated) break;
                         }
+                        if(groupsCreated) break;
                     }
                     checked_groups.insert(state1);
+                    if(groupsCreated) break;
                 }
+                if(groupsCreated) break;
             }
 
             if(set_size!=new_groups.size() && !new_groups.empty())
@@ -497,6 +502,7 @@ namespace Automato
             }
             //new_groups.clear();
         }
+
         std::cout<<"end:"<<std::endl;
         for(auto& group: groups)
         {
