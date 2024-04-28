@@ -19,7 +19,7 @@ namespace Automato
 
     void Automat::add_transition(const std::string& from, const std::string& to, const std::string& condition)
     {
-        if(stateMap[from].contains(to)) stateMap[from][to].push_back(condition);
+        if(stateMap[from].contains(to) && std::find(stateMap[from][to].begin(), stateMap[from][to].end(), condition)==stateMap[from][to].end()) stateMap[from][to].push_back(condition);
         else
         {
             stateMap[from].insert({to, {condition}});
@@ -332,6 +332,8 @@ namespace Automato
 
     Automat minimizeDfa(Automat& dfa)
     {
+        Automat minDfa;
+
         std::set<StateSet> groups{dfa.accepting};
         StateSet non_accepting;
         for(auto& state: dfa.stateMap)
@@ -346,12 +348,12 @@ namespace Automato
         while(!noChanges)
         {
             int set_size=new_groups.size();
-            std::cout<<"debug"<<std::endl;
-            for(auto& group: groups)
+            //std::cout<<"debug"<<std::endl;
+            /*for(auto& group: groups)
             {
                 std::cout<<"Group:"<<std::endl;
                 group.print();
-            }
+            }*/
             noChanges=true;
             std::vector<StateSet> to_eliminate;
             std::set<std::string> checked_groups;
@@ -369,8 +371,8 @@ namespace Automato
                         if(checked_groups.contains(state2)) continue;
                         if(state1==state2) continue;
 
-                        std::cout<<"states pair:"<<std::endl;
-                        std::cout<<"( "<<state1<<", "<<state2<<" )"<<std::endl;
+                        //std::cout<<"states pair:"<<std::endl;
+                        //std::cout<<"( "<<state1<<", "<<state2<<" )"<<std::endl;
                         for(auto& symb: Automat::alphabet)
                         {
                             std::string dest1;
@@ -404,10 +406,10 @@ namespace Automato
                                 }
                                 if(isFound) break;
                             }
-                            std::cout<<"symb: "<<symb<<std::endl;
-                            std::cout<<"destinations: "<<dest1<<" "<<dest2<<std::endl;
+                            //std::cout<<"symb: "<<symb<<std::endl;
+                            //std::cout<<"destinations: "<<dest1<<" "<<dest2<<std::endl;
                             if(dest1.empty() && dest2.empty()) continue;
-                            else if((dest1.empty() && !dest2.empty() && dest2!=state1) || (!dest1.empty() && dest2.empty() && dest1!=state2))
+                            else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty()))
                             {
                                 groupsCreated=true;
                                 StateSet ss1{state1};
@@ -431,11 +433,11 @@ namespace Automato
                                 if(!group_copy.set.empty()) new_groups.insert(group_copy);
                                 to_eliminate.push_back(group);
 
-                                std::cout<<"changes:"<<std::endl;
-                                for(auto& gr: new_groups) gr.print();
+                                //std::cout<<"changes:"<<std::endl;
+                                //for(auto& gr: new_groups) gr.print();
                                 break;
                             }
-                            else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty())) continue;
+                            //else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty())) continue;
                             for(auto& gr: groups)
                             {
                                 if((gr.set.contains(dest1) && !gr.set.contains(dest2)) || (!gr.set.contains(dest1) && gr.set.contains(dest2)))
@@ -462,8 +464,8 @@ namespace Automato
                                     if(!group_copy.set.empty()) new_groups.insert(group_copy);
                                     to_eliminate.push_back(group);
 
-                                    std::cout<<"changes:"<<std::endl;
-                                    for(auto& gr: new_groups) gr.print();
+                                    //std::cout<<"changes:"<<std::endl;
+                                    //for(auto& gr: new_groups) gr.print();
                                     break;
                                 }
                             }
@@ -483,33 +485,73 @@ namespace Automato
 
             if(set_size!=new_groups.size() && !new_groups.empty())
             {
-                std::cout<<"new ones:"<<std::endl;
-                std::cout<<new_groups.size()<<std::endl;
+                //std::cout<<"new ones:"<<std::endl;
+                //std::cout<<new_groups.size()<<std::endl;
                 //std::cout<<new_groups.empty()<<std::endl;
-                for(auto& new_group: new_groups)
+                /*for(auto& new_group: new_groups)
                 {
                     std::cout<<"new Group:"<<std::endl;
                     new_group.print();
-                }
+                }*/
                 noChanges=false;
                 groups.merge(new_groups);
                 for(auto& target_group: to_eliminate)
                 {
-                    std::cout<<"eliminating:"<<std::endl;
-                    target_group.print();
+                    //std::cout<<"eliminating:"<<std::endl;
+                    //target_group.print();
                     groups.erase(target_group);
                 }
             }
             //new_groups.clear();
         }
 
-        std::cout<<"end:"<<std::endl;
+        /*std::cout<<"end:"<<std::endl;
         for(auto& group: groups)
         {
             std::cout<<"Group:"<<std::endl;
             group.print();
+        }*/
+
+        for(auto& group: groups)
+        {
+            minDfa.add_state(group.getFullName());
+            for(auto& state: group.set)
+            {
+                if(dfa.accepting.contains(state))
+                {
+                    minDfa.accepting.insert(group.getFullName());
+                }
+                if(state==dfa.start)
+                {
+                    minDfa.start=group.getFullName();
+                }
+            }
         }
-        return dfa;
+
+        for(auto& group1: groups)
+        {
+            for(auto& state: group1.set)
+            {
+                for(auto& to: dfa.stateMap[state])
+                {
+                    for(auto& transition: to.second)
+                    {
+                        for(auto& group2: groups)
+                        {
+                            //if(group1.set==group2.set) continue;
+                            if(group2.set.contains(to.first))
+                            {
+                                auto transitions=minDfa.stateMap[group2.getFullName()][to.first];
+                                minDfa.add_transition(group1.getFullName(), group2.getFullName(), transition);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //std::cout<<"Automat:"<<std::endl;
+        //minDfa.printDot();
+        return minDfa;
     }
 }
 

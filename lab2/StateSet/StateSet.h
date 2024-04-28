@@ -15,5 +15,5 @@ struct StateSet
     void print(std::ostream& stream=std::cout) const;
 
     bool operator<(const StateSet& set2) const {return set<set2.set;}
-    std::string getFullName() {return name+std::to_string(id);}
+    std::string getFullName() const {return name+std::to_string(id);}
 };

@@ -250,8 +250,8 @@ namespace Regex
 
         Automat dfa=nfaToDfa(nfa);
         //dfa.printAutomat();
-        minimizeDfa(dfa);
-        automat=std::move(dfa);
+        Automat minDfa=minimizeDfa(dfa);
+        automat=std::move(minDfa);
     }
 
     void Regex::compilationTiming(const std::string& expr, std::ostream& stream)
@@ -278,8 +278,14 @@ namespace Regex
         sum_time+=finish.count()-start.count();
         stream<<"DFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
 
+        start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        Automat minDfa=minimizeDfa(dfa);
+        finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        sum_time+=finish.count()-start.count();
+        stream<<"DFA minimized in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+
         stream<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
-        automat=std::move(dfa);
+        automat=std::move(minDfa);
 
     }
 }
