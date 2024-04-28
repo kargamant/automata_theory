@@ -345,15 +345,16 @@ namespace Automato
         bool noChanges=false;
         std::set<StateSet> new_groups;
         std::set<std::string> to_leave;
+        std::unordered_map<std::string, std::set<std::string>> nonSepararatableStates;
         while(!noChanges)
         {
             int set_size=new_groups.size();
-            //std::cout<<"debug"<<std::endl;
-            /*for(auto& group: groups)
+            std::cout<<"debug"<<std::endl;
+            for(auto& group: groups)
             {
                 std::cout<<"Group:"<<std::endl;
                 group.print();
-            }*/
+            }
             noChanges=true;
             std::vector<StateSet> to_eliminate;
             std::set<std::string> checked_groups;
@@ -365,14 +366,15 @@ namespace Automato
                 bool groupsCreated=false;
                 for(auto& state1: group.set)
                 {
+                    groupsCreated=false;
 
                     for(auto& state2: group.set)
                     {
                         if(checked_groups.contains(state2)) continue;
                         if(state1==state2) continue;
 
-                        //std::cout<<"states pair:"<<std::endl;
-                        //std::cout<<"( "<<state1<<", "<<state2<<" )"<<std::endl;
+                        std::cout<<"states pair:"<<std::endl;
+                        std::cout<<"( "<<state1<<", "<<state2<<" )"<<std::endl;
                         for(auto& symb: Automat::alphabet)
                         {
                             std::string dest1;
@@ -406,35 +408,71 @@ namespace Automato
                                 }
                                 if(isFound) break;
                             }
-                            //std::cout<<"symb: "<<symb<<std::endl;
-                            //std::cout<<"destinations: "<<dest1<<" "<<dest2<<std::endl;
+                            std::cout<<"symb: "<<symb<<std::endl;
+                            std::cout<<"destinations: "<<dest1<<" "<<dest2<<std::endl;
                             if(dest1.empty() && dest2.empty()) continue;
                             else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty()))
                             {
                                 groupsCreated=true;
-                                StateSet ss1{state1};
-                                //StateSet ss2{state2};
-
-                                /*for(auto& state: group.set)
+                                StateSet ss;
+                                std::string to_remove;
+                                bool ss2Separatable=true;
+                                bool ss1Separatable=true;
+                                for(auto& sts: nonSepararatableStates[state1])
                                 {
-                                    if(state!=state1 && state!=state2)
+                                    if(group_copy.set.contains(sts))
                                     {
-                                        ss1.set.insert(state);
-                                        ss2.set.insert(state);
+                                        ss1Separatable=false;
+                                        break;
                                     }
-                                }*/
-                                new_groups.insert(ss1);
-                                //new_groups.insert(ss2);
-                                to_eliminate.push_back(group);
+                                }
+                                for(auto& sts: nonSepararatableStates[state2])
+                                {
+                                    if(group_copy.set.contains(sts))
+                                    {
+                                        ss2Separatable=false;
+                                        break;
+                                    }
+                                }
+                                std::cout<<"separatable: "<<ss1Separatable<<" "<<ss2Separatable<<std::endl;
+                                if(ss1Separatable)
+                                {
+                                    ss.set.insert(state1);
+                                    to_remove=state1;
+                                    new_groups.insert(ss);
+                                    group_copy.set.erase(to_remove);
+                                    if(!group_copy.set.empty()) new_groups.insert(group_copy);
+                                    to_eliminate.push_back(group);
+                                }
+                                else if(ss2Separatable)
+                                {
+                                    ss.set.insert(state2);
+                                    to_remove=state2;
+                                    new_groups.insert(ss);
+                                    group_copy.set.erase(to_remove);
+                                    if(!group_copy.set.empty()) new_groups.insert(group_copy);
+                                    to_eliminate.push_back(group);
+                                }
+                                else
+                                {
+                                    StateSet ss1{state1};
+                                    StateSet ss2{state2};
 
-                                group_copy.set.erase(state1);
-                                //group_copy.set.erase(state2);
+                                    for(auto& sts: nonSepararatableStates[state1])
+                                    {
+                                        ss1.set.insert(sts);
+                                    }
+                                    for(auto& sts: nonSepararatableStates[state2])
+                                    {
+                                        ss2.set.insert(sts);
+                                    }
+                                    new_groups.insert(ss1);
+                                    new_groups.insert(ss2);
+                                    to_eliminate.push_back(group);
+                                }
 
-                                if(!group_copy.set.empty()) new_groups.insert(group_copy);
-                                to_eliminate.push_back(group);
-
-                                //std::cout<<"changes:"<<std::endl;
-                                //for(auto& gr: new_groups) gr.print();
+                                std::cout<<"changes:"<<std::endl;
+                                for(auto& gr: new_groups) gr.print();
                                 break;
                             }
                             //else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty())) continue;
@@ -443,29 +481,81 @@ namespace Automato
                                 if((gr.set.contains(dest1) && !gr.set.contains(dest2)) || (!gr.set.contains(dest1) && gr.set.contains(dest2)))
                                 {
                                     groupsCreated=true;
-                                    //StateSet ss1{state1};
-                                    StateSet ss2{state2};
+                                    StateSet ss;
+                                    std::string to_remove;
+                                    bool ss2Separatable=true;
+                                    bool ss1Separatable=true;
+                                    for(auto& sts: nonSepararatableStates[state1])
+                                    {
+                                        if(group_copy.set.contains(sts))
+                                        {
+                                            ss1Separatable=false;
+                                            break;
+                                        }
+                                    }
+                                    for(auto& sts: nonSepararatableStates[state2])
+                                    {
+                                        if(group_copy.set.contains(sts))
+                                        {
+                                            ss2Separatable=false;
+                                            break;
+                                        }
+                                    }
+                                    std::cout<<"separatable: "<<ss1Separatable<<" "<<ss2Separatable<<std::endl;
+                                    if(ss1Separatable)
+                                    {
+                                        ss.set.insert(state1);
+                                        to_remove=state1;
+                                        new_groups.insert(ss);
+                                        group_copy.set.erase(to_remove);
+                                        if(!group_copy.set.empty()) new_groups.insert(group_copy);
+                                        to_eliminate.push_back(group);
+                                    }
+                                    else if(ss2Separatable)
+                                    {
+                                        ss.set.insert(state2);
+                                        to_remove=state2;
+                                        new_groups.insert(ss);
+                                        group_copy.set.erase(to_remove);
+                                        if(!group_copy.set.empty()) new_groups.insert(group_copy);
+                                        to_eliminate.push_back(group);
+                                    }
+                                    else
+                                    {
+                                        StateSet ss1{state1};
+                                        StateSet ss2{state2};
 
+                                        for(auto& sts: nonSepararatableStates[state1])
+                                        {
+                                            ss1.set.insert(sts);
+                                        }
+                                        for(auto& sts: nonSepararatableStates[state2])
+                                        {
+                                            ss2.set.insert(sts);
+                                        }
+                                        new_groups.insert(ss1);
+                                        new_groups.insert(ss2);
+                                        to_eliminate.push_back(group);
+                                    }
+                                    //StateSet ss1{state1};
+                                    //StateSet ss2{state2};
 
                                     /*for(auto& state: group.set)
+                                {
+                                    if(state!=state1 && state!=state2)
                                     {
-                                        if(state!=state1 && state!=state2)
-                                        {
-                                            ss1.set.insert(state);
-                                            ss2.set.insert(state);
-                                        }
-                                    }*/
-                                    //new_groups.insert(ss1);
-                                    new_groups.insert(ss2);
-                                    to_eliminate.push_back(group);
-                                    //group_copy.set.erase(state1);
-                                    group_copy.set.erase(state2);
+                                        ss1.set.insert(state);
+                                        ss2.set.insert(state);
+                                    }
+                                }*/
+                                    //new_groups.insert(ss2);
+                                    //to_eliminate.push_back(group);
 
-                                    if(!group_copy.set.empty()) new_groups.insert(group_copy);
-                                    to_eliminate.push_back(group);
+                                    //group_copy.set.erase(state2);
 
-                                    //std::cout<<"changes:"<<std::endl;
-                                    //for(auto& gr: new_groups) gr.print();
+
+                                    std::cout<<"changes:"<<std::endl;
+                                    for(auto& gr: new_groups) gr.print();
                                     break;
                                 }
                             }
@@ -475,7 +565,11 @@ namespace Automato
                             //groups.insert(gr);
                             if(groupsCreated) break;
                         }
-                        if(groupsCreated) break;
+                        if(!groupsCreated)
+                        {
+                            nonSepararatableStates[state1].insert(state2);
+                            nonSepararatableStates[state2].insert(state1);
+                        }
                     }
                     checked_groups.insert(state1);
                     if(groupsCreated) break;
@@ -505,12 +599,12 @@ namespace Automato
             //new_groups.clear();
         }
 
-        /*std::cout<<"end:"<<std::endl;
+        std::cout<<"end:"<<std::endl;
         for(auto& group: groups)
         {
             std::cout<<"Group:"<<std::endl;
             group.print();
-        }*/
+        }
 
         for(auto& group: groups)
         {
