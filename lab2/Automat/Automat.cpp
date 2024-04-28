@@ -307,7 +307,7 @@ namespace Automato
         return dfa;
     }
 
-    StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition)
+    StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition, bool isNfa)
     {
         std::set<std::string> set;
         for(auto& state: stateSet.set)
@@ -323,8 +323,11 @@ namespace Automato
                     }
                 }
             }
-            auto result=formStateSet(automat, set, transition);
-            std::move(result.set.begin(), result.set.end(), std::inserter<std::set<std::string>>(set, set.end()));
+            if(isNfa)
+            {
+                auto result=formStateSet(automat, set, transition);
+                std::move(result.set.begin(), result.set.end(), std::inserter<std::set<std::string>>(set, set.end()));
+            }
             //set.emplace(state);
         }
         return {set};
@@ -562,8 +565,10 @@ namespace Automato
         current.insert(start);
         for(int i=0; i<str.size(); i++)
         {
+            //StateSet(current).print();
             isValid=false;
-            auto next_state=formStateSet(*this, current, {str[i]});
+            std::string transition{str[i]};
+            auto next_state=formStateSet(*this, current, transition, false);
             if(next_state.set.empty())
             {
                 break;
