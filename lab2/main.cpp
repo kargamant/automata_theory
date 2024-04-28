@@ -9,12 +9,13 @@ int main()
     //minimization monkey examples (aaab?)+, (pok+|pak+)+
     //less monkey example ((uc)?pok+|pak+)+
     std::ifstream fs{"regex_exp.txt"};
+    std::ofstream log{"report.txt"};
     std::string expr;
     fs>>expr;
     //std::cout<<expr<<std::endl;
     fs.close();
     Regex::Regex reg;
-    reg.compile(expr);
+    reg.compilationWithLogging(expr, log);
     reg.getAutomat().printDot();
     //reg.getAutomat().printAutomat();
     //reg.getAutomat().printDot();

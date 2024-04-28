@@ -249,12 +249,13 @@ namespace Regex
         //nfa.printAutomat();
 
         Automat dfa=nfaToDfa(nfa);
+        //dfa.printDot();
         //dfa.printAutomat();
         Automat minDfa=minimizeDfa(dfa);
         automat=std::move(minDfa);
     }
 
-    void Regex::compilationTiming(const std::string& expr, std::ostream& stream)
+    void Regex::compilationWithLogging(const std::string& expr, std::ostream& stream)
     {
         double sum_time=0;
 
@@ -262,27 +263,36 @@ namespace Regex
         AST ast=formAst(expr);
         auto finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
-        stream<<"AST built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
-        //ast.print();
+        stream<<std::endl<<"AST built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        ast.print(stream);
+        stream<<std::string(100, '-')<<std::endl;
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat nfa=formNfa(ast, 1);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
-        stream<<"NFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
-        //nfa.printAutomat();
+        stream<<std::endl<<"NFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        nfa.printAutomat(stream);
+        nfa.printDot(stream);
+        stream<<std::string(100, '-')<<std::endl;
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat dfa=nfaToDfa(nfa);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
-        stream<<"DFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        stream<<std::endl<<"DFA built in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        dfa.printAutomat(stream);
+        dfa.printDot(stream);
+        stream<<std::string(100, '-')<<std::endl;
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat minDfa=minimizeDfa(dfa);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
-        stream<<"DFA minimized in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        stream<<std::endl<<"DFA minimized in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
+        minDfa.printAutomat(stream);
+        minDfa.printDot(stream);
+        stream<<std::string(100, '-')<<std::endl;
 
         stream<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
         automat=std::move(minDfa);
