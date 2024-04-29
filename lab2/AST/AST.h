@@ -10,7 +10,7 @@ namespace Ast
 
     struct Node
     {
-            const std::string name;
+            std::string name;
             std::shared_ptr<Node> lNeighbour;
             std::shared_ptr<Node> rNeighbour;
             Node(const std::string& name="") : name(name) {}

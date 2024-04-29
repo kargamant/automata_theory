@@ -14,7 +14,14 @@ namespace Regex
         for(int i=0; i<expr.size(); i++)
         {
             if(expr[i]=='(') start_elements++;
-            std::string node_name{expr[i]};
+            std::string node_name;
+            if(expr[i]=='&')
+            {
+                node_name=expr[i];
+                node_name+=expr[i+1];
+                i++;
+            }
+            else node_name=expr[i];
             //std::cout<<"node name: "<<node_name<<std::endl;
             asts.emplace_back(node_name);
         }
@@ -162,6 +169,7 @@ namespace Regex
         if(ast.root->lNeighbour==nullptr && ast.root->rNeighbour==nullptr)
         {
             //std::cout<<"leaf_"<<ast.root->name<<std::endl;
+            if(ast.root->name.starts_with("&")) ast.root->name=ast.root->name.substr(1);
             Automat automat=Automat(id, ast.root->name);
             //automat.printAutomat();
             //std::cout<<"root name: \""<<ast.root->name<<"\""<<std::endl;

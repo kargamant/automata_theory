@@ -11,7 +11,7 @@
 
 namespace Automato
 {
-    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%$#@!. ";
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%$#@!|. ";
     void Automat::add_state(const std::string& name)
     {
         stateMap.insert({name, std::unordered_map<std::string, std::vector<std::string>>()});
