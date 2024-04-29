@@ -44,6 +44,7 @@ namespace Automato
 
         Automat& operator=(Automat&& automat);
         Automat& operator<<(Automat& automat);
+        //Automat& operator+=(Automat& automat);
 
         friend Automat orAutomat(Automat& Automat1, Automat& Automat2);
         friend Automat catAutomat(Automat& Automat1, Automat& Automat2);
@@ -53,7 +54,9 @@ namespace Automato
         friend Automat nfaToDfa(Automat& automat);
         friend StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition, bool isNfa);
         friend Automat minimizeDfa(Automat& dfa);
+        friend Automat rangeAutomat(Automat& automat, int min, int max);
     };
+    Automat rangeAutomat(Automat& automat, int min, int max);
     Automat orAutomat(Automat& Automat1, Automat& Automat2);
     Automat catAutomat(Automat& Automat1, Automat& Automat2);
     Automat plusAutomat(Automat& Automat1);

@@ -21,6 +21,18 @@ namespace Regex
                 node_name+=expr[i+1];
                 i++;
             }
+            else if(expr[i]=='{')
+            {
+                int j=i+1;
+                node_name=expr[i];
+                while(expr[j]!='}')
+                {
+                    node_name+=expr[j];
+                    j++;
+                }
+                node_name+=expr[j];
+                i=j;
+            }
             else node_name=expr[i];
             //std::cout<<"node name: "<<node_name<<std::endl;
             asts.emplace_back(node_name);
@@ -288,6 +300,9 @@ namespace Regex
         nfa.printAutomat(stream);
         nfa.printDot(stream);
         stream<<std::string(100, '-')<<std::endl;
+
+        Automat automatRange=Automato::rangeAutomat(nfa, 4, 5);
+        automatRange.printDot();
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat dfa=nfaToDfa(nfa);

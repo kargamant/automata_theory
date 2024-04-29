@@ -100,6 +100,55 @@ namespace Automato
         return *this;
     }
 
+
+    Automat rangeAutomat(Automat& automat, int min, int max)
+    {
+        Automat rangeAutomat{automat};
+        Automat resultAutomat{automat};
+        for(int i=0; i<max-1; i++)
+        {
+            std::cout<<"range_debug"<<std::endl;
+            resultAutomat.printAutomat();
+            Automat rangeCopy;
+            for(auto& state: rangeAutomat.stateMap)
+            {
+                rangeCopy.add_state(state.first+std::to_string(i));
+            }
+            for(auto& state: rangeAutomat.stateMap)
+            {
+                for(auto& to: state.second)
+                {
+                    for(auto& tr: to.second)
+                    {
+                        rangeCopy.add_transition(state.first+std::to_string(i), to.first+std::to_string(i), tr);
+                    }
+                }
+            }
+            rangeCopy.start=rangeAutomat.start+std::to_string(i);
+            rangeCopy.end=rangeAutomat.end+std::to_string(i);
+            rangeCopy.accepting.clear();
+            rangeCopy.current.clear();
+            for(auto& acc: rangeAutomat.accepting) rangeCopy.accepting.insert(acc+std::to_string(i));
+            for(auto& cur: rangeAutomat.current) rangeCopy.current.insert(cur+std::to_string(i));
+
+            std::cout<<"range copy:"<<std::endl;
+            rangeCopy.printAutomat();
+
+            std::string end=resultAutomat.end;
+            resultAutomat<<rangeCopy;
+            resultAutomat.add_transition(end, rangeCopy.start, "");
+            resultAutomat.end=rangeCopy.end;
+            resultAutomat.current=rangeCopy.current;
+            resultAutomat.accepting=rangeCopy.accepting;
+
+        }
+        for(int i=min; i<max; i++)
+        {
+            resultAutomat.add_transition(rangeAutomat.end+std::to_string(i-2), rangeAutomat.end+std::to_string(max-2), "");
+        }
+        return resultAutomat;
+    }
+
     Automat plusAutomat(Automat& Automat1)
     {
         Automat automat{Automat1};
