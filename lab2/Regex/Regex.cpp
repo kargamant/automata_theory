@@ -170,6 +170,11 @@ namespace Regex
         {
             //std::cout<<"leaf_"<<ast.root->name<<std::endl;
             if(ast.root->name.starts_with("&")) ast.root->name=ast.root->name.substr(1);
+            else if(ast.root->name==".")
+            {
+                ast.root->name="&";
+                //std::cout<<ast.root->name<<std::endl;
+            }
             Automat automat=Automat(id, ast.root->name);
             //automat.printAutomat();
             //std::cout<<"root name: \""<<ast.root->name<<"\""<<std::endl;

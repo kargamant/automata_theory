@@ -316,11 +316,12 @@ namespace Automato
             {
                 for(auto& tr: st.second)
                 {
-                    if(tr==transition)
+                    if(tr==transition || (!isNfa && tr=="&"))
                     {
                         set.insert(st.first);
                         break;
                     }
+
                 }
             }
             if(isNfa)

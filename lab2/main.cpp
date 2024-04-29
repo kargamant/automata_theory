@@ -10,6 +10,7 @@ int main()
     //minimization monkey examples (aaab?)+, (pok+|pak+)+
     //less monkey example ((uc)?pok+|pak+)+
     //(tatu|bi2|sector(gaza)?)(coo+l|no+rm|meh)&?
+    //Jasper(Cu+min|Coo+min|Ma?glot)
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};
