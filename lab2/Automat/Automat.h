@@ -13,9 +13,11 @@ namespace Automato
     {
     private:
         static const std::string alphabet;
+        static std::unordered_map<std::string, bool> transitions_sieve;
+
         //structure of table
         //from | <to, vector<how>>
-        std::unordered_map<std::string, std::unordered_map<std::string, std::vector<std::string>>> stateMap;
+        std::unordered_map<std::string, std::unordered_map<std::string, std::unordered_map<std::string, bool>>> stateMap;
         std::set<std::string> current;
         std::set<std::string> accepting;
         std::string start;
@@ -25,8 +27,9 @@ namespace Automato
         void add_state(const std::string& name);
         void add_transition(const std::string& from, const std::string& to, const std::string& condition);
         void delete_state(const std::string& name);
-        void delete_transition(const std::string& from, const std::string& to, int i);
+        //void delete_transition(const std::string& from, const std::string& to, int i);
         void delete_transition(const std::string& from, const std::string& to, const std::string& condition);
+        static void activate_transitions_sieve();
     public:
         Automat() : id(-1) {}
         Automat(int id, const std::string& transition);
