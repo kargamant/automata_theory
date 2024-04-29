@@ -12,6 +12,9 @@ int main()
     //(tatu|bi2|sector(gaza)?)(coo+l|no+rm|meh)&?
     //Jasper(Cu+min|Coo+min|Ma?glot)
     //sus.clown(1488|228|2004)&+(hype)?&+
+    //yes(ab){0,5}.&+
+    //(hal?al|bebra+){0,2}Yasos(biba|boba)?
+    //sup.&+&|&?(how|what|when){1,3}are(you|they)+
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};

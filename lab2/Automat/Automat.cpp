@@ -116,8 +116,8 @@ namespace Automato
         Automat resultAutomat{automat};
         for(int i=0; i<max-1; i++)
         {
-            std::cout<<"range_debug"<<std::endl;
-            resultAutomat.printAutomat();
+            //std::cout<<"range_debug"<<std::endl;
+            //resultAutomat.printAutomat();
             Automat rangeCopy;
             for(auto& state: rangeAutomat.stateMap)
             {
@@ -141,8 +141,8 @@ namespace Automato
             for(auto& acc: rangeAutomat.accepting) rangeCopy.accepting.insert(acc+std::to_string(i));
             for(auto& cur: rangeAutomat.current) rangeCopy.current.insert(cur+std::to_string(i));
 
-            std::cout<<"range copy:"<<std::endl;
-            rangeCopy.printAutomat();
+            //std::cout<<"range copy:"<<std::endl;
+            //rangeCopy.printAutomat();
 
             std::string end=resultAutomat.end;
             resultAutomat<<rangeCopy;
@@ -168,6 +168,9 @@ namespace Automato
                 else resultAutomat.add_transition(rangeAutomat.start, rangeAutomat.end, "");
             }
         }
+
+        //resultAutomat.printAutomat();
+        //resultAutomat.printDot();
         return resultAutomat;
     }
 
@@ -175,7 +178,7 @@ namespace Automato
     {
         Automat automat{Automat1};
         //considering every Automat have its start and end
-        automat.add_transition(Automat1.getEnd(), Automat1.getStart(), "");
+        automat.add_transition(Automat1.end, Automat1.start, "");
         //automat.accepting.insert(Automat1.getStart());
         return automat;
     }
@@ -184,7 +187,7 @@ namespace Automato
     {
         Automat automat{Automat1};
 
-        automat.add_transition(Automat1.getStart(), Automat1.getEnd(), "");
+        automat.add_transition(Automat1.start, Automat1.end, "");
         //Automat1.accepting.insert(Automat1.start);
         return automat;
     }
@@ -204,15 +207,15 @@ namespace Automato
         automat.add_state(automat.getStart());
         automat.add_state(automat.getEnd());
 
-        automat.add_transition(automat.getStart(), Automat1.getStart(), "");
-        automat.add_transition(Automat2.getEnd(), automat.getEnd(), "");
+        automat.add_transition(automat.getStart(), Automat1.start, "");
+        automat.add_transition(Automat2.end, automat.getEnd(), "");
 
-        automat.add_transition(Automat1.getEnd(), Automat2.getStart(), "");
+        automat.add_transition(Automat1.end, Automat2.start, "");
         automat.start=automat.getStart();
         automat.end=automat.getEnd();
         automat.accepting.clear();
         automat.accepting.insert(automat.end);
-        automat.accepting.insert(Automat2.getEnd());
+        automat.accepting.insert(Automat2.end);
         return automat;
     }
 
@@ -226,17 +229,17 @@ namespace Automato
         automat.add_state(automat.getStart());
         automat.add_state(automat.getEnd());
 
-        automat.add_transition(automat.getStart(), Automat1.getStart(), "");
-        automat.add_transition(automat.getStart(), Automat2.getStart(), "");
+        automat.add_transition(automat.getStart(), Automat1.start, "");
+        automat.add_transition(automat.getStart(), Automat2.start, "");
 
-        automat.add_transition(Automat1.getEnd(), automat.getEnd(), "");
-        automat.add_transition(Automat2.getEnd(), automat.getEnd(), "");
+        automat.add_transition(Automat1.end, automat.getEnd(), "");
+        automat.add_transition(Automat2.end, automat.getEnd(), "");
         automat.start=automat.getStart();
         automat.end=automat.getEnd();
         automat.accepting.clear();
         automat.accepting.insert(automat.end);
-        automat.accepting.insert(Automat1.getEnd());
-        automat.accepting.insert(Automat2.getEnd());
+        automat.accepting.insert(Automat1.end);
+        automat.accepting.insert(Automat2.end);
         return automat;
     }
 
