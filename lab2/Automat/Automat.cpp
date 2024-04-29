@@ -11,7 +11,7 @@
 
 namespace Automato
 {
-    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%$#@!|. ";
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%,$#@!|. ";
     std::unordered_map<std::string, bool> Automat::transitions_sieve{{"a", false}};
 
 
@@ -150,11 +150,23 @@ namespace Automato
             resultAutomat.end=rangeCopy.end;
             resultAutomat.current=rangeCopy.current;
             resultAutomat.accepting=rangeCopy.accepting;
-
+            resultAutomat.start=rangeAutomat.start;
         }
         for(int i=min; i<max; i++)
         {
-            resultAutomat.add_transition(rangeAutomat.end+std::to_string(i-2), rangeAutomat.end+std::to_string(max-2), "");
+            if(i>=2)
+            {
+                resultAutomat.add_transition(rangeAutomat.end+std::to_string(i-2), rangeAutomat.end+std::to_string(max-2), "");
+            }
+            else if(i==1)
+            {
+                if(max>=2) resultAutomat.add_transition(rangeAutomat.end, rangeAutomat.end+std::to_string(max-2), "");
+            }
+            else
+            {
+                if(max>=2) resultAutomat.add_transition(rangeAutomat.start, rangeAutomat.end+std::to_string(max-2), "");
+                else resultAutomat.add_transition(rangeAutomat.start, rangeAutomat.end, "");
+            }
         }
         return resultAutomat;
     }

@@ -114,7 +114,7 @@ namespace Regex
         //looking for + or ?
         for(int i=closest_pair.first+1; i<closest_pair.second; i++)
         {
-            if(asts[i].root->name=="+" || asts[i].root->name=="?")
+            if(asts[i].root->name=="+" || asts[i].root->name=="?" || (asts[i].root->name.starts_with("{") && asts[i].root->name.ends_with("}")))
             {
                 AST new_ast=AST(asts[i].root, asts[i-1]);
                 asts.erase(asts.begin()+i-1);
@@ -225,6 +225,16 @@ namespace Regex
                 //automat.printAutomat();
                 return automat;
             }
+            else if(ast.root->name.starts_with("{") && ast.root->name.ends_with("}"))
+            {
+                std::string no_brackets=ast.root->name;
+                no_brackets.erase(no_brackets.find("{"), 1);
+                no_brackets.erase(no_brackets.find("}"), 1);
+                int min=std::stoi(no_brackets.substr(0, no_brackets.find(',')));
+                int max=std::stoi(no_brackets.substr(no_brackets.find(',')+1, no_brackets.length()));
+                Automat automat=rangeAutomat(nfa2, min, max);
+                return automat;
+            }
         }
         else if(ast.root->rNeighbour==nullptr)
         {
@@ -240,6 +250,16 @@ namespace Regex
                 //std::cout<<"?left_neighbour_"<<ast.root->lNeighbour->name<<std::endl;
                 Automat automat=optAutomat(nfa1);
                 //automat.printAutomat();
+                return automat;
+            }
+            else if(ast.root->name.starts_with("{") && ast.root->name.ends_with("}"))
+            {
+                std::string no_brackets=ast.root->name;
+                no_brackets.erase(no_brackets.find("{"), 1);
+                no_brackets.erase(no_brackets.find("}"), 1);
+                int min=std::stoi(no_brackets.substr(0, no_brackets.find(',')));
+                int max=std::stoi(no_brackets.substr(no_brackets.find(',')+1, no_brackets.length()));
+                Automat automat=rangeAutomat(nfa1, min, max);
                 return automat;
             }
         }
@@ -282,6 +302,8 @@ namespace Regex
 
     void Regex::compilationWithLogging(const std::string& expr, std::ostream& stream)
     {
+        stream<<"regular expression: "<<expr<<std::endl;
+        stream<<std::string(100, '-')<<std::endl;
         double sum_time=0;
 
         auto start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
@@ -301,7 +323,7 @@ namespace Regex
         nfa.printDot(stream);
         stream<<std::string(100, '-')<<std::endl;
 
-        //Automat automatRange=Automato::rangeAutomat(nfa, 4, 5);
+        //Automat automatRange=Automato::rangeAutomat(nfa, 0, 5);
         //automatRange.printDot();
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
