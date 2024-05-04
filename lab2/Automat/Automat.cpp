@@ -291,8 +291,8 @@ namespace Automato
         start_candidates.set.insert(automat.start);
         std::queue<StateSet> queue;
         queue.push(start_candidates);
-        std::vector<StateSet> added_sets;
-        added_sets.push_back(start_candidates);
+        std::unordered_map<std::unordered_set<int>, int, unorderedSetHash> added_sets;
+        added_sets.insert({start_candidates.set, start_candidates.id});
         dfa.start=start_candidates.id;
         //start_candidates.print();
         dfa.add_state(start_candidates.id);
@@ -331,8 +331,21 @@ namespace Automato
                 //std::cout<<eps_set.set.empty()<<std::endl;
                 if(!eps_set.set.empty())
                 {
+                    if(added_sets.contains(eps_set.set)) dfa.add_transition(candidate.id, added_sets[eps_set.set], {symb});
+                    else
+                    {
+                        queue.push(eps_set);
+                        //std::cout<<std::format("Z_eps(T_{}({}))=", symb, candidate.getFullName());
+                        //eps_set.print();
+                        added_sets.insert({eps_set.set, eps_set.id});
+
+                        dfa.add_state(eps_set.id);
+                        dfa.add_transition(candidate.id, eps_set.id, {symb});
+                    }
+                    /*
                     bool isNew=true;
                     StateSet same;
+
                     for(auto& added_set: added_sets)
                     {
                         if(added_set.set==eps_set.set)
@@ -355,7 +368,7 @@ namespace Automato
                     else //if(eps_set.set==candidate.set)
                     {
                         dfa.add_transition(candidate.id, same.id, {symb});
-                    }
+                    }*/
                 }
             }
             queue.pop();
@@ -364,12 +377,12 @@ namespace Automato
         for(auto& added_set: added_sets)
         {
             //std::cout<<added_set.getFullName()<<std::endl;
-            for(auto& state: added_set.set)
+            for(auto& state: added_set.first)
             {
                 //std::cout<<state<<std::endl<<std::endl;
                 if(automat.accepting.contains(state))
                 {
-                    dfa.accepting.insert(added_set.id);
+                    dfa.accepting.insert(added_set.second);
                     break;
                 }
             }

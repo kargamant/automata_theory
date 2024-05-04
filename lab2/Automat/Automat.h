@@ -25,6 +25,15 @@ namespace Automato
             return (key1.id == key2.id) && (key1.type==key2.type);
         }
     };
+
+    struct unorderedSetHash
+    {
+        std::size_t operator()(const std::unordered_set<int>& key) const
+        {
+            return std::hash<int>()(*key.begin())+(*key.begin())%37;
+        }
+    };
+
     class Automat
     {
     private:
