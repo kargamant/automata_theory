@@ -6,6 +6,7 @@
 #include <vector>
 #include <StateSet.h>
 #include <State.h>
+#include <unordered_set>
 
 namespace Automato
 {
@@ -24,6 +25,7 @@ namespace Automato
         std::string end;
         int id;
 
+        //make structure for state
         void add_state(const std::string& name);
         void add_transition(const std::string& from, const std::string& to, const std::string& condition);
         void delete_state(const std::string& name);

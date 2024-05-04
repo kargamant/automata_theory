@@ -1,2 +1,2 @@
-./main > automato.dot
+./main
 python3 viz.py

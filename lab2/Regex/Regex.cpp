@@ -37,7 +37,13 @@ namespace Regex
             //std::cout<<"node name: "<<node_name<<std::endl;
             asts.emplace_back(node_name);
         }
-
+        if(asts.front().root->name!="(" || asts.back().root->name!=")")
+        {
+            asts.emplace_back(")");
+            asts.emplace(asts.begin(), "(");
+            start_elements++;
+        }
+        for(auto& ast: asts) ast.print();
         //where do we start
         /*for(auto& ast: asts)
         {
@@ -48,6 +54,7 @@ namespace Regex
 
         while(start_elements!=0)
         {
+            for(auto& ast: asts) ast.print();
             std::pair<int, int> closest_pair=findClosestBrackets(asts);
 
             bracketsPairToAst(closest_pair, asts);
@@ -69,8 +76,10 @@ namespace Regex
 
         std::pair<int, int> expr_boundaries={0, asts.size()};
         bracketsPairToAst(expr_boundaries, asts);
+        //for(auto& ast: asts) ast.print();
         concatAsts(asts);
 
+        for(auto& ast: asts) ast.print();
         /*std::cout<<"end check"<<std::endl;
         for(auto& ast: asts)
         {
@@ -114,6 +123,7 @@ namespace Regex
         //looking for + or ?
         for(int i=closest_pair.first+1; i<closest_pair.second; i++)
         {
+            if(asts[i].root->lNeighbour!=nullptr) continue;
             if(asts[i].root->name=="+" || asts[i].root->name=="?" || (asts[i].root->name.starts_with("{") && asts[i].root->name.ends_with("}")))
             {
                 AST new_ast=AST(asts[i].root, asts[i-1]);
@@ -150,6 +160,7 @@ namespace Regex
             //operation |
             for(int i=closest_pair.first+1; i<closest_pair.second; i++)
             {
+                if(asts[i].root->lNeighbour!=nullptr) continue;
                 if(asts[i].root->name=="|")
                 {
                     AST new_ast=AST(asts[i-1], asts[i+1], std::shared_ptr<Node>(new Node("|")));

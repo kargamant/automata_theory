@@ -633,7 +633,6 @@ namespace Automato
 
         for(int i=0; i<str.size(); i++)
         {
-            isValid=false;
             auto next_state=formStateSet(*this, current, {str[i]}, isNfa);
 
             if(next_state.set.empty())
@@ -645,6 +644,7 @@ namespace Automato
                 continue;
             }
 
+            isValid=false;
             if(isNfa)
             {
                 auto eps_set=formStateSet(*this, next_state.set, "");
@@ -659,11 +659,10 @@ namespace Automato
                 {
                     isValid=true;
                     isFound=true;
-                    break;
+                    return isValid;
                 }
             }
         }
-
         return isValid;
     }
 }

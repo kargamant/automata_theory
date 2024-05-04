@@ -24,10 +24,10 @@ file(COPY line.txt DESTINATION .)
 add_executable(main  Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     Automat/Automat.cpp Automat/Automat.h
     main.cpp
-    StateMap/StateMap.cpp StateMap/StateMap.h
+    #StateMap/StateMap.cpp StateMap/StateMap.h
     StateSet/StateSet.cpp StateSet/StateSet.h
-    State/State.cpp State/State.h
-    Transition/Transition.cpp Transition/Transition.h
+    #State/State.cpp State/State.h
+    #Transition/Transition.cpp Transition/Transition.h
     regex_exp.txt
 
     )
