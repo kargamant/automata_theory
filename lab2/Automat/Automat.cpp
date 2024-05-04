@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <queue>
 #include <algorithm>
+#include <cmath>
 
 namespace Automato
 {
@@ -114,16 +115,16 @@ namespace Automato
     {
         //to be fixed
         Automat rangeAutomat{automat};
-        rangeAutomat.printAutomat();
+        //rangeAutomat.printAutomat();
         Automat resultAutomat{automat};
         for(int i=0; i<max-1; i++)
         {
             //std::cout<<"range_debug"<<std::endl;
-            resultAutomat.printAutomat();
+            //resultAutomat.printAutomat();
             Automat rangeCopy;
             for(auto& state: rangeAutomat.stateMap)
             {
-                rangeCopy.add_state(state.first+i+automat.start);
+                rangeCopy.add_state(state.first+(state.first>0 ? ((i+1)*automat.start) : (-(i+1)*automat.start)));
             }
             for(auto& state: rangeAutomat.stateMap)
             {
@@ -132,19 +133,19 @@ namespace Automato
                     for(auto& tr: to.second)
                     {
                         //may be incorrect after optimization
-                        if(tr.second) rangeCopy.add_transition(state.first+i+automat.start, to.first+i+automat.start, tr.first);
+                        if(tr.second) rangeCopy.add_transition(state.first+(state.first>0 ? ((i+1)*automat.start) : (-(i+1)*automat.start)), to.first+(to.first>0 ? ((i+1)*automat.start) : (-(i+1)*automat.start)), tr.first);
                     }
                 }
             }
-            rangeCopy.start=rangeAutomat.start+i+automat.start;
-            rangeCopy.end=rangeAutomat.end+i+automat.start;
+            rangeCopy.start=rangeAutomat.start+(i+1)*automat.start;
+            rangeCopy.end=rangeAutomat.end-(i+1)*automat.start;
             rangeCopy.accepting.clear();
             rangeCopy.current.clear();
-            for(auto& acc: rangeAutomat.accepting) rangeCopy.accepting.insert(acc+i+automat.start);
-            for(auto& cur: rangeAutomat.current) rangeCopy.current.insert(cur+i+automat.start);
+            for(auto& acc: rangeAutomat.accepting) rangeCopy.accepting.insert(acc+(acc>0 ? (i+1)*automat.start : -(i+1)*automat.start));
+            for(auto& cur: rangeAutomat.current) rangeCopy.current.insert(cur+(cur>0 ? (i+1)*automat.start : -(i+1)*automat.start));
 
             //std::cout<<"range copy:"<<std::endl;
-            rangeCopy.printAutomat();
+            //rangeCopy.printAutomat();
 
             int end=resultAutomat.end;
             resultAutomat<<rangeCopy;
@@ -156,7 +157,9 @@ namespace Automato
         }
         for(int i=min; i<max; i++)
         {
-            resultAutomat.add_transition(rangeAutomat.end+i+automat.start, rangeAutomat.end+max+automat.start, "");
+            if(i==0) resultAutomat.add_transition(rangeAutomat.start, rangeAutomat.end-(max-1)*automat.start, "");
+            else if(i==1) resultAutomat.add_transition(rangeAutomat.end, rangeAutomat.end-(max-1)*automat.start, "");
+            else resultAutomat.add_transition(rangeAutomat.end-(i-1)*automat.start, rangeAutomat.end-(max-1)*automat.start, "");
         }
 
         //resultAutomat.printAutomat();

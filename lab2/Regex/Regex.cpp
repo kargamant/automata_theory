@@ -331,8 +331,8 @@ namespace Regex
         nfa.printDot(stream);
         stream<<std::string(100, '-')<<std::endl;
 
-        Automat automatRange=Automato::rangeAutomat(nfa, 0, 5);
-        automatRange.printDot();
+        //Automat automatRange=Automato::rangeAutomat(nfa, 1, 1);
+        //automatRange.printDot();
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat dfa=nfaToDfa(nfa);
