@@ -5,9 +5,9 @@ int StateSet::LAST_ID=0;
 
 void StateSet::print(std::ostream& stream) const
 {
-    stream<<name<<"_"<<id<<std::endl;
+    stream<<"_"<<id<<std::endl;
     stream<<"set: {";
-    std::copy(set.begin(), set.end(), std::ostream_iterator<std::string>(stream, ", "));
+    std::copy(set.begin(), set.end(), std::ostream_iterator<int>(stream, ", "));
     stream<<"}"<<std::endl;
 }
 

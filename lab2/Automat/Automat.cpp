@@ -23,12 +23,12 @@ namespace Automato
         }
     }
 
-    void Automat::add_state(const std::string& name)
+    void Automat::add_state(int id)
     {
-        stateMap.insert({name, std::unordered_map<std::string, std::unordered_map<std::string, bool>>()});
+        stateMap.insert({id, std::unordered_map<int, std::unordered_map<std::string, bool>>()});
     }
 
-    void Automat::add_transition(const std::string& from, const std::string& to, const std::string& condition)
+    void Automat::add_transition(int from, int to, const std::string& condition)
     {
         if(stateMap[from].contains(to) && !stateMap[from][to][condition]) stateMap[from][to][condition]=true;
         else
@@ -39,12 +39,12 @@ namespace Automato
     }
 
 
-    void Automat::delete_state(const std::string& name)
+    void Automat::delete_state(int id)
     {
-        stateMap.erase(name);
+        stateMap.erase(id);
         for(auto& state: stateMap)
         {
-            state.second.erase(name);
+            state.second.erase(id);
         }
     }
     /*void Automat::delete_transition(const std::string& from, const std::string& to, int i)
@@ -52,7 +52,7 @@ namespace Automato
         stateMap[from][to].erase(stateMap[from][to].begin()+i);
     }*/
 
-    void Automat::delete_transition(const std::string& from, const std::string& to, const std::string& condition)
+    void Automat::delete_transition(int from, int to, const std::string& condition)
     {
         stateMap[from][to][condition]=false;
     }
@@ -66,19 +66,19 @@ namespace Automato
     Automat::Automat(Automat&& Automat1) :  stateMap(Automat1.stateMap), current(Automat1.current), id(Automat1.id), start(Automat1.start), end(Automat1.end), accepting(Automat1.accepting)
     {
         //if(transitions_sieve.empty()) activate_transitions_sieve();
-        Automat1.current={""};
+        Automat1.current={};
         Automat1.stateMap.clear();
     }
 
-    Automat::Automat(int id, const std::string& transition) : id(id), current({"start_"+std::to_string(id)})
+    Automat::Automat(int id, const std::string& transition) : id(id), current({id})
     {
         if(transitions_sieve.empty()) activate_transitions_sieve();
 
-        add_state("start_"+std::to_string(id));
-        add_state("end_"+std::to_string(id));
-        add_transition("start_"+std::to_string(id), "end_"+std::to_string(id), transition);
-        start=getStart();
-        end=getEnd();
+        add_state(id);
+        add_state(-id);
+        add_transition(id, -id, transition);
+        start=id;
+        end=-id;
         accepting.insert(end);
     }
 
@@ -112,16 +112,18 @@ namespace Automato
 
     Automat rangeAutomat(Automat& automat, int min, int max)
     {
+        //to be fixed
         Automat rangeAutomat{automat};
+        rangeAutomat.printAutomat();
         Automat resultAutomat{automat};
         for(int i=0; i<max-1; i++)
         {
             //std::cout<<"range_debug"<<std::endl;
-            //resultAutomat.printAutomat();
+            resultAutomat.printAutomat();
             Automat rangeCopy;
             for(auto& state: rangeAutomat.stateMap)
             {
-                rangeCopy.add_state(state.first+std::to_string(i));
+                rangeCopy.add_state(state.first+i+automat.start);
             }
             for(auto& state: rangeAutomat.stateMap)
             {
@@ -130,21 +132,21 @@ namespace Automato
                     for(auto& tr: to.second)
                     {
                         //may be incorrect after optimization
-                        if(tr.second) rangeCopy.add_transition(state.first+std::to_string(i), to.first+std::to_string(i), tr.first);
+                        if(tr.second) rangeCopy.add_transition(state.first+i+automat.start, to.first+i+automat.start, tr.first);
                     }
                 }
             }
-            rangeCopy.start=rangeAutomat.start+std::to_string(i);
-            rangeCopy.end=rangeAutomat.end+std::to_string(i);
+            rangeCopy.start=rangeAutomat.start+i+automat.start;
+            rangeCopy.end=rangeAutomat.end+i+automat.start;
             rangeCopy.accepting.clear();
             rangeCopy.current.clear();
-            for(auto& acc: rangeAutomat.accepting) rangeCopy.accepting.insert(acc+std::to_string(i));
-            for(auto& cur: rangeAutomat.current) rangeCopy.current.insert(cur+std::to_string(i));
+            for(auto& acc: rangeAutomat.accepting) rangeCopy.accepting.insert(acc+i+automat.start);
+            for(auto& cur: rangeAutomat.current) rangeCopy.current.insert(cur+i+automat.start);
 
             //std::cout<<"range copy:"<<std::endl;
-            //rangeCopy.printAutomat();
+            rangeCopy.printAutomat();
 
-            std::string end=resultAutomat.end;
+            int end=resultAutomat.end;
             resultAutomat<<rangeCopy;
             resultAutomat.add_transition(end, rangeCopy.start, "");
             resultAutomat.end=rangeCopy.end;
@@ -154,19 +156,7 @@ namespace Automato
         }
         for(int i=min; i<max; i++)
         {
-            if(i>=2)
-            {
-                resultAutomat.add_transition(rangeAutomat.end+std::to_string(i-2), rangeAutomat.end+std::to_string(max-2), "");
-            }
-            else if(i==1)
-            {
-                if(max>=2) resultAutomat.add_transition(rangeAutomat.end, rangeAutomat.end+std::to_string(max-2), "");
-            }
-            else
-            {
-                if(max>=2) resultAutomat.add_transition(rangeAutomat.start, rangeAutomat.end+std::to_string(max-2), "");
-                else resultAutomat.add_transition(rangeAutomat.start, rangeAutomat.end, "");
-            }
+            resultAutomat.add_transition(rangeAutomat.end+i+automat.start, rangeAutomat.end+max+automat.start, "");
         }
 
         //resultAutomat.printAutomat();
@@ -204,15 +194,15 @@ namespace Automato
         automat<<Automat2;
         Automat2.stateMap=stateMap_copy;
         automat.id=Automat1.id+Automat2.id;
-        automat.add_state(automat.getStart());
-        automat.add_state(automat.getEnd());
+        automat.add_state(automat.id);
+        automat.add_state(-automat.id);
+        automat.start=automat.id;
+        automat.end=-automat.id;
 
-        automat.add_transition(automat.getStart(), Automat1.start, "");
-        automat.add_transition(Automat2.end, automat.getEnd(), "");
+        automat.add_transition(automat.start, Automat1.start, "");
+        automat.add_transition(Automat2.end, automat.end, "");
 
         automat.add_transition(Automat1.end, Automat2.start, "");
-        automat.start=automat.getStart();
-        automat.end=automat.getEnd();
         automat.accepting.clear();
         automat.accepting.insert(automat.end);
         automat.accepting.insert(Automat2.end);
@@ -226,16 +216,16 @@ namespace Automato
         automat<<Automat2;
         Automat2.stateMap=stateMap_copy;
         automat.id=Automat1.id+Automat2.id;
-        automat.add_state(automat.getStart());
-        automat.add_state(automat.getEnd());
+        automat.add_state(automat.id);
+        automat.add_state(-automat.id);
+        automat.start=automat.id;
+        automat.end=-automat.id;
 
-        automat.add_transition(automat.getStart(), Automat1.start, "");
-        automat.add_transition(automat.getStart(), Automat2.start, "");
+        automat.add_transition(automat.start, Automat1.start, "");
+        automat.add_transition(automat.start, Automat2.start, "");
 
-        automat.add_transition(Automat1.end, automat.getEnd(), "");
-        automat.add_transition(Automat2.end, automat.getEnd(), "");
-        automat.start=automat.getStart();
-        automat.end=automat.getEnd();
+        automat.add_transition(Automat1.end, automat.end, "");
+        automat.add_transition(Automat2.end, automat.end, "");
         automat.accepting.clear();
         automat.accepting.insert(automat.end);
         automat.accepting.insert(Automat1.end);
@@ -246,10 +236,10 @@ namespace Automato
     void Automat::printAutomat(std::ostream& stream)
     {
         stream<<"current_state_set:"<<std::endl;
-        std::copy(current.begin(), current.end(), std::ostream_iterator<std::string>(stream, " "));
+        std::copy(current.begin(), current.end(), std::ostream_iterator<int>(stream, " "));
         stream<<std::endl;
         stream<<"accepting states:"<<std::endl;
-        std::copy(accepting.begin(), accepting.end(), std::ostream_iterator<std::string>(stream, " "));
+        std::copy(accepting.begin(), accepting.end(), std::ostream_iterator<int>(stream, " "));
         stream<<std::endl;
         stream<<"start_state:"<<std::endl;
         stream<<start<<std::endl;
@@ -263,7 +253,7 @@ namespace Automato
             {
                 for(auto& condition: transition.second)
                 {
-                    if(condition.second) stream<<std::format("(\"{}\", \"{}\")", transition.first, condition.first)<<" ;";
+                    if(condition.second) stream<<std::format("(\"{}\", \"{}\")", std::to_string(transition.first), condition.first)<<" ;";
                 }
             }
             stream<<std::endl;
@@ -276,14 +266,14 @@ namespace Automato
         stream<<"digraph"<<std::endl<<"{"<<std::endl;
         for(auto& state: stateMap)
         {
-            if(accepting.contains(state.first)) stream<<state.first<<"[color=\"green\"]"<<std::endl;
-            if(state.first==start) stream<<state.first<<"[color=\"red\"]"<<std::endl;
+            if(accepting.contains(state.first)) stream<<"\""<<state.first<<"\""<<"[color=\"green\"]"<<std::endl;
+            if(state.first==start) stream<<"\""<<state.first<<"\""<<"[color=\"red\"]"<<std::endl;
             for(auto& transition: state.second)
             {
                 for(auto& condition: transition.second)
                 {
-                    if(condition.first!="" && condition.second) stream<<state.first<<"->"<<transition.first<<" [label=\""<<condition.first<<"\"]"<<std::endl;
-                    else if(condition.second) stream<<state.first<<"->"<<transition.first<<" [label=ε]"<<std::endl;
+                    if(condition.first!="" && condition.second) stream<<"\""<<state.first<<"\""<<"->"<<"\""<<transition.first<<"\""<<" [label=\""<<condition.first<<"\"]"<<std::endl;
+                    else if(condition.second) stream<<"\""<<state.first<<"\""<<"->"<<"\""<<transition.first<<"\""<<" [label=ε]"<<std::endl;
                 }
             }
         }
@@ -300,9 +290,9 @@ namespace Automato
         queue.push(start_candidates);
         std::vector<StateSet> added_sets;
         added_sets.push_back(start_candidates);
-        dfa.start=start_candidates.getFullName();
+        dfa.start=start_candidates.id;
         //start_candidates.print();
-        dfa.add_state(start_candidates.getFullName());
+        dfa.add_state(start_candidates.id);
         while(!queue.empty())
         {
             //bool isNew=true;
@@ -356,12 +346,12 @@ namespace Automato
                         //eps_set.print();
                         added_sets.push_back(eps_set);
 
-                        dfa.add_state(eps_set.getFullName());
-                        dfa.add_transition(candidate.getFullName(), eps_set.getFullName(), {symb});
+                        dfa.add_state(eps_set.id);
+                        dfa.add_transition(candidate.id, eps_set.id, {symb});
                     }
                     else //if(eps_set.set==candidate.set)
                     {
-                        dfa.add_transition(candidate.getFullName(), same.getFullName(), {symb});
+                        dfa.add_transition(candidate.id, same.id, {symb});
                     }
                 }
             }
@@ -376,7 +366,7 @@ namespace Automato
                 //std::cout<<state<<std::endl<<std::endl;
                 if(automat.accepting.contains(state))
                 {
-                    dfa.accepting.insert(added_set.getFullName());
+                    dfa.accepting.insert(added_set.id);
                     break;
                 }
             }
@@ -386,7 +376,7 @@ namespace Automato
 
     StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition, bool isNfa)
     {
-        std::set<std::string> set;
+        std::unordered_set<int> set;
         for(auto& state: stateSet.set)
         {
             for(auto& st: automat.stateMap[state])
@@ -399,7 +389,7 @@ namespace Automato
             if(isNfa)
             {
                 auto result=formStateSet(automat, set, transition);
-                std::move(result.set.begin(), result.set.end(), std::inserter<std::set<std::string>>(set, set.end()));
+                std::move(result.set.begin(), result.set.end(), std::inserter<std::unordered_set<int>>(set, set.end()));
             }
             //set.emplace(state);
         }
@@ -418,180 +408,61 @@ namespace Automato
         }
         groups.insert(non_accepting);
 
+
         bool noChanges=false;
-        std::set<StateSet> new_groups;
-        std::set<std::string> to_leave;
         while(!noChanges)
         {
-            int set_size=new_groups.size();
-            //std::cout<<"debug"<<std::endl;
-            /*for(auto& group: groups)
-            {
-                std::cout<<"Group:"<<std::endl;
-                group.print();
-            }*/
-            noChanges=true;
-            std::vector<StateSet> to_eliminate;
-            std::set<std::string> checked_groups;
             for(auto& group: groups)
             {
-                StateSet group_copy=group;
+                std::unordered_map<std::string, std::unordered_map<std::string, int>> distinguishMap;
                 if(group.set.size()==1) continue;
-
-                bool groupsCreated=false;
                 for(auto& state1: group.set)
                 {
-
                     for(auto& state2: group.set)
                     {
-                        if(checked_groups.contains(state2)) continue;
                         if(state1==state2) continue;
 
-                        //std::cout<<"states pair:"<<std::endl;
-                        //std::cout<<"( "<<state1<<", "<<state2<<" )"<<std::endl;
                         for(auto& symb: Automat::alphabet)
                         {
                             std::string dest1;
                             std::string dest2;
                             for(auto& to: dfa.stateMap[state1])
                             {
-                                bool isFound=false;
                                 if(to.second[{symb}])
                                 {
                                     dest1=to.first;
-                                    isFound=true;
-                                }
-                                if(isFound) break;
-                            }
-
-                            for(auto& to: dfa.stateMap[state2])
-                            {
-                                bool isFound=false;
-                                if(to.second[{symb}])
-                                {
-                                    dest2=to.first;
-                                    isFound=true;
-                                }
-                                if(isFound) break;
-                            }
-                            //std::cout<<"symb: "<<symb<<std::endl;
-                            //std::cout<<"destinations: "<<dest1<<" "<<dest2<<std::endl;
-                            if(dest1.empty() && dest2.empty()) continue;
-                            else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty()))
-                            {
-                                groupsCreated=true;
-                                StateSet ss1{state1};
-                                //StateSet ss2{state2};
-
-                                /*for(auto& state: group.set)
-                                {
-                                    if(state!=state1 && state!=state2)
-                                    {
-                                        ss1.set.insert(state);
-                                        ss2.set.insert(state);
-                                    }
-                                }*/
-                                new_groups.insert(ss1);
-                                //new_groups.insert(ss2);
-                                to_eliminate.push_back(group);
-
-                                group_copy.set.erase(state1);
-                                //group_copy.set.erase(state2);
-
-                                if(!group_copy.set.empty()) new_groups.insert(group_copy);
-                                to_eliminate.push_back(group);
-
-                                //std::cout<<"changes:"<<std::endl;
-                                //for(auto& gr: new_groups) gr.print();
-                                break;
-                            }
-                            //else if((dest1.empty() && !dest2.empty()) || (!dest1.empty() && dest2.empty())) continue;
-                            for(auto& gr: groups)
-                            {
-                                if((gr.set.contains(dest1) && !gr.set.contains(dest2)) || (!gr.set.contains(dest1) && gr.set.contains(dest2)))
-                                {
-                                    groupsCreated=true;
-                                    //StateSet ss1{state1};
-                                    StateSet ss2{state2};
-
-
-                                    /*for(auto& state: group.set)
-                                    {
-                                        if(state!=state1 && state!=state2)
-                                        {
-                                            ss1.set.insert(state);
-                                            ss2.set.insert(state);
-                                        }
-                                    }*/
-                                    //new_groups.insert(ss1);
-                                    new_groups.insert(ss2);
-                                    to_eliminate.push_back(group);
-                                    //group_copy.set.erase(state1);
-                                    group_copy.set.erase(state2);
-
-                                    if(!group_copy.set.empty()) new_groups.insert(group_copy);
-                                    to_eliminate.push_back(group);
-
-                                    //std::cout<<"changes:"<<std::endl;
-                                    //for(auto& gr: new_groups) gr.print();
                                     break;
                                 }
                             }
 
-                            //danger zone
-                            //groups.erase(group);
-                            //groups.insert(gr);
-                            if(groupsCreated) break;
-                        }
-                        if(groupsCreated) break;
-                    }
-                    checked_groups.insert(state1);
-                    if(groupsCreated) break;
-                }
-                if(groupsCreated) break;
-            }
+                            for(auto& to: dfa.stateMap[state2])
+                            {
+                                if(to.second[{symb}])
+                                {
+                                    dest2=to.first;
+                                    break;
+                                }
+                            }
 
-            if(set_size!=new_groups.size() && !new_groups.empty())
-            {
-                //std::cout<<"new ones:"<<std::endl;
-                //std::cout<<new_groups.size()<<std::endl;
-                //std::cout<<new_groups.empty()<<std::endl;
-                /*for(auto& new_group: new_groups)
-                {
-                    std::cout<<"new Group:"<<std::endl;
-                    new_group.print();
-                }*/
-                noChanges=false;
-                groups.merge(new_groups);
-                for(auto& target_group: to_eliminate)
-                {
-                    //std::cout<<"eliminating:"<<std::endl;
-                    //target_group.print();
-                    groups.erase(target_group);
+                        }
+                    }
                 }
             }
-            //new_groups.clear();
         }
 
-        /*std::cout<<"end:"<<std::endl;
-        for(auto& group: groups)
-        {
-            std::cout<<"Group:"<<std::endl;
-            group.print();
-        }*/
 
         for(auto& group: groups)
         {
-            minDfa.add_state(group.getFullName());
+            minDfa.add_state(group.id);
             for(auto& state: group.set)
             {
                 if(dfa.accepting.contains(state))
                 {
-                    minDfa.accepting.insert(group.getFullName());
+                    minDfa.accepting.insert(group.id);
                 }
                 if(state==dfa.start)
                 {
-                    minDfa.start=group.getFullName();
+                    minDfa.start=group.id;
                 }
             }
         }
@@ -610,7 +481,7 @@ namespace Automato
                             if(group2.set.contains(to.first) && to.second[transition.first])
                             {
                                 //auto transitions=minDfa.stateMap[group2.getFullName()][to.first];
-                                minDfa.add_transition(group1.getFullName(), group2.getFullName(), transition.first);
+                                minDfa.add_transition(group1.id, group2.id, transition.first);
                             }
                         }
                     }

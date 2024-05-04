@@ -43,7 +43,6 @@ namespace Regex
             asts.emplace(asts.begin(), "(");
             start_elements++;
         }
-        for(auto& ast: asts) ast.print();
         //where do we start
         /*for(auto& ast: asts)
         {
@@ -54,7 +53,6 @@ namespace Regex
 
         while(start_elements!=0)
         {
-            for(auto& ast: asts) ast.print();
             std::pair<int, int> closest_pair=findClosestBrackets(asts);
 
             bracketsPairToAst(closest_pair, asts);
@@ -79,7 +77,6 @@ namespace Regex
         //for(auto& ast: asts) ast.print();
         concatAsts(asts);
 
-        for(auto& ast: asts) ast.print();
         /*std::cout<<"end check"<<std::endl;
         for(auto& ast: asts)
         {
@@ -334,8 +331,8 @@ namespace Regex
         nfa.printDot(stream);
         stream<<std::string(100, '-')<<std::endl;
 
-        //Automat automatRange=Automato::rangeAutomat(nfa, 0, 5);
-        //automatRange.printDot();
+        Automat automatRange=Automato::rangeAutomat(nfa, 0, 5);
+        automatRange.printDot();
 
         start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat dfa=nfaToDfa(nfa);
@@ -346,17 +343,17 @@ namespace Regex
         dfa.printDot(stream);
         stream<<std::string(100, '-')<<std::endl;
 
-        start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        /*start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat minDfa=minimizeDfa(dfa);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
         stream<<std::endl<<"DFA minimized in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
         minDfa.printAutomat(stream);
         minDfa.printDot(stream);
-        stream<<std::string(100, '-')<<std::endl;
+        stream<<std::string(100, '-')<<std::endl;*/
 
         stream<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
-        automat=std::move(minDfa);
+        automat=std::move(dfa);
 
     }
 

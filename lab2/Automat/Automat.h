@@ -10,6 +10,21 @@
 
 namespace Automato
 {
+    struct StateHash
+    {
+        std::size_t operator()(const State& key) const
+        {
+            return std::hash<int>()(key.id);
+        }
+    };
+
+    struct StateEqual
+    {
+        bool operator()(const State& key1, const State& key2) const
+        {
+            return (key1.id == key2.id) && (key1.type==key2.type);
+        }
+    };
     class Automat
     {
     private:
@@ -18,19 +33,18 @@ namespace Automato
 
         //structure of table
         //from | <to, vector<how>>
-        std::unordered_map<std::string, std::unordered_map<std::string, std::unordered_map<std::string, bool>>> stateMap;
-        std::set<std::string> current;
-        std::set<std::string> accepting;
-        std::string start;
-        std::string end;
+        std::unordered_map<int, std::unordered_map<int, std::unordered_map<std::string, bool>>> stateMap;
+        std::unordered_set<int> current;
+        std::unordered_set<int> accepting;
+        int start;
+        int end;
         int id;
 
-        //make structure for state
-        void add_state(const std::string& name);
-        void add_transition(const std::string& from, const std::string& to, const std::string& condition);
-        void delete_state(const std::string& name);
+        void add_state(int id);
+        void add_transition(int from, int to, const std::string& condition);
+        void delete_state(int id);
         //void delete_transition(const std::string& from, const std::string& to, int i);
-        void delete_transition(const std::string& from, const std::string& to, const std::string& condition);
+        void delete_transition(int from, int to, const std::string& condition);
         static void activate_transitions_sieve();
     public:
         Automat() : id(-1) {}
@@ -40,8 +54,8 @@ namespace Automato
         //Automat(Automat& Automat1, Automat& Automat2, char op);
         //Automat(Automat& Automat1, char op);
 
-        std::string getStart() {return "start_"+std::to_string(id);}
-        std::string getEnd() {return "end_"+std::to_string(id);}
+        //std::string getStart() {return "start_"+std::to_string(id);}
+        //std::string getEnd() {return "end_"+std::to_string(id);}
         int getId() {return id;}
         void printAutomat(std::ostream& stream=std::cout);
         void printDot(std::ostream& stream=std::cout);

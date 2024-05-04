@@ -29,6 +29,8 @@ add_executable(main  Regex/Regex.cpp AST/AST.cpp AST/AST.h Regex/Regex.h
     #State/State.cpp State/State.h
     #Transition/Transition.cpp Transition/Transition.h
     regex_exp.txt
+    State/CMakeLists.txt State/State.cpp State/State.h
+    #build/State/CMakeFiles/state.dir/build.make build/State/CMakeFiles/state.dir/cmake_clean.cmake build/State/CMakeFiles/state.dir/cmake_clean_target.cmake build/State/CMakeFiles/state.dir/compiler_depend.internal build/State/CMakeFiles/state.dir/compiler_depend.make build/State/CMakeFiles/state.dir/compiler_depend.ts build/State/CMakeFiles/state.dir/depend.make build/State/CMakeFiles/state.dir/DependInfo.cmake build/State/CMakeFiles/state.dir/flags.make build/State/CMakeFiles/state.dir/link.txt build/State/CMakeFiles/state.dir/progress.make build/State/CMakeFiles/state.dir/State.cpp.o.d build/State/CMakeFiles/CMakeDirectoryInformation.cmake build/State/CMakeFiles/progress.marks build/State/cmake_install.cmake build/State/libstate.a
 
     )
 target_link_libraries(main reg automat)

@@ -2,12 +2,20 @@
 #include <string>
 #include <iostream>
 
+enum class StateType
+{
+    Start,
+    End,
+    Basic
+};
+
+std::string stateTypeToString(StateType type);
+
 struct State
 {
-    std::string name;
-    bool isAccepting;
+    StateType type;
     int id;
-    State(const std::string& name, int id) : name(name), id(id) {}
-    std::string getFullName() {return name+"_"+std::to_string(id);}
+    State(StateType type=StateType::Basic, int id=-1) : type(type), id(id) {}
+    std::string getFullName() {return stateTypeToString(type)+"_"+std::to_string(id);}
     void print(std::ostream& stream=std::cout);
 };
