@@ -343,17 +343,17 @@ namespace Regex
         dfa.printDot(stream);
         stream<<std::string(100, '-')<<std::endl;
 
-        /*start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat minDfa=minimizeDfa(dfa);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
         stream<<std::endl<<"DFA minimized in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
         minDfa.printAutomat(stream);
         minDfa.printDot(stream);
-        stream<<std::string(100, '-')<<std::endl;*/
+        stream<<std::string(100, '-')<<std::endl;
 
         stream<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
-        automat=std::move(dfa);
+        automat=std::move(minDfa);
 
     }
 

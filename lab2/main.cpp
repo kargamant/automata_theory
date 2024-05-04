@@ -15,6 +15,7 @@ int main()
     //yes(ab){0,5}.&+
     //(hal?al|bebra+){0,2}Yasos(biba|boba)?
     //sup.&+&|&?(how|what|when){1,3}are(you|they)+
+    //omg(you|they)are(so|exteremely){0,5}(fcking)?anno+ying&+?
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};

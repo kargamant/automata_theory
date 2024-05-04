@@ -416,32 +416,59 @@ namespace Automato
     {
         Automat minDfa;
 
-        std::set<StateSet> groups{dfa.accepting};
+        std::vector<StateSet> groups{dfa.accepting};
         StateSet non_accepting;
         for(auto& state: dfa.stateMap)
         {
             if(!dfa.accepting.contains(state.first)) non_accepting.set.insert(state.first);
         }
-        groups.insert(non_accepting);
+        groups.push_back(non_accepting);
 
 
         bool noChanges=false;
         while(!noChanges)
         {
-            for(auto& group: groups)
+            noChanges=true;
+            for(int i=0; i<groups.size(); i++)
             {
-                std::unordered_map<std::string, std::unordered_map<std::string, int>> distinguishMap;
-                if(group.set.size()==1) continue;
-                for(auto& state1: group.set)
+                //obviously nothing to distinguish
+                if(groups[i].set.size()==1) continue;
+
+                //this is kind of sieve/matrix which represents relationship between different states in group
+                //This is different statuses of two states:
+                //0 on the intersection of Si and Sj means that Si and Sj must remain in that group together
+                //1 on the intersection of Si and Sj means that Si and Sj must be distinguished
+                //-1 can appear only on intersection of Si and Si itself just to identify that it's not different states
+                //-2 can appear only on intersection of Si and Si itself to mark it as distinguished. As soon as Si has -2 it's no more in this group
+                std::unordered_map<int, std::unordered_map<int, int>> distinguishMap;
+
+                //filling sieve
+                for(auto& st1: groups[i].set)
                 {
-                    for(auto& state2: group.set)
+                    distinguishMap.insert({st1, std::unordered_map<int, int>()});
+                    for(auto& st2: groups[i].set)
                     {
-                        if(state1==state2) continue;
+                        if(st1!=st2)
+                        {
+                            distinguishMap[st1].insert({st2, 0});
+                        }
+                        else
+                        {
+                            distinguishMap[st1].insert({st2, -1});
+                        }
+                    }
+                }
+
+                for(auto& state1: groups[i].set)
+                {
+                    for(auto& state2: groups[i].set)
+                    {
+                        if(distinguishMap[state1][state2]!=0) continue;
 
                         for(auto& symb: Automat::alphabet)
                         {
-                            std::string dest1;
-                            std::string dest2;
+                            int dest1=-1;
+                            int dest2=-1;
                             for(auto& to: dfa.stateMap[state1])
                             {
                                 if(to.second[{symb}])
@@ -460,12 +487,65 @@ namespace Automato
                                 }
                             }
 
+                            //both has no transition by this symbol
+                            if(dest1==-1 && dest2==-1) continue;
+
+                            //must be distinguished if one of them doesn't have transition and other does
+                            else if((dest1==-1 && dest2!=-1) || (dest1!=-1 && dest2==-1))
+                            {
+                                distinguishMap[state1][state2]=1;
+                                distinguishMap[state2][state1]=1;
+                            }
+                            else
+                            {
+                                for(auto& gr: groups)
+                                {
+                                    //distinguish if they are in f=different groups
+                                    if((gr.set.contains(dest1) && !gr.set.contains(dest2)) || (!gr.set.contains(dest1) && gr.set.contains(dest2)))
+                                    {
+                                        distinguishMap[state1][state2]=1;
+                                        distinguishMap[state2][state1]=1;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                for(auto& ds: distinguishMap)
+                {
+                    if(ds.second[ds.first]==-2) continue;
+
+                    //collecting set to distinguish
+                    StateSet toDistinguish{ds.first};
+                    for(auto& connections: ds.second)
+                    {
+                        if(connections.second==0)
+                        {
+                            toDistinguish.set.insert(connections.first);
+                        }
+                    }
+
+                    //the base case is when the group cant be separated no more, so we should leave it
+                    if(toDistinguish.set==groups[i].set) break;
+                    else
+                    {
+                        noChanges=false;
+                        groups.push_back(toDistinguish);
+                        for(auto& target: toDistinguish.set)
+                        {
+                            distinguishMap[target][target]=-2;
+                            groups[i].set.erase(target);
                         }
                     }
                 }
             }
         }
-
+        //std::cout<<"group distribution:"<<std::endl;
+        /*for(auto& gr: groups)
+        {
+            gr.print();
+        }*/
 
         for(auto& group: groups)
         {
