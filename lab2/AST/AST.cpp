@@ -10,12 +10,15 @@ namespace Ast
     AST::AST(std::shared_ptr<Node> node, AST& ast) : root(node)
     {
         root->lNeighbour=ast.root;
+        root->capture_name=node->capture_name;
     }
 
     AST::AST(AST& lAst, AST& rAst, std::shared_ptr<Node> node) : root(node)
     {
         root->lNeighbour=lAst.root;
+        //lAst.root->capture_name=node->capture_name;
         root->rNeighbour=rAst.root;
+        //rAst.root->capture_name=node->capture_name;
     }
 
     int Node::printNode(std::ostream& stream, int spaces)

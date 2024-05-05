@@ -14,7 +14,7 @@ namespace Ast
             std::string name;
             std::shared_ptr<Node> lNeighbour;
             std::shared_ptr<Node> rNeighbour;
-            Node(const std::string& name="") : name(name) {}
+            Node(const std::string& name="", const std::string& capture_name="") : name(name), capture_name(capture_name) {}
             int printNode(std::ostream& stream=std::cout, int spaces=0);
     };
 

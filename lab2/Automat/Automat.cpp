@@ -12,7 +12,7 @@
 
 namespace Automato
 {
-    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%,$#@!|. ";
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%,$#@!|'. ";
     std::unordered_map<std::string, bool> Automat::transitions_sieve{{"a", false}};
 
 
@@ -58,13 +58,23 @@ namespace Automato
         stateMap[from][to][condition]=false;
     }
 
-    Automat::Automat(Automat& Automat1) : current(Automat1.current), id(Automat1.id), stateMap(Automat1.stateMap), start(Automat1.start), end(Automat1.end), accepting(Automat1.accepting)
+    void Automat::add_capture_state(int id, const std::string& capture_name)
+    {
+        if(capture_groups.contains(capture_name)) capture_groups[capture_name].insert(id);
+        else capture_groups.insert({capture_name, {id}});
+    }
+    void Automat::add_capture_all_states(const std::string& capture_name)
+    {
+        for(auto& st: stateMap) add_capture_state(st.first, capture_name);
+    }
+
+    Automat::Automat(Automat& Automat1) : current(Automat1.current), id(Automat1.id), stateMap(Automat1.stateMap), start(Automat1.start), end(Automat1.end), accepting(Automat1.accepting), capture_groups(Automat1.capture_groups)
     {
         //if(transitions_sieve.empty()) activate_transitions_sieve();
         //stateMap.merge(Automat1.stateMap);
     }
 
-    Automat::Automat(Automat&& Automat1) :  stateMap(Automat1.stateMap), current(Automat1.current), id(Automat1.id), start(Automat1.start), end(Automat1.end), accepting(Automat1.accepting)
+    Automat::Automat(Automat&& Automat1) :  stateMap(Automat1.stateMap), current(Automat1.current), id(Automat1.id), start(Automat1.start), end(Automat1.end), accepting(Automat1.accepting), capture_groups(Automat1.capture_groups)
     {
         //if(transitions_sieve.empty()) activate_transitions_sieve();
         Automat1.current={};
@@ -88,6 +98,11 @@ namespace Automato
         if(this!=&automat && automat.id!=id)
         {
             stateMap.merge(automat.stateMap);
+            for(auto& cg: automat.capture_groups)
+            {
+                if(capture_groups.contains(cg.first)) capture_groups[cg.first].merge(cg.second);
+                else capture_groups.insert({cg.first, cg.second});
+            }
             start=automat.start;
             end=automat.end;
             //accepting.merge(automat.accepting);
@@ -102,6 +117,7 @@ namespace Automato
         {
             stateMap=automat.stateMap;
             current=automat.current;
+            capture_groups=automat.capture_groups;
             id=automat.id;
             start=automat.start;
             end=automat.end;
@@ -244,6 +260,14 @@ namespace Automato
         stream<<"accepting states:"<<std::endl;
         std::copy(accepting.begin(), accepting.end(), std::ostream_iterator<int>(stream, " "));
         stream<<std::endl;
+        stream<<"capture groups:"<<std::endl;
+        for(auto& cg: capture_groups)
+        {
+            stream<<"<"<<cg.first<<">"<<" | ";
+            std::copy(cg.second.begin(), cg.second.end(), std::ostream_iterator<int>(stream, " "));
+            stream<<std::endl;
+        }
+        stream<<std::endl;
         stream<<"start_state:"<<std::endl;
         stream<<start<<std::endl;
         stream<<"end_state:"<<std::endl;
@@ -384,6 +408,17 @@ namespace Automato
                 {
                     dfa.accepting.insert(added_set.second);
                     break;
+                }
+                if(!automat.capture_groups.empty())
+                {
+                    for(auto& cg: automat.capture_groups)
+                    {
+                        if(cg.second.contains(state))
+                        {
+                            dfa.add_capture_state(added_set.second, cg.first);
+                            break;
+                        }
+                    }
                 }
             }
         }

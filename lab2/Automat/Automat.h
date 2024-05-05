@@ -45,7 +45,7 @@ namespace Automato
         std::unordered_map<int, std::unordered_map<int, std::unordered_map<std::string, bool>>> stateMap;
         std::unordered_set<int> current;
         std::unordered_set<int> accepting;
-        //std::unordered_map<std::string,
+        std::unordered_map<std::string, std::unordered_set<int>> capture_groups;
 
         int start;
         int end;
@@ -56,6 +56,7 @@ namespace Automato
         void delete_state(int id);
         //void delete_transition(const std::string& from, const std::string& to, int i);
         void delete_transition(int from, int to, const std::string& condition);
+
         static void activate_transitions_sieve();
     public:
         Automat() : id(-1) {}
@@ -67,6 +68,8 @@ namespace Automato
 
         //std::string getStart() {return "start_"+std::to_string(id);}
         //std::string getEnd() {return "end_"+std::to_string(id);}
+        void add_capture_state(int id, const std::string& capture_name);
+        void add_capture_all_states(const std::string& capture_name);
         int getId() {return id;}
         void printAutomat(std::ostream& stream=std::cout);
         void printDot(std::ostream& stream=std::cout);

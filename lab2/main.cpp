@@ -7,15 +7,22 @@ int main()
     //funny exp lol
     //(ba|b?|in|g+)kd((op?)l(ab(t+k?)cde+}?)p)+k?(ha+lalp?|ha+ram?)?
     //(hal?al|bebra+)Yasos(biba|boba)?
+
     //minimization monkey examples (aaab?)+, (pok+|pak+)+
     //less monkey example ((uc)?pok+|pak+)+
     //(tatu|bi2|sector(gaza)?)(coo+l|no+rm|meh)&?
     //Jasper(Cu+min|Coo+min|Ma?glot)
     //sus.clown(1488|228|2004)&+(hype)?&+
+
+    //repetetions tests
     //yes(ab){0,5}.&+
     //(hal?al|bebra+){0,2}Yasos(biba|boba)?
     //sup.&+&|&?(how|what|when){1,3}are(you|they)+
     //omg(you|they)are(so|exteremely){0,5}(fcking)?anno+ying&+?
+
+    //capture groups exp
+    //(<aa>a{1,2})?are(<mest>you|they)crazy(<close_remarks>&?+|&+{0,1})
+    //What's(<pronoun>your|their)(<number>123|0+|22?8)&?
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};

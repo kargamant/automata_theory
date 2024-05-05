@@ -116,10 +116,11 @@ namespace Regex
 
     void bracketsPairToAst(std::pair<int, int>& closest_pair, std::vector<AST>& asts)
     {
-        bool isCapturingGroup=false;
-        std::string name;
-        if(asts[closest_pair.first+1].root->name=="<")
+        //std::cout<<"debug_ast:"<<std::endl;
+        //for(auto& ast: asts) ast.print();
+        if(asts.size()!=1 && asts[closest_pair.first+1].root->name=="<")
         {
+            std::string name;
             int k=closest_pair.first+2;
             while(asts[k].root->name!=">" && k!=closest_pair.second)
             {
@@ -128,11 +129,12 @@ namespace Regex
             }
             if(asts[k].root->name==">")
             {
-                isCapturingGroup=true;
                 asts.erase(asts.begin()+closest_pair.first+1, asts.begin()+k+1);
                 closest_pair.second-=(k-closest_pair.first);
+                for(int i=closest_pair.first+1; i<closest_pair.second; i++) asts[i].root->capture_name=name;
             }
         }
+
         //looking for + or ?
         for(int i=closest_pair.first+1; i<closest_pair.second; i++)
         {
@@ -161,7 +163,9 @@ namespace Regex
         {
             if(asts[i].root->name!="|" && asts[i-1].root->name!="|")
             {
-                AST new_ast=AST(asts[i-1], asts[i], std::shared_ptr<Node>(new Node("~")));
+                std::string capt_name;
+                if(closest_pair.first!=0 || closest_pair.second!=asts.size()-1) capt_name=asts[i].root->capture_name;
+                AST new_ast=AST(asts[i-1], asts[i], std::shared_ptr<Node>(new Node("~", capt_name)));
                 asts.erase(asts.begin()+i-1);
                 closest_pair.second-=1;
                 asts[i-1]=new_ast;
@@ -176,7 +180,9 @@ namespace Regex
                 if(asts[i].root->lNeighbour!=nullptr) continue;
                 if(asts[i].root->name=="|")
                 {
-                    AST new_ast=AST(asts[i-1], asts[i+1], std::shared_ptr<Node>(new Node("|")));
+                    std::string capt_name;
+                    if(closest_pair.first!=0 || closest_pair.second!=asts.size()-1) capt_name=asts[i].root->capture_name;
+                    AST new_ast=AST(asts[i-1], asts[i+1], std::shared_ptr<Node>(new Node("|", capt_name)));
                     asts.erase(asts.begin()+i-1);
                     asts.erase(asts.begin()+i-1);
                     closest_pair.second-=2;
@@ -185,7 +191,7 @@ namespace Regex
                 }
             }
         }
-        if(isCapturingGroup) asts[closest_pair.first+1].root->capture_name=name;
+        //if(isCapturingGroup) asts[closest_pair.first+1].root->capture_name=name;
     }
 
 
@@ -213,6 +219,7 @@ namespace Regex
                 //std::cout<<ast.root->name<<std::endl;
             }
             Automat automat=Automat(id, ast.root->name);
+            if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
             //automat.printAutomat();
             //std::cout<<"root name: \""<<ast.root->name<<"\""<<std::endl;
             return automat;
@@ -240,6 +247,7 @@ namespace Regex
             {
                 //std::cout<<"+right_neighbour_"<<ast.root->rNeighbour->name<<std::endl;
                 Automat automat=plusAutomat(nfa2);
+                if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
                 //automat.printAutomat();
                 return automat;
             }
@@ -247,6 +255,7 @@ namespace Regex
             {
                 //std::cout<<"?right_neighbour_"<<ast.root->rNeighbour->name<<std::endl;
                 Automat automat=optAutomat(nfa2);
+                if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
                 //automat.printAutomat();
                 return automat;
             }
@@ -258,6 +267,7 @@ namespace Regex
                 int min=std::stoi(no_brackets.substr(0, no_brackets.find(',')));
                 int max=std::stoi(no_brackets.substr(no_brackets.find(',')+1, no_brackets.length()));
                 Automat automat=rangeAutomat(nfa2, min, max);
+                if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
                 return automat;
             }
         }
@@ -267,6 +277,7 @@ namespace Regex
             {
                 //std::cout<<"+left_neighbour_"<<ast.root->lNeighbour->name<<std::endl;
                 Automat automat=plusAutomat(nfa1);
+                if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
                 //automat.printAutomat();
                 return automat;
             }
@@ -274,6 +285,7 @@ namespace Regex
             {
                 //std::cout<<"?left_neighbour_"<<ast.root->lNeighbour->name<<std::endl;
                 Automat automat=optAutomat(nfa1);
+                if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
                 //automat.printAutomat();
                 return automat;
             }
@@ -285,6 +297,7 @@ namespace Regex
                 int min=std::stoi(no_brackets.substr(0, no_brackets.find(',')));
                 int max=std::stoi(no_brackets.substr(no_brackets.find(',')+1, no_brackets.length()));
                 Automat automat=rangeAutomat(nfa1, min, max);
+                if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
                 return automat;
             }
         }
@@ -294,6 +307,7 @@ namespace Regex
             {
                 //std::cout<<ast.root->lNeighbour->name<<" | "<<ast.root->rNeighbour->name<<std::endl;
                 Automat automat=orAutomat(nfa1, nfa2);
+                if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
                 //automat.printAutomat();
                 return automat;
             }
@@ -302,6 +316,7 @@ namespace Regex
                 //std::cout<<ast.root->lNeighbour->name<<" ~ "<<ast.root->rNeighbour->name<<std::endl;
                 //if(ast.root->rNeighbour->name.empty())
                 Automat automat=catAutomat(nfa1, nfa2);
+                if(!ast.root->capture_name.empty()) automat.add_capture_all_states(ast.root->capture_name);
                 //automat.printAutomat();
                 return automat;
             }
@@ -360,17 +375,17 @@ namespace Regex
         dfa.printDot(stream);
         stream<<std::string(100, '-')<<std::endl;
 
-        start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+        /*start=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         Automat minDfa=minimizeDfa(dfa);
         finish=std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
         sum_time+=finish.count()-start.count();
         stream<<std::endl<<"DFA minimized in "<<finish.count()-start.count()<<" milliseconds"<<std::endl;
         minDfa.printAutomat(stream);
         minDfa.printDot(stream);
-        stream<<std::string(100, '-')<<std::endl;
+        stream<<std::string(100, '-')<<std::endl;*/
 
         stream<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
-        automat=std::move(minDfa);
+        automat=std::move(dfa); //minDfa
 
     }
 
