@@ -47,6 +47,7 @@ namespace Automato
         {
             state.second.erase(id);
         }
+        if(accepting.contains(id)) accepting.erase(id);
     }
     /*void Automat::delete_transition(const std::string& from, const std::string& to, int i)
     {
@@ -800,6 +801,7 @@ namespace Automato
     }
     std::string Automat::recoverRe()
     {
+        std::vector<int> to_delete;
         for(auto& state: stateMap)
         {
             if(start!=state.first && !accepting.contains(state.first))
@@ -854,7 +856,7 @@ namespace Automato
                                             break;
                                         }
                                     }
-                                    add_transition(q.first, p.first, q_tr+"("+self_tr+")*"+p_tr);
+                                    add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr);
                                 }
                                 delete_transition(q.first, state.first, q_tr);
                                 delete_transition(state.first, p.first, p_tr);
@@ -862,12 +864,60 @@ namespace Automato
                         }
                     }
                 }
+                to_delete.push_back(state.first);
                 //delete_state(state.first);
             }
         }
-        printAutomat();
-        printDot();
-        return "";
+        for(auto& st: to_delete) delete_state(st);
+        //printAutomat();
+        //printDot();
+
+        int Start=start;
+        std::string re;
+        for(auto& acc: accepting)
+        {
+            std::string R;
+            int End=acc;
+            std::string V, S; // V - self_transition for start, S - transition to end state
+            std::string U, T; // U - self_transition for end, T - back transition to start state
+
+            V=fillTransitions(Start, Start);
+            S=fillTransitions(Start, End);
+            U=fillTransitions(End, End);
+            T=fillTransitions(End, Start);
+
+            //std::cout<<V<<" "<<S<<" "<<U<<" "<<T<<std::endl;
+
+            if(V.empty() && !T.empty()) R=starEquivalent("("+S+starEquivalent(U)+T+")")+S+starEquivalent(U);
+            else if(!V.empty() && T.empty()) R=starEquivalent(V)+S+starEquivalent(U);
+            else if(V.empty() && T.empty()) R=S+starEquivalent(U);
+            else
+            {
+                R=starEquivalent("("+V+"|"+S+starEquivalent(U)+T+")")+S+starEquivalent(U);
+            }
+            if(re.empty()) re+="("+R+")";
+            else re+="|("+R+")";
+        }
+
+        return re;
+    }
+    std::string Automat::fillTransitions(int from, int to)
+    {
+        std::string result;
+        for(auto& tr: stateMap[from][to])
+        {
+            if(tr.second)
+            {
+                if(!result.empty()) result+="|"+tr.first;
+                else result+=tr.first;
+            }
+        }
+        return result;
+    }
+    std::string starEquivalent(const std::string& node)
+    {
+        if(node.empty()) return "";
+        return "(("+node+"){0,1}|"+"("+node+")+)";
     }
 }
 

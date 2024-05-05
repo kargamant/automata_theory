@@ -77,6 +77,7 @@ namespace Automato
         void printDot(std::ostream& stream=std::cout);
         std::unordered_map<std::string, std::string> verifyStr(const std::string& str, std::string& result, bool isNfa=false);
         std::string recoverRe();
+        std::string fillTransitions(int from, int to);
 
         Automat& operator=(Automat&& automat);
         Automat& operator<<(Automat& automat);
@@ -101,6 +102,7 @@ namespace Automato
     Automat nfaToDfa(Automat& automat);
     Automat minimizeDfa(Automat& dfa);
     StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition, bool isNfa=true);
+    std::string starEquivalent(const std::string& node);
 }
 
 #endif // AUTOMAT_H

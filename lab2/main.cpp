@@ -54,7 +54,8 @@ int main()
     {
         std::cout<<"<"<<cg.first<<">"<<": "<<cg.second<<std::endl;
     }
-    Regex::recoverExpr(reg);
+    std::cout<<"recovered expression:"<<std::endl;
+    std::cout<<Regex::recoverExpr(reg)<<std::endl;
 
     return 0;
 }
