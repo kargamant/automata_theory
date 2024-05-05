@@ -407,7 +407,6 @@ namespace Automato
                 if(automat.accepting.contains(state))
                 {
                     dfa.accepting.insert(added_set.second);
-                    break;
                 }
                 if(!automat.capture_groups.empty())
                 {
@@ -415,8 +414,9 @@ namespace Automato
                     {
                         if(cg.second.contains(state))
                         {
+                            //std::cout<<cg.first<<std::endl;
+                            //std::cout<<state<<"->"<<added_set.second<<std::endl;
                             dfa.add_capture_state(added_set.second, cg.first);
-                            break;
                         }
                     }
                 }
@@ -451,13 +451,41 @@ namespace Automato
     {
         Automat minDfa;
 
-        std::vector<StateSet> groups{dfa.accepting};
-        StateSet non_accepting;
-        for(auto& state: dfa.stateMap)
+        std::vector<StateSet> groups;
+        if(dfa.capture_groups.empty())
         {
-            if(!dfa.accepting.contains(state.first)) non_accepting.set.insert(state.first);
+
+            groups.push_back(dfa.accepting);
+            StateSet non_accepting;
+            for(auto& state: dfa.stateMap)
+            {
+                if(!dfa.accepting.contains(state.first)) non_accepting.set.insert(state.first);
+            }
+            groups.push_back(non_accepting);
         }
-        groups.push_back(non_accepting);
+        else
+        {
+            for(auto& cg: dfa.capture_groups)
+            {
+                groups.push_back(cg.second);
+            }
+
+            std::unordered_set<int> non_captured;
+            for(auto& st: dfa.stateMap)
+            {
+                bool isNotCaptured=true;
+                for(auto& cg: groups)
+                {
+                    if(cg.set.contains(st.first))
+                    {
+                        isNotCaptured=false;
+                        break;
+                    }
+                }
+                if(isNotCaptured) non_captured.insert(st.first);
+            }
+            groups.push_back(non_captured);
+        }
 
 
         bool noChanges=false;
@@ -594,6 +622,13 @@ namespace Automato
                 if(state==dfa.start)
                 {
                     minDfa.start=group.id;
+                }
+                if(!dfa.capture_groups.empty())
+                {
+                    for(auto& cg: dfa.capture_groups)
+                    {
+                        if(cg.second.contains(state)) minDfa.add_capture_state(group.id, cg.first);
+                    }
                 }
             }
         }
