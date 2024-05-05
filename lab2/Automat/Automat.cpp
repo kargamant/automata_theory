@@ -63,9 +63,25 @@ namespace Automato
         if(capture_groups.contains(capture_name)) capture_groups[capture_name].insert(id);
         else capture_groups.insert({capture_name, {id}});
     }
+
     void Automat::add_capture_all_states(const std::string& capture_name)
     {
         for(auto& st: stateMap) add_capture_state(st.first, capture_name);
+    }
+
+    void Automat::fill_search_capture_map()
+    {
+        if(!capture_groups.empty())
+        {
+            for(auto& cg: capture_groups)
+            {
+                for(auto& st: cg.second)
+                {
+                    if(!search_capture_map.contains(st)) search_capture_map.insert({st, {cg.first}});
+                    else search_capture_map[st].insert(cg.first);
+                }
+            }
+        }
     }
 
     Automat::Automat(Automat& Automat1) : current(Automat1.current), id(Automat1.id), stateMap(Automat1.stateMap), start(Automat1.start), end(Automat1.end), accepting(Automat1.accepting), capture_groups(Automat1.capture_groups)
@@ -660,7 +676,7 @@ namespace Automato
     }
 
 
-    bool Automat::verifyStr(const std::string& str, std::string& result, bool isNfa)
+    std::unordered_map<std::string, std::string> Automat::verifyStr(const std::string& str, std::string& result, bool isNfa)
     {
         bool isValid=false;
         bool isFound=false;
@@ -668,8 +684,41 @@ namespace Automato
         current.clear();
         current.insert(start);
 
+        std::unordered_map<std::string, std::string> captures;
+        if(!capture_groups.empty())
+        {
+            for(auto& cg: capture_groups) captures.insert({cg.first, ""});
+        }
+
+        StateSet prev;
         for(int i=0; i<str.size(); i++)
         {
+            for(auto& st: prev.set)
+            {
+                if(search_capture_map.contains(st))
+                {
+                    for(auto& cg: search_capture_map[st])
+                    {
+                        bool out_of_cg=false;
+                        for(auto& to: stateMap[st])
+                        {
+                            if(to.second[{str[i]}] && !capture_groups[cg].contains(to.first))
+                            {
+                                out_of_cg=true;
+                                break;
+                            }
+                        }
+                        if(!out_of_cg) captures[cg]+=str[i];
+                    }
+                }
+            }
+            std::cout<<"symbol: "<<str[i]<<std::endl;
+            std::cout<<"captures:"<<std::endl;
+            for(auto& cg: captures)
+            {
+                std::cout<<"<"<<cg.first<<">"<<": "<<cg.second<<std::endl;
+            }
+
             auto next_state=formStateSet(*this, current, {str[i]}, isNfa);
 
             if(next_state.set.empty())
@@ -678,8 +727,10 @@ namespace Automato
                 current.clear();
                 current.insert(start);
                 result.clear();
+                for(auto& cg: captures) cg.second.clear();
                 continue;
             }
+
 
             isValid=false;
             if(isNfa)
@@ -687,6 +738,8 @@ namespace Automato
                 auto eps_set=formStateSet(*this, next_state.set, "");
                 if(!eps_set.set.empty()) next_state.set.merge(eps_set.set);
             }
+
+            prev=next_state;
 
             current=next_state.set;
             result+=str[i];
@@ -696,11 +749,11 @@ namespace Automato
                 {
                     isValid=true;
                     isFound=true;
-                    return isValid;
+                    return captures;
                 }
             }
         }
-        return isValid;
+        return captures;
     }
 }
 

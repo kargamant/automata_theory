@@ -30,10 +30,10 @@ namespace Regex
 
         void compile(const std::string& expr);
         void compilationWithLogging(const std::string& expr, std::ostream& stream);
-        friend bool re_search(const std::string& str, std::string& result, Regex& re);
+        friend std::unordered_map<std::string, std::string> re_search(const std::string& str, std::string& result, Regex& re);
     };
 
-    bool re_search(const std::string& str, std::string& result, Regex& re);
+    std::unordered_map<std::string, std::string> re_search(const std::string& str, std::string& result, Regex& re);
 }
 
 #endif // REGEX_H

@@ -46,6 +46,7 @@ namespace Automato
         std::unordered_set<int> current;
         std::unordered_set<int> accepting;
         std::unordered_map<std::string, std::unordered_set<int>> capture_groups;
+        std::unordered_map<int, std::unordered_set<std::string>> search_capture_map;
 
         int start;
         int end;
@@ -68,12 +69,13 @@ namespace Automato
 
         //std::string getStart() {return "start_"+std::to_string(id);}
         //std::string getEnd() {return "end_"+std::to_string(id);}
+        void fill_search_capture_map();
         void add_capture_state(int id, const std::string& capture_name);
         void add_capture_all_states(const std::string& capture_name);
         int getId() {return id;}
         void printAutomat(std::ostream& stream=std::cout);
         void printDot(std::ostream& stream=std::cout);
-        bool verifyStr(const std::string& str, std::string& result, bool isNfa=false);
+        std::unordered_map<std::string, std::string> verifyStr(const std::string& str, std::string& result, bool isNfa=false);
 
         Automat& operator=(Automat&& automat);
         Automat& operator<<(Automat& automat);

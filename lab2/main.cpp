@@ -42,11 +42,14 @@ int main()
     reg.getAutomat().printDot(portarait_fs);
 
     std::string result;
-    bool isValid=Regex::re_search(line_expr, result, reg);
+    std::unordered_map<std::string, std::string> captures=Regex::re_search(line_expr, result, reg);
     std::cout<<"scanning results:"<<std::endl;
     std::cout<<"recognized sequence: "<<result<<std::endl;
-    std::cout<<"is Valid: "<<isValid<<std::endl;
-
+    std::cout<<"captures:"<<std::endl;
+    for(auto& cg: captures)
+    {
+        std::cout<<"<"<<cg.first<<">"<<": "<<cg.second<<std::endl;
+    }
 
     return 0;
 }

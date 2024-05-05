@@ -337,7 +337,9 @@ namespace Regex
         //dfa.printDot();
         //dfa.printAutomat();
         Automat minDfa=minimizeDfa(dfa);
+
         automat=std::move(minDfa);
+        automat.fill_search_capture_map();
     }
 
     void Regex::compilationWithLogging(const std::string& expr, std::ostream& stream)
@@ -387,9 +389,10 @@ namespace Regex
         stream<<"Total time: "<<sum_time<<" milliseconds"<<std::endl;
         automat=std::move(minDfa);
 
+        automat.fill_search_capture_map();
     }
 
-    bool re_search(const std::string& str, std::string& result, Regex& re)
+    std::unordered_map<std::string, std::string> re_search(const std::string& str, std::string& result, Regex& re)
     {
         return re.automat.verifyStr(str, result);
     }
