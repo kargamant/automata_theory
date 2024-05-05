@@ -116,7 +116,23 @@ namespace Regex
 
     void bracketsPairToAst(std::pair<int, int>& closest_pair, std::vector<AST>& asts)
     {
-
+        bool isCapturingGroup=false;
+        std::string name;
+        if(asts[closest_pair.first+1].root->name=="<")
+        {
+            int k=closest_pair.first+2;
+            while(asts[k].root->name!=">" && k!=closest_pair.second)
+            {
+                name+=asts[k].root->name;
+                k++;
+            }
+            if(asts[k].root->name==">")
+            {
+                isCapturingGroup=true;
+                asts.erase(asts.begin()+closest_pair.first+1, asts.begin()+k+1);
+                closest_pair.second-=(k-closest_pair.first);
+            }
+        }
         //looking for + or ?
         for(int i=closest_pair.first+1; i<closest_pair.second; i++)
         {
@@ -169,6 +185,7 @@ namespace Regex
                 }
             }
         }
+        if(isCapturingGroup) asts[closest_pair.first+1].root->capture_name=name;
     }
 
 

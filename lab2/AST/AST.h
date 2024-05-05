@@ -10,6 +10,7 @@ namespace Ast
 
     struct Node
     {
+            std::string capture_name;
             std::string name;
             std::shared_ptr<Node> lNeighbour;
             std::shared_ptr<Node> rNeighbour;

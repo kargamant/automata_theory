@@ -20,7 +20,8 @@ namespace Ast
 
     int Node::printNode(std::ostream& stream, int spaces)
     {
-        stream<<std::string(spaces, ' ')<<name<<std::endl;
+        if(capture_name.empty()) stream<<std::string(spaces, ' ')<<name<<std::endl;
+        else stream<<std::string(spaces, ' ')<<name<<" <"<<capture_name<<">"<<std::endl;
         if(lNeighbour!=nullptr)
         {
             lNeighbour->printNode(stream, spaces+4);

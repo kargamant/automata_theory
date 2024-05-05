@@ -45,6 +45,8 @@ namespace Automato
         std::unordered_map<int, std::unordered_map<int, std::unordered_map<std::string, bool>>> stateMap;
         std::unordered_set<int> current;
         std::unordered_set<int> accepting;
+        //std::unordered_map<std::string,
+
         int start;
         int end;
         int id;
