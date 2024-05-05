@@ -12,7 +12,7 @@
 
 namespace Automato
 {
-    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-*&^%,$#@!|'. ";
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-_*&^%,$#@!|'. ";
     std::unordered_map<std::string, bool> Automat::transitions_sieve{{"a", false}};
 
 
@@ -448,7 +448,7 @@ namespace Automato
         {
             for(auto& st: automat.stateMap[state])
             {
-                if(st.second[transition] || (!isNfa && st.second["&"]))
+                if(st.second[transition] || (!isNfa && st.second["&"] && !std::string("{}?!+-*&^%,$#@!|'").contains(transition)))
                 {
                     set.insert(st.first);
                 }
@@ -690,27 +690,61 @@ namespace Automato
             for(auto& cg: capture_groups) captures.insert({cg.first, ""});
         }
 
-        StateSet prev;
+        std::unordered_set<std::string> current_cgs;
         for(int i=0; i<str.size(); i++)
         {
-            for(auto& st: prev.set)
+
+            for(auto& st: current)
             {
-                if(search_capture_map.contains(st))
+                /*std::cout<<st<<std::endl;
+                for(auto& cg: search_capture_map[st]) std::cout<<cg<<std::endl;
+                std::cout<<"current cgs:"<<std::endl;
+                for(auto& cg: current_cgs) std::cout<<cg<<std::endl;
+                std::cout<<std::endl;*/
+
+                if(search_capture_map.contains(st) && current_cgs!=search_capture_map[st])
                 {
-                    for(auto& cg: search_capture_map[st])
+                    if(current_cgs.size()>search_capture_map[st].size())
                     {
-                        bool out_of_cg=false;
-                        for(auto& to: stateMap[st])
+                        current_cgs=search_capture_map[st];
+                        break;
+                    }
+                    else
+                    {
+                        std::unordered_set<std::string> new_current=search_capture_map[st];
+                        for(auto& cg: current_cgs)
                         {
-                            if(to.second[{str[i]}] && !capture_groups[cg].contains(to.first))
-                            {
-                                out_of_cg=true;
-                                break;
-                            }
+                            new_current.erase(cg);
                         }
-                        if(!out_of_cg) captures[cg]+=str[i];
+                        current_cgs=new_current;
+                        break;
                     }
                 }
+                else if(!search_capture_map.contains(st))
+                {
+                    current_cgs.clear();
+                    break;
+                }
+            }
+            for(auto& cg: current_cgs)
+            {
+                auto next=formStateSet(*this, current, {str[i]}, isNfa);
+                bool differentState=false;
+                for(auto& st: next.set)
+                {
+                    if(!search_capture_map.contains(st))
+                    {
+                        differentState=true;
+                        break;
+                    }
+                }
+                if(differentState) continue;
+                captures[cg]+=str[i];
+            }
+            /*std::cout<<"current groups:"<<std::endl;
+            for(auto& cg: current_cgs)
+            {
+                std::cout<<"<"<<cg<<">"<<std::endl;
             }
             std::cout<<"symbol: "<<str[i]<<std::endl;
             std::cout<<"captures:"<<std::endl;
@@ -718,7 +752,7 @@ namespace Automato
             {
                 std::cout<<"<"<<cg.first<<">"<<": "<<cg.second<<std::endl;
             }
-
+            std::cout<<std::endl;*/
             auto next_state=formStateSet(*this, current, {str[i]}, isNfa);
 
             if(next_state.set.empty())
@@ -738,8 +772,6 @@ namespace Automato
                 auto eps_set=formStateSet(*this, next_state.set, "");
                 if(!eps_set.set.empty()) next_state.set.merge(eps_set.set);
             }
-
-            prev=next_state;
 
             current=next_state.set;
             result+=str[i];

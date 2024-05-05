@@ -21,9 +21,10 @@ int main()
     //omg(you|they)are(so|exteremely){0,5}(fcking)?anno+ying&+?
 
     //capture groups exp
-    //(<aa>a{1,2})?are(<mest>you|they)crazy(<close_remarks>&?+|&+{0,1})
+    //(<aa>a{1,2})?are(<mest>you|they)crazy(<close_remarks>&?+|&+{1,3})
     //What's(<pronoun>your|their)(<number>123|0+|22?8)&?
     //Yasos((<biba>biba)|(<boba>boba))?
+    //(<name>.+)@(<domen>gmail|mail|yandex)&.(<code>ru|com|org)
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};
