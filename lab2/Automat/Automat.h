@@ -76,6 +76,7 @@ namespace Automato
         void printAutomat(std::ostream& stream=std::cout);
         void printDot(std::ostream& stream=std::cout);
         std::unordered_map<std::string, std::string> verifyStr(const std::string& str, std::string& result, bool isNfa=false);
+        std::string recoverRe();
 
         Automat& operator=(Automat&& automat);
         Automat& operator<<(Automat& automat);

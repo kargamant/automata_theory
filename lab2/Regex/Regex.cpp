@@ -396,6 +396,11 @@ namespace Regex
     {
         return re.automat.verifyStr(str, result);
     }
+
+    std::string recoverExpr(Regex& re)
+    {
+        return re.getAutomat().recoverRe();
+    }
 }
 
 

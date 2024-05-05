@@ -16,16 +16,18 @@ int main()
 
     //repetetions tests
     //yes(ab){0,5}.&+
-    //(hal?al|bebra+){0,2}Yasos(biba|boba)?
+    //(hal?al|bebra+){0,2}Yasos(biba|boba)? (or Yasos(<biba>biba)|(<boba>boba)
     //sup.&+&|&?(how|what|when){1,3}are(you|they)+
     //omg(you|they)are(so|exteremely){0,5}(fcking)?anno+ying&+?
 
     //capture groups exp
     //(<aa>a{1,2})?are(<mest>you|they)crazy(<close_remarks>&?+|&+{1,3})
     //What's(<pronoun>your|their)(<number>123|0+|22?8)&?
-    //Yasos((<biba>biba)|(<boba>boba))?
     //(<name>.+)@(<domen>gmail|mail|yandex)&.(<code>ru|com|org)
     //(<country>&+7|8|&+1|&+375)&((<region>925|375|905)&)(<town>478|312|0{3,3})(<pair>00|11|22|33){2,2}
+
+    //re recovery examples
+    //a(bc)?((ck)+|(mk)+)
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};
@@ -52,6 +54,7 @@ int main()
     {
         std::cout<<"<"<<cg.first<<">"<<": "<<cg.second<<std::endl;
     }
+    Regex::recoverExpr(reg);
 
     return 0;
 }

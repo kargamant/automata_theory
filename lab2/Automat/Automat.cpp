@@ -798,6 +798,77 @@ namespace Automato
         }
         return captures;
     }
+    std::string Automat::recoverRe()
+    {
+        for(auto& state: stateMap)
+        {
+            if(start!=state.first && !accepting.contains(state.first))
+            {
+                //finding all interances
+                std::unordered_map<int, std::unordered_set<std::string>> Q;
+                for(auto& q: stateMap)
+                {
+                    if(q.first!=state.first)
+                    {
+                        if(q.second.contains(state.first))
+                        {
+                            Q.insert({q.first, {}});
+                            for(auto& symb: q.second[state.first])
+                            {
+                                if(q.second[state.first][symb.first]) Q[q.first].insert(symb.first);
+                            }
+                        }
+                    }
+                }
+
+                //all exits
+                std::unordered_map<int, std::unordered_set<std::string>> P;
+                for(auto& st: stateMap[state.first])
+                {
+                    P.insert({st.first, {}});
+                    for(auto& symb: st.second)
+                    {
+                        if(symb.second) P[st.first].insert(symb.first);
+                    }
+                }
+
+                //creating new transitions
+                for(auto& q: Q)
+                {
+                    for(auto& p: P)
+                    {
+                        for(auto& q_tr: q.second)
+                        {
+                            for(auto& p_tr: p.second)
+                            {
+                                if(p.first==state.first) continue;
+                                if(!stateMap[state.first].contains(state.first)) add_transition(q.first, p.first, q_tr+p_tr);
+                                else
+                                {
+                                    std::string self_tr;
+                                    for(auto& symb: stateMap[state.first][state.first])
+                                    {
+                                        if(symb.second)
+                                        {
+                                            self_tr=symb.first;
+                                            break;
+                                        }
+                                    }
+                                    add_transition(q.first, p.first, q_tr+"("+self_tr+")*"+p_tr);
+                                }
+                                delete_transition(q.first, state.first, q_tr);
+                                delete_transition(state.first, p.first, p_tr);
+                            }
+                        }
+                    }
+                }
+                //delete_state(state.first);
+            }
+        }
+        printAutomat();
+        printDot();
+        return "";
+    }
 }
 
 
