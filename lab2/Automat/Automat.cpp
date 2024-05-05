@@ -12,7 +12,7 @@
 
 namespace Automato
 {
-    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+-_*&^%,$#@!|'. ";
+    const std::string Automat::alphabet="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}?!+()-_*&^%,$#@!|'. ";
     std::unordered_map<std::string, bool> Automat::transitions_sieve{{"a", false}};
 
 
@@ -736,6 +736,17 @@ namespace Automato
                     {
                         differentState=true;
                         break;
+                    }
+                    else if(search_capture_map[st]!=current_cgs)
+                    {
+                        std::unordered_set<std::string> intersection;
+                        std::set_intersection(search_capture_map[st].begin(), search_capture_map[st].end(), current_cgs.begin(), current_cgs.end(), std::inserter(intersection, intersection.begin()));
+                        //for(auto& inter: intersection) std::cout<<inter<<std::endl;
+                        if(intersection.empty())
+                        {
+                            differentState=true;
+                            break;
+                        }
                     }
                 }
                 if(differentState) continue;

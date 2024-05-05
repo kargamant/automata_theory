@@ -25,6 +25,7 @@ int main()
     //What's(<pronoun>your|their)(<number>123|0+|22?8)&?
     //Yasos((<biba>biba)|(<boba>boba))?
     //(<name>.+)@(<domen>gmail|mail|yandex)&.(<code>ru|com|org)
+    //(<country>&+7|8|&+1|&+375)&((<region>925|375|905)&)(<town>478|312|0{3,3})(<pair>00|11|22|33){2,2}
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};
