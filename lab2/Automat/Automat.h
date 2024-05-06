@@ -37,7 +37,6 @@ namespace Automato
     class Automat
     {
     private:
-        static const std::string alphabet;
         static std::unordered_map<std::string, bool> transitions_sieve;
 
         //structure of table
@@ -60,13 +59,14 @@ namespace Automato
 
         static void activate_transitions_sieve();
     public:
+        static const std::string alphabet;
         Automat() : id(-1) {}
         Automat(int id, const std::string& transition);
         Automat(Automat& Automat1);
         Automat(Automat&& Automat1);
         //Automat(Automat& Automat1, Automat& Automat2, char op);
         //Automat(Automat& Automat1, char op);
-
+        std::unordered_map<int, std::unordered_map<int, std::unordered_map<std::string, bool>>> getMap() {return stateMap;}
         //std::string getStart() {return "start_"+std::to_string(id);}
         //std::string getEnd() {return "end_"+std::to_string(id);}
         void fill_search_capture_map();
@@ -94,6 +94,7 @@ namespace Automato
         friend Automat rangeAutomat(Automat& automat, int min, int max);
         friend Automat productDfa(Automat& dfa1, Automat& dfa2);
         friend Automat differenceDfa(Automat& dfa1, Automat& dfa2);
+        friend Automat complimentDfa(Automat& dfa);
     };
     Automat rangeAutomat(Automat& automat, int min, int max);
     Automat orAutomat(Automat& Automat1, Automat& Automat2);
@@ -107,6 +108,7 @@ namespace Automato
     std::string starEquivalent(const std::string& node);
     Automat productDfa(Automat& dfa1, Automat& dfa2);
     Automat differenceDfa(Automat& dfa1, Automat& dfa2);
+    Automat complimentDfa(Automat& dfa);
 }
 
 #endif // AUTOMAT_H

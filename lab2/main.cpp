@@ -58,15 +58,22 @@ int main()
     std::cout<<"recovered expression:"<<std::endl;
     std::cout<<Regex::recoverExpr(reg)<<std::endl;
 
-    Regex::Regex lang1{"abtk"};
-    Regex::Regex lang2{"(ab|tk)"};
+    //Regex::Regex lang1{starEquivalent("0")+"1"+starEquivalent("(0|1)"+starEquivalent("0")+"1")};
+    //Regex::Regex lang2{starEquivalent("1")+starEquivalent("0+1+")};
+    Regex::Regex lang1{"(om|lol|kek)"}; //(ab|cd)+
+    Regex::Regex lang2{"abcd"};
+    //((e|k|l|o|m|g){0,1}|(e|k|l|o|m|g)+)
     //to be debugged
     //lang2.compilationWithLogging("a"+starEquivalent("o")+starEquivalent("ba"+starEquivalent("o")+"|t+ca"+starEquivalent("o")), std::cout);
-    Automat aut1=lang1.getAutomat();
+    /*Automat aut1=lang1.getAutomat();
     Automat aut2=lang2.getAutomat();
+    aut1.printAutomat();
     aut1.printDot();
-    aut2.printDot();
-    Automato::differenceDfa(aut2, aut1).printDot(portarait_fs);
-
+    aut2.printAutomat();
+    aut2.printDot();*/
+    //Regex::Regex diff_re=lang1-lang2;
+    //diff_re.getAutomat().printDot(portarait_fs);
+    Regex::Regex compliment_1=~lang1;
+    compliment_1.getAutomat().printDot(portarait_fs);
     return 0;
 }

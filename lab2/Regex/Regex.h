@@ -26,8 +26,11 @@ namespace Regex
     public:
         Regex() : ex("") {}
         Regex(const std::string& expr);
-        Automat getAutomat() {return automat;}
+        Regex(Automat&& aut) : automat(aut) {}
 
+        Regex operator~();
+        Automat getAutomat() {return automat;}
+        friend Regex operator-(Regex& re1, Regex& re2);
         void compile(const std::string& expr);
         void compilationWithLogging(const std::string& expr, std::ostream& stream);
         friend std::unordered_map<std::string, std::string> re_search(const std::string& str, std::string& result, Regex& re);
@@ -36,6 +39,7 @@ namespace Regex
 
     std::unordered_map<std::string, std::string> re_search(const std::string& str, std::string& result, Regex& re);
     std::string recoverExpr(Regex& re);
+    Regex operator-(Regex& re1, Regex& re2);
 }
 
 #endif // REGEX_H

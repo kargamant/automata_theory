@@ -184,6 +184,21 @@ namespace Automato
                     {
                         product.add_transition(p.first*10+q.first, p_to*10+q_to, {symb});
                     }
+                    /*else if(p_to!=0)
+                    {
+                        for(auto& qt: dfa2.stateMap)
+                        {
+                            product.add_transition(p.first*10+q.first, p_to*10+qt.first, {symb});
+                        }
+                    }
+                    else if(q_to!=0)
+                    {
+                        for(auto& pt: dfa1.stateMap)
+                        {
+                            product.add_transition(p.first*10+q.first, pt.first*10+q_to, {symb});
+                        }
+
+                    }*/
                     /*else if((p_to==0 && q_to!=0) || (p_to!=0 && q_to==0))
                     {
                         product.add_transition(p.first*10+q.first, -1, {symb});
@@ -208,6 +223,23 @@ namespace Automato
             }
         }
         return product;
+    }
+
+    Automat complimentDfa(Automat& dfa)
+    {
+        Automat compliment{dfa};
+        for(auto& state: compliment.stateMap)
+        {
+            if(compliment.accepting.contains(state.first))
+            {
+                compliment.accepting.erase(state.first);
+            }
+            else
+            {
+                compliment.accepting.insert(state.first);
+            }
+        }
+        return compliment;
     }
 
     Automat rangeAutomat(Automat& automat, int min, int max)
@@ -408,6 +440,7 @@ namespace Automato
             //bool isNew=true;
             auto candidate=queue.front();
             //candidate.print();
+            //candidate.print();
             /*for(auto& added_set: added_sets)
             {
                 if(added_set.set==candidate.set && candidate.set!=start_candidates.set)
@@ -512,18 +545,29 @@ namespace Automato
     StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition, bool isNfa)
     {
         std::unordered_set<int> set;
+        //std::cout<<"transition: "<<transition<<std::endl;
+        //std::cout<<"from set:"<<std::endl;
+        //stateSet.print();
+        //if(stateSet.set.empty()) return {set};
         for(auto& state: stateSet.set)
         {
+            //std::cout<<"state: "<<state<<std::endl;
             for(auto& st: automat.stateMap[state])
             {
+                //std::cout<<"to: "<<st.first<<std::endl;
+                //std::cout<<"is transition: "<<st.second[transition]<<std::endl;
                 if(st.second[transition] || (!isNfa && st.second["&"] && !std::string("{}?!+-*&^%,$#@!|'").contains(transition)))
                 {
                     set.insert(st.first);
                 }
             }
+            //std::cout<<"to for "<<state<<std::endl;
+            //StateSet(set).print();
             if(isNfa)
             {
                 auto result=formStateSet(automat, set, transition);
+                //std::cout<<"result:"<<std::endl;
+                //result.print();
                 std::move(result.set.begin(), result.set.end(), std::inserter<std::unordered_set<int>>(set, set.end()));
             }
             //set.emplace(state);
