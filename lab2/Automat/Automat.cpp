@@ -143,6 +143,72 @@ namespace Automato
         return *this;
     }
 
+    Automat productDfa(Automat& dfa1, Automat& dfa2)
+    {
+        Automat product;
+        for(auto& p: dfa1.stateMap)
+        {
+            for(auto& q: dfa2.stateMap)
+            {
+                product.add_state(p.first*10+q.first);
+            }
+        }
+
+        for(auto& symb: Automat::alphabet)
+        {
+            for(auto& p: dfa1.stateMap)
+            {
+                for(auto& q: dfa2.stateMap)
+                {
+                    int p_to=0;
+                    int q_to=0;
+                    for(auto& p_tr: p.second)
+                    {
+                        if(p_tr.second[{symb}])
+                        {
+                            p_to=p_tr.first;
+                            break;
+                        }
+                    }
+
+                    for(auto& q_tr: q.second)
+                    {
+                        if(q_tr.second[{symb}])
+                        {
+                            q_to=q_tr.first;
+                            break;
+                        }
+                    }
+
+                    if(p_to!=0 && q_to!=0)
+                    {
+                        product.add_transition(p.first*10+q.first, p_to*10+q_to, {symb});
+                    }
+                    /*else if((p_to==0 && q_to!=0) || (p_to!=0 && q_to==0))
+                    {
+                        product.add_transition(p.first*10+q.first, -1, {symb});
+                    }*/
+                }
+            }
+        }
+        product.start=dfa1.start*10+dfa2.start;
+        //product.printAutomat();
+        //product.printDot();
+        return product;
+    }
+
+    Automat differenceDfa(Automat& dfa1, Automat& dfa2)
+    {
+        Automat product=productDfa(dfa1, dfa2);
+        for(auto& acc: dfa1.accepting)
+        {
+            for(auto& q: dfa2.stateMap)
+            {
+                if(!dfa2.accepting.contains(q.first)) product.accepting.insert(acc*10+q.first);
+            }
+        }
+        return product;
+    }
 
     Automat rangeAutomat(Automat& automat, int min, int max)
     {
@@ -413,6 +479,7 @@ namespace Automato
                 }
             }
             queue.pop();
+            //dfa.printAutomat();
         }
 
         for(auto& added_set: added_sets)

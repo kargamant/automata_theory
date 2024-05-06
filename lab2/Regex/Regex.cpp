@@ -6,6 +6,10 @@
 
 namespace Regex
 {
+    Regex::Regex(const std::string& expr)
+    {
+        compile(expr);
+    }
     std::string Regex::alphabet="|+?.";
     AST formAst(const std::string& expr)
     {

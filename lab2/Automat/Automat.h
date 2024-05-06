@@ -30,7 +30,7 @@ namespace Automato
     {
         std::size_t operator()(const std::unordered_set<int>& key) const
         {
-            return std::hash<int>()(*key.begin())+(*key.begin())%37;
+            return std::hash<int>()(*key.begin())+(*key.begin())%73;
         }
     };
 
@@ -92,6 +92,8 @@ namespace Automato
         friend StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition, bool isNfa);
         friend Automat minimizeDfa(Automat& dfa);
         friend Automat rangeAutomat(Automat& automat, int min, int max);
+        friend Automat productDfa(Automat& dfa1, Automat& dfa2);
+        friend Automat differenceDfa(Automat& dfa1, Automat& dfa2);
     };
     Automat rangeAutomat(Automat& automat, int min, int max);
     Automat orAutomat(Automat& Automat1, Automat& Automat2);
@@ -103,6 +105,8 @@ namespace Automato
     Automat minimizeDfa(Automat& dfa);
     StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition, bool isNfa=true);
     std::string starEquivalent(const std::string& node);
+    Automat productDfa(Automat& dfa1, Automat& dfa2);
+    Automat differenceDfa(Automat& dfa1, Automat& dfa2);
 }
 
 #endif // AUTOMAT_H

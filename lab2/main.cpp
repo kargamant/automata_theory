@@ -43,7 +43,8 @@ int main()
     Regex::Regex reg;
     reg.compilationWithLogging(re_expr, log);
 
-    reg.getAutomat().printDot(portarait_fs);
+    //to uncomment
+    //reg.getAutomat().printDot(portarait_fs);
 
     std::string result;
     std::unordered_map<std::string, std::string> captures=Regex::re_search(line_expr, result, reg);
@@ -56,6 +57,16 @@ int main()
     }
     std::cout<<"recovered expression:"<<std::endl;
     std::cout<<Regex::recoverExpr(reg)<<std::endl;
+
+    Regex::Regex lang1{"abtk"};
+    Regex::Regex lang2{"(ab|tk)"};
+    //to be debugged
+    //lang2.compilationWithLogging("a"+starEquivalent("o")+starEquivalent("ba"+starEquivalent("o")+"|t+ca"+starEquivalent("o")), std::cout);
+    Automat aut1=lang1.getAutomat();
+    Automat aut2=lang2.getAutomat();
+    aut1.printDot();
+    aut2.printDot();
+    Automato::differenceDfa(aut2, aut1).printDot(portarait_fs);
 
     return 0;
 }
