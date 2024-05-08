@@ -10,6 +10,7 @@
 #include <queue>
 #include <algorithm>
 #include <cmath>
+#include <random>
 
 namespace Automato
 {
@@ -116,6 +117,27 @@ namespace Automato
     {
         if(this!=&automat && automat.id!=id)
         {
+            /*std::random_device rd;
+            std::mt19937 rng(rd());
+            std::uniform_int_distribution<std::mt19937::result_type> dist(1,100);
+
+            for(auto& state: automat.stateMap)
+            {
+                int from=state.first;
+                if(stateMap.contains(state.first)) from*=dist(rng);
+                add_state(from);
+
+                for(auto& to: state.second)
+                {
+                    int tow=to.first;
+                    if(stateMap.contains(to.first)) tow*=dist(rng);
+                    add_state(tow);
+                    for(auto& symb: to.second)
+                    {
+                        if(symb.second) add_transition(from, tow, {symb.first});
+                    }
+                }
+            }*/
             stateMap.merge(automat.stateMap);
             for(auto& cg: automat.capture_groups)
             {
@@ -194,7 +216,7 @@ namespace Automato
             product.add_state(-q.first*10);
         }*/
 
-        product.printAutomat();
+        //product.printAutomat();
 
         for(auto& symb: local_alphabet)
         {
