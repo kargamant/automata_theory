@@ -10,7 +10,8 @@ namespace Ast
     AST::AST(std::shared_ptr<Node> node, AST& ast) : root(node)
     {
         root->lNeighbour=ast.root;
-        root->capture_name=node->capture_name;
+        if(!ast.root->capture_name.empty()) root->capture_name=ast.root->capture_name;
+        else root->capture_name=node->capture_name;
     }
 
     AST::AST(AST& lAst, AST& rAst, std::shared_ptr<Node> node) : root(node)
@@ -18,6 +19,8 @@ namespace Ast
         root->lNeighbour=lAst.root;
         //lAst.root->capture_name=node->capture_name;
         root->rNeighbour=rAst.root;
+        if(!lAst.root->capture_name.empty() && node->name!="|") root->capture_name=lAst.root->capture_name;
+        else root->capture_name=node->capture_name;
         //rAst.root->capture_name=node->capture_name;
     }
 

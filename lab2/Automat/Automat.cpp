@@ -34,6 +34,7 @@ namespace Automato
         if(stateMap[from].contains(to) && !stateMap[from][to][condition]) stateMap[from][to][condition]=true;
         else
         {
+            if(!stateMap.contains(to)) add_state(to);
             stateMap[from].insert({to, transitions_sieve});
             stateMap[from][to][condition]=true;
         }
@@ -150,9 +151,19 @@ namespace Automato
         {
             for(auto& q: dfa2.stateMap)
             {
+                std::cout<<"("<<p.first<<" "<<q.first<<")"<<std::endl;
                 product.add_state(p.first*10+q.first);
             }
+            std::cout<<"("<<p.first<<" "<<-2<<")"<<std::endl;
+            product.add_state(p.first*10-2);
         }
+        for(auto& q: dfa2.stateMap)
+        {
+            std::cout<<"("<<q.first<<" "<<-1<<")"<<std::endl;
+            product.add_state(q.first*10-1);
+        }
+
+        product.printAutomat();
 
         for(auto& symb: Automat::alphabet)
         {
@@ -184,12 +195,13 @@ namespace Automato
                     {
                         product.add_transition(p.first*10+q.first, p_to*10+q_to, {symb});
                     }
-                    /*else if(p_to!=0)
+                    else if(p_to!=0)
                     {
                         for(auto& qt: dfa2.stateMap)
                         {
                             product.add_transition(p.first*10+q.first, p_to*10+qt.first, {symb});
                         }
+                        //product.add_transition(p.first*10+q.first, -1, {symb});
                     }
                     else if(q_to!=0)
                     {
@@ -197,12 +209,13 @@ namespace Automato
                         {
                             product.add_transition(p.first*10+q.first, pt.first*10+q_to, {symb});
                         }
+                        //product.add_transition(p.first*10+q.first, -1, {symb});
 
-                    }*/
-                    /*else if((p_to==0 && q_to!=0) || (p_to!=0 && q_to==0))
+                    }
+                    else if((p_to==0 && q_to!=0) || (p_to!=0 && q_to==0))
                     {
                         product.add_transition(p.first*10+q.first, -1, {symb});
-                    }*/
+                    }
                 }
             }
         }
@@ -215,6 +228,8 @@ namespace Automato
     Automat differenceDfa(Automat& dfa1, Automat& dfa2)
     {
         Automat product=productDfa(dfa1, dfa2);
+        //if(isCompliment) product.accepting.insert(-1);
+        //product.printAutomat();
         for(auto& acc: dfa1.accepting)
         {
             for(auto& q: dfa2.stateMap)
@@ -222,12 +237,15 @@ namespace Automato
                 if(!dfa2.accepting.contains(q.first)) product.accepting.insert(acc*10+q.first);
             }
         }
+        //product.printAutomat();
         return product;
     }
 
-    Automat complimentDfa(Automat& dfa)
+    Automat complimentDfa(Automat& alphabet_dfa, Automat& dfa)
     {
-        Automat compliment{dfa};
+        alphabet_dfa.add_state(-1);
+        alphabet_dfa.accepting.insert(-1);
+        /*Automat compliment{dfa};
         for(auto& state: compliment.stateMap)
         {
             if(compliment.accepting.contains(state.first))
@@ -238,8 +256,8 @@ namespace Automato
             {
                 compliment.accepting.insert(state.first);
             }
-        }
-        return compliment;
+        }*/
+        return differenceDfa(alphabet_dfa, dfa);
     }
 
     Automat rangeAutomat(Automat& automat, int min, int max)
@@ -556,7 +574,7 @@ namespace Automato
             {
                 //std::cout<<"to: "<<st.first<<std::endl;
                 //std::cout<<"is transition: "<<st.second[transition]<<std::endl;
-                if(st.second[transition] || (!isNfa && st.second["&"] && !std::string("{}?!+-*&^%,$#@!|'").contains(transition)))
+                if(st.second[transition] || (!isNfa && st.second["&"] && !std::string("?{}!+-.*&^%,$#@!|'").contains(transition)))
                 {
                     set.insert(st.first);
                 }
@@ -632,7 +650,6 @@ namespace Automato
                 //-1 can appear only on intersection of Si and Si itself just to identify that it's not different states
                 //-2 can appear only on intersection of Si and Si itself to mark it as distinguished. As soon as Si has -2 it's no more in this group
                 std::unordered_map<int, std::unordered_map<int, int>> distinguishMap;
-
                 //filling sieve
                 for(auto& st1: groups[i].set)
                 {

@@ -424,7 +424,7 @@ namespace Regex
     Regex Regex::operator~()
     {
 
-        /*
+
         std::unordered_set<std::string> local_alphabet;
         std::string alphabet_re;
         for(auto& state: automat.getMap())
@@ -443,10 +443,12 @@ namespace Regex
             }
         }
         alphabet_re=starEquivalent(alphabet_re);
-        Regex alphabet_dfa;
+        Regex alphabet_dfa{alphabet_re};
+        Automat adfa=alphabet_dfa.getAutomat();
+
         //alphabet_dfa.compile(alphabet_re);
-        alphabet_dfa.compilationWithLogging(alphabet_re, std::cout);*/
-        return Automato::complimentDfa(automat);
+        //alphabet_dfa.compilationWithLogging(alphabet_re, std::cout);
+        return Automato::complimentDfa(adfa, automat);
     }
 }
 

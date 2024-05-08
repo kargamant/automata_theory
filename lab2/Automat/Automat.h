@@ -94,7 +94,7 @@ namespace Automato
         friend Automat rangeAutomat(Automat& automat, int min, int max);
         friend Automat productDfa(Automat& dfa1, Automat& dfa2);
         friend Automat differenceDfa(Automat& dfa1, Automat& dfa2);
-        friend Automat complimentDfa(Automat& dfa);
+        friend Automat complimentDfa(Automat& alphabet_dfa, Automat& dfa);
     };
     Automat rangeAutomat(Automat& automat, int min, int max);
     Automat orAutomat(Automat& Automat1, Automat& Automat2);
@@ -108,7 +108,7 @@ namespace Automato
     std::string starEquivalent(const std::string& node);
     Automat productDfa(Automat& dfa1, Automat& dfa2);
     Automat differenceDfa(Automat& dfa1, Automat& dfa2);
-    Automat complimentDfa(Automat& dfa);
+    Automat complimentDfa(Automat& alphabet_dfa, Automat& dfa);
 }
 
 #endif // AUTOMAT_H
