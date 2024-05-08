@@ -1,4 +1,5 @@
 #include <Automat.h>
+#include <Regex.h>
 #include <string>
 #include <iostream>
 #include <format>
@@ -147,25 +148,55 @@ namespace Automato
     Automat productDfa(Automat& dfa1, Automat& dfa2)
     {
         Automat product;
+        //dfa1.printAutomat();
+        //dfa2.printAutomat();
         for(auto& p: dfa1.stateMap)
         {
             for(auto& q: dfa2.stateMap)
             {
-                std::cout<<"("<<p.first<<" "<<q.first<<")"<<std::endl;
+                //std::cout<<"("<<p.first<<" "<<q.first<<")"<<std::endl;
                 product.add_state(p.first*10+q.first);
             }
-            std::cout<<"("<<p.first<<" "<<-2<<")"<<std::endl;
-            product.add_state(p.first*10-2);
+            //std::cout<<"("<<p.first<<" "<<"-q)"<<std::endl;
+            //product.add_state(-p.first*10);
         }
-        for(auto& q: dfa2.stateMap)
+        std::unordered_set<std::string> local_alphabet;
+        for(auto& state: dfa1.getMap())
         {
-            std::cout<<"("<<q.first<<" "<<-1<<")"<<std::endl;
-            product.add_state(q.first*10-1);
+            for(auto& to: state.second)
+            {
+                for(auto& symb: to.second)
+                {
+                    if(symb.second && !local_alphabet.contains(symb.first))
+                    {
+                        local_alphabet.insert(symb.first);
+                    }
+                }
+            }
         }
+
+        for(auto& state: dfa2.getMap())
+        {
+            for(auto& to: state.second)
+            {
+                for(auto& symb: to.second)
+                {
+                    if(symb.second && !local_alphabet.contains(symb.first))
+                    {
+                        local_alphabet.insert(symb.first);
+                    }
+                }
+            }
+        }
+        /*for(auto& q: dfa2.stateMap)
+        {
+            std::cout<<"("<<q.first<<" "<<"-p)"<<std::endl;
+            product.add_state(-q.first*10);
+        }*/
 
         product.printAutomat();
 
-        for(auto& symb: Automat::alphabet)
+        for(auto& symb: local_alphabet)
         {
             for(auto& p: dfa1.stateMap)
             {
@@ -191,30 +222,24 @@ namespace Automato
                         }
                     }
 
-                    if(p_to!=0 && q_to!=0)
+                    if(p_to==0 && q_to==0)
+                    {
+                        product.add_transition(p.first*10+q.first, 1, {symb});
+                    }
+                    else if(p_to!=0 && q_to!=0)
                     {
                         product.add_transition(p.first*10+q.first, p_to*10+q_to, {symb});
                     }
                     else if(p_to!=0)
                     {
-                        for(auto& qt: dfa2.stateMap)
-                        {
-                            product.add_transition(p.first*10+q.first, p_to*10+qt.first, {symb});
-                        }
+                        product.add_transition(p.first*10+q.first, p_to*10-1, {symb});
                         //product.add_transition(p.first*10+q.first, -1, {symb});
                     }
                     else if(q_to!=0)
                     {
-                        for(auto& pt: dfa1.stateMap)
-                        {
-                            product.add_transition(p.first*10+q.first, pt.first*10+q_to, {symb});
-                        }
+                        product.add_transition(p.first*10+q.first, q_to-10, {symb});
                         //product.add_transition(p.first*10+q.first, -1, {symb});
 
-                    }
-                    else if((p_to==0 && q_to!=0) || (p_to!=0 && q_to==0))
-                    {
-                        product.add_transition(p.first*10+q.first, -1, {symb});
                     }
                 }
             }
@@ -227,6 +252,8 @@ namespace Automato
 
     Automat differenceDfa(Automat& dfa1, Automat& dfa2)
     {
+        dfa1.add_state(-1);
+        dfa2.add_state(-1);
         Automat product=productDfa(dfa1, dfa2);
         //if(isCompliment) product.accepting.insert(-1);
         //product.printAutomat();
@@ -241,10 +268,30 @@ namespace Automato
         return product;
     }
 
-    Automat complimentDfa(Automat& alphabet_dfa, Automat& dfa)
+    Automat complimentDfa(Automat& dfa)
     {
-        alphabet_dfa.add_state(-1);
-        alphabet_dfa.accepting.insert(-1);
+        std::unordered_set<std::string> local_alphabet;
+        std::string alphabet_re;
+        for(auto& state: dfa.getMap())
+        {
+            for(auto& to: state.second)
+            {
+                for(auto& symb: to.second)
+                {
+                    if(symb.second && !local_alphabet.contains(symb.first))
+                    {
+                        if(alphabet_re.empty()) alphabet_re+=symb.first;
+                        else alphabet_re+="|"+symb.first;
+                        local_alphabet.insert(symb.first);
+                    }
+                }
+            }
+        }
+        alphabet_re=starEquivalent(alphabet_re);
+
+        Automat alphabet_aut=Regex::Regex(alphabet_re).getAutomat();
+        //alphabet_dfa.add_state(-1);
+        //alphabet_dfa.accepting.insert(-1);
         /*Automat compliment{dfa};
         for(auto& state: compliment.stateMap)
         {
@@ -257,7 +304,7 @@ namespace Automato
                 compliment.accepting.insert(state.first);
             }
         }*/
-        return differenceDfa(alphabet_dfa, dfa);
+        return differenceDfa(alphabet_aut, dfa);
     }
 
     Automat rangeAutomat(Automat& automat, int min, int max)

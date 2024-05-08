@@ -423,32 +423,13 @@ namespace Regex
 
     Regex Regex::operator~()
     {
-
-
-        std::unordered_set<std::string> local_alphabet;
-        std::string alphabet_re;
-        for(auto& state: automat.getMap())
-        {
-            for(auto& to: state.second)
-            {
-                for(auto& symb: to.second)
-                {
-                    if(symb.second && !local_alphabet.contains(symb.first))
-                    {
-                        if(alphabet_re.empty()) alphabet_re+=symb.first;
-                        else alphabet_re+="|"+symb.first;
-                        local_alphabet.insert(symb.first);
-                    }
-                }
-            }
-        }
-        alphabet_re=starEquivalent(alphabet_re);
-        Regex alphabet_dfa{alphabet_re};
-        Automat adfa=alphabet_dfa.getAutomat();
-
-        //alphabet_dfa.compile(alphabet_re);
-        //alphabet_dfa.compilationWithLogging(alphabet_re, std::cout);
-        return Automato::complimentDfa(adfa, automat);
+        return Automato::complimentDfa(automat);
+    }
+    Regex operator*(Regex& re1, Regex& re2)
+    {
+        Automat dfa1=re1.getAutomat();
+        Automat dfa2=re2.getAutomat();
+        return Automato::productDfa(dfa1, dfa2);
     }
 }
 

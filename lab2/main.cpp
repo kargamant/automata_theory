@@ -59,11 +59,11 @@ int main()
     std::cout<<"recovered expression:"<<std::endl;
     std::cout<<Regex::recoverExpr(reg)<<std::endl;
 
-    (~reg).getAutomat().printDot();
+    Regex::Regex lang1{"ab"};
+    Regex::Regex diff=reg-lang1;
+    diff.getAutomat().printDot();
     //Regex::Regex lang1{starEquivalent("0")+"1"+starEquivalent("(0|1)"+starEquivalent("0")+"1")};
     //Regex::Regex lang2{starEquivalent("1")+starEquivalent("0+1+")};
-    Regex::Regex reg2{"ab"};
-    (reg-reg2).getAutomat().printDot();
     //Regex::Regex lang1{"(om|lol|kek)"}; //(ab|cd)+
     //Regex::Regex lang2{"abcd"};
     //to be debugged
