@@ -60,7 +60,7 @@ namespace Regex
             std::pair<int, int> closest_pair=findClosestBrackets(asts);
 
             bracketsPairToAst(closest_pair, asts);
-            while((closest_pair.second-closest_pair.first)!=2)
+            while((closest_pair.second-closest_pair.first)>2)
             {
                 AST new_ast=AST(asts[closest_pair.first+1], asts[closest_pair.first+2], std::shared_ptr<Node>(new Node("~")));
                 asts.erase(asts.begin()+closest_pair.first+1);
@@ -68,9 +68,16 @@ namespace Regex
                 closest_pair.second-=1;
             }
 
-            //std::cout<<closest_pair.first<<" "<<closest_pair.second<<" "<<asts.size()<<std::endl;
-            asts.erase(asts.begin()+closest_pair.second);
-            asts.erase(asts.begin()+closest_pair.first);
+            if((closest_pair.second-closest_pair.first)==1)
+            {
+                asts[closest_pair.first]={""};
+                asts.erase(asts.begin()+closest_pair.second);
+            }
+            else
+            {
+                asts.erase(asts.begin()+closest_pair.second);
+                asts.erase(asts.begin()+closest_pair.first);
+            }
             start_elements--;
 
         }

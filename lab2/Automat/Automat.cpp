@@ -998,76 +998,161 @@ namespace Automato
     }
     std::string Automat::recoverRe()
     {
-        std::vector<int> to_delete;
-        for(auto& state: stateMap)
+        bool second_stage=false; //after all non accepting were eliminated
+        for(int i=0; i<2; i++)
         {
-            if(start!=state.first && !accepting.contains(state.first))
-            {
-                //finding all interances
-                std::unordered_map<int, std::unordered_set<std::string>> Q;
-                for(auto& q: stateMap)
+	        std::vector<int> to_delete;
+	        for(auto& state: stateMap)
+	        {
+                if(second_stage && accepting.contains(state.first) && (stateMap[state.first].size()==0 || (stateMap[state.first].size()==1 && stateMap[state.first].contains(state.first)))) continue;
+                if(start!=state.first)
                 {
-                    if(q.first!=state.first)
+                    if(accepting.contains(state.first) && !second_stage)
                     {
-                        if(q.second.contains(state.first))
-                        {
-                            Q.insert({q.first, {}});
-                            for(auto& symb: q.second[state.first])
-                            {
-                                if(q.second[state.first][symb.first]) Q[q.first].insert(symb.first);
-                            }
-                        }
+                        continue;
                     }
-                }
+                    //finding all enterances
+	                std::unordered_map<int, std::unordered_set<std::string>> Q;
+	                for(auto& q: stateMap)
+	                {
+	                    if(q.first!=state.first)
+	                    {
+	                        if(q.second.contains(state.first))
+	                        {
+	                            Q.insert({q.first, {}});
+	                            for(auto& symb: q.second[state.first])
+	                            {
+	                                if(q.second[state.first][symb.first]) Q[q.first].insert(symb.first);
+	                            }
+	                        }
+	                    }
+	                }
+	
+	                //all exits
+	                std::unordered_map<int, std::unordered_set<std::string>> P;
+	                for(auto& st: stateMap[state.first])
+	                {
+	                    P.insert({st.first, {}});
+	                    for(auto& symb: st.second)
+	                    {
+	                        if(symb.second) P[st.first].insert(symb.first);
+	                    }
+	                }
 
-                //all exits
-                std::unordered_map<int, std::unordered_set<std::string>> P;
-                for(auto& st: stateMap[state.first])
-                {
-                    P.insert({st.first, {}});
-                    for(auto& symb: st.second)
-                    {
-                        if(symb.second) P[st.first].insert(symb.first);
-                    }
-                }
+                    std::string postfix;
+                    if(accepting.contains(state.first)) postfix="?";
 
-                //creating new transitions
-                for(auto& q: Q)
-                {
-                    for(auto& p: P)
-                    {
-                        for(auto& q_tr: q.second)
-                        {
-                            for(auto& p_tr: p.second)
-                            {
-                                if(p.first==state.first) continue;
-                                if(!stateMap[state.first].contains(state.first)) add_transition(q.first, p.first, q_tr+p_tr);
-                                else
+	                //creating new transitions
+	                for(auto& q: Q)
+	                {
+	                    for(auto& p: P)
+	                    {
+                            for(auto& q_tr: q.second)
+	                        {
+	                            for(auto& p_tr: p.second)
                                 {
-                                    std::string self_tr;
+                                    if(p.first==state.first) continue;
+                                    if(!stateMap[state.first].contains(state.first)) add_transition(q.first, p.first, q_tr+p_tr);
+                                    else
+                                    {
+                                        std::string self_tr;
+                                        for(auto& symb: stateMap[state.first][state.first])
+                                        {
+                                            if(symb.second)
+                                            {
+                                                self_tr=symb.first;
+                                                break;
+                                            }
+                                        }
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr);
+                                    }
+                                    delete_transition(q.first, state.first, q_tr);
+                                    delete_transition(state.first, p.first, p_tr);
+                                    /*if(p.first==state.first) continue;
+                                    std::string qr_tr, pr_tr, self_tr;
+
+                                    for(auto& qr: stateMap[state.first][q.first])
+                                    {
+                                        if(qr.second)
+                                        {
+                                            if(qr_tr.empty()) qr_tr+=qr.first;
+                                            else qr_tr+="|"+qr.first;
+                                        }
+                                    }
+                                    for(auto& pr: stateMap[p.first][state.first])
+                                    {
+                                        if(pr.second)
+                                        {
+                                            if(pr_tr.empty()) pr_tr+=pr.first;
+                                            else pr_tr+="|"+pr.first;
+                                        }
+                                    }
                                     for(auto& symb: stateMap[state.first][state.first])
                                     {
                                         if(symb.second)
                                         {
-                                            self_tr=symb.first;
-                                            break;
+                                            if(self_tr.empty()) self_tr+=symb.first;
+                                            else self_tr+="|"+symb.first;
                                         }
                                     }
-                                    add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr);
-                                }
-                                delete_transition(q.first, state.first, q_tr);
-                                delete_transition(state.first, p.first, p_tr);
-                            }
-                        }
-                    }
-                }
-                to_delete.push_back(state.first);
-                //delete_state(state.first);
+                                    //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+p_tr+starEquivalent(pr_tr+starEquivalent(self_tr)+p_tr)<<std::endl;
+                                    if(!qr_tr.empty() && !pr_tr.empty())
+                                    {
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+p_tr+postfix+starEquivalent(pr_tr+starEquivalent(self_tr)+p_tr+postfix));
+                                        delete_transition(state.first, q.first, qr_tr);
+                                        delete_transition(p.first, state.first, pr_tr);
+                                    }
+                                    else if(!qr_tr.empty())
+                                    {
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+p_tr+postfix);
+                                        delete_transition(state.first, q.first, qr_tr);
+                                    }
+                                    else if(!pr_tr.empty())
+                                    {
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix+starEquivalent(pr_tr+starEquivalent(self_tr)+p_tr+postfix));
+                                        delete_transition(p.first, state.first, pr_tr);
+                                    }
+                                    delete_transition(q.first, state.first, q_tr);
+                                    delete_transition(state.first, p.first, p_tr);
+                                    if(!self_tr.empty()) delete_transition(state.first, state.first, self_tr);*/
+
+                                    /*
+                                    if(!stateMap[state.first].contains(state.first) && !stateMap[p.first].contains(state.first))
+                                    {
+                                        add_transition(q.first, p.first, q_tr+p_tr+postfix);
+                                    }
+                                    else if(!stateMap[state.first].contains(state.first) && stateMap[p.first].contains(state.first))
+                                    {
+                                        std::string loop="("+p_tr;
+                                        for(auto& tr: stateMap[p.first][state.first])
+                                    }
+	                                else
+	                                {
+	                                    std::string self_tr;
+	                                    for(auto& symb: stateMap[state.first][state.first])
+	                                    {
+	                                        if(symb.second)
+	                                        {
+	                                            self_tr=symb.first;
+	                                            break;
+	                                        }
+	                                    }
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix);
+                                    }*/
+	                            }
+	                        }
+	                    }
+	                }
+	                to_delete.push_back(state.first);
+	                //delete_state(state.first);
+	            }
             }
+            for(auto& st: to_delete) delete_state(st);
+            to_delete.clear();
+            second_stage=true;
+            printAutomat();
+            printDot();
         }
-        for(auto& st: to_delete) delete_state(st);
-        //printAutomat();
-        //printDot();
 
         int Start=start;
         std::string re;
@@ -1083,7 +1168,7 @@ namespace Automato
             U=fillTransitions(End, End);
             T=fillTransitions(End, Start);
 
-            //std::cout<<V<<" "<<S<<" "<<U<<" "<<T<<std::endl;
+            std::cout<<V<<" "<<S<<" "<<U<<" "<<T<<std::endl;
 
             if(V.empty() && !T.empty()) R=starEquivalent("("+S+starEquivalent(U)+T+")")+S+starEquivalent(U);
             else if(!V.empty() && T.empty()) R=starEquivalent(V)+S+starEquivalent(U);

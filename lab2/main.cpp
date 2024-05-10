@@ -29,6 +29,7 @@ int main()
 
     //re recovery examples
     //a(bc)?((ck)+|(mk)+)
+    //(a?b?c?)|(a+b+c+)
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};
@@ -60,9 +61,9 @@ int main()
     std::cout<<Regex::recoverExpr(reg)<<std::endl;
 
     //kka, kkf, kkggggg...
-    Regex::Regex lang1{"kk(ab|ff)"};
-    Regex::Regex diff=reg-lang1;
-    diff.getAutomat().printDot();
+    //Regex::Regex lang1{"kk(ab|ff)"};
+    //Regex::Regex diff=reg-lang1;
+    //diff.getAutomat().printDot();
     //Regex::Regex lang1{starEquivalent("0")+"1"+starEquivalent("(0|1)"+starEquivalent("0")+"1")};
     //Regex::Regex lang2{starEquivalent("1")+starEquivalent("0+1+")};
     //Regex::Regex lang1{"(om|lol|kek)"}; //(ab|cd)+
