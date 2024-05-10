@@ -60,6 +60,20 @@ namespace Automato
     void Automat::delete_transition(int from, int to, const std::string& condition)
     {
         stateMap[from][to][condition]=false;
+
+        bool emptyNow=true;
+        for(auto& symb: stateMap[from][to])
+        {
+            if(symb.second)
+            {
+                emptyNow=false;
+                break;
+            }
+        }
+        if(emptyNow)
+        {
+            stateMap[from].erase(to);
+        }
     }
 
     void Automat::add_capture_state(int id, const std::string& capture_name)
@@ -1051,7 +1065,7 @@ namespace Automato
 	                        {
 	                            for(auto& p_tr: p.second)
                                 {
-                                    if(p.first==state.first) continue;
+                                    /*if(p.first==state.first) continue;
                                     if(!stateMap[state.first].contains(state.first)) add_transition(q.first, p.first, q_tr+p_tr);
                                     else
                                     {
@@ -1067,54 +1081,85 @@ namespace Automato
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr);
                                     }
                                     delete_transition(q.first, state.first, q_tr);
-                                    delete_transition(state.first, p.first, p_tr);
-                                    /*if(p.first==state.first) continue;
+                                    delete_transition(state.first, p.first, p_tr);*/
+                                    if(p.first==state.first) continue;
                                     std::string qr_tr, pr_tr, self_tr;
 
-                                    for(auto& qr: stateMap[state.first][q.first])
+                                    if(stateMap[state.first].contains(q.first))
                                     {
-                                        if(qr.second)
+
+                                        for(auto& qr: stateMap[state.first][q.first])
                                         {
-                                            if(qr_tr.empty()) qr_tr+=qr.first;
-                                            else qr_tr+="|"+qr.first;
+                                            if(qr.second)
+                                            {
+                                                if(qr_tr.empty()) qr_tr+=qr.first;
+                                                else qr_tr+="|"+qr.first;
+                                            }
                                         }
                                     }
-                                    for(auto& pr: stateMap[p.first][state.first])
+
+                                    if(stateMap[p.first].contains(state.first))
                                     {
-                                        if(pr.second)
+                                        for(auto& pr: stateMap[p.first][state.first])
                                         {
-                                            if(pr_tr.empty()) pr_tr+=pr.first;
-                                            else pr_tr+="|"+pr.first;
+                                            if(pr.second)
+                                            {
+                                                if(pr_tr.empty()) pr_tr+=pr.first;
+                                                else pr_tr+="|"+pr.first;
+                                            }
                                         }
                                     }
-                                    for(auto& symb: stateMap[state.first][state.first])
+
+                                    if(stateMap[state.first].contains(state.first))
                                     {
-                                        if(symb.second)
+
+                                        for(auto& symb: stateMap[state.first][state.first])
                                         {
-                                            if(self_tr.empty()) self_tr+=symb.first;
-                                            else self_tr+="|"+symb.first;
+                                            if(symb.second)
+                                            {
+                                                if(self_tr.empty()) self_tr+=symb.first;
+                                                else self_tr+="|"+symb.first;
+                                            }
                                         }
+                                    }
+
+
+                                    if(q.first==p.first)
+                                    {
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix));
+                                        delete_transition(q.first, state.first, q_tr);
+                                        delete_transition(state.first, p.first, p_tr);
+                                        if(!self_tr.empty()) delete_transition(state.first, state.first, self_tr);
+                                        continue;
                                     }
                                     //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+p_tr+starEquivalent(pr_tr+starEquivalent(self_tr)+p_tr)<<std::endl;
                                     if(!qr_tr.empty() && !pr_tr.empty())
                                     {
-                                        add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+p_tr+postfix+starEquivalent(pr_tr+starEquivalent(self_tr)+p_tr+postfix));
+                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)));
                                         delete_transition(state.first, q.first, qr_tr);
                                         delete_transition(p.first, state.first, pr_tr);
                                     }
                                     else if(!qr_tr.empty())
                                     {
-                                        add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+p_tr+postfix);
+                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix));
                                         delete_transition(state.first, q.first, qr_tr);
                                     }
                                     else if(!pr_tr.empty())
                                     {
-                                        add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix+starEquivalent(pr_tr+starEquivalent(self_tr)+p_tr+postfix));
+                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)));
                                         delete_transition(p.first, state.first, pr_tr);
+                                    }
+                                    else
+                                    {
+                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
+                                        add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix));
                                     }
                                     delete_transition(q.first, state.first, q_tr);
                                     delete_transition(state.first, p.first, p_tr);
-                                    if(!self_tr.empty()) delete_transition(state.first, state.first, self_tr);*/
+                                    if(!self_tr.empty()) delete_transition(state.first, state.first, self_tr);
 
                                     /*
                                     if(!stateMap[state.first].contains(state.first) && !stateMap[p.first].contains(state.first))
@@ -1139,7 +1184,9 @@ namespace Automato
 	                                    }
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix);
                                     }*/
-	                            }
+                                    //printAutomat();
+                                    //printDot();
+                                }
 	                        }
 	                    }
 	                }
@@ -1150,9 +1197,9 @@ namespace Automato
             for(auto& st: to_delete) delete_state(st);
             to_delete.clear();
             second_stage=true;
-            printAutomat();
-            printDot();
         }
+        printAutomat();
+        printDot();
 
         int Start=start;
         std::string re;
@@ -1200,6 +1247,13 @@ namespace Automato
     {
         if(node.empty()) return "";
         return "(("+node+"){0,1}|"+"("+node+")+)";
+    }
+
+    std::string postfixString(const std::string& str, const std::string& postfix)
+    {
+        if(str.empty()) return "";
+        else if(str.size()==1) return str+postfix;
+        else return "("+str+")"+postfix;
     }
 }
 

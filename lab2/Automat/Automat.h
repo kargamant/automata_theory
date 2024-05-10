@@ -106,6 +106,7 @@ namespace Automato
     Automat minimizeDfa(Automat& dfa);
     StateSet formStateSet(Automat& automat, const StateSet& stateSet, const std::string& transition, bool isNfa=true);
     std::string starEquivalent(const std::string& node);
+    std::string postfixString(const std::string& str, const std::string& postfix);
     Automat productDfa(Automat& dfa1, Automat& dfa2);
     Automat differenceDfa(Automat& dfa1, Automat& dfa2);
     Automat complimentDfa(Automat& dfa);
