@@ -7,6 +7,7 @@ int main()
     //funny exp lol
     //(ba|b?|in|g+)kd((op?)l(ab(t+k?)cde+}?)p)+k?(ha+lalp?|ha+ram?)?
     //(hal?al|bebra+)Yasos(biba|boba)?
+    //(a?b+cc|dff){1,5}(sas|sos)?hamo+n?(&?.)?
 
     //minimization monkey examples (aaab?)+, (pok+|pak+)+
     //less monkey example ((uc)?pok+|pak+)+
@@ -30,6 +31,7 @@ int main()
     //re recovery examples
     //a(bc)?((ck)+|(mk)+)
     //(a?b?c?)|(a+b+c+)
+    //q?q?p?((ab)+v?|p+t)o{1,3}
 
     //needed files
     std::ifstream re_fs{"regex_exp.txt"};
@@ -39,8 +41,9 @@ int main()
 
     std::string line_expr;
     std::string re_expr;
-    re_fs>>re_expr;
-    line_fs>>line_expr;
+
+    std::getline(re_fs, re_expr);
+    std::getline(line_fs, line_expr);
 
     Regex::Regex reg;
     reg.compilationWithLogging(re_expr, log);
@@ -57,8 +60,8 @@ int main()
     {
         std::cout<<"<"<<cg.first<<">"<<": "<<cg.second<<std::endl;
     }
-    std::cout<<"recovered expression:"<<std::endl;
-    std::cout<<Regex::recoverExpr(reg)<<std::endl;
+    //std::cout<<"recovered expression:"<<std::endl;
+    //std::cout<<Regex::recoverExpr(reg)<<std::endl;
 
     //kka, kkf, kkggggg...
     //Regex::Regex lang1{"kk(ab|ff)"};

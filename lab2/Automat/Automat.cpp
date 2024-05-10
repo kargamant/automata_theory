@@ -903,9 +903,26 @@ namespace Automato
         }
 
         std::unordered_set<std::string> current_cgs;
+        std::vector<std::string> correctly_read;
         for(int i=0; i<str.size(); i++)
         {
-
+            if(str[i]==' ' || str[i]=='\t')
+            {
+                if(isFound) break;
+                current.clear();
+                current.insert(start);
+                result.clear();
+                for(auto& cg: captures) cg.second.clear();
+                for(auto& to: stateMap[start])
+                {
+                    if(to.second[{str[i]}])
+                    {
+                        i--;
+                        break;
+                    }
+                }
+            }
+            //std::cout<<*current.begin()<<" "<<str[i]<<std::endl;
             for(auto& st: current)
             {
                 /*std::cout<<st<<std::endl;
@@ -985,6 +1002,14 @@ namespace Automato
                 current.insert(start);
                 result.clear();
                 for(auto& cg: captures) cg.second.clear();
+                for(auto& to: stateMap[start])
+                {
+                    if(to.second[{str[i]}])
+                    {
+                        i--;
+                        break;
+                    }
+                }
                 continue;
             }
 
@@ -1004,10 +1029,14 @@ namespace Automato
                 {
                     isValid=true;
                     isFound=true;
-                    return captures;
+                    correctly_read.push_back(result);
+                    result.clear();
+                    //return captures;
                 }
             }
         }
+        result.clear();
+        for(auto& res: correctly_read) result+=res;
         return captures;
     }
     std::string Automat::recoverRe()
@@ -1197,6 +1226,8 @@ namespace Automato
             for(auto& st: to_delete) delete_state(st);
             to_delete.clear();
             second_stage=true;
+            //printAutomat();
+            //printDot();
         }
         printAutomat();
         printDot();
