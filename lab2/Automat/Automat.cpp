@@ -1045,6 +1045,9 @@ namespace Automato
         for(int i=0; i<2; i++)
         {
 	        std::vector<int> to_delete;
+            std::vector<int> froms;
+            std::vector<int> tos;
+            std::vector<std::string> conditions;
 	        for(auto& state: stateMap)
 	        {
                 if(second_stage && accepting.contains(state.first) && (stateMap[state.first].size()==0 || (stateMap[state.first].size()==1 && stateMap[state.first].contains(state.first)))) continue;
@@ -1112,7 +1115,7 @@ namespace Automato
                                     delete_transition(q.first, state.first, q_tr);
                                     delete_transition(state.first, p.first, p_tr);*/
                                     if(p.first==state.first) continue;
-                                    std::string qr_tr, pr_tr, self_tr;
+                                    std::string qr_tr, pr_tr, self_tr, direct_tr;
 
                                     if(stateMap[state.first].contains(q.first))
                                     {
@@ -1152,43 +1155,90 @@ namespace Automato
                                         }
                                     }
 
+                                    if(stateMap[q.first].contains(p.first))
+                                    {
+                                        for(auto& symb: stateMap[q.first][p.first])
+                                        {
+                                            if(symb.second)
+                                            {
+                                                if(direct_tr.empty()) direct_tr+=symb.first;
+                                                else direct_tr+="|"+symb.first;
+                                            }
+                                        }
+                                    }
 
                                     if(q.first==p.first)
                                     {
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix));
-                                        delete_transition(q.first, state.first, q_tr);
-                                        delete_transition(state.first, p.first, p_tr);
-                                        if(!self_tr.empty()) delete_transition(state.first, state.first, self_tr);
+                                        froms.push_back(q.first);
+                                        tos.push_back(state.first);
+                                        conditions.push_back(q_tr);
+                                        //delete_transition(q.first, state.first, q_tr);
+                                        froms.push_back(state.first);
+                                        tos.push_back(p.first);
+                                        conditions.push_back(p_tr);
+                                        //delete_transition(state.first, p.first, p_tr);
+                                        if(!self_tr.empty())
+                                        {
+                                            froms.push_back(state.first);
+                                            tos.push_back(state.first);
+                                            conditions.push_back(self_tr);
+                                            //delete_transition(state.first, state.first, self_tr);
+                                        }
                                         continue;
                                     }
                                     //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+p_tr+starEquivalent(pr_tr+starEquivalent(self_tr)+p_tr)<<std::endl;
                                     if(!qr_tr.empty() && !pr_tr.empty())
                                     {
-                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
+                                        std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
                                         add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)));
-                                        delete_transition(state.first, q.first, qr_tr);
-                                        delete_transition(p.first, state.first, pr_tr);
+                                        froms.push_back(state.first);
+                                        tos.push_back(q.first);
+                                        conditions.push_back(qr_tr);
+                                        //delete_transition(state.first, q.first, qr_tr);
+                                        froms.push_back(p.first);
+                                        tos.push_back(state.first);
+                                        conditions.push_back(pr_tr);
+                                        //delete_transition(p.first, state.first, pr_tr);
                                     }
                                     else if(!qr_tr.empty())
                                     {
-                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
+                                        std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
                                         add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix));
-                                        delete_transition(state.first, q.first, qr_tr);
+                                        froms.push_back(state.first);
+                                        tos.push_back(q.first);
+                                        conditions.push_back(qr_tr);
+                                        //delete_transition(state.first, q.first, qr_tr);
                                     }
                                     else if(!pr_tr.empty())
                                     {
-                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
+                                        std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)));
-                                        delete_transition(p.first, state.first, pr_tr);
+                                        froms.push_back(p.first);
+                                        tos.push_back(state.first);
+                                        conditions.push_back(pr_tr);
+                                        //delete_transition(p.first, state.first, pr_tr);
                                     }
                                     else
                                     {
-                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
+                                        std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix));
                                     }
-                                    delete_transition(q.first, state.first, q_tr);
-                                    delete_transition(state.first, p.first, p_tr);
-                                    if(!self_tr.empty()) delete_transition(state.first, state.first, self_tr);
+                                    froms.push_back(q.first);
+                                    tos.push_back(state.first);
+                                    conditions.push_back(q_tr);
+                                    //delete_transition(q.first, state.first, q_tr);
+                                    froms.push_back(state.first);
+                                    tos.push_back(p.first);
+                                    conditions.push_back(p_tr);
+                                    //delete_transition(state.first, p.first, p_tr);
+                                    if(!self_tr.empty())
+                                    {
+                                        froms.push_back(state.first);
+                                        tos.push_back(state.first);
+                                        conditions.push_back(self_tr);
+                                        //delete_transition(state.first, state.first, self_tr);
+                                    }
 
                                     /*
                                     if(!stateMap[state.first].contains(state.first) && !stateMap[p.first].contains(state.first))
@@ -1213,16 +1263,30 @@ namespace Automato
 	                                    }
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix);
                                     }*/
-                                    //printAutomat();
-                                    //printDot();
+                                    printAutomat();
+                                    printDot();
                                 }
 	                        }
 	                    }
-	                }
-	                to_delete.push_back(state.first);
+                        for(int i=0; i<froms.size(); i++)
+                        {
+                            if(froms[i]!=tos[i]) delete_transition(froms[i], tos[i], conditions[i]);
+                        }
+                        //froms.clear();
+                        //tos.clear();
+                        //conditions.clear();
+                        to_delete.push_back(state.first);
+                    }
 	                //delete_state(state.first);
 	            }
             }
+                        for(int i=0; i<froms.size(); i++)
+                        {
+                            delete_transition(froms[i], tos[i], conditions[i]);
+                        }
+                        froms.clear();
+                        tos.clear();
+                        conditions.clear();
             for(auto& st: to_delete) delete_state(st);
             to_delete.clear();
             second_stage=true;
@@ -1285,6 +1349,16 @@ namespace Automato
         if(str.empty()) return "";
         else if(str.size()==1) return str+postfix;
         else return "("+str+")"+postfix;
+    }
+    std::string orString(const std::string& str1, const std::string& str2)
+    {
+        if(str1.empty() &&str2.empty()) return "";
+        else if(str1.empty()) return str2;
+        else if(str2.empty()) return str1;
+        else
+        {
+            return "("+str1+")"+"|"+"("+str2+")";
+        }
     }
 }
 

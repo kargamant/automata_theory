@@ -60,8 +60,8 @@ int main()
     {
         std::cout<<"<"<<cg.first<<">"<<": "<<cg.second<<std::endl;
     }
-    //std::cout<<"recovered expression:"<<std::endl;
-    //std::cout<<Regex::recoverExpr(reg)<<std::endl;
+    std::cout<<"recovered expression:"<<std::endl;
+    std::cout<<Regex::recoverExpr(reg)<<std::endl;
 
     //kka, kkf, kkggggg...
     //Regex::Regex lang1{"kk(ab|ff)"};
