@@ -50,11 +50,9 @@ extern int yydebug;
   enum yytokentype
   {
     ID = 258,
-    PLUS = 259,
-    MULT = 260,
-    NAME = 261,
-    DOT = 262,
-    H_WORD = 263
+    NAME = 259,
+    DOT = 260,
+    H_WORD = 261
   };
 #endif
 
@@ -62,17 +60,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 9 "lang.yy"
+#line 9 "lang.y"
 
 	int id_type;
 	char* name_type;
-	struct Mixed
-	{
-		int id;
-		char* name;
-	} Mixed;
 
-#line 76 "bis.tab.h"
+#line 69 "bis.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

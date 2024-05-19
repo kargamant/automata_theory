@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 3 "lang.yy"
+#line 3 "lang.y"
 
 	#include <stdio.h>
 	int yylex(void);
@@ -120,11 +120,9 @@ extern int yydebug;
   enum yytokentype
   {
     ID = 258,
-    PLUS = 259,
-    MULT = 260,
-    NAME = 261,
-    DOT = 262,
-    H_WORD = 263
+    NAME = 259,
+    DOT = 260,
+    H_WORD = 261
   };
 #endif
 
@@ -132,17 +130,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 9 "lang.yy"
+#line 9 "lang.y"
 
 	int id_type;
 	char* name_type;
-	struct Mixed
-	{
-		int id;
-		char* name;
-	} Mixed;
 
-#line 146 "bis.tab.c"
+#line 139 "bis.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -461,19 +454,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  7
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   9
+#define YYLAST   6
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  9
+#define YYNTOKENS  7
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  3
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  7
+#define YYNRULES  5
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  13
+#define YYNSTATES  9
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   263
+#define YYMAXUTOK   261
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -511,14 +504,14 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8
+       5,     6
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    31,    31,    32,    38,    42,    52,    56
+       0,    22,    22,    23,    29,    33
 };
 #endif
 
@@ -527,8 +520,8 @@ static const yytype_int8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "ID", "PLUS", "MULT", "NAME", "DOT",
-  "H_WORD", "$accept", "person", "greetings", YY_NULLPTR
+  "$end", "error", "$undefined", "ID", "NAME", "DOT", "H_WORD", "$accept",
+  "greetings", "person", YY_NULLPTR
 };
 #endif
 
@@ -537,11 +530,11 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_int16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262,   263
+       0,   256,   257,   258,   259,   260,   261
 };
 # endif
 
-#define YYPACT_NINF (-7)
+#define YYPACT_NINF (-6)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -555,8 +548,7 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -6,    -7,    -3,     6,     0,    -7,    -6,    -7,     4,     5,
-      -7,    -7,    -7
+      -5,    -6,    -1,     4,    -6,    -6,    -5,    -6,    -6
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -564,20 +556,19 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     3,     0,     0,     4,     5,     0,     1,     0,     0,
-       2,     6,     7
+       0,     3,     0,     0,     4,     5,     0,     1,     2
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -7,    -7,     3
+      -6,     0,    -6
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     6,     3
+      -1,     3,     6
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -585,32 +576,31 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       4,     1,     2,     5,     8,     9,     7,    11,    12,    10
+       1,     2,     4,     5,     7,     0,     8
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     7,     8,     6,     4,     5,     0,     3,     3,     6
+       5,     6,     3,     4,     0,    -1,     6
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     7,     8,    11,     3,     6,    10,     0,     4,     5,
-      11,     3,     3
+       0,     5,     6,     8,     3,     4,     9,     0,     8
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,     9,    11,    11,    10,    10,    10,    10
+       0,     7,     8,     8,     9,     9
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     3,     1,     1,     1,     3,     3
+       0,     2,     3,     1,     1,     1
 };
 
 
@@ -1306,30 +1296,30 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 31 "lang.yy"
+#line 22 "lang.y"
                                 {}
-#line 1312 "bis.tab.c"
+#line 1302 "bis.tab.c"
     break;
 
   case 3:
-#line 32 "lang.yy"
+#line 23 "lang.y"
               {
 					printf("Okay. Goodbye.\n");
 		}
-#line 1320 "bis.tab.c"
+#line 1310 "bis.tab.c"
     break;
 
   case 4:
-#line 38 "lang.yy"
+#line 29 "lang.y"
                 {
 			printf("%d is greeted\n", yylval);
 			fflush(stdin);			
 		}
-#line 1329 "bis.tab.c"
+#line 1319 "bis.tab.c"
     break;
 
   case 5:
-#line 42 "lang.yy"
+#line 33 "lang.y"
                 {
 			printf("%s is greeted\n", yylval);
 			if(yylval.name_type!=NULL)
@@ -1340,29 +1330,11 @@ yyreduce:
 			fflush(stdin);
 			
 		}
-#line 1344 "bis.tab.c"
-    break;
-
-  case 6:
-#line 52 "lang.yy"
-                     {
-				(yyval.Mixed).id=(yyvsp[-2].id_type)+(yyvsp[0].id_type);
-				printf("%d is greeted\n", (yyval.Mixed).id);
-			}
-#line 1353 "bis.tab.c"
-    break;
-
-  case 7:
-#line 56 "lang.yy"
-                     {
-				(yyval.Mixed).id=(yyvsp[-2].id_type)*(yyvsp[0].id_type);
-				printf("%d is greeted\n", (yyval.Mixed).id);
-			}
-#line 1362 "bis.tab.c"
+#line 1334 "bis.tab.c"
     break;
 
 
-#line 1366 "bis.tab.c"
+#line 1338 "bis.tab.c"
 
       default: break;
     }
@@ -1594,6 +1566,6 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 60 "lang.yy"
+#line 44 "lang.y"
 
 

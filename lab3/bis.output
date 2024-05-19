@@ -7,32 +7,28 @@ Grammar
 
     3 person: ID
     4       | NAME
-    5       | ID PLUS ID
-    6       | ID MULT ID
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    ID <id_type> (258) 3 5 6
-    PLUS <name_type> (259) 5
-    MULT <name_type> (260) 6
-    NAME <name_type> (261) 4
-    DOT <name_type> (262) 2
-    H_WORD <name_type> (263) 1
+    ID <id_type> (258) 3
+    NAME <name_type> (259) 4
+    DOT <name_type> (260) 2
+    H_WORD <name_type> (261) 1
 
 
 Nonterminals, with rules where they appear
 
-    $accept (9)
+    $accept (7)
         on left: 0
-    person <Mixed> (10)
-        on left: 3 4 5 6
-        on right: 1
-    greetings <Mixed> (11)
+    greetings (8)
         on left: 1 2
         on right: 0 1
+    person (9)
+        on left: 3 4
+        on right: 1
 
 
 State 0
@@ -72,11 +68,6 @@ State 3
 State 4
 
     3 person: ID .
-    5       | ID . PLUS ID
-    6       | ID . MULT ID
-
-    PLUS  shift, and go to state 8
-    MULT  shift, and go to state 9
 
     $default  reduce using rule 3 (person)
 
@@ -95,7 +86,7 @@ State 6
     DOT     shift, and go to state 1
     H_WORD  shift, and go to state 2
 
-    greetings  go to state 10
+    greetings  go to state 8
 
 
 State 7
@@ -107,34 +98,6 @@ State 7
 
 State 8
 
-    5 person: ID PLUS . ID
-
-    ID  shift, and go to state 11
-
-
-State 9
-
-    6 person: ID MULT . ID
-
-    ID  shift, and go to state 12
-
-
-State 10
-
     1 greetings: H_WORD person greetings .
 
     $default  reduce using rule 1 (greetings)
-
-
-State 11
-
-    5 person: ID PLUS ID .
-
-    $default  reduce using rule 5 (person)
-
-
-State 12
-
-    6 person: ID MULT ID .
-
-    $default  reduce using rule 6 (person)

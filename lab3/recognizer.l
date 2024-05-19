@@ -26,12 +26,6 @@ nickname [a-zA-Z]+
 	//printf("nickname parced.\n"); 
 	return NAME;
 	   }
-"+" {
-	return PLUS;
-	}
-"*" {
-	return MULT;
-	}
 "." {
 	//printf("dot parced.\n"); 
 	return DOT;

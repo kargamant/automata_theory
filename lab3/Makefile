@@ -1,4 +1,4 @@
 all:
-	bison -v -d lang.yy -o bis.tab.c
-	flex lang.ll
-	gcc bis.tab.c lex.yy.c main.c -o prog
+	bison -v -d lang.y -o bis.tab.c
+	flex recognizer.l
+	gcc bis.tab.c lex.yy.c test.c -o test
