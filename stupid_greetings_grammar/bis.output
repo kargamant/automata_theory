@@ -1,0 +1,103 @@
+Grammar
+
+    0 $accept: greetings $end
+
+    1 greetings: H_WORD person greetings
+    2          | DOT
+
+    3 person: ID
+    4       | NAME
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    ID <id_type> (258) 3
+    NAME <name_type> (259) 4
+    DOT <name_type> (260) 2
+    H_WORD <name_type> (261) 1
+
+
+Nonterminals, with rules where they appear
+
+    $accept (7)
+        on left: 0
+    greetings (8)
+        on left: 1 2
+        on right: 0 1
+    person (9)
+        on left: 3 4
+        on right: 1
+
+
+State 0
+
+    0 $accept: . greetings $end
+
+    DOT     shift, and go to state 1
+    H_WORD  shift, and go to state 2
+
+    greetings  go to state 3
+
+
+State 1
+
+    2 greetings: DOT .
+
+    $default  reduce using rule 2 (greetings)
+
+
+State 2
+
+    1 greetings: H_WORD . person greetings
+
+    ID    shift, and go to state 4
+    NAME  shift, and go to state 5
+
+    person  go to state 6
+
+
+State 3
+
+    0 $accept: greetings . $end
+
+    $end  shift, and go to state 7
+
+
+State 4
+
+    3 person: ID .
+
+    $default  reduce using rule 3 (person)
+
+
+State 5
+
+    4 person: NAME .
+
+    $default  reduce using rule 4 (person)
+
+
+State 6
+
+    1 greetings: H_WORD person . greetings
+
+    DOT     shift, and go to state 1
+    H_WORD  shift, and go to state 2
+
+    greetings  go to state 8
+
+
+State 7
+
+    0 $accept: greetings $end .
+
+    $default  accept
+
+
+State 8
+
+    1 greetings: H_WORD person greetings .
+
+    $default  reduce using rule 1 (greetings)

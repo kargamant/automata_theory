@@ -51,7 +51,8 @@ extern int yydebug;
   {
     ID = 258,
     NAME = 259,
-    H_WORD = 260
+    DOT = 260,
+    H_WORD = 261
   };
 #endif
 
@@ -64,7 +65,7 @@ union YYSTYPE
 	int id_type;
 	char* name_type;
 
-#line 68 "bis.tab.h"
+#line 69 "bis.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

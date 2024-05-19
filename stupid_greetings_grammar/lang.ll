@@ -13,23 +13,24 @@ nickname [a-zA-Z]+
 %%
 {id} {
 	yylval.id_type = atoi(yytext);  
-	printf("id parsed.\n"); 
+	//printf("id parsed.\n"); 
 	return ID;
      }
 {hw} {
-	if(yylval.name_type!=NULL) free(yylval.name_type);
-	yylval.name_type = malloc(yyleng + 1);  
-	memcpy(yylval.name_type, yytext, yyleng + 1);
-	printf("h-word parced.\n");
+	//printf("h-word parced.\n");
 	return H_WORD;
      }
 {nickname} {
-	if(yylval.name_type!=NULL) free(yylval.name_type);
 	yylval.name_type = malloc(yyleng + 1);  
-	memcpy(yylval.name_type, yytext, yyleng + 1);
-	printf("nickname parced.\n"); 
+	strcpy(yylval.name_type, yytext);
+	//printf("nickname parced.\n"); 
 	return NAME;
 	   }
+"." {
+	//printf("dot parced.\n"); 
+	return DOT;
+
+	}
 
 %%
 void yyerror(const char *s) {
