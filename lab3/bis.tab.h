@@ -43,13 +43,6 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
-/* "%code requires" blocks.  */
-#line 3 "lang.yy"
-
-	#include <stdio.h>
-	int yylex(void);
-
-#line 53 "bis.tab.h"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -57,13 +50,24 @@ extern int yydebug;
   enum yytokentype
   {
     ID = 258,
-    NAME = 259
+    NAME = 259,
+    H_WORD = 260
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 9 "lang.yy"
+
+	int id_type;
+	char* name_type;
+
+#line 68 "bis.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

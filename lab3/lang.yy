@@ -1,35 +1,29 @@
 %require "3.2"
 
-%code requires {
+%{
 	#include <stdio.h>
 	int yylex(void);
+%}
+
+%union
+{
+	int id_type;
+	char* name_type;
 }
 
-%token ID
-%token NAME
+%token <id_type> ID
+%token <name_type> NAME
+%token <name_type> H_WORD
 
 %%
 
 greetings:
-	h_word',' ID {
-			$$=$3;
-			printf("%d is greeted\n", $$);
+	H_WORD ID 	{
+				printf("%d is greeted\n", yylval);
 			}
-	| h_word',' NAME {
-			$$=$3;
-			printf("%d is greeted\n", $$);
+	| H_WORD NAME 	{
+				printf("%s is greeted\n", yylval);
 			}
-;
-h_word:
-      "Hello" {}
-      | "Hi" {}
-      | "Howdy" {}
-;
-
+	;
 %%
 
-int main()
-{
-	yyparse();
-	return 0;
-}

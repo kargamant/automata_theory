@@ -452,8 +452,9 @@ char *yytext;
 #line 1 "lang.ll"
 #line 2 "lang.ll"
 #include "bis.tab.h"
-#line 456 "lex.yy.c"
+#include <stdlib.h>
 #line 457 "lex.yy.c"
+#line 458 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -670,9 +671,9 @@ YY_DECL
 		}
 
 	{
-#line 15 "lang.ll"
+#line 13 "lang.ll"
 
-#line 676 "lex.yy.c"
+#line 677 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -731,25 +732,41 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 16 "lang.ll"
-{return *yytext;}
+#line 14 "lang.ll"
+{
+	yylval.id_type = atoi(yytext);  
+	printf("id parsed.\n"); 
+	return ID;
+     }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 17 "lang.ll"
-{return *yytext;}
+#line 19 "lang.ll"
+{
+	if(yylval.name_type!=NULL) free(yylval.name_type);
+	yylval.name_type = malloc(yyleng + 1);  
+	memcpy(yylval.name_type, yytext, yyleng + 1);
+	printf("h-word parced.\n");
+	return H_WORD;
+     }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "lang.ll"
-{return *yytext;}
+#line 26 "lang.ll"
+{
+	if(yylval.name_type!=NULL) free(yylval.name_type);
+	yylval.name_type = malloc(yyleng + 1);  
+	memcpy(yylval.name_type, yytext, yyleng + 1);
+	printf("nickname parced.\n"); 
+	return NAME;
+	   }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 20 "lang.ll"
+#line 34 "lang.ll"
 ECHO;
 	YY_BREAK
-#line 753 "lex.yy.c"
+#line 770 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1754,7 +1771,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 20 "lang.ll"
+#line 34 "lang.ll"
 
 void yyerror(const char *s) {
 	 fprintf(stderr, "%s\n", s);
