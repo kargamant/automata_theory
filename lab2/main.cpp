@@ -63,10 +63,11 @@ int main()
     std::cout<<"recovered expression:"<<std::endl;
     std::cout<<Regex::recoverExpr(reg)<<std::endl;
 
+    //Regex::Regex lang1{""};
     //kka, kkf, kkggggg...
     //Regex::Regex lang1{"kk(ab|ff)"};
-    //Regex::Regex diff=reg-lang1;
-    //diff.getAutomat().printDot();
+    Regex::Regex diff=~reg;
+    diff.getAutomat().printDot();
     //Regex::Regex lang1{starEquivalent("0")+"1"+starEquivalent("(0|1)"+starEquivalent("0")+"1")};
     //Regex::Regex lang2{starEquivalent("1")+starEquivalent("0+1+")};
     //Regex::Regex lang1{"(om|lol|kek)"}; //(ab|cd)+

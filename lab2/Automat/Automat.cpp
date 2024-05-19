@@ -1190,7 +1190,7 @@ namespace Automato
                                     //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+p_tr+starEquivalent(pr_tr+starEquivalent(self_tr)+p_tr)<<std::endl;
                                     if(!qr_tr.empty() && !pr_tr.empty())
                                     {
-                                        std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
+                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
                                         add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)));
                                         froms.push_back(state.first);
                                         tos.push_back(q.first);
@@ -1203,7 +1203,7 @@ namespace Automato
                                     }
                                     else if(!qr_tr.empty())
                                     {
-                                        std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
+                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
                                         add_transition(q.first, p.first, q_tr+starEquivalent(starEquivalent(self_tr)+qr_tr+q_tr)+starEquivalent(self_tr)+postfixString(p_tr, postfix));
                                         froms.push_back(state.first);
                                         tos.push_back(q.first);
@@ -1212,7 +1212,7 @@ namespace Automato
                                     }
                                     else if(!pr_tr.empty())
                                     {
-                                        std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
+                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix))<<std::endl;
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix+starEquivalent(pr_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)));
                                         froms.push_back(p.first);
                                         tos.push_back(state.first);
@@ -1221,7 +1221,7 @@ namespace Automato
                                     }
                                     else
                                     {
-                                        std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
+                                        //std::cout<<q.first<<"->"<<p.first<<" "<<q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix)<<std::endl;
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+postfixString(p_tr, postfix));
                                     }
                                     froms.push_back(q.first);
@@ -1263,8 +1263,8 @@ namespace Automato
 	                                    }
                                         add_transition(q.first, p.first, q_tr+starEquivalent(self_tr)+p_tr+postfix);
                                     }*/
-                                    printAutomat();
-                                    printDot();
+                                    //printAutomat();
+                                    //printDot();
                                 }
 	                        }
 	                    }
