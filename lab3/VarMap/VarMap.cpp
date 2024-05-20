@@ -12,7 +12,7 @@ Var::Var(VarType type, const std::string& name, int value) : name(name)
 		VarMap::err_code=Err::typeMisMatch;
 		throw std::invalid_argument("Error. Value of tiny type can only be 0 or 1. Yours is "+std::to_string(value));
 	}
-	else if(value>=boundary || value<-(boundary/2)) 
+	else if(type!=VarType::tiny && (value>=boundary || value<-(boundary/2))) 
 	{
 		VarMap::err_code=Err::typeMisMatch;
 		throw std::invalid_argument("Error. value "+std::to_string(value)+" does not fit boudaries of type "+nameByType(type)+".");
@@ -86,7 +86,11 @@ void VarMap::changeVar(const std::string& name, int val)
 	if(map.contains(name))
 	{
 		//check value on its size compatability before assigning
-		if(val>=size_table[map[name].type]) map[name].value=size_table[map[name].type]-1;
+		if(val>=size_table[map[name].type]) 
+		{
+			if(map[name].type==VarType::tiny) map[name].value=size_table[map[name].type];
+			else map[name].value=size_table[map[name].type]-1;
+		}
 		else if(val<-size_table[map[name].type]/2) map[name].value=-size_table[map[name].type]/2;
 		else map[name].value=val;
 	}

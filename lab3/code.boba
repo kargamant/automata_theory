@@ -1,0 +1,12 @@
+small abc<<2,
+tiny gg<<1,
+big GG<<228,
+
+@gg,
+@abc,
+@GG,
+
+gg abc<<GG,
+@gg,
+@abc,
+@GG.
