@@ -1,52 +1,124 @@
-tiny
+small
 var_type parsed
-uu
+GG
 var_name parsed
 <
 < parsed
 <
 < parsed
--11
+31
 literal parsed
 ,
 , parsed
 @
 @ parsed
-uu
+GG
+var_name parsed
+,
+, parsed
+GG
+var_name parsed
+<
+< parsed
+<
+< parsed
+15
+literal parsed
+,
+, parsed
+@
+@ parsed
+GG
+var_name parsed
+,
+, parsed
+GG
+var_name parsed
+<
+< parsed
+<
+< parsed
+-17
+literal parsed
+,
+, parsed
+@
+@ parsed
+GG
+var_name parsed
+,
+, parsed
+GG
+var_name parsed
+<
+< parsed
+<
+< parsed
+64
+literal parsed
+,
+, parsed
+@
+@ parsed
+GG
 var_name parsed
 ,
 , parsed
 big
 var_type parsed
-oo
-var_name parsed
-kk
+boba
 var_name parsed
 <
 < parsed
 <
 < parsed
-7
+1023
+literal parsed
+,
+, parsed
+GG
+var_name parsed
+<
+< parsed
+<
+< parsed
+0
 literal parsed
 ,
 , parsed
 @
 @ parsed
-oo
+GG
 var_name parsed
 ,
 , parsed
 @
 @ parsed
-kk
+boba
+var_name parsed
+,
+, parsed
+GG
+var_name parsed
+<
+< parsed
+<
+< parsed
+boba
 var_name parsed
 ,
 , parsed
 @
 @ parsed
-uu
+GG
 var_name parsed
+,
+, parsed
+@
+@ parsed
+boba
+var_name parsed
+,
+, parsed
 .
 . parsed
-@
-@ parsed
