@@ -1,4 +1,3 @@
 all:
-	bison -v -d lang.y -o bis.tab.c
-	flex recognizer.l
-	gcc bis.tab.c lex.yy.c test.c -o test
+	./fb_compile.sh
+	g++ -std=c++20 bison/bis.tab.c flex/lex.yy.c test.cpp -o test

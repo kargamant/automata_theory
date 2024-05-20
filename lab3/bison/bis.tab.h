@@ -34,8 +34,8 @@
 /* Undocumented macros, especially those whose name start with YY_,
    are private implementation details.  Do not rely on them.  */
 
-#ifndef YY_YY_BIS_TAB_H_INCLUDED
-# define YY_YY_BIS_TAB_H_INCLUDED
+#ifndef YY_YY_BISON_BIS_TAB_H_INCLUDED
+# define YY_YY_BISON_BIS_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -43,16 +43,22 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 6 "bison/lang.y"
+
+	#include <iostream>
+	#include <string>
+	#include <unordered_map>
+
+#line 54 "bison/bis.tab.h"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    ID = 258,
-    NAME = 259,
-    DOT = 260,
-    H_WORD = 261
+    VAR_NAME = 258,
+    LITERAL = 259
   };
 #endif
 
@@ -60,12 +66,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 9 "lang.y"
+#line 18 "bison/lang.y"
 
-	int id_type;
-	char* name_type;
+	std::string* str;
+	int num;
 
-#line 69 "bis.tab.h"
+#line 75 "bison/bis.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -78,4 +84,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_BIS_TAB_H_INCLUDED  */
+#endif /* !YY_YY_BISON_BIS_TAB_H_INCLUDED  */
