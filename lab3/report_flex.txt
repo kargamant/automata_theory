@@ -1,12 +1,52 @@
-normal
+tiny
 var_type parsed
-yy
+uu
 var_name parsed
 <
 < parsed
 <
 < parsed
-100000
+-11
 literal parsed
+,
+, parsed
+@
+@ parsed
+uu
+var_name parsed
+,
+, parsed
+big
+var_type parsed
+oo
+var_name parsed
+kk
+var_name parsed
+<
+< parsed
+<
+< parsed
+7
+literal parsed
+,
+, parsed
+@
+@ parsed
+oo
+var_name parsed
+,
+, parsed
+@
+@ parsed
+kk
+var_name parsed
+,
+, parsed
+@
+@ parsed
+uu
+var_name parsed
 .
 . parsed
+@
+@ parsed

@@ -80,7 +80,22 @@ Var VarMap::getVar(const std::string& name)
 }
 
 
+void VarMap::pushVarToInit(const std::string& name)
+{
 
+	to_initialize.emplace_back(VarType::tiny, name, 0);	
+}
+
+void VarMap::flushInit(VarType init_type, int value)
+{
+	for(auto& var: to_initialize)
+	{
+		var.type=init_type;
+		var.value=value;
+		addVar(var);
+	}
+	to_initialize.clear();
+}
 
 
 

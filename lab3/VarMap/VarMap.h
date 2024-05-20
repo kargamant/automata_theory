@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <string>
 #include <iostream>
+#include <vector>
 
 enum class VarType
 {
@@ -30,8 +31,14 @@ class VarMap
 {
 	private:
 		std::unordered_map<std::string, Var> map;
+		std::vector<Var> to_initialize;
+		//VarType init_type;
 	public:
 		void addVar(Var var);
 		void changeVar(const std::string& name, int val);
 		Var getVar(const std::string& name);
+		void pushVarToInit(const std::string& name);
+		void flushInit(VarType init_type, int value);
+		//VarMap& setInitType(VarType type) {init_type=type; return *this;}
+
 };

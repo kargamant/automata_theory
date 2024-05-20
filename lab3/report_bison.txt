@@ -1,1 +1,3 @@
-normal yy was assigned 100000
+All vars from init queue were intialized
+var kkpushed to init queue.
+All vars from init queue were intialized
