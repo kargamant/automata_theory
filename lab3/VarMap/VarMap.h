@@ -20,7 +20,7 @@ enum class Err
 	typeMisMatch,
 	redefinition,
 	undefined,
-	notAnArray
+	outOfRange	
 };
 
 
@@ -39,13 +39,13 @@ struct Var
 
 struct Field : public Var
 {
-	//VarType item_type;
+	//size_type_max - amount of elements in matrix
+	//value of Field itself is amount of items in one line
 	VarType size_type;
-	//std::string name;
 	std::vector<Var> matr;
 	Field(VarType item_type=VarType::tiny, VarType size_type=VarType::tiny, const std::string& name="a", int value=0);
 	void updateItems();
-	//virtual ~Field() = default;
+	Var& getVar(int ind1, int ind2);
 };
 
 void operator<<(std::ostream& stream, Var& var);
@@ -81,5 +81,6 @@ class VarMap
 
 		Err getErrCode() {return err_code;}
 		friend Var;
+		friend Field;
 
 };

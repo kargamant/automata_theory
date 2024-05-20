@@ -39,7 +39,7 @@ array field
 			return VAR_NAME;
 		}
 
-"<"|","|"."|"@"		{
+"<"|","|"."|"@"|"["|"]"		{
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<*yytext<<" parsed"<<std::endl;
 			return *yytext;	

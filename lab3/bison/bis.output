@@ -11,13 +11,15 @@ Grammar
     3 simple_statement: VAR_TYPE VAR_NAME vars '<' '<' LITERAL
     4                 | VAR_TYPE VAR_NAME vars '<' '<' VAR_NAME
     5                 | ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<' '<' LITERAL
-    6                 | '@' VAR_NAME
-    7                 | VAR_NAME vars '<' '<' VAR_NAME
-    8                 | VAR_NAME vars '<' '<' LITERAL
+    6                 | '@' VAR_NAME '[' LITERAL LITERAL ']'
+    7                 | '@' VAR_NAME
+    8                 | VAR_NAME vars '<' '<' VAR_NAME
+    9                 | VAR_NAME vars '<' '<' LITERAL
+   10                 | VAR_NAME '[' LITERAL LITERAL ']' '<' '<' LITERAL
 
-    9 vars: VAR_NAME vars
-   10     | VAR_NAME
-   11     | %empty
+   11 vars: VAR_NAME vars
+   12     | VAR_NAME
+   13     | %empty
 
 
 Terminals, with rules where they appear
@@ -25,28 +27,30 @@ Terminals, with rules where they appear
     $end (0) 0
     ',' (44) 1
     '.' (46) 2
-    '<' (60) 3 4 5 7 8
-    '@' (64) 6
+    '<' (60) 3 4 5 8 9 10
+    '@' (64) 6 7
+    '[' (91) 6 10
+    ']' (93) 6 10
     error (256)
-    VAR_NAME <str> (258) 3 4 5 6 7 8 9 10
-    LITERAL <num> (259) 3 5 8
+    VAR_NAME <str> (258) 3 4 5 6 7 8 9 10 11 12
+    LITERAL <num> (259) 3 5 6 9 10
     VAR_TYPE <var_type> (260) 3 4 5
     ARRAY (261) 5
 
 
 Nonterminals, with rules where they appear
 
-    $accept (11)
+    $accept (13)
         on left: 0
-    complex_statement (12)
+    complex_statement (14)
         on left: 1 2
         on right: 0 1
-    simple_statement (13)
-        on left: 3 4 5 6 7 8
+    simple_statement (15)
+        on left: 3 4 5 6 7 8 9 10
         on right: 1 2
-    vars (14)
-        on left: 9 10 11
-        on right: 3 4 7 8 9
+    vars (16)
+        on left: 11 12 13
+        on right: 3 4 8 9 11
 
 
 State 0
@@ -64,14 +68,16 @@ State 0
 
 State 1
 
-    7 simple_statement: VAR_NAME . vars '<' '<' VAR_NAME
-    8                 | VAR_NAME . vars '<' '<' LITERAL
+    8 simple_statement: VAR_NAME . vars '<' '<' VAR_NAME
+    9                 | VAR_NAME . vars '<' '<' LITERAL
+   10                 | VAR_NAME . '[' LITERAL LITERAL ']' '<' '<' LITERAL
 
     VAR_NAME  shift, and go to state 7
+    '['       shift, and go to state 8
 
-    $default  reduce using rule 11 (vars)
+    $default  reduce using rule 13 (vars)
 
-    vars  go to state 8
+    vars  go to state 9
 
 
 State 2
@@ -79,28 +85,29 @@ State 2
     3 simple_statement: VAR_TYPE . VAR_NAME vars '<' '<' LITERAL
     4                 | VAR_TYPE . VAR_NAME vars '<' '<' VAR_NAME
 
-    VAR_NAME  shift, and go to state 9
+    VAR_NAME  shift, and go to state 10
 
 
 State 3
 
     5 simple_statement: ARRAY . VAR_TYPE VAR_TYPE VAR_NAME '<' '<' LITERAL
 
-    VAR_TYPE  shift, and go to state 10
+    VAR_TYPE  shift, and go to state 11
 
 
 State 4
 
-    6 simple_statement: '@' . VAR_NAME
+    6 simple_statement: '@' . VAR_NAME '[' LITERAL LITERAL ']'
+    7                 | '@' . VAR_NAME
 
-    VAR_NAME  shift, and go to state 11
+    VAR_NAME  shift, and go to state 12
 
 
 State 5
 
     0 $accept: complex_statement . $end
 
-    $end  shift, and go to state 12
+    $end  shift, and go to state 13
 
 
 State 6
@@ -108,66 +115,76 @@ State 6
     1 complex_statement: simple_statement . ',' complex_statement
     2                  | simple_statement . '.'
 
-    ','  shift, and go to state 13
-    '.'  shift, and go to state 14
+    ','  shift, and go to state 14
+    '.'  shift, and go to state 15
 
 
 State 7
 
-    9 vars: VAR_NAME . vars
-   10     | VAR_NAME .
+   11 vars: VAR_NAME . vars
+   12     | VAR_NAME .
 
     VAR_NAME  shift, and go to state 7
 
-    '<'       reduce using rule 10 (vars)
-    '<'       [reduce using rule 11 (vars)]
-    $default  reduce using rule 10 (vars)
+    '<'       reduce using rule 12 (vars)
+    '<'       [reduce using rule 13 (vars)]
+    $default  reduce using rule 12 (vars)
 
-    vars  go to state 15
+    vars  go to state 16
 
 
 State 8
 
-    7 simple_statement: VAR_NAME vars . '<' '<' VAR_NAME
-    8                 | VAR_NAME vars . '<' '<' LITERAL
+   10 simple_statement: VAR_NAME '[' . LITERAL LITERAL ']' '<' '<' LITERAL
 
-    '<'  shift, and go to state 16
+    LITERAL  shift, and go to state 17
 
 
 State 9
+
+    8 simple_statement: VAR_NAME vars . '<' '<' VAR_NAME
+    9                 | VAR_NAME vars . '<' '<' LITERAL
+
+    '<'  shift, and go to state 18
+
+
+State 10
 
     3 simple_statement: VAR_TYPE VAR_NAME . vars '<' '<' LITERAL
     4                 | VAR_TYPE VAR_NAME . vars '<' '<' VAR_NAME
 
     VAR_NAME  shift, and go to state 7
 
-    $default  reduce using rule 11 (vars)
+    $default  reduce using rule 13 (vars)
 
-    vars  go to state 17
-
-
-State 10
-
-    5 simple_statement: ARRAY VAR_TYPE . VAR_TYPE VAR_NAME '<' '<' LITERAL
-
-    VAR_TYPE  shift, and go to state 18
+    vars  go to state 19
 
 
 State 11
 
-    6 simple_statement: '@' VAR_NAME .
+    5 simple_statement: ARRAY VAR_TYPE . VAR_TYPE VAR_NAME '<' '<' LITERAL
 
-    $default  reduce using rule 6 (simple_statement)
+    VAR_TYPE  shift, and go to state 20
 
 
 State 12
+
+    6 simple_statement: '@' VAR_NAME . '[' LITERAL LITERAL ']'
+    7                 | '@' VAR_NAME .
+
+    '['  shift, and go to state 21
+
+    $default  reduce using rule 7 (simple_statement)
+
+
+State 13
 
     0 $accept: complex_statement $end .
 
     $default  accept
 
 
-State 13
+State 14
 
     1 complex_statement: simple_statement ',' . complex_statement
 
@@ -176,131 +193,201 @@ State 13
     ARRAY     shift, and go to state 3
     '@'       shift, and go to state 4
 
-    complex_statement  go to state 19
+    complex_statement  go to state 22
     simple_statement   go to state 6
 
 
-State 14
+State 15
 
     2 complex_statement: simple_statement '.' .
 
     $default  reduce using rule 2 (complex_statement)
 
 
-State 15
-
-    9 vars: VAR_NAME vars .
-
-    $default  reduce using rule 9 (vars)
-
-
 State 16
 
-    7 simple_statement: VAR_NAME vars '<' . '<' VAR_NAME
-    8                 | VAR_NAME vars '<' . '<' LITERAL
+   11 vars: VAR_NAME vars .
 
-    '<'  shift, and go to state 20
+    $default  reduce using rule 11 (vars)
 
 
 State 17
 
-    3 simple_statement: VAR_TYPE VAR_NAME vars . '<' '<' LITERAL
-    4                 | VAR_TYPE VAR_NAME vars . '<' '<' VAR_NAME
+   10 simple_statement: VAR_NAME '[' LITERAL . LITERAL ']' '<' '<' LITERAL
 
-    '<'  shift, and go to state 21
+    LITERAL  shift, and go to state 23
 
 
 State 18
 
-    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE . VAR_NAME '<' '<' LITERAL
+    8 simple_statement: VAR_NAME vars '<' . '<' VAR_NAME
+    9                 | VAR_NAME vars '<' . '<' LITERAL
 
-    VAR_NAME  shift, and go to state 22
+    '<'  shift, and go to state 24
 
 
 State 19
+
+    3 simple_statement: VAR_TYPE VAR_NAME vars . '<' '<' LITERAL
+    4                 | VAR_TYPE VAR_NAME vars . '<' '<' VAR_NAME
+
+    '<'  shift, and go to state 25
+
+
+State 20
+
+    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE . VAR_NAME '<' '<' LITERAL
+
+    VAR_NAME  shift, and go to state 26
+
+
+State 21
+
+    6 simple_statement: '@' VAR_NAME '[' . LITERAL LITERAL ']'
+
+    LITERAL  shift, and go to state 27
+
+
+State 22
 
     1 complex_statement: simple_statement ',' complex_statement .
 
     $default  reduce using rule 1 (complex_statement)
 
 
-State 20
-
-    7 simple_statement: VAR_NAME vars '<' '<' . VAR_NAME
-    8                 | VAR_NAME vars '<' '<' . LITERAL
-
-    VAR_NAME  shift, and go to state 23
-    LITERAL   shift, and go to state 24
-
-
-State 21
-
-    3 simple_statement: VAR_TYPE VAR_NAME vars '<' . '<' LITERAL
-    4                 | VAR_TYPE VAR_NAME vars '<' . '<' VAR_NAME
-
-    '<'  shift, and go to state 25
-
-
-State 22
-
-    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME . '<' '<' LITERAL
-
-    '<'  shift, and go to state 26
-
-
 State 23
 
-    7 simple_statement: VAR_NAME vars '<' '<' VAR_NAME .
+   10 simple_statement: VAR_NAME '[' LITERAL LITERAL . ']' '<' '<' LITERAL
 
-    $default  reduce using rule 7 (simple_statement)
+    ']'  shift, and go to state 28
 
 
 State 24
 
-    8 simple_statement: VAR_NAME vars '<' '<' LITERAL .
+    8 simple_statement: VAR_NAME vars '<' '<' . VAR_NAME
+    9                 | VAR_NAME vars '<' '<' . LITERAL
 
-    $default  reduce using rule 8 (simple_statement)
+    VAR_NAME  shift, and go to state 29
+    LITERAL   shift, and go to state 30
 
 
 State 25
 
-    3 simple_statement: VAR_TYPE VAR_NAME vars '<' '<' . LITERAL
-    4                 | VAR_TYPE VAR_NAME vars '<' '<' . VAR_NAME
+    3 simple_statement: VAR_TYPE VAR_NAME vars '<' . '<' LITERAL
+    4                 | VAR_TYPE VAR_NAME vars '<' . '<' VAR_NAME
 
-    VAR_NAME  shift, and go to state 27
-    LITERAL   shift, and go to state 28
+    '<'  shift, and go to state 31
 
 
 State 26
 
-    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<' . '<' LITERAL
+    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME . '<' '<' LITERAL
 
-    '<'  shift, and go to state 29
+    '<'  shift, and go to state 32
 
 
 State 27
+
+    6 simple_statement: '@' VAR_NAME '[' LITERAL . LITERAL ']'
+
+    LITERAL  shift, and go to state 33
+
+
+State 28
+
+   10 simple_statement: VAR_NAME '[' LITERAL LITERAL ']' . '<' '<' LITERAL
+
+    '<'  shift, and go to state 34
+
+
+State 29
+
+    8 simple_statement: VAR_NAME vars '<' '<' VAR_NAME .
+
+    $default  reduce using rule 8 (simple_statement)
+
+
+State 30
+
+    9 simple_statement: VAR_NAME vars '<' '<' LITERAL .
+
+    $default  reduce using rule 9 (simple_statement)
+
+
+State 31
+
+    3 simple_statement: VAR_TYPE VAR_NAME vars '<' '<' . LITERAL
+    4                 | VAR_TYPE VAR_NAME vars '<' '<' . VAR_NAME
+
+    VAR_NAME  shift, and go to state 35
+    LITERAL   shift, and go to state 36
+
+
+State 32
+
+    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<' . '<' LITERAL
+
+    '<'  shift, and go to state 37
+
+
+State 33
+
+    6 simple_statement: '@' VAR_NAME '[' LITERAL LITERAL . ']'
+
+    ']'  shift, and go to state 38
+
+
+State 34
+
+   10 simple_statement: VAR_NAME '[' LITERAL LITERAL ']' '<' . '<' LITERAL
+
+    '<'  shift, and go to state 39
+
+
+State 35
 
     4 simple_statement: VAR_TYPE VAR_NAME vars '<' '<' VAR_NAME .
 
     $default  reduce using rule 4 (simple_statement)
 
 
-State 28
+State 36
 
     3 simple_statement: VAR_TYPE VAR_NAME vars '<' '<' LITERAL .
 
     $default  reduce using rule 3 (simple_statement)
 
 
-State 29
+State 37
 
     5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<' '<' . LITERAL
 
-    LITERAL  shift, and go to state 30
+    LITERAL  shift, and go to state 40
 
 
-State 30
+State 38
+
+    6 simple_statement: '@' VAR_NAME '[' LITERAL LITERAL ']' .
+
+    $default  reduce using rule 6 (simple_statement)
+
+
+State 39
+
+   10 simple_statement: VAR_NAME '[' LITERAL LITERAL ']' '<' '<' . LITERAL
+
+    LITERAL  shift, and go to state 41
+
+
+State 40
 
     5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<' '<' LITERAL .
 
     $default  reduce using rule 5 (simple_statement)
+
+
+State 41
+
+   10 simple_statement: VAR_NAME '[' LITERAL LITERAL ']' '<' '<' LITERAL .
+
+    $default  reduce using rule 10 (simple_statement)

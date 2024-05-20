@@ -10,74 +10,92 @@ var_name parsed
 < parsed
 <
 < parsed
+3
+literal parsed
+,
+, parsed
+@
+@ parsed
+arr
+var_name parsed
+,
+, parsed
+arr
+var_name parsed
+<
+< parsed
+<
+< parsed
+6
+literal parsed
+,
+, parsed
+@
+@ parsed
+arr
+var_name parsed
+,
+, parsed
+arr
+var_name parsed
+[
+[ parsed
+0
+literal parsed
+1
+literal parsed
+]
+] parsed
+<
+< parsed
+<
+< parsed
+-1
+literal parsed
+,
+, parsed
+@
+@ parsed
+arr
+var_name parsed
+,
+, parsed
+@
+@ parsed
+arr
+var_name parsed
+[
+[ parsed
+0
+literal parsed
+1
+literal parsed
+]
+] parsed
+,
+, parsed
+@
+@ parsed
+arr
+var_name parsed
+[
+[ parsed
+30
+literal parsed
+1
+literal parsed
+]
+] parsed
+,
+, parsed
+arr
+var_name parsed
+<
+< parsed
+<
+< parsed
 9
 literal parsed
-,
-, parsed
-@
-@ parsed
-arr
-var_name parsed
-,
-, parsed
-arr
-var_name parsed
-<
-< parsed
-<
-< parsed
-10
-literal parsed
-,
-, parsed
-@
-@ parsed
-arr
-var_name parsed
-,
-, parsed
-arr
-var_name parsed
-<
-< parsed
-<
-< parsed
-33
-literal parsed
-,
-, parsed
-@
-@ parsed
-arr
-var_name parsed
-,
-, parsed
-big
-var_type parsed
-shlepa
-var_name parsed
-<
-< parsed
-<
-< parsed
--16384
-literal parsed
-,
-, parsed
-@
-@ parsed
-shlepa
-var_name parsed
-,
-, parsed
-arr
-var_name parsed
-<
-< parsed
-<
-< parsed
-shlepa
-var_name parsed
 ,
 , parsed
 @

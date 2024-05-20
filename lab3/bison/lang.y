@@ -92,6 +92,31 @@ simple_statement:
 							//Field fld{$2, $3, *$4, $7};
 							vm.addVar(fld);
 						}
+	| '@' VAR_NAME '[' LITERAL LITERAL ']' 
+						{
+							try
+							{
+								std::cout<<dynamic_cast<Field*>(vm.getVar(*$2))->getVar($4, $5);
+								std::cout<<std::endl;
+							}
+							catch(std::invalid_argument error)
+							{
+								if(vm.getErrCode()==Err::undefined)
+								{
+									std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+								}
+								else if(vm.getErrCode()==Err::outOfRange)
+								{
+									std::cerr<<"Syntax error at "<<@4.first_line<<":"<<@4.first_column<<":"<<@4.last_line<<":"<<@4.last_column<<std::endl;
+								}
+								std::cerr<<"Error text: "<<error.what()<<std::endl;
+							}
+							catch(std::bad_cast)
+							{
+								std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+								std::cerr<<"Error. Variable "+*$2+" is not an array."<<std::endl;
+							}
+						}
 	| '@' VAR_NAME
 			{
 				Var* var;
@@ -110,12 +135,13 @@ simple_statement:
 				{
 					if(var->isField)
 					{
-						std::cout<<*dynamic_cast<Field*>(var);
+						std::cout<<(*dynamic_cast<Field*>(var));
 					}
 					else
 					{	
-						std::cout<<*var;
+						std::cout<<(*var);
 					}
+					std::cout<<std::endl;
 				}
 			}
 	| VAR_NAME vars '<''<' VAR_NAME
@@ -164,6 +190,32 @@ simple_statement:
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
 						}
+	| VAR_NAME '[' LITERAL LITERAL ']' '<''<' LITERAL
+						{
+							try
+							{
+								Var& item=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
+								item.value=$8;
+							}
+							catch(std::invalid_argument error)
+							{
+								if(vm.getErrCode()==Err::undefined)
+								{
+									std::cerr<<"Syntax error at "<<@1.first_line<<":"<<@1.first_column<<":"<<@1.last_line<<":"<<@1.last_column<<std::endl;
+								}
+								else if(vm.getErrCode()==Err::outOfRange)
+								{
+									std::cerr<<"Syntax error at "<<@3.first_line<<":"<<@3.first_column<<":"<<@3.last_line<<":"<<@3.last_column<<std::endl;
+								}
+								std::cerr<<"Error text: "<<error.what()<<std::endl;
+							}
+							catch(std::bad_cast)
+							{
+								std::cerr<<"Syntax error at "<<@1.first_line<<":"<<@1.first_column<<":"<<@1.last_line<<":"<<@1.last_column<<std::endl;
+								std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
+							}
+						}
+	;
 vars:
     	VAR_NAME vars {
 				vm.pushVarToInit(*$1);

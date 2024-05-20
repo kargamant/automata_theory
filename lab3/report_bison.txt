@@ -1,4 +1,2 @@
 All vars from init queue were intialized
 All vars from init queue were intialized
-All vars from init queue were intialized
-All vars from init queue were intialized

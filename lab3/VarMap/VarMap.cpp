@@ -37,6 +37,19 @@ void Field::updateItems()
 	}
 }
 
+Var& Field::getVar(int ind1, int ind2)
+{
+	if((value*ind1+ind2)>=matr.size())
+	{
+		VarMap::err_code=Err::outOfRange;
+		throw std::invalid_argument("Error. Index of ["+std::to_string(ind1)+" "+std::to_string(ind2)+"] is out of range. Size is "+std::to_string(matr.size()));
+	}
+	else
+	{
+		return matr[value*ind1+ind2];
+	}
+}
+
 VarType typeByName(const std::string& type_name)
 {
 	if(type_name=="tiny")
@@ -78,15 +91,29 @@ std::string nameByType(VarType& type)
 
 void operator<<(std::ostream& stream, Var& var)
 {
-	stream<<nameByType(var.type)<<std::string(" ")<<var.name<<std::string(" ")<<var.value<<std::endl;
+	stream<<nameByType(var.type)<<std::string(" ")<<var.name<<std::string(" ")<<var.value;
 }
 
 void operator<<(std::ostream& stream, Field& arr)
 {
 	stream<<nameByType(arr.type)<<" "<<nameByType(arr.size_type)<<" "<<arr.name<<":"<<std::endl;
-	for(auto& var: arr.matr)
+	int k=0;
+	for(int i=0; i<arr.matr.size()/arr.value; i++)
 	{
-		stream<<var;
+		for(int j=0; j<arr.value; j++)
+		{
+			stream<<arr.matr[i*arr.value+j];
+			stream<<std::string(" ");
+			k=i*arr.value+j;
+		}
+		stream<<std::endl;
+	}
+	
+	//remain once
+	for(int i=k+1; i<arr.matr.size(); i++)
+	{
+		stream<<arr.matr[i];
+		stream<<std::string(" ");
 	}
 }
 
