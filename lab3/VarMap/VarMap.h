@@ -34,13 +34,14 @@ struct Var
 	Var(VarType type=VarType::tiny, const std::string& name="a", int value=0);
 };
 
-/*struct Field
+struct Field
 {
 	VarType item_type;
 	VarType size_type;
 	std::string name;
-	std::vector<>
-};*/
+	std::vector<Var> matr;
+	Field(VarType item_type=VarType::tiny, VarType size_type=VarType::tiny, const std::string& name="a", int value=0);
+};
 
 void operator<<(std::ostream& stream, Var& var);
 
@@ -48,6 +49,7 @@ class VarMap
 {
 	private:
 		std::unordered_map<std::string, Var> map;
+		std::unordered_map<std::string, Field> field_map;
 		std::vector<Var> to_initialize;
 		//VarType init_type;
 		static Err err_code;

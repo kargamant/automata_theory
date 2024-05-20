@@ -11,6 +11,7 @@ digit [0-9]
 literal (-?[1-9][0-9]*|0)
 var_name [a-zA-Z]([a-zA-Z]|[0-9])*
 var_type tiny|small|normal|big
+array field
 
 
 %option noyywrap
@@ -22,6 +23,12 @@ var_type tiny|small|normal|big
 			flex_logger<<"var_type parsed"<<std::endl;
 			yylval.var_type=typeByName(std::string(yytext));
 			return VAR_TYPE;
+		}
+{array}		{
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"array_type parsed"<<std::endl;
+			return ARRAY;
+
 		}
 
 {var_name}	{

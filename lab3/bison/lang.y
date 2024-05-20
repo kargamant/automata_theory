@@ -3,6 +3,7 @@
 %token <str> VAR_NAME
 %token <num> LITERAL
 %token <var_type> VAR_TYPE
+%token ARRAY
 
 %code requires {
 	#include <iostream>
@@ -76,6 +77,10 @@ simple_statement:
 							
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
+							
+						}
+	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars '<''<' LITERAL 
+						{
 							
 						}
 	| '@' VAR_NAME

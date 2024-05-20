@@ -24,6 +24,10 @@ Var::Var(VarType type, const std::string& name, int value) : name(name)
 	}
 }
 
+Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : item_type(item_type), size_type(size_type), matr(VarMap::size_table[size_type], Var(item_type, "", value))
+{
+}
+
 VarType typeByName(const std::string& type_name)
 {
 	if(type_name=="tiny")

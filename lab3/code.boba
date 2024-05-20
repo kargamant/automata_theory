@@ -1,6 +1,6 @@
 small abc<<2,
 tiny gg<<1,
-big GG<<228,
+big GG<<-16384,
 
 @gg,
 @abc,
