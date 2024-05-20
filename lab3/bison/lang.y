@@ -8,12 +8,15 @@
 	#include <iostream>
 	#include <string>
 	#include "../VarMap/VarMap.h"
+	#include <fstream>
 }
 %{
 	#include "../VarMap/VarMap.h"
+	#include <fstream>
 	int yylex(void);
 	void yyerror(const char *s);
 	VarMap vm;	
+	std::ofstream bison_logger("report_bison.txt");
 %}
 
 %union
@@ -33,7 +36,7 @@ simple_statement:
 	VAR_TYPE VAR_NAME '<''<' LITERAL {
 					//std::string var_name=std::string(*$2);
 					vm.addVar(Var($1, *$2, $5));
-					std::cout<<nameByType($1)<<" "<<*$2<<" was assigned "<<$5<<std::endl;
+					bison_logger<<nameByType($1)<<" "<<*$2<<" was assigned "<<$5<<std::endl;
 					}
 	| '@' VAR_NAME
 			{

@@ -1,0 +1,12 @@
+normal
+var_type parsed
+yy
+var_name parsed
+<
+< parsed
+<
+< parsed
+100000
+literal parsed
+.
+. parsed

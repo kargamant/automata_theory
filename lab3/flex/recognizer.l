@@ -2,6 +2,8 @@
 #include "../bison/bis.tab.h"
 #include <cstdlib>
 #include <string>
+
+std::ofstream flex_logger("report_flex.txt");
 %}
 
 letter [a-zA-Z]
@@ -16,13 +18,15 @@ var_type tiny|small|normal|big
 %%
 
 {var_type}	{
-			std::cout<<"var_type parsed"<<std::endl;
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"var_type parsed"<<std::endl;
 			yylval.var_type=typeByName(std::string(yytext));
 			return VAR_TYPE;
 		}
 
 {var_name}	{
-			std::cout<<"var_name parsed"<<std::endl;
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"var_name parsed"<<std::endl;
 			yylval.str=new std::string(yytext);
 			//yylval.str=(char*)malloc(yyleng+1);
 			//strcpy(yylval.str, yytext);
@@ -30,12 +34,14 @@ var_type tiny|small|normal|big
 		}
 
 "<"|","|"."|"@"		{
-			std::cout<<*yytext<<" parsed"<<std::endl;
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<*yytext<<" parsed"<<std::endl;
 			return *yytext;	
 		}
 
 {literal} 	{
-			std::cout<<"literal parsed"<<std::endl;
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"literal parsed"<<std::endl;
 			yylval.num=atoi(yytext);
 			return LITERAL;
 		}

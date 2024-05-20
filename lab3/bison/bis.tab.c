@@ -66,14 +66,16 @@
 
 
 /* First part of user prologue.  */
-#line 12 "bison/lang.y"
+#line 13 "bison/lang.y"
 
 	#include "../VarMap/VarMap.h"
+	#include <fstream>
 	int yylex(void);
 	void yyerror(const char *s);
 	VarMap vm;	
+	std::ofstream bison_logger("report_bison.txt");
 
-#line 77 "bison/bis.tab.c"
+#line 79 "bison/bis.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -121,8 +123,9 @@ extern int yydebug;
 	#include <iostream>
 	#include <string>
 	#include "../VarMap/VarMap.h"
+	#include <fstream>
 
-#line 126 "bison/bis.tab.c"
+#line 129 "bison/bis.tab.c"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -139,13 +142,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 20 "bison/lang.y"
+#line 23 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
 	int num;
 
-#line 149 "bison/bis.tab.c"
+#line 152 "bison/bis.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -521,7 +524,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    29,    29,    30,    33,    38
+       0,    32,    32,    33,    36,    41
 };
 #endif
 
@@ -1311,38 +1314,38 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 29 "bison/lang.y"
+#line 32 "bison/lang.y"
                                                {}
-#line 1317 "bison/bis.tab.c"
+#line 1320 "bison/bis.tab.c"
     break;
 
   case 3:
-#line 30 "bison/lang.y"
+#line 33 "bison/lang.y"
                                {}
-#line 1323 "bison/bis.tab.c"
+#line 1326 "bison/bis.tab.c"
     break;
 
   case 4:
-#line 33 "bison/lang.y"
+#line 36 "bison/lang.y"
                                          {
 					//std::string var_name=std::string(*$2);
 					vm.addVar(Var((yyvsp[-4].var_type), *(yyvsp[-3].str), (yyvsp[0].num)));
-					std::cout<<nameByType((yyvsp[-4].var_type))<<" "<<*(yyvsp[-3].str)<<" was assigned "<<(yyvsp[0].num)<<std::endl;
+					bison_logger<<nameByType((yyvsp[-4].var_type))<<" "<<*(yyvsp[-3].str)<<" was assigned "<<(yyvsp[0].num)<<std::endl;
 					}
-#line 1333 "bison/bis.tab.c"
+#line 1336 "bison/bis.tab.c"
     break;
 
   case 5:
-#line 39 "bison/lang.y"
+#line 42 "bison/lang.y"
                         {
 				Var var=vm.getVar(*(yyvsp[0].str));
 				std::cout<<var;
 			}
-#line 1342 "bison/bis.tab.c"
+#line 1345 "bison/bis.tab.c"
     break;
 
 
-#line 1346 "bison/bis.tab.c"
+#line 1349 "bison/bis.tab.c"
 
       default: break;
     }
@@ -1574,7 +1577,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 43 "bison/lang.y"
+#line 46 "bison/lang.y"
 
 
 

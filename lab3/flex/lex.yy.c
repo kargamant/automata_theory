@@ -465,8 +465,10 @@ char *yytext;
 #include "../bison/bis.tab.h"
 #include <cstdlib>
 #include <string>
-#line 469 "flex/lex.yy.c"
-#line 470 "flex/lex.yy.c"
+
+std::ofstream flex_logger("report_flex.txt");
+#line 471 "flex/lex.yy.c"
+#line 472 "flex/lex.yy.c"
 
 #define INITIAL 0
 
@@ -683,10 +685,10 @@ YY_DECL
 		}
 
 	{
-#line 16 "flex/recognizer.l"
+#line 18 "flex/recognizer.l"
 
 
-#line 690 "flex/lex.yy.c"
+#line 692 "flex/lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -745,18 +747,20 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 18 "flex/recognizer.l"
+#line 20 "flex/recognizer.l"
 {
-			std::cout<<"var_type parsed"<<std::endl;
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"var_type parsed"<<std::endl;
 			yylval.var_type=typeByName(std::string(yytext));
 			return VAR_TYPE;
 		}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 24 "flex/recognizer.l"
+#line 27 "flex/recognizer.l"
 {
-			std::cout<<"var_name parsed"<<std::endl;
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"var_name parsed"<<std::endl;
 			yylval.str=new std::string(yytext);
 			//yylval.str=(char*)malloc(yyleng+1);
 			//strcpy(yylval.str, yytext);
@@ -765,27 +769,29 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 32 "flex/recognizer.l"
+#line 36 "flex/recognizer.l"
 {
-			std::cout<<*yytext<<" parsed"<<std::endl;
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<*yytext<<" parsed"<<std::endl;
 			return *yytext;	
 		}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 37 "flex/recognizer.l"
+#line 42 "flex/recognizer.l"
 {
-			std::cout<<"literal parsed"<<std::endl;
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"literal parsed"<<std::endl;
 			yylval.num=atoi(yytext);
 			return LITERAL;
 		}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 43 "flex/recognizer.l"
+#line 49 "flex/recognizer.l"
 ECHO;
 	YY_BREAK
-#line 789 "flex/lex.yy.c"
+#line 795 "flex/lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1790,7 +1796,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 43 "flex/recognizer.l"
+#line 49 "flex/recognizer.l"
 
 
 

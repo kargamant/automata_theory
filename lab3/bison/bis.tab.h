@@ -49,8 +49,9 @@ extern int yydebug;
 	#include <iostream>
 	#include <string>
 	#include "../VarMap/VarMap.h"
+	#include <fstream>
 
-#line 54 "bison/bis.tab.h"
+#line 55 "bison/bis.tab.h"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -67,13 +68,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 20 "bison/lang.y"
+#line 23 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
 	int num;
 
-#line 77 "bison/bis.tab.h"
+#line 78 "bison/bis.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
