@@ -541,10 +541,10 @@ static const yytype_int8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_int16 yyrline[] =
 {
-       0,    34,    34,    35,    38,    59,    89,    95,   120,   147,
-     170,   193,   220,   224,   228
+       0,    34,    34,    35,    38,    59,    90,   113,   142,   170,
+     194,   218,   249,   253,   257
 };
 #endif
 
@@ -1471,14 +1471,14 @@ yyreduce:
 						{
 							if(vm.getErrCode()==Err::typeMisMatch)
 							{
-								std::cerr<<"Syntax error at "<<(yylsp[0]).first_line<<":"<<(yylsp[0]).first_column<<":"<<(yylsp[0]).last_line<<":"<<(yylsp[0]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
 							}
 							else if(vm.getErrCode()==Err::redefinition)
 							{
-								std::cerr<<"Syntax error at "<<(yylsp[-4]).first_line<<":"<<(yylsp[-4]).first_column<<":"<<(yylsp[-4]).last_line<<":"<<(yylsp[-4]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							
+							vm.setErrCode(Err::no_error);	
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
@@ -1497,13 +1497,14 @@ yyreduce:
 						{
 							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
 							{
-								std::cerr<<"Syntax error at "<<(yylsp[0]).first_line<<":"<<(yylsp[0]).first_column<<":"<<(yylsp[0]).last_line<<":"<<(yylsp[0]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
 							}
 							else if(vm.getErrCode()==Err::redefinition)
 							{
-								std::cerr<<"Syntax error at "<<(yylsp[-4]).first_line<<":"<<(yylsp[-4]).first_column<<":"<<(yylsp[-4]).last_line<<":"<<(yylsp[-4]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
+							vm.setErrCode(Err::no_error);	
 							
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
@@ -1516,50 +1517,71 @@ yyreduce:
 						}
 						*/
 						}
-#line 1520 "bison/bis.tab.c"
+#line 1521 "bison/bis.tab.c"
     break;
 
   case 6:
-#line 90 "bison/lang.y"
+#line 91 "bison/lang.y"
                                                 {
-							Var* fld=new Field((yyvsp[-5].var_type), (yyvsp[-4].var_type), *(yyvsp[-3].str), (yyvsp[0].num));
 							//Field fld{$2, $3, *$4, $7};
-							vm.addVar(fld);
-						}
-#line 1530 "bison/bis.tab.c"
-    break;
-
-  case 7:
-#line 96 "bison/lang.y"
-                                                {
 							try
 							{
-								std::cout<<dynamic_cast<Field*>(vm.getVar(*(yyvsp[-4].str)))->getVar((yyvsp[-2].num), (yyvsp[-1].num));
-								std::cout<<std::endl;
+								Var* fld=new Field((yyvsp[-5].var_type), (yyvsp[-4].var_type), *(yyvsp[-3].str), (yyvsp[0].num));
+								vm.addVar(fld);
 							}
 							catch(std::invalid_argument error)
 							{
-								if(vm.getErrCode()==Err::undefined)
+								
+								if(vm.getErrCode()==Err::typeMisMatch)
 								{
-									std::cerr<<"Syntax error at "<<(yylsp[-4]).first_line<<":"<<(yylsp[-4]).first_column<<":"<<(yylsp[-4]).last_line<<":"<<(yylsp[-4]).last_column<<std::endl;
+									std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
 								}
-								else if(vm.getErrCode()==Err::outOfRange)
+								else if(vm.getErrCode()==Err::redefinition)
 								{
-									std::cerr<<"Syntax error at "<<(yylsp[-2]).first_line<<":"<<(yylsp[-2]).first_column<<":"<<(yylsp[-2]).last_line<<":"<<(yylsp[-2]).last_column<<std::endl;
+									std::cerr<<"Syntax error at line "<<(yylsp[-3]).first_line<<std::endl;
 								}
 								std::cerr<<"Error text: "<<error.what()<<std::endl;
-							}
-							catch(std::bad_cast)
-							{
-								std::cerr<<"Syntax error at "<<(yylsp[-4]).first_line<<":"<<(yylsp[-4]).first_column<<":"<<(yylsp[-4]).last_line<<":"<<(yylsp[-4]).last_column<<std::endl;
-								std::cerr<<"Error. Variable "+*(yyvsp[-4].str)+" is not an array."<<std::endl;
+								vm.setErrCode(Err::no_error);	
 							}
 						}
-#line 1559 "bison/bis.tab.c"
+#line 1548 "bison/bis.tab.c"
+    break;
+
+  case 7:
+#line 114 "bison/lang.y"
+                                                {
+							if(!vm.getVar(*(yyvsp[-4].str))->isField)
+							{
+								std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
+								std::cerr<<"Error. Variable "+*(yyvsp[-4].str)+" is not an array."<<std::endl;
+							}
+							else
+							{
+								try
+								{
+									std::cout<<dynamic_cast<Field*>(vm.getVar(*(yyvsp[-4].str)))->getVar((yyvsp[-2].num), (yyvsp[-1].num));
+									std::cout<<std::endl;
+								}
+								catch(std::invalid_argument error)
+								{
+									if(vm.getErrCode()==Err::undefined)
+									{
+										std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
+									}
+									else if(vm.getErrCode()==Err::outOfRange)
+									{
+										std::cerr<<"Syntax error at line "<<(yylsp[-2]).first_line<<std::endl;
+									}
+									std::cerr<<"Error text: "<<error.what()<<std::endl;
+									vm.setErrCode(Err::no_error);	
+								}
+							}
+						}
+#line 1581 "bison/bis.tab.c"
     break;
 
   case 8:
-#line 121 "bison/lang.y"
+#line 143 "bison/lang.y"
                         {
 				Var* var;
 				bool isError=false;
@@ -1570,8 +1592,9 @@ yyreduce:
 				catch(std::invalid_argument error)
 				{
 					isError=true;
-					std::cerr<<"Syntax error at "<<(yylsp[0]).first_line<<":"<<(yylsp[0]).first_column<<":"<<(yylsp[0]).last_line<<":"<<(yylsp[0]).last_column<<std::endl;
+					std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
 					std::cerr<<"Error text: "<<error.what()<<std::endl;
+					vm.setErrCode(Err::no_error);	
 				}
 				if(!isError) 
 				{
@@ -1586,11 +1609,11 @@ yyreduce:
 					std::cout<<std::endl;
 				}
 			}
-#line 1590 "bison/bis.tab.c"
+#line 1613 "bison/bis.tab.c"
     break;
 
   case 9:
-#line 148 "bison/lang.y"
+#line 171 "bison/lang.y"
                                                 {
 						vm.pushVarToInit(*(yyvsp[-4].str));
 						try
@@ -1601,23 +1624,24 @@ yyreduce:
 						{
 							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
 							{
-								std::cerr<<"Syntax error at "<<(yylsp[0]).first_line<<":"<<(yylsp[0]).first_column<<":"<<(yylsp[0]).last_line<<":"<<(yylsp[0]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
 							}
 							else if(vm.getErrCode()==Err::redefinition)
 							{
-								std::cerr<<"Syntax error at "<<(yylsp[-3]).first_line<<":"<<(yylsp[-3]).first_column<<":"<<(yylsp[-3]).last_line<<":"<<(yylsp[-3]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[-3]).first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
+							vm.setErrCode(Err::no_error);	
 							
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
 						}
-#line 1617 "bison/bis.tab.c"
+#line 1641 "bison/bis.tab.c"
     break;
 
   case 10:
-#line 171 "bison/lang.y"
+#line 195 "bison/lang.y"
                                                 {
 						vm.pushVarToInit(*(yyvsp[-4].str));
 						try
@@ -1628,76 +1652,81 @@ yyreduce:
 						{
 							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
 							{
-								std::cerr<<"Syntax error at "<<(yylsp[0]).first_line<<":"<<(yylsp[0]).first_column<<":"<<(yylsp[0]).last_line<<":"<<(yylsp[0]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
 							}
 							else if(vm.getErrCode()==Err::redefinition)
 							{
-								std::cerr<<"Syntax error at "<<(yylsp[-3]).first_line<<":"<<(yylsp[-3]).first_column<<":"<<(yylsp[-3]).last_line<<":"<<(yylsp[-3]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[-3]).first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
 							
+							vm.setErrCode(Err::no_error);	
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
 						}
-#line 1644 "bison/bis.tab.c"
+#line 1669 "bison/bis.tab.c"
     break;
 
   case 11:
-#line 194 "bison/lang.y"
+#line 219 "bison/lang.y"
                                                 {
-							try
+							if(!vm.getVar(*(yyvsp[-7].str))->isField)
 							{
-								Var& item=dynamic_cast<Field*>(vm.getVar(*(yyvsp[-7].str)))->getVar((yyvsp[-5].num), (yyvsp[-4].num));
-								item.value=(yyvsp[0].num);
-							}
-							catch(std::invalid_argument error)
-							{
-								if(vm.getErrCode()==Err::undefined)
-								{
-									std::cerr<<"Syntax error at "<<(yylsp[-7]).first_line<<":"<<(yylsp[-7]).first_column<<":"<<(yylsp[-7]).last_line<<":"<<(yylsp[-7]).last_column<<std::endl;
-								}
-								else if(vm.getErrCode()==Err::outOfRange)
-								{
-									std::cerr<<"Syntax error at "<<(yylsp[-5]).first_line<<":"<<(yylsp[-5]).first_column<<":"<<(yylsp[-5]).last_line<<":"<<(yylsp[-5]).last_column<<std::endl;
-								}
-								std::cerr<<"Error text: "<<error.what()<<std::endl;
-							}
-							catch(std::bad_cast)
-							{
-								std::cerr<<"Syntax error at "<<(yylsp[-7]).first_line<<":"<<(yylsp[-7]).first_column<<":"<<(yylsp[-7]).last_line<<":"<<(yylsp[-7]).last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<(yylsp[-7]).first_line<<std::endl;
 								std::cerr<<"Error. Variable "+*(yyvsp[-7].str)+" is not an array."<<std::endl;
 							}
+							else
+							{
+								try
+								{
+									Var& item=dynamic_cast<Field*>(vm.getVar(*(yyvsp[-7].str)))->getVar((yyvsp[-5].num), (yyvsp[-4].num));
+									item.value=(yyvsp[0].num);
+								}
+								catch(std::invalid_argument error)
+								{
+									if(vm.getErrCode()==Err::undefined)
+									{
+										std::cerr<<"Syntax error at line "<<(yylsp[-7]).first_line<<std::endl;
+									}
+									else if(vm.getErrCode()==Err::outOfRange)
+									{
+										std::cerr<<"Syntax error at line "<<(yylsp[-5]).first_line<<std::endl;
+									}
+									std::cerr<<"Error text: "<<error.what()<<std::endl;
+									vm.setErrCode(Err::no_error);	
+								}
+							}
 						}
-#line 1673 "bison/bis.tab.c"
+#line 1702 "bison/bis.tab.c"
     break;
 
   case 12:
-#line 220 "bison/lang.y"
+#line 249 "bison/lang.y"
                       {
 				vm.pushVarToInit(*(yyvsp[-1].str));
 				bison_logger<<"var "<<*(yyvsp[-1].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 1682 "bison/bis.tab.c"
+#line 1711 "bison/bis.tab.c"
     break;
 
   case 13:
-#line 224 "bison/lang.y"
+#line 253 "bison/lang.y"
                    {
 				vm.pushVarToInit(*(yyvsp[0].str));
 				bison_logger<<"var "<<*(yyvsp[0].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 1691 "bison/bis.tab.c"
+#line 1720 "bison/bis.tab.c"
     break;
 
   case 14:
-#line 228 "bison/lang.y"
+#line 257 "bison/lang.y"
                         {}
-#line 1697 "bison/bis.tab.c"
+#line 1726 "bison/bis.tab.c"
     break;
 
 
-#line 1701 "bison/bis.tab.c"
+#line 1730 "bison/bis.tab.c"
 
       default: break;
     }
@@ -1935,7 +1964,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 230 "bison/lang.y"
+#line 259 "bison/lang.y"
 
 
 

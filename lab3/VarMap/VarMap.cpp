@@ -97,7 +97,17 @@ void operator<<(std::ostream& stream, Var& var)
 void operator<<(std::ostream& stream, Field& arr)
 {
 	stream<<nameByType(arr.type)<<" "<<nameByType(arr.size_type)<<" "<<arr.name<<":"<<std::endl;
+	if(arr.size_type==VarType::tiny)
+	{
+		stream<<arr.matr[0];
+	}
 	int k=0;
+	bool wasPlused=false;
+	if(arr.value==0) 
+	{
+		arr.value++;
+		wasPlused=true;
+	}
 	for(int i=0; i<arr.matr.size()/arr.value; i++)
 	{
 		for(int j=0; j<arr.value; j++)
@@ -115,6 +125,7 @@ void operator<<(std::ostream& stream, Field& arr)
 		stream<<arr.matr[i];
 		stream<<std::string(" ");
 	}
+	if(wasPlused) arr.value--;
 }
 
 void VarMap::addVar(Var* var)
@@ -177,7 +188,15 @@ void VarMap::flushInit(VarType init_type, int value)
 	for(auto& var: to_initialize)
 	{
 		Var* var_init=new Var(init_type, var.name, value);
-		addVar(var_init);
+		try
+		{
+			addVar(var_init);
+		}
+		catch(...)
+		{
+			to_initialize.clear();
+			throw;
+		}
 	}
 	to_initialize.clear();
 }

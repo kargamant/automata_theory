@@ -45,14 +45,14 @@ simple_statement:
 						{
 							if(vm.getErrCode()==Err::typeMisMatch)
 							{
-								std::cerr<<"Syntax error at "<<@6.first_line<<":"<<@6.first_column<<":"<<@6.last_line<<":"<<@6.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@6.first_line<<std::endl;
 							}
 							else if(vm.getErrCode()==Err::redefinition)
 							{
-								std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							
+							vm.setErrCode(Err::no_error);	
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
@@ -67,13 +67,14 @@ simple_statement:
 						{
 							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
 							{
-								std::cerr<<"Syntax error at "<<@6.first_line<<":"<<@6.first_column<<":"<<@6.last_line<<":"<<@6.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@6.first_line<<std::endl;
 							}
 							else if(vm.getErrCode()==Err::redefinition)
 							{
-								std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
+							vm.setErrCode(Err::no_error);	
 							
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
@@ -88,33 +89,54 @@ simple_statement:
 						}
 	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<''<' LITERAL 
 						{
-							Var* fld=new Field($2, $3, *$4, $7);
 							//Field fld{$2, $3, *$4, $7};
-							vm.addVar(fld);
-						}
-	| '@' VAR_NAME '[' LITERAL LITERAL ']' 
-						{
 							try
 							{
-								std::cout<<dynamic_cast<Field*>(vm.getVar(*$2))->getVar($4, $5);
-								std::cout<<std::endl;
+								Var* fld=new Field($2, $3, *$4, $7);
+								vm.addVar(fld);
 							}
 							catch(std::invalid_argument error)
 							{
-								if(vm.getErrCode()==Err::undefined)
+								
+								if(vm.getErrCode()==Err::typeMisMatch)
 								{
-									std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+									std::cerr<<"Syntax error at line "<<@7.first_line<<std::endl;
 								}
-								else if(vm.getErrCode()==Err::outOfRange)
+								else if(vm.getErrCode()==Err::redefinition)
 								{
-									std::cerr<<"Syntax error at "<<@4.first_line<<":"<<@4.first_column<<":"<<@4.last_line<<":"<<@4.last_column<<std::endl;
+									std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
 								}
 								std::cerr<<"Error text: "<<error.what()<<std::endl;
+								vm.setErrCode(Err::no_error);	
 							}
-							catch(std::bad_cast)
+						}
+	| '@' VAR_NAME '[' LITERAL LITERAL ']' 
+						{
+							if(!vm.getVar(*$2)->isField)
 							{
-								std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 								std::cerr<<"Error. Variable "+*$2+" is not an array."<<std::endl;
+							}
+							else
+							{
+								try
+								{
+									std::cout<<dynamic_cast<Field*>(vm.getVar(*$2))->getVar($4, $5);
+									std::cout<<std::endl;
+								}
+								catch(std::invalid_argument error)
+								{
+									if(vm.getErrCode()==Err::undefined)
+									{
+										std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
+									}
+									else if(vm.getErrCode()==Err::outOfRange)
+									{
+										std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
+									}
+									std::cerr<<"Error text: "<<error.what()<<std::endl;
+									vm.setErrCode(Err::no_error);	
+								}
 							}
 						}
 	| '@' VAR_NAME
@@ -128,8 +150,9 @@ simple_statement:
 				catch(std::invalid_argument error)
 				{
 					isError=true;
-					std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+					std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 					std::cerr<<"Error text: "<<error.what()<<std::endl;
+					vm.setErrCode(Err::no_error);	
 				}
 				if(!isError) 
 				{
@@ -155,13 +178,14 @@ simple_statement:
 						{
 							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
 							{
-								std::cerr<<"Syntax error at "<<@5.first_line<<":"<<@5.first_column<<":"<<@5.last_line<<":"<<@5.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@5.first_line<<std::endl;
 							}
 							else if(vm.getErrCode()==Err::redefinition)
 							{
-								std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
+							vm.setErrCode(Err::no_error);	
 							
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
@@ -178,41 +202,46 @@ simple_statement:
 						{
 							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
 							{
-								std::cerr<<"Syntax error at "<<@5.first_line<<":"<<@5.first_column<<":"<<@5.last_line<<":"<<@5.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@5.first_line<<std::endl;
 							}
 							else if(vm.getErrCode()==Err::redefinition)
 							{
-								std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
 							
+							vm.setErrCode(Err::no_error);	
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
 						}
 	| VAR_NAME '[' LITERAL LITERAL ']' '<''<' LITERAL
 						{
-							try
+							if(!vm.getVar(*$1)->isField)
 							{
-								Var& item=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
-								item.value=$8;
-							}
-							catch(std::invalid_argument error)
-							{
-								if(vm.getErrCode()==Err::undefined)
-								{
-									std::cerr<<"Syntax error at "<<@1.first_line<<":"<<@1.first_column<<":"<<@1.last_line<<":"<<@1.last_column<<std::endl;
-								}
-								else if(vm.getErrCode()==Err::outOfRange)
-								{
-									std::cerr<<"Syntax error at "<<@3.first_line<<":"<<@3.first_column<<":"<<@3.last_line<<":"<<@3.last_column<<std::endl;
-								}
-								std::cerr<<"Error text: "<<error.what()<<std::endl;
-							}
-							catch(std::bad_cast)
-							{
-								std::cerr<<"Syntax error at "<<@1.first_line<<":"<<@1.first_column<<":"<<@1.last_line<<":"<<@1.last_column<<std::endl;
+								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
+							}
+							else
+							{
+								try
+								{
+									Var& item=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
+									item.value=$8;
+								}
+								catch(std::invalid_argument error)
+								{
+									if(vm.getErrCode()==Err::undefined)
+									{
+										std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+									}
+									else if(vm.getErrCode()==Err::outOfRange)
+									{
+										std::cerr<<"Syntax error at line "<<@3.first_line<<std::endl;
+									}
+									std::cerr<<"Error text: "<<error.what()<<std::endl;
+									vm.setErrCode(Err::no_error);	
+								}
 							}
 						}
 	;

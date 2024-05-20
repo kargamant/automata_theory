@@ -1,2 +1,5 @@
 All vars from init queue were intialized
 All vars from init queue were intialized
+All vars from init queue were intialized
+var abcpushed to init queue.
+All vars from init queue were intialized

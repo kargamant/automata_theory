@@ -18,12 +18,18 @@ array field
 %%
 
 {var_type}	{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+			
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"var_type parsed"<<std::endl;
 			yylval.var_type=typeByName(std::string(yytext));
 			return VAR_TYPE;
 		}
 {array}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"array_type parsed"<<std::endl;
 			return ARRAY;
@@ -31,6 +37,9 @@ array field
 		}
 
 {var_name}	{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"var_name parsed"<<std::endl;
 			yylval.str=new std::string(yytext);
@@ -40,16 +49,26 @@ array field
 		}
 
 "<"|","|"."|"@"|"["|"]"		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<*yytext<<" parsed"<<std::endl;
 			return *yytext;	
 		}
 
 {literal} 	{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"literal parsed"<<std::endl;
 			yylval.num=atoi(yytext);
 			return LITERAL;
+		}
+"\n"		{
+			yylloc.last_line=++yylloc.first_line;
+			yylloc.last_column=yylloc.first_column=0;
 		}
 
 %%

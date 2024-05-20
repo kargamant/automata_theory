@@ -80,6 +80,7 @@ class VarMap
 		//void flushAssignArr(int value);
 
 		Err getErrCode() {return err_code;}
+		VarMap& setErrCode(Err nerr_code) {err_code=nerr_code; return *this;}
 		friend Var;
 		friend Field;
 
