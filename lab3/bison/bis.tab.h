@@ -44,11 +44,11 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 6 "bison/lang.y"
+#line 7 "bison/lang.y"
 
 	#include <iostream>
 	#include <string>
-	#include <unordered_map>
+	#include "../VarMap/VarMap.h"
 
 #line 54 "bison/bis.tab.h"
 
@@ -58,7 +58,8 @@ extern int yydebug;
   enum yytokentype
   {
     VAR_NAME = 258,
-    LITERAL = 259
+    LITERAL = 259,
+    VAR_TYPE = 260
   };
 #endif
 
@@ -66,12 +67,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 18 "bison/lang.y"
+#line 20 "bison/lang.y"
 
+	VarType var_type;
 	std::string* str;
 	int num;
 
-#line 75 "bison/bis.tab.h"
+#line 77 "bison/bis.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

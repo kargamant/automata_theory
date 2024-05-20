@@ -1,69 +1,142 @@
 Grammar
 
-    0 $accept: simple_statement $end
+    0 $accept: complex_statement $end
 
-    1 simple_statement: VAR_NAME LITERAL
-    2                 | '.'
+    1 complex_statement: simple_statement ',' complex_statement
+    2                  | simple_statement '.'
+
+    3 simple_statement: VAR_TYPE VAR_NAME '<' '<' LITERAL
+    4                 | '@' VAR_NAME
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
+    ',' (44) 1
     '.' (46) 2
+    '<' (60) 3
+    '@' (64) 4
     error (256)
-    VAR_NAME <str> (258) 1
-    LITERAL <num> (259) 1
+    VAR_NAME <str> (258) 3 4
+    LITERAL <num> (259) 3
+    VAR_TYPE <var_type> (260) 3
 
 
 Nonterminals, with rules where they appear
 
-    $accept (6)
+    $accept (10)
         on left: 0
-    simple_statement (7)
+    complex_statement (11)
         on left: 1 2
-        on right: 0
+        on right: 0 1
+    simple_statement (12)
+        on left: 3 4
+        on right: 1 2
 
 
 State 0
 
-    0 $accept: . simple_statement $end
+    0 $accept: . complex_statement $end
 
-    VAR_NAME  shift, and go to state 1
-    '.'       shift, and go to state 2
+    VAR_TYPE  shift, and go to state 1
+    '@'       shift, and go to state 2
 
-    simple_statement  go to state 3
+    complex_statement  go to state 3
+    simple_statement   go to state 4
 
 
 State 1
 
-    1 simple_statement: VAR_NAME . LITERAL
+    3 simple_statement: VAR_TYPE . VAR_NAME '<' '<' LITERAL
 
-    LITERAL  shift, and go to state 4
+    VAR_NAME  shift, and go to state 5
 
 
 State 2
 
-    2 simple_statement: '.' .
+    4 simple_statement: '@' . VAR_NAME
 
-    $default  reduce using rule 2 (simple_statement)
+    VAR_NAME  shift, and go to state 6
 
 
 State 3
 
-    0 $accept: simple_statement . $end
+    0 $accept: complex_statement . $end
 
-    $end  shift, and go to state 5
+    $end  shift, and go to state 7
 
 
 State 4
 
-    1 simple_statement: VAR_NAME LITERAL .
+    1 complex_statement: simple_statement . ',' complex_statement
+    2                  | simple_statement . '.'
 
-    $default  reduce using rule 1 (simple_statement)
+    ','  shift, and go to state 8
+    '.'  shift, and go to state 9
 
 
 State 5
 
-    0 $accept: simple_statement $end .
+    3 simple_statement: VAR_TYPE VAR_NAME . '<' '<' LITERAL
+
+    '<'  shift, and go to state 10
+
+
+State 6
+
+    4 simple_statement: '@' VAR_NAME .
+
+    $default  reduce using rule 4 (simple_statement)
+
+
+State 7
+
+    0 $accept: complex_statement $end .
 
     $default  accept
+
+
+State 8
+
+    1 complex_statement: simple_statement ',' . complex_statement
+
+    VAR_TYPE  shift, and go to state 1
+    '@'       shift, and go to state 2
+
+    complex_statement  go to state 11
+    simple_statement   go to state 4
+
+
+State 9
+
+    2 complex_statement: simple_statement '.' .
+
+    $default  reduce using rule 2 (complex_statement)
+
+
+State 10
+
+    3 simple_statement: VAR_TYPE VAR_NAME '<' . '<' LITERAL
+
+    '<'  shift, and go to state 12
+
+
+State 11
+
+    1 complex_statement: simple_statement ',' complex_statement .
+
+    $default  reduce using rule 1 (complex_statement)
+
+
+State 12
+
+    3 simple_statement: VAR_TYPE VAR_NAME '<' '<' . LITERAL
+
+    LITERAL  shift, and go to state 13
+
+
+State 13
+
+    3 simple_statement: VAR_TYPE VAR_NAME '<' '<' LITERAL .
+
+    $default  reduce using rule 3 (simple_statement)

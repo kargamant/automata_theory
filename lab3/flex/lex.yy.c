@@ -355,8 +355,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 3
-#define YY_END_OF_BUFFER 4
+#define YY_NUM_RULES 5
+#define YY_END_OF_BUFFER 6
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -364,10 +364,11 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[12] =
+static const flex_int16_t yy_accept[29] =
     {   0,
-        0,    0,    4,    3,    3,    2,    2,    3,    2,    1,
-        0
+        0,    0,    6,    5,    3,    5,    4,    4,    2,    2,
+        2,    2,    2,    4,    4,    2,    2,    2,    2,    2,
+        1,    2,    2,    2,    2,    2,    2,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -376,16 +377,16 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    2,    1,    1,    3,    4,    4,
-        4,    4,    4,    4,    4,    4,    4,    1,    1,    1,
-        1,    1,    1,    1,    5,    5,    5,    5,    5,    5,
-        5,    5,    5,    5,    5,    5,    5,    5,    5,    5,
-        5,    5,    5,    5,    5,    5,    5,    5,    5,    5,
-        1,    1,    1,    1,    1,    1,    5,    5,    5,    5,
+        1,    1,    1,    2,    3,    4,    1,    5,    6,    6,
+        6,    6,    6,    6,    6,    6,    6,    1,    1,    7,
+        1,    1,    1,    8,    9,    9,    9,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    9,    9,    9,
+        1,    1,    1,    1,    1,    1,   10,   11,    9,    9,
 
-        5,    5,    5,    5,    5,    5,    5,    5,    5,    5,
-        5,    5,    5,    5,    5,    5,    5,    5,    5,    5,
-        5,    5,    1,    1,    1,    1,    1,    1,    1,    1,
+        9,    9,   12,    9,   13,    9,    9,   14,   15,   16,
+       17,    9,    9,   18,   19,   20,    9,    9,    9,    9,
+       21,    9,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -402,33 +403,47 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[6] =
+static const YY_CHAR yy_meta[22] =
     {   0,
-        1,    1,    2,    3,    2
+        1,    1,    1,    1,    2,    2,    1,    1,    2,    2,
+        2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
+        2
     } ;
 
-static const flex_int16_t yy_base[14] =
+static const flex_int16_t yy_base[30] =
     {   0,
-        0,    0,    9,   10,    0,   10,    0,    0,    0,    0,
-       10,    5,    4
+        0,    0,   44,   45,   45,   37,   45,   17,    0,   29,
+       24,   25,   26,   19,   21,    0,   26,   19,   26,   19,
+        0,   19,   19,   11,   21,   16,   15,   45,   26
     } ;
 
-static const flex_int16_t yy_def[14] =
+static const flex_int16_t yy_def[30] =
     {   0,
-       11,    1,   11,   11,   12,   11,   12,   13,   12,   13,
-        0,   11,   11
+       28,    1,   28,   28,   28,   28,   28,   28,   29,   29,
+       29,   29,   29,   28,   28,   29,   29,   29,   29,   29,
+       29,   29,   29,   29,   29,   29,   29,    0,   28
     } ;
 
-static const flex_int16_t yy_nxt[16] =
+static const flex_int16_t yy_nxt[67] =
     {   0,
-        4,    5,    6,    7,    8,   10,   10,    9,   11,    3,
-       11,   11,   11,   11,   11
+        4,    5,    6,    5,    7,    8,    5,    5,    9,    9,
+       10,    9,    9,    9,    9,   11,    9,    9,   12,   13,
+        9,   15,   15,   15,   15,   15,   15,   16,   21,   21,
+       27,   21,   26,   25,   24,   23,   22,   21,   20,   19,
+       18,   17,   14,   28,    3,   28,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28
     } ;
 
-static const flex_int16_t yy_chk[16] =
+static const flex_int16_t yy_chk[67] =
     {   0,
-        1,    1,    1,    1,    1,   13,   13,   12,    3,   11,
-       11,   11,   11,   11,   11
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    8,    8,   14,   14,   15,   15,   29,   27,   26,
+       25,   24,   23,   22,   20,   19,   18,   17,   13,   12,
+       11,   10,    6,    3,   28,   28,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28,   28,   28,   28,   28,
+       28,   28,   28,   28,   28,   28
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -450,8 +465,8 @@ char *yytext;
 #include "../bison/bis.tab.h"
 #include <cstdlib>
 #include <string>
-#line 454 "flex/lex.yy.c"
-#line 455 "flex/lex.yy.c"
+#line 469 "flex/lex.yy.c"
+#line 470 "flex/lex.yy.c"
 
 #define INITIAL 0
 
@@ -668,10 +683,10 @@ YY_DECL
 		}
 
 	{
-#line 15 "flex/recognizer.l"
+#line 16 "flex/recognizer.l"
 
 
-#line 675 "flex/lex.yy.c"
+#line 690 "flex/lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -698,13 +713,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 12 )
+				if ( yy_current_state >= 29 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 10 );
+		while ( yy_base[yy_current_state] != 45 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -730,29 +745,47 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 17 "flex/recognizer.l"
+#line 18 "flex/recognizer.l"
 {
-			yylval.str=new std::string(yytext);
-			std::cout<<"jopa"<<std::endl;
-			//yylval.str=(char*)malloc(yyleng+1);
-			//strcpy(yylval.str, yytext);
-			return VAR_NAME;
+			std::cout<<"var_type parsed"<<std::endl;
+			yylval.var_type=typeByName(std::string(yytext));
+			return VAR_TYPE;
 		}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 24 "flex/recognizer.l"
 {
-			yylval.num=atoi(yytext);
-			return LITERAL;
+			std::cout<<"var_name parsed"<<std::endl;
+			yylval.str=new std::string(yytext);
+			//yylval.str=(char*)malloc(yyleng+1);
+			//strcpy(yylval.str, yytext);
+			return VAR_NAME;
 		}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 29 "flex/recognizer.l"
+#line 32 "flex/recognizer.l"
+{
+			std::cout<<*yytext<<" parsed"<<std::endl;
+			return *yytext;	
+		}
+	YY_BREAK
+case 4:
+YY_RULE_SETUP
+#line 37 "flex/recognizer.l"
+{
+			std::cout<<"literal parsed"<<std::endl;
+			yylval.num=atoi(yytext);
+			return LITERAL;
+		}
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 43 "flex/recognizer.l"
 ECHO;
 	YY_BREAK
-#line 756 "flex/lex.yy.c"
+#line 789 "flex/lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1049,7 +1082,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 12 )
+			if ( yy_current_state >= 29 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1077,11 +1110,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 12 )
+		if ( yy_current_state >= 29 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 11);
+	yy_is_jam = (yy_current_state == 28);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1757,7 +1790,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 29 "flex/recognizer.l"
+#line 43 "flex/recognizer.l"
 
 
 

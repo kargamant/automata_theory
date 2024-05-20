@@ -2,36 +2,44 @@
 
 %token <str> VAR_NAME
 %token <num> LITERAL
+%token <var_type> VAR_TYPE
 
 %code requires {
 	#include <iostream>
 	#include <string>
-	#include <unordered_map>
+	#include "../VarMap/VarMap.h"
 }
 %{
+	#include "../VarMap/VarMap.h"
 	int yylex(void);
 	void yyerror(const char *s);
-	
+	VarMap vm;	
 %}
 
 %union
 {
+	VarType var_type;
 	std::string* str;
 	int num;
 }
 
 
 %%
-simple_statement:
-	VAR_NAME LITERAL {
-					std::cout<<"tiny "<<*$1<<" was assigned "<<$2<<std::endl;
-					//printf("tiny %s was assigned %d\n", $1, $2);
-					}
-	| '.' {
-		std::cout<<"the end"<<std::endl;
-		//printf("the end\n");
-		}
+complex_statement:
+	simple_statement ',' complex_statement {}
+	| simple_statement '.' {}
 
+simple_statement:
+	VAR_TYPE VAR_NAME '<''<' LITERAL {
+					//std::string var_name=std::string(*$2);
+					vm.addVar(Var($1, *$2, $5));
+					std::cout<<nameByType($1)<<" "<<*$2<<" was assigned "<<$5<<std::endl;
+					}
+	| '@' VAR_NAME
+			{
+				Var var=vm.getVar(*$2);
+				std::cout<<var;
+			}
 %%
 
 
