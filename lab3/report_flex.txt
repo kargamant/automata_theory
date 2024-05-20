@@ -1,30 +1,60 @@
+field
+array_type parsed
 small
 var_type parsed
-abc
+small
+var_type parsed
+arr
 var_name parsed
 <
 < parsed
 <
 < parsed
-2
+9
 literal parsed
 ,
 , parsed
-tiny
-var_type parsed
-gg
+@
+@ parsed
+arr
+var_name parsed
+,
+, parsed
+arr
 var_name parsed
 <
 < parsed
 <
 < parsed
-1
+10
 literal parsed
+,
+, parsed
+@
+@ parsed
+arr
+var_name parsed
+,
+, parsed
+arr
+var_name parsed
+<
+< parsed
+<
+< parsed
+33
+literal parsed
+,
+, parsed
+@
+@ parsed
+arr
+var_name parsed
 ,
 , parsed
 big
 var_type parsed
-GG
+shlepa
 var_name parsed
 <
 < parsed
@@ -36,49 +66,23 @@ literal parsed
 , parsed
 @
 @ parsed
-gg
+shlepa
 var_name parsed
 ,
 , parsed
-@
-@ parsed
-abc
-var_name parsed
-,
-, parsed
-@
-@ parsed
-GG
-var_name parsed
-,
-, parsed
-gg
-var_name parsed
-abc
+arr
 var_name parsed
 <
 < parsed
 <
 < parsed
-GG
+shlepa
 var_name parsed
 ,
 , parsed
 @
 @ parsed
-gg
+arr
 var_name parsed
 ,
 , parsed
-@
-@ parsed
-abc
-var_name parsed
-,
-, parsed
-@
-@ parsed
-GG
-var_name parsed
-.
-. parsed

@@ -61,7 +61,7 @@ simple_statement:
 						vm.pushVarToInit(*$2);
 						try
 						{
-							vm.flushInit($1, vm.getVar(*$6).value);
+							vm.flushInit($1, vm.getVar(*$6)->value);
 						}
 						catch(std::invalid_argument error)
 						{
@@ -77,15 +77,24 @@ simple_statement:
 							
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
-							
-						}
-	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars '<''<' LITERAL 
+						/*
+
+						| ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<''<' LITERAL 
 						{
-							
+							Field fld{$2, $3, *$4, $7};
+							vm.addArr(fld);
+						}
+						*/
+						}
+	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<''<' LITERAL 
+						{
+							Var* fld=new Field($2, $3, *$4, $7);
+							//Field fld{$2, $3, *$4, $7};
+							vm.addVar(fld);
 						}
 	| '@' VAR_NAME
 			{
-				Var var;
+				Var* var;
 				bool isError=false;
 				try
 				{
@@ -97,14 +106,24 @@ simple_statement:
 					std::cerr<<"Syntax error at "<<@2.first_line<<":"<<@2.first_column<<":"<<@2.last_line<<":"<<@2.last_column<<std::endl;
 					std::cerr<<"Error text: "<<error.what()<<std::endl;
 				}
-				if(!isError) std::cout<<var;
+				if(!isError) 
+				{
+					if(var->isField)
+					{
+						std::cout<<*dynamic_cast<Field*>(var);
+					}
+					else
+					{	
+						std::cout<<*var;
+					}
+				}
 			}
 	| VAR_NAME vars '<''<' VAR_NAME
 						{
 						vm.pushVarToInit(*$1);
 						try
 						{
-							vm.flushAssign(vm.getVar(*$5).value);
+							vm.flushAssign(vm.getVar(*$5)->value);
 						}
 						catch(std::invalid_argument error)
 						{
@@ -155,6 +174,7 @@ vars:
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
 	|		{} 
+
 %%
 
 

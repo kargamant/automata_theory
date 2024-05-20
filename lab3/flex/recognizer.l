@@ -2,7 +2,6 @@
 #include "../bison/bis.tab.h"
 #include <cstdlib>
 #include <string>
-
 std::ofstream flex_logger("report_flex.txt");
 %}
 
