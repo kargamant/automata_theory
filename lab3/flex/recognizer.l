@@ -11,6 +11,8 @@ literal (-?[1-9][0-9]*|0)
 var_name [a-zA-Z]([a-zA-Z]|[0-9])*
 var_type tiny|small|normal|big
 array field
+left_assign <<
+right_assign >>
 
 
 %option noyywrap
@@ -47,8 +49,26 @@ array field
 			//strcpy(yylval.str, yytext);
 			return VAR_NAME;
 		}
+{left_assign}	{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
 
-"<"|","|"."|"@"|"["|"]"		{
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"left_assign parsed"<<std::endl;
+			return LEFT_ASSIGN;
+		
+		}
+{right_assign}	{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"right_assign parsed"<<std::endl;
+			return RIGHT_ASSIGN;
+		
+		}
+
+","|"."|"@"|"["|"]"		{
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
 
