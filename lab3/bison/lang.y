@@ -20,6 +20,8 @@
 	void yyerror(const char *s);
 
 	VarMap vm;	
+	std::vector<std::string> targetVec;
+	int source_value;
 	std::ofstream bison_logger("report_bison.txt");
 %}
 
@@ -340,18 +342,45 @@ simple_statement:
 					}
 					std::cout<<std::endl;
 				}
+				/*
+					
+				assign_expr:
+	  				 target LEFT_ASSIGN source {}
+	   				| source RIGHT_ASSIGN target {}
+				target:
+					VAR_NAME {
+							targetVec.push_back(*$1);
+						}
+					;
+					source:
+					VAR_NAME {
+							try
+							{
+								source_value=vm.getVar(*$1);
+							}
+							catch(std::invalid_argument error)
+							{
+				
+							}
+						}
+					| LITERAL {}
+					;
+								*/
 			}
 	;
 vars:
     	VAR_NAME vars {
+				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*$1);
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
  	| VAR_NAME {
+				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*$1);
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
 	|		{} 
+	;
 
 %%
 

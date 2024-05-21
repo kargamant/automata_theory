@@ -74,9 +74,11 @@
 	void yyerror(const char *s);
 
 	VarMap vm;	
+	std::vector<std::string> targetVec;
+	int source_value;
 	std::ofstream bison_logger("report_bison.txt");
 
-#line 80 "bison/bis.tab.c"
+#line 82 "bison/bis.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -126,7 +128,7 @@ extern int yydebug;
 	#include "../VarMap/VarMap.h"
 	#include <fstream>
 
-#line 130 "bison/bis.tab.c"
+#line 132 "bison/bis.tab.c"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -146,13 +148,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 27 "bison/lang.y"
+#line 29 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
 	int num;
 
-#line 156 "bison/bis.tab.c"
+#line 158 "bison/bis.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -545,8 +547,8 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    36,    36,    37,    40,    61,    92,   115,   139,   163,
-     201,   225,   249,   287,   316,   346,   350,   354
+       0,    38,    38,    39,    42,    63,    94,   117,   141,   165,
+     203,   227,   251,   289,   318,   372,   377,   382
 };
 #endif
 
@@ -1452,19 +1454,19 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 36 "bison/lang.y"
+#line 38 "bison/lang.y"
                                                {}
-#line 1458 "bison/bis.tab.c"
+#line 1460 "bison/bis.tab.c"
     break;
 
   case 3:
-#line 37 "bison/lang.y"
+#line 39 "bison/lang.y"
                                {}
-#line 1464 "bison/bis.tab.c"
+#line 1466 "bison/bis.tab.c"
     break;
 
   case 4:
-#line 40 "bison/lang.y"
+#line 42 "bison/lang.y"
                                                    {
 						vm.pushVarToInit(*(yyvsp[-3].str));
 						try
@@ -1486,11 +1488,11 @@ yyreduce:
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-#line 1490 "bison/bis.tab.c"
+#line 1492 "bison/bis.tab.c"
     break;
 
   case 5:
-#line 62 "bison/lang.y"
+#line 64 "bison/lang.y"
                                                 {
 						vm.pushVarToInit(*(yyvsp[-3].str));
 						try
@@ -1521,11 +1523,11 @@ yyreduce:
 						}
 						*/
 						}
-#line 1525 "bison/bis.tab.c"
+#line 1527 "bison/bis.tab.c"
     break;
 
   case 6:
-#line 93 "bison/lang.y"
+#line 95 "bison/lang.y"
                                                 {
 							//Field fld{$2, $3, *$4, $7};
 							try
@@ -1548,11 +1550,11 @@ yyreduce:
 								vm.setErrCode(Err::no_error);	
 							}
 						}
-#line 1552 "bison/bis.tab.c"
+#line 1554 "bison/bis.tab.c"
     break;
 
   case 7:
-#line 116 "bison/lang.y"
+#line 118 "bison/lang.y"
                                                 {
 						vm.pushVarToInit(*(yyvsp[-3].str));
 						try
@@ -1576,11 +1578,11 @@ yyreduce:
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
 						}
-#line 1580 "bison/bis.tab.c"
+#line 1582 "bison/bis.tab.c"
     break;
 
   case 8:
-#line 140 "bison/lang.y"
+#line 142 "bison/lang.y"
                                                 {
 						vm.pushVarToInit(*(yyvsp[-3].str));
 						try
@@ -1604,11 +1606,11 @@ yyreduce:
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
 						}
-#line 1608 "bison/bis.tab.c"
+#line 1610 "bison/bis.tab.c"
     break;
 
   case 9:
-#line 164 "bison/lang.y"
+#line 166 "bison/lang.y"
                                                 {
 							bool isVar=true;
 							try
@@ -1646,11 +1648,11 @@ yyreduce:
 								}
 							}
 						}
-#line 1650 "bison/bis.tab.c"
+#line 1652 "bison/bis.tab.c"
     break;
 
   case 10:
-#line 202 "bison/lang.y"
+#line 204 "bison/lang.y"
                                                 {
 						vm.pushVarToInit(*(yyvsp[-1].str));
 						try
@@ -1674,11 +1676,11 @@ yyreduce:
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
 						}
-#line 1678 "bison/bis.tab.c"
+#line 1680 "bison/bis.tab.c"
     break;
 
   case 11:
-#line 226 "bison/lang.y"
+#line 228 "bison/lang.y"
                                                 {
 						vm.pushVarToInit(*(yyvsp[-1].str));
 						try
@@ -1702,11 +1704,11 @@ yyreduce:
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
 						}
-#line 1706 "bison/bis.tab.c"
+#line 1708 "bison/bis.tab.c"
     break;
 
   case 12:
-#line 250 "bison/lang.y"
+#line 252 "bison/lang.y"
                                                 {
 							bool isVar=true;
 							try
@@ -1744,11 +1746,11 @@ yyreduce:
 								}
 							}
 						}
-#line 1748 "bison/bis.tab.c"
+#line 1750 "bison/bis.tab.c"
     break;
 
   case 13:
-#line 288 "bison/lang.y"
+#line 290 "bison/lang.y"
                                                 {
 							if(!vm.getVar(*(yyvsp[-4].str))->isField)
 							{
@@ -1777,11 +1779,11 @@ yyreduce:
 								}
 							}
 						}
-#line 1781 "bison/bis.tab.c"
+#line 1783 "bison/bis.tab.c"
     break;
 
   case 14:
-#line 317 "bison/lang.y"
+#line 319 "bison/lang.y"
                         {
 				Var* var;
 				bool isError=false;
@@ -1808,36 +1810,62 @@ yyreduce:
 					}
 					std::cout<<std::endl;
 				}
+				/*
+					
+				assign_expr:
+	  				 target LEFT_ASSIGN source {}
+	   				| source RIGHT_ASSIGN target {}
+				target:
+					VAR_NAME {
+							targetVec.push_back(*$1);
+						}
+					;
+					source:
+					VAR_NAME {
+							try
+							{
+								source_value=vm.getVar(*$1);
+							}
+							catch(std::invalid_argument error)
+							{
+				
+							}
+						}
+					| LITERAL {}
+					;
+								*/
 			}
-#line 1813 "bison/bis.tab.c"
+#line 1839 "bison/bis.tab.c"
     break;
 
   case 15:
-#line 346 "bison/lang.y"
+#line 372 "bison/lang.y"
                       {
+				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*(yyvsp[-1].str));
 				bison_logger<<"var "<<*(yyvsp[-1].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 1822 "bison/bis.tab.c"
+#line 1849 "bison/bis.tab.c"
     break;
 
   case 16:
-#line 350 "bison/lang.y"
+#line 377 "bison/lang.y"
                    {
+				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*(yyvsp[0].str));
 				bison_logger<<"var "<<*(yyvsp[0].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 1831 "bison/bis.tab.c"
+#line 1859 "bison/bis.tab.c"
     break;
 
   case 17:
-#line 354 "bison/lang.y"
+#line 382 "bison/lang.y"
                         {}
-#line 1837 "bison/bis.tab.c"
+#line 1865 "bison/bis.tab.c"
     break;
 
 
-#line 1841 "bison/bis.tab.c"
+#line 1869 "bison/bis.tab.c"
 
       default: break;
     }
@@ -2075,7 +2103,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 356 "bison/lang.y"
+#line 385 "bison/lang.y"
 
 
 

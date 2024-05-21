@@ -24,7 +24,7 @@ Var::Var(VarType type, const std::string& name, int value) : name(name), isField
 	}
 }
 
-Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : Var(item_type, name, value), size_type(size_type), matr(VarMap::size_table[size_type], Var(item_type, "", value))
+Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : Var(item_type, name, value), size_type(size_type), matr(VarMap::size_table[size_type]*VarMap::size_table[size_type], Var(item_type, "", value))
 {
 	isField=true;
 }
@@ -39,14 +39,14 @@ void Field::updateItems()
 
 Var& Field::getVar(int ind1, int ind2)
 {
-	if((value*ind1+ind2)>=matr.size())
+	if((VarMap::size_table[size_type]*ind1+ind2)>=matr.size())
 	{
 		VarMap::err_code=Err::outOfRange;
 		throw std::invalid_argument("Error. Index of ["+std::to_string(ind1)+" "+std::to_string(ind2)+"] is out of range. Size is "+std::to_string(matr.size()));
 	}
 	else
 	{
-		return matr[value*ind1+ind2];
+		return matr[VarMap::size_table[size_type]*ind1+ind2];
 	}
 }
 
@@ -97,7 +97,17 @@ void operator<<(std::ostream& stream, Var& var)
 void operator<<(std::ostream& stream, Field& arr)
 {
 	stream<<nameByType(arr.type)<<" "<<nameByType(arr.size_type)<<" "<<arr.name<<":"<<std::endl;
-	if(arr.size_type==VarType::tiny)
+	for(int i=0; i<VarMap::size_table[arr.size_type]; i++)
+	{
+		for(int j=0; j<VarMap::size_table[arr.size_type]; j++)
+		{
+			stream<<arr.matr[i*VarMap::size_table[arr.size_type]+j];
+			stream<<" ";
+		}
+		stream<<std::endl;
+
+	}
+	/*if(arr.size_type==VarType::tiny)
 	{
 		stream<<arr.matr[0];
 	}
@@ -125,7 +135,7 @@ void operator<<(std::ostream& stream, Field& arr)
 		stream<<arr.matr[i];
 		stream<<std::string(" ");
 	}
-	if(wasPlused) arr.value--;
+	if(wasPlused) arr.value--;*/
 }
 
 void VarMap::addVar(Var* var)

@@ -55,10 +55,7 @@ class VarMap
 {
 	private:
 		std::unordered_map<std::string, Var*> map;
-		//std::unordered_map<std::string, Field> field_map;
 		std::vector<Var> to_initialize;
-		//std::vector<Field> fields_to_initialize;
-		//VarType init_type;
 		static Err err_code;
 	public:
 		~VarMap()
@@ -77,7 +74,6 @@ class VarMap
 		void pushVarToInit(const std::string& name);
 		void flushInit(VarType init_type, int value);
 		void flushAssign(int value);
-		//void flushAssignArr(int value);
 
 		Err getErrCode() {return err_code;}
 		VarMap& setErrCode(Err nerr_code) {err_code=nerr_code; return *this;}

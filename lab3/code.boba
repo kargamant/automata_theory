@@ -10,5 +10,7 @@ big GG<<-16384,
 gg abc<<GG,
 @gg,
 @abc,
-@GG.
+@GG,
+9>>abc,
+@abc.
 
