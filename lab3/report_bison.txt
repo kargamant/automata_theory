@@ -1,144 +1,65 @@
 operand_literal: 3
 operand with value 3
+expr from logic expr
 operand_literal: 5
 operand with value 5
-product of two expressions with value 15
-operand_literal: 6
-operand with value 6
-sum of two expressions with value 21
-operand_literal: 21
-operand_literal: 3
-operand_indexed_variable: 
-big  3
-operand with value 3
-operand_literal: 3
-operand with value 3
-sum of two expressions with value 6
-operand_literal: 6
-operand_indexed_variable: 
-big  6
-operand_indexed_variable: 
-big  6
-operand_literal: 3
-operand with value 3
-operand_literal: 5
-operand with value 5
-product of two expressions with value 15
-operand_literal: 6
-operand with value 6
-sum of two expressions with value 21
-operand_literal: 21
-left_assignment
-operand_indexed_variable: 
-big  21
-operand_indexed_variable: 
-big  21
-All vars from init queue were intialized
-operand_variable: 
-normal b 21
-operand_variable: 
-normal b 21
-All vars from init queue were intialized
-operand_variable: 
-small k 21
-operand_literal: -13
-operand_variable: 
-small k 21
-right_assignment
-operand_variable: 
-small k -13
-operand_variable: 
-small k -13
-operand with value -13
-operand_variable: 
-normal b 21
-operand with value 21
-product of two expressions with value -273
-operand_literal: -273
-operand_indexed_variable: 
-big  3
-right_assignment
-operand_indexed_variable: 
-big  -273
-operand_indexed_variable: 
-big  -273
-operand with value -273
-operand_literal: 0
-operand with value 0
-division of two expressions with value 32768
-operand_literal: 32768
-operand_literal: 3
-operand with value 3
-operand_literal: 6
-operand with value 6
-product of two expressions with value 18
-operand_literal: 3
-operand with value 3
-division of two expressions with value 6
-operand_literal: 3
-operand with value 3
-product of two expressions with value 18
-operand_literal: 18
-operand_literal: 3
-operand with value 3
-operand_literal: 6
-operand with value 6
-product of two expressions with value 18
-expression in brackets with value 18
-operand_literal: 3
-operand with value 3
-operand_literal: 3
-operand with value 3
-product of two expressions with value 9
-expression in brackets with value 9
-division of two expressions with value 2
-operand_literal: 2
-operand_literal: 43
-All vars from init queue were intialized
-operand_variable: 
-normal a 43
-operand_variable: 
-normal b 21
-operand_indexed_variable: 
-big  -273
-operand with value -273
+expr from logic expr
+operand_literal: 9
+operand with value 9
+expr from logic expr
 operand_literal: 8
 operand with value 8
-product of two expressions with value -2184
-operand_literal: 5
-operand with value 5
-sum of two expressions with value -2179
-operand_literal: -2179
+expr from logic expr
+9>8: 1
+(1)
+5<1: 0
+(0)
+3>0: 1
+operand_literal: 1
+All vars from init queue were intialized
+operand_literal: 90
 operand_indexed_variable: 
-big  3
+normal  90
+operand with value 90
+expr from logic expr
 operand_variable: 
-small k -13
-right_assignment
-right_assignment
-left_assignment
-right_assignment
+small a 1
+operand with value 1
+expr from logic expr
+90>1: 1
+operand_literal: 1
+operand_literal: 9
+operand with value 9
+operand_literal: 8
+operand with value 8
+sum of two expressions with value 17
+expression in brackets with value 17
 operand_variable: 
-normal a 43
-operand_variable: 
-normal b -512
-operand_indexed_variable: 
-big  -2179
-operand_variable: 
-small k -16
-operand_literal: 3
-operand_variable: 
-small k -16
-left_assignment
+small a 1
+operand with value 1
 operand_literal: 3
 operand with value 3
-operand_literal: 4
-operand with value 4
-sum of two expressions with value 7
-operand_literal: 7
-left_assignment
-operand_variable: 
-normal a 43
-operand_variable: 
-normal b -512
+sum of two expressions with value 4
+expression in brackets with value 4
+product of two expressions with value 68
+operand_literal: 68
+operand_indexed_variable: 
+normal  90
+operand_indexed_variable: 
+normal  90
 right_assignment
 right_assignment
+operand_indexed_variable: 
+normal  68
+operand_indexed_variable: 
+normal  68
+operand_indexed_variable: 
+normal  68
+operand with value 68
+expr from logic expr
+operand_indexed_variable: 
+normal  68
+operand with value 68
+expr from logic expr
+68<=68: 1
+operand_literal: 1

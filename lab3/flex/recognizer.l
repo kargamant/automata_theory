@@ -13,6 +13,8 @@ var_type tiny|small|normal|big
 array field
 left_assign <<
 right_assign >>
+more_equal =>
+less_equal <=
 
 
 %option noyywrap
@@ -67,8 +69,26 @@ right_assign >>
 			return RIGHT_ASSIGN;
 		
 		}
+{more_equal}	{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
 
-"("|")"|"/"|"*"|"-"|"+"|","|"."|"@"|"["|"]"|"$"		{
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"more_equal parsed"<<std::endl;
+			return MORE_EQUAL;
+			
+		}
+{less_equal}	{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"less_equal parsed"<<std::endl;
+			return LESS_EQUAL;
+			
+		}
+
+">"|"<"|"("|")"|"/"|"*"|"-"|"+"|","|"."|"@"|"["|"]"|"$"		{
 						yylloc.first_column=yylloc.last_column+1;
 						yylloc.last_column+=strlen(yytext);
 

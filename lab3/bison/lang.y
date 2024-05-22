@@ -6,10 +6,13 @@
 %token ARRAY
 %nterm <num> operand
 %nterm <num> numeric_operand
+%nterm <num> logic_expr
 %nterm <num> expr
 %nterm <num> expr_operand
 %left '+' '-'
 %left '*' '/'
+%left LESS_EQUAL MORE_EQUAL
+%left "<" ">"
 %left LEFT_ASSIGN
 %right RIGHT_ASSIGN
 
@@ -37,6 +40,7 @@
 	VarType var_type;
 	std::string* str;
 	int num;
+	bool logic;
 }
 
 
@@ -278,6 +282,9 @@ numeric_operand:
 	| expr		{
 				$$=$1;
 			}
+	| logic_expr	{
+				$$=$1;
+			}
 	;
 expr_operand:
 	LITERAL		{
@@ -386,6 +393,32 @@ expr:
 					$$=$2;
 					bison_logger<<"expression in brackets with value "<<$$<<std::endl;
 					//vm.pushOperand($$);
+				}
+	;
+logic_expr:
+	logic_expr LESS_EQUAL logic_expr	{
+					$$=$1<=$3;
+					bison_logger<<$1<<"<="<<$3<<": "<<$$<<std::endl;
+				}
+	| logic_expr MORE_EQUAL logic_expr  {
+					$$=$1>=$3;
+					bison_logger<<$1<<">="<<$3<<": "<<$$<<std::endl;
+				}
+	| logic_expr '<' logic_expr		{
+					$$=$1<$3;
+					bison_logger<<$1<<"<"<<$3<<": "<<$$<<std::endl;
+				}
+	| logic_expr '>' logic_expr		{
+					$$=$1>$3;
+					bison_logger<<$1<<">"<<$3<<": "<<$$<<std::endl;
+				}
+	| '(' logic_expr ')'	{
+					$$=$2;
+					bison_logger<<"("<<$2<<")"<<std::endl;
+				}
+	| expr			{
+					$$=$1;
+					bison_logger<<"expr from logic expr"<<std::endl;
 				}
 	;
 vars:
