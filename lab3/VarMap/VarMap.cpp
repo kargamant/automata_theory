@@ -313,12 +313,6 @@ void VarMap::flushAssignExpr()
 {
 	std::vector<AssignOperator> operations;
 
-	std::stack<Operand> from_right;
-	std::stack<Operand> from_left;
-
-
-
-
 	while(!oper_queue.empty())
 	{
 		AssignOperator oper=oper_queue.front();
@@ -330,24 +324,24 @@ void VarMap::flushAssignExpr()
 			throw std::invalid_argument("Error. Left operand ptr is null. Perhaps out of range occured or you havent defined something or anything else. Go fix your code!");
 		}
 		oper.right=&operand_stack.top();
-		std::cout<<operand_stack.top().value<<" "<<operand_stack.top().isVar<<std::endl;		
+		//std::cout<<operand_stack.top().value<<" "<<operand_stack.top().isVar<<std::endl;		
 
 		operand_stack.pop();
 		oper.left=&operand_stack.top();
 		
-		if(oper.type==AssignType::Left) std::cout<<"<<"<<std::endl;
-		else std::cout<<">>"<<std::endl;
+	//	if(oper.type==AssignType::Left) std::cout<<"<<"<<std::endl;
+	//	else std::cout<<">>"<<std::endl;
 		operations.push_back(oper);
 	}
-	std::cout<<operand_stack.top().value<<" "<<operand_stack.top().isVar<<std::endl;
+	//std::cout<<operand_stack.top().value<<" "<<operand_stack.top().isVar<<std::endl;
 	operand_stack.pop();
 	
 	for(auto operation=--operations.end(); operation>=operations.begin(); --operation)
 	{
-		std::cout<<operation->left->var;
-		std::cout<<" ";
-		std::cout<<operation->right->var;
-		std::cout<<std::endl;
+	//	std::cout<<operation->left->var;
+	//	std::cout<<" ";
+	//	std::cout<<operation->right->var;
+	//	std::cout<<std::endl;
 		if(operation->type==AssignType::Right)
 		{
 			operation->perform();

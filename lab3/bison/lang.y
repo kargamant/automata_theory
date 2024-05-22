@@ -4,9 +4,12 @@
 %token <num> LITERAL
 %token <var_type> VAR_TYPE
 %token ARRAY
+%nterm <num> operand
+%nterm <num> numeric_operand
 %nterm <num> expr
 %nterm <num> expr_operand
-%nterm <num> operand
+%left '+' '-'
+%left '*' '/'
 %left LEFT_ASSIGN
 %right RIGHT_ASSIGN
 
@@ -43,7 +46,7 @@ complex_statement:
 	| simple_statement '.' {}
 
 simple_statement:
-	VAR_TYPE VAR_NAME vars LEFT_ASSIGN expr {
+	VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
 						vm.clearBuffers();
 						vm.pushVarToInit(*$2);
 						try
@@ -65,7 +68,7 @@ simple_statement:
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN expr
+	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN operand
 						{
 							vm.clearBuffers();
 							//Field fld{$2, $3, *$4, $7};
@@ -110,7 +113,7 @@ simple_statement:
 								vm.setErrCode(Err::no_error);	
 							}
 	  					}
-	| '@' expr				{
+	| '@' operand				{
 							std::cout<<$2<<std::endl;
 						}
 	| '$' VAR_NAME '[' LITERAL LITERAL ']' 
@@ -184,26 +187,26 @@ assign_expr:
 						vm.pushOperator({AssignType::Left});	
 						bison_logger<<"left_assignment"<<std::endl;
 					}
-	| expr RIGHT_ASSIGN assign_expr	{
-						vm.pushOperand({$1});
+	| operand RIGHT_ASSIGN assign_expr	{
+						//vm.pushOperand({$1});
 
 						//vm.pushOperand(op);
 						vm.pushOperator({AssignType::Right});	
 						bison_logger<<"right_assignment"<<std::endl;
 					}
-	| expr				{
-						vm.pushOperand({$1});
+	| operand			{
+						//vm.pushOperand({$1});
 
 						//vm.pushOperand(op);
-						bison_logger<<"expr"<<std::endl;	
+						//bison_logger<<"expr"<<std::endl;	
 					}
 	;
 operand:
-	LITERAL		{
-				$$=$1;
-				vm.pushOperand({$1});
-				bison_logger<<"operand_literal: "<<$1<<std::endl;
-			}
+	numeric_operand		{
+					$$=$1;
+					vm.pushOperand({$1});
+					bison_logger<<"operand_literal: "<<$1<<std::endl;
+				}
 	| VAR_NAME	{
 			
 				if(vm.checkIfDefined(*$1))
@@ -267,6 +270,14 @@ operand:
 					}
 					
 					}
+	;
+numeric_operand:
+	LITERAL		{
+				$$=$1;
+			}
+	| expr		{
+				$$=$1;
+			}
 	;
 expr_operand:
 	LITERAL		{

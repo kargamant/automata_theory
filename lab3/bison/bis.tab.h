@@ -44,7 +44,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 13 "bison/lang.y"
+#line 16 "bison/lang.y"
 
 	#include <iostream>
 	#include <string>
@@ -71,7 +71,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 33 "bison/lang.y"
+#line 36 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
