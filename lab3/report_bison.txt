@@ -1,23 +1,14 @@
-var kkpushed to init queue.
-var hhpushed to init queue.
-var ggpushed to init queue.
 All vars from init queue were intialized
 All vars from init queue were intialized
-operand_literal: 6
 operand_variable: 
-small ab -10
+small k 9
+operand_variable: 
+normal g 8
+left_assignment
+operand_literal: 3
+operand_variable: 
+small k 8
+operand_variable: 
+normal g 8
 right_assignment
-operand_variable: 
-small ab 6
-operand_variable: 
-small gg -10
-operand_variable: 
-small hh -10
-operand_variable: 
-small kk -10
-operand_variable: 
-normal j 500
-left_assignment
-left_assignment
-left_assignment
-left_assignment
+right_assignment

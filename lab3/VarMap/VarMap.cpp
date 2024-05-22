@@ -70,6 +70,11 @@ void AssignOperator::perform()
 {
 	if(type==AssignType::Left) //a<<b
 	{
+		if(left==nullptr)
+		{
+			VarMap::err_code=Err::bruh;
+			throw std::invalid_argument("Error. Left operand ptr is null. Perhaps out of range occured or you havent defined something or anything else. Go fix your code!");
+		}
 		if(!left->isVar)
 		{
 			VarMap::err_code=Err::invalidAssign;
@@ -77,6 +82,11 @@ void AssignOperator::perform()
 		}
 		else
 		{
+			if(left->var==nullptr) 
+			{
+				VarMap::err_code=Err::outOfRange;
+				throw std::invalid_argument("Error. Var ptr is null. Perhaps out of range occured.");
+			}
 			left->var->changeValue(right->value);
 			left->value=right->value;
 			//changeVar(left.var->name, right.value);
@@ -84,6 +94,11 @@ void AssignOperator::perform()
 	}
 	else
 	{
+		if(right==nullptr)
+		{
+			VarMap::err_code=Err::bruh;
+			throw std::invalid_argument("Error. Right operand ptr is null. Perhaps out of range occured or you havent defined something or anything else. Go fix your code!");
+		}
 		if(!right->isVar)
 		{
 			VarMap::err_code=Err::invalidAssign;
@@ -91,6 +106,11 @@ void AssignOperator::perform()
 		}
 		else
 		{
+			if(right->var==nullptr) 
+			{
+				VarMap::err_code=Err::outOfRange;
+				throw std::invalid_argument("Error. Var ptr is null. Perhaps out of range occured.");
+			}
 			right->var->changeValue(left->value);
 			right->value=left->value;
 			//changeVar(right.var->name, left.value);
@@ -234,6 +254,10 @@ Var* VarMap::getVar(const std::string& name)
 	}
 }
 
+bool VarMap::checkIfDefined(const std::string& name)
+{
+	return map.contains(name);
+}
 
 void VarMap::pushVarToInit(const std::string& name)
 {
@@ -286,6 +310,11 @@ void VarMap::flushAssignExpr()
 		AssignOperator oper=oper_queue.front();
 		oper_queue.pop();
 
+		if(operand_stack.empty())
+		{
+			VarMap::err_code=Err::bruh;
+			throw std::invalid_argument("Error. Left operand ptr is null. Perhaps out of range occured or you havent defined something or anything else. Go fix your code!");
+		}
 		oper.right=&operand_stack.top();
 		
 

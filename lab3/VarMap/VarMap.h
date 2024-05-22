@@ -30,7 +30,8 @@ enum class Err
 	redefinition,
 	undefined,
 	outOfRange,
-	invalidAssign
+	invalidAssign,
+	bruh
 };
 
 
@@ -103,6 +104,7 @@ class VarMap
 		void addVar(Var* var);
 		void changeVar(const std::string& name, int val);
 		Var* getVar(const std::string& name);
+		bool checkIfDefined(const std::string& name);
 		
 		void pushVarToInit(const std::string& name);
 		void pushOperand(Operand op);
