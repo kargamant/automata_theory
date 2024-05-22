@@ -1,0 +1,9 @@
+small ab gg hh kk<<-10,
+normal j<<500,
+6>>ab,
+ab<<gg<<hh<<kk<<j,
+@ab,
+@gg,
+@hh,
+@kk,
+@j.

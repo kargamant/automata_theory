@@ -68,14 +68,14 @@ right_assign >>
 		
 		}
 
-","|"."|"@"|"["|"]"		{
-			yylloc.first_column=yylloc.last_column+1;
-			yylloc.last_column+=strlen(yytext);
+"("|")"|"/"|"*"|"-"|"+"|","|"."|"@"|"["|"]"|"$"		{
+						yylloc.first_column=yylloc.last_column+1;
+						yylloc.last_column+=strlen(yytext);
 
-			flex_logger<<yytext<<std::endl;
-			flex_logger<<*yytext<<" parsed"<<std::endl;
-			return *yytext;	
-		}
+						flex_logger<<yytext<<std::endl;
+						flex_logger<<*yytext<<" parsed"<<std::endl;
+						return *yytext;	
+						}
 
 {literal} 	{
 			yylloc.first_column=yylloc.last_column+1;

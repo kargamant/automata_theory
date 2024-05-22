@@ -62,6 +62,7 @@ struct Field : public Var
 
 struct Operand
 {
+	//bool isExpr;
 	bool isVar;
 	Var* var;
 	int value;
@@ -109,6 +110,7 @@ class VarMap
 		void pushVarToInit(const std::string& name);
 		void pushOperand(Operand op);
 		void pushOperator(AssignOperator op);
+		Operand popOperand();
 
 		void flushInit(VarType init_type, int value);
 		void flushAssign(int value);
@@ -116,6 +118,7 @@ class VarMap
 
 		Err getErrCode() {return err_code;}
 		VarMap& setErrCode(Err nerr_code) {err_code=nerr_code; return *this;}
+		void clearBuffers();
 		friend Var;
 		friend Field;
 		friend AssignOperator;

@@ -270,6 +270,13 @@ void VarMap::pushOperand(Operand op)
 	operand_stack.push(op);
 }
 
+Operand VarMap::popOperand()
+{
+	Operand op=operand_stack.top();
+	operand_stack.pop();
+	return op;
+}
+
 void VarMap::pushOperator(AssignOperator op)
 {
 	oper_queue.push(op);
@@ -279,9 +286,9 @@ void VarMap::flushInit(VarType init_type, int value)
 {
 	for(auto& var: to_initialize)
 	{
-		Var* var_init=new Var(init_type, var.name, value);
 		try
 		{
+			Var* var_init=new Var(init_type, var.name, value);
 			addVar(var_init);
 		}
 		catch(...)
@@ -305,6 +312,13 @@ void VarMap::flushAssign(int value)
 void VarMap::flushAssignExpr()
 {
 	std::vector<AssignOperator> operations;
+
+	std::stack<Operand> from_right;
+	std::stack<Operand> from_left;
+
+
+
+
 	while(!oper_queue.empty())
 	{
 		AssignOperator oper=oper_queue.front();
@@ -316,18 +330,24 @@ void VarMap::flushAssignExpr()
 			throw std::invalid_argument("Error. Left operand ptr is null. Perhaps out of range occured or you havent defined something or anything else. Go fix your code!");
 		}
 		oper.right=&operand_stack.top();
-		
+		std::cout<<operand_stack.top().value<<" "<<operand_stack.top().isVar<<std::endl;		
 
 		operand_stack.pop();
 		oper.left=&operand_stack.top();
 		
+		if(oper.type==AssignType::Left) std::cout<<"<<"<<std::endl;
+		else std::cout<<">>"<<std::endl;
 		operations.push_back(oper);
 	}
+	std::cout<<operand_stack.top().value<<" "<<operand_stack.top().isVar<<std::endl;
 	operand_stack.pop();
 	
 	for(auto operation=--operations.end(); operation>=operations.begin(); --operation)
 	{
-		//std::cout<<operation.left<<" "<<operation.right<<std::endl;
+		std::cout<<operation->left->var;
+		std::cout<<" ";
+		std::cout<<operation->right->var;
+		std::cout<<std::endl;
 		if(operation->type==AssignType::Right)
 		{
 			operation->perform();
@@ -343,6 +363,12 @@ void VarMap::flushAssignExpr()
 
 	}
 
+}
+
+void VarMap::clearBuffers()
+{
+	while(!operand_stack.empty()) operand_stack.pop();
+	while(!oper_queue.empty()) oper_queue.pop();
 }
 /*void VarMap::flushAssignArr(int value)
 {

@@ -1,6 +1,46 @@
+normal
+var_type parsed
+b
+var_name parsed
+<<
+left_assign parsed
+30
+literal parsed
+,
+, parsed
 small
 var_type parsed
 k
+var_name parsed
+<<
+left_assign parsed
+5
+literal parsed
+,
+, parsed
+small
+var_type parsed
+f
+var_name parsed
+<<
+left_assign parsed
+-2
+literal parsed
+,
+, parsed
+big
+var_type parsed
+Hype
+var_name parsed
+<<
+left_assign parsed
+1023
+literal parsed
+,
+, parsed
+big
+var_type parsed
+GG
 var_name parsed
 <<
 left_assign parsed
@@ -8,51 +48,85 @@ left_assign parsed
 literal parsed
 ,
 , parsed
-normal
-var_type parsed
-g
+(
+( parsed
+b
+var_name parsed
++
++ parsed
+k
+var_name parsed
+)
+) parsed
+/
+/ parsed
+(
+( parsed
+k
+var_name parsed
+-
+- parsed
+f
+var_name parsed
+)
+) parsed
+>>
+right_assign parsed
+GG
 var_name parsed
 <<
 left_assign parsed
-8
-literal parsed
-,
-, parsed
-k
+Hype
 var_name parsed
 <<
 left_assign parsed
-g
+f
 var_name parsed
-,
-, parsed
-@
-@ parsed
+<<
+left_assign parsed
+(
+( parsed
 k
 var_name parsed
-,
-, parsed
-3
-literal parsed
++
++ parsed
+b
+var_name parsed
+)
+) parsed
 >>
 right_assign parsed
+b
+var_name parsed
+,
+, parsed
+$
+$ parsed
+b
+var_name parsed
+,
+, parsed
+$
+$ parsed
 k
 var_name parsed
->>
-right_assign parsed
-g
+,
+, parsed
+$
+$ parsed
+f
 var_name parsed
 ,
 , parsed
-@
-@ parsed
-k
+$
+$ parsed
+GG
 var_name parsed
 ,
 , parsed
-@
-@ parsed
-g
+$
+$ parsed
+Hype
 var_name parsed
-,
-, parsed
+.
+. parsed

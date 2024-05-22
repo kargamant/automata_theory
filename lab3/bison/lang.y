@@ -4,6 +4,9 @@
 %token <num> LITERAL
 %token <var_type> VAR_TYPE
 %token ARRAY
+%nterm <num> expr
+%nterm <num> expr_operand
+%nterm <num> operand
 %left LEFT_ASSIGN
 %right RIGHT_ASSIGN
 
@@ -40,7 +43,8 @@ complex_statement:
 	| simple_statement '.' {}
 
 simple_statement:
-	VAR_TYPE VAR_NAME vars LEFT_ASSIGN LITERAL {
+	VAR_TYPE VAR_NAME vars LEFT_ASSIGN expr {
+						vm.clearBuffers();
 						vm.pushVarToInit(*$2);
 						try
 						{
@@ -61,39 +65,9 @@ simple_statement:
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-	| VAR_TYPE VAR_NAME vars LEFT_ASSIGN VAR_NAME
+	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN expr
 						{
-						vm.pushVarToInit(*$2);
-						try
-						{
-							vm.flushInit($1, vm.getVar(*$5)->value);
-						}
-						catch(std::invalid_argument error)
-						{
-							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
-							{
-								std::cerr<<"Syntax error at line "<<@5.first_line<<std::endl;
-							}
-							else if(vm.getErrCode()==Err::redefinition)
-							{
-								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
-							}
-							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							vm.setErrCode(Err::no_error);	
-							
-						}
-						bison_logger<<"All vars from init queue were intialized"<<std::endl;
-						/*
-
-						| ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<''<' LITERAL 
-						{
-							Field fld{$2, $3, *$4, $7};
-							vm.addArr(fld);
-						}
-						*/
-						}
-	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN LITERAL 
-						{
+							vm.clearBuffers();
 							//Field fld{$2, $3, *$4, $7};
 							try
 							{
@@ -115,140 +89,6 @@ simple_statement:
 								vm.setErrCode(Err::no_error);	
 							}
 						}
-	/*| VAR_NAME vars LEFT_ASSIGN VAR_NAME
-						{
-						vm.pushVarToInit(*$1);
-						try
-						{
-							vm.flushAssign(vm.getVar(*$4)->value);
-						}
-						catch(std::invalid_argument error)
-						{
-							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
-							{
-								std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
-							}
-							else if(vm.getErrCode()==Err::redefinition)
-							{
-								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
-							}
-							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							vm.setErrCode(Err::no_error);	
-							
-						}
-						bison_logger<<"All vars from init queue were intialized"<<std::endl;
-							
-						}
-	| VAR_NAME vars LEFT_ASSIGN LITERAL
-						{
-						vm.pushVarToInit(*$1);
-						try
-						{
-							vm.flushAssign($4);
-						}
-						catch(std::invalid_argument error)
-						{
-							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
-							{
-								std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
-							}
-							else if(vm.getErrCode()==Err::redefinition)
-							{
-								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
-							}
-							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							
-							vm.setErrCode(Err::no_error);	
-						}
-						bison_logger<<"All vars from init queue were intialized"<<std::endl;
-							
-						}*/
-	/*| VAR_NAME '[' LITERAL LITERAL ']' LEFT_ASSIGN LITERAL
-						{
-							bool isVar=true;
-							try
-							{
-								vm.getVar(*$1);
-							}
-							catch(std::invalid_argument error)
-							{
-								isVar=false;
-							}
-							if(isVar && !vm.getVar(*$1)->isField)
-							{
-									std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-									std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
-							}
-							else
-							{
-								try
-								{
-									Var& item=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
-									item.value=$7;
-								}
-								catch(std::invalid_argument error)
-								{
-									if(vm.getErrCode()==Err::undefined)
-									{
-										std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-									}
-									else if(vm.getErrCode()==Err::outOfRange)
-									{
-										std::cerr<<"Syntax error at line "<<@3.first_line<<std::endl;
-									}
-									std::cerr<<"Error text: "<<error.what()<<std::endl;
-									vm.setErrCode(Err::no_error);	
-								}
-							}
-						}*/
-	/*|  VAR_NAME RIGHT_ASSIGN VAR_NAME vars
-						{
-						vm.pushVarToInit(*$3);
-						try
-						{
-							vm.flushAssign(vm.getVar(*$1)->value);
-						}
-						catch(std::invalid_argument error)
-						{
-							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
-							{
-								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-							}
-							else if(vm.getErrCode()==Err::redefinition)
-							{
-								std::cerr<<"Syntax error at line "<<@3.first_line<<std::endl;
-							}
-							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							vm.setErrCode(Err::no_error);	
-							
-						}
-						bison_logger<<"All vars from init queue were intialized"<<std::endl;
-							
-						}
-	| LITERAL RIGHT_ASSIGN VAR_NAME vars
-						{
-						vm.pushVarToInit(*$3);
-						try
-						{
-							vm.flushAssign($1);
-						}
-						catch(std::invalid_argument error)
-						{
-							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
-							{
-								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-							}
-							else if(vm.getErrCode()==Err::redefinition)
-							{
-								std::cerr<<"Syntax error at line "<<@3.first_line<<std::endl;
-							}
-							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							
-							vm.setErrCode(Err::no_error);	
-						}
-						bison_logger<<"All vars from init queue were intialized"<<std::endl;
-							
-						}*/
 	  | assign_expr 				
 	  					{
 							try
@@ -270,45 +110,10 @@ simple_statement:
 								vm.setErrCode(Err::no_error);	
 							}
 	  					}
-	/*| LITERAL RIGHT_ASSIGN VAR_NAME '[' LITERAL LITERAL ']'
-						{
-							bool isVar=true;
-							try
-							{
-								vm.getVar(*$3);
-							}
-							catch(std::invalid_argument error)
-							{
-								isVar=false;
-							}
-							if(isVar && !vm.getVar(*$3)->isField)
-							{
-									std::cerr<<"Syntax error at line "<<@3.first_line<<std::endl;
-									std::cerr<<"Error. Variable "+*$3+" is not an array."<<std::endl;
-							}
-							else
-							{
-								try
-								{
-									Var& item=dynamic_cast<Field*>(vm.getVar(*$3))->getVar($5, $6);
-									item.value=$1;
-								}
-								catch(std::invalid_argument error)
-								{
-									if(vm.getErrCode()==Err::undefined)
-									{
-										std::cerr<<"Syntax error at line "<<@3.first_line<<std::endl;
-									}
-									else if(vm.getErrCode()==Err::outOfRange)
-									{
-										std::cerr<<"Syntax error at line "<<@5.first_line<<std::endl;
-									}
-									std::cerr<<"Error text: "<<error.what()<<std::endl;
-									vm.setErrCode(Err::no_error);	
-								}
-							}
-						}*/
-	| '@' VAR_NAME '[' LITERAL LITERAL ']' 
+	| '@' expr				{
+							std::cout<<$2<<std::endl;
+						}
+	| '$' VAR_NAME '[' LITERAL LITERAL ']' 
 						{
 							bool exists=vm.checkIfDefined(*$2);
 
@@ -344,7 +149,7 @@ simple_statement:
 								std::cerr<<"Error text: "<<"Error. Variable "+*$2+" was not defined."<<std::endl;
 							}
 						}
-	| '@' VAR_NAME
+	| '$' VAR_NAME
 			{
 				Var* var;
 				bool isError=false;
@@ -379,21 +184,31 @@ assign_expr:
 						vm.pushOperator({AssignType::Left});	
 						bison_logger<<"left_assignment"<<std::endl;
 					}
-	| operand RIGHT_ASSIGN assign_expr	{
+	| expr RIGHT_ASSIGN assign_expr	{
+						vm.pushOperand({$1});
+
+						//vm.pushOperand(op);
 						vm.pushOperator({AssignType::Right});	
 						bison_logger<<"right_assignment"<<std::endl;
 					}
-	| operand
+	| expr				{
+						vm.pushOperand({$1});
+
+						//vm.pushOperand(op);
+						bison_logger<<"expr"<<std::endl;	
+					}
 	;
 operand:
 	LITERAL		{
+				$$=$1;
 				vm.pushOperand({$1});
 				bison_logger<<"operand_literal: "<<$1<<std::endl;
 			}
 	| VAR_NAME	{
-
+			
 				if(vm.checkIfDefined(*$1))
 				{
+					$$=vm.getVar(*$1)->value;
 					vm.pushOperand({vm.getVar(*$1)});
 					bison_logger<<"operand_variable: "<<std::endl;
 					bison_logger<<*vm.getVar(*$1);
@@ -401,6 +216,7 @@ operand:
 				}
 				else
 				{
+					$$=0;
 					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 				}
@@ -410,11 +226,13 @@ operand:
 
 					if(exists && !vm.getVar(*$1)->isField)
 					{
+						$$=0;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
 					}
 					else if(exists)
 					{
+						bool isError=false;
 						try
 						{
 							vm.pushOperand({vm.getVar(*$1), $3, $4});
@@ -424,7 +242,8 @@ operand:
 						}
 						catch(std::invalid_argument error)
 						{
-								
+							$$=0;
+							isError=true;
 							if(vm.getErrCode()==Err::undefined)
 							{
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
@@ -435,14 +254,128 @@ operand:
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
 						}
+						if(!isError)
+						{
+							$$=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4).value;
+						}
 					}
 					else
 					{
+						$$=0;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 					}
 					
 					}
+	;
+expr_operand:
+	LITERAL		{
+				$$=$1;
+				//vm.pushOperand({$1});
+				bison_logger<<"operand_literal: "<<$1<<std::endl;
+			}
+	| VAR_NAME	{
+			
+				if(vm.checkIfDefined(*$1))
+				{
+					$$=vm.getVar(*$1)->value;
+					//vm.pushOperand({vm.getVar(*$1)});
+					bison_logger<<"operand_variable: "<<std::endl;
+					bison_logger<<*vm.getVar(*$1);
+					bison_logger<<std::endl;
+				}
+				else
+				{
+					$$=0;
+					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
+				}
+			}
+	| VAR_NAME '[' LITERAL LITERAL ']' {
+					bool exists=vm.checkIfDefined(*$1);
+
+					if(exists && !vm.getVar(*$1)->isField)
+					{
+						$$=0;
+						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
+					}
+					else if(exists)
+					{
+						bool isError=false;
+						try
+						{
+							//vm.pushOperand({vm.getVar(*$1), $3, $4});
+							bison_logger<<"operand_indexed_variable: "<<std::endl;
+							bison_logger<<dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
+							bison_logger<<std::endl;
+						}
+						catch(std::invalid_argument error)
+						{
+							$$=0;
+							isError=true;
+							if(vm.getErrCode()==Err::undefined)
+							{
+								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+							}
+							else if(vm.getErrCode()==Err::outOfRange)
+							{
+								std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
+							}
+							std::cerr<<"Error text: "<<error.what()<<std::endl;
+						}
+						if(!isError)
+						{
+							$$=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4).value;
+						}
+					}
+					else
+					{
+						$$=0;
+						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
+					}
+					
+					}
+	;
+expr:
+	expr_operand			{
+					$$=$1;
+					//vm.popOperand();
+					bison_logger<<"operand with value "<<$1<<std::endl;
+				}
+	| expr '*' expr		{
+					$$=$1*$3;
+					//vm.pushOperand($$);
+					bison_logger<<"product of two expressions with value "<<$$<<std::endl;
+				}
+	| expr '/' expr		{
+					if($3==0)
+					{
+						$$=32768;
+					}
+					else
+					{
+						$$=$1/$3;
+					}
+					bison_logger<<"division of two expressions with value "<<$$<<std::endl;
+					//vm.pushOperand($$);
+				}
+	| expr '+' expr		{
+					$$=$1+$3;
+					//vm.pushOperand($$);
+					bison_logger<<"sum of two expressions with value "<<$$<<std::endl;
+				}
+	| expr '-' expr		{
+					$$=$1-$3;
+					//vm.pushOperand($$);
+					bison_logger<<"difference between two expressions with value "<<$$<<std::endl;
+				}
+	| '(' expr ')'		{
+					$$=$2;
+					bison_logger<<"expression in brackets with value "<<$$<<std::endl;
+					//vm.pushOperand($$);
+				}
 	;
 vars:
     	VAR_NAME vars {

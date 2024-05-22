@@ -1,14 +1,55 @@
+operand_literal: 30
+operand with value 30
 All vars from init queue were intialized
+operand_literal: 5
+operand with value 5
+All vars from init queue were intialized
+operand_literal: -2
+operand with value -2
+All vars from init queue were intialized
+operand_literal: 1023
+operand with value 1023
+All vars from init queue were intialized
+operand_literal: 9
+operand with value 9
 All vars from init queue were intialized
 operand_variable: 
-small k 9
+normal b 30
+operand with value 30
 operand_variable: 
-normal g 8
-left_assignment
-operand_literal: 3
+small k 5
+operand with value 5
+sum of two expressions with value 35
+expression in brackets with value 35
 operand_variable: 
-small k 8
+small k 5
+operand with value 5
 operand_variable: 
-normal g 8
+small f -2
+operand with value -2
+difference between two expressions with value 7
+expression in brackets with value 7
+division of two expressions with value 5
+operand_variable: 
+big GG 9
+operand_variable: 
+big Hype 1023
+operand_variable: 
+small f -2
+operand_variable: 
+small k 5
+operand with value 5
+operand_variable: 
+normal b 30
+operand with value 30
+sum of two expressions with value 35
+expression in brackets with value 35
+operand_variable: 
+normal b 30
+operand with value 30
+expr
 right_assignment
+left_assignment
+left_assignment
+left_assignment
 right_assignment

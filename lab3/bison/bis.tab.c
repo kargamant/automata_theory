@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 16 "bison/lang.y"
+#line 19 "bison/lang.y"
 
 	#include "../VarMap/VarMap.h"
 	#include <fstream>
@@ -122,7 +122,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 10 "bison/lang.y"
+#line 13 "bison/lang.y"
 
 	#include <iostream>
 	#include <string>
@@ -149,7 +149,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 30 "bison/lang.y"
+#line 33 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
@@ -489,18 +489,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  14
+#define YYFINAL  28
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   49
+#define YYLAST   67
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  14
+#define YYNTOKENS  21
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  6
+#define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  18
+#define YYNRULES  27
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  39
+#define YYNSTATES  59
 
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   263
@@ -518,13 +518,13 @@ static const yytype_int8 yytranslate[] =
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     9,     2,    10,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,    12,     2,     2,     2,
+      19,    20,    15,    17,     9,    18,    10,    16,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,    11,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    12,     2,    13,     2,     2,     2,     2,     2,     2,
+       2,    13,     2,    14,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -548,8 +548,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    39,    39,    40,    43,    64,    95,   252,   311,   347,
-     377,   382,   386,   389,   393,   408,   448,   453,   458
+       0,    42,    42,    43,    46,    68,    92,   113,   116,   152,
+     182,   187,   194,   202,   207,   224,   272,   277,   294,   342,
+     347,   352,   364,   369,   374,   381,   386,   391
 };
 #endif
 
@@ -559,9 +560,10 @@ static const yytype_int16 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "VAR_NAME", "LITERAL", "VAR_TYPE",
-  "ARRAY", "LEFT_ASSIGN", "RIGHT_ASSIGN", "','", "'.'", "'@'", "'['",
-  "']'", "$accept", "complex_statement", "simple_statement", "assign_expr",
-  "operand", "vars", YY_NULLPTR
+  "ARRAY", "LEFT_ASSIGN", "RIGHT_ASSIGN", "','", "'.'", "'@'", "'$'",
+  "'['", "']'", "'*'", "'/'", "'+'", "'-'", "'('", "')'", "$accept",
+  "expr", "expr_operand", "operand", "complex_statement",
+  "simple_statement", "assign_expr", "vars", YY_NULLPTR
 };
 #endif
 
@@ -571,16 +573,17 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,    44,
-      46,    64,    91,    93
+      46,    64,    36,    91,    93,    42,    47,    43,    45,    40,
+      41
 };
 # endif
 
-#define YYPACT_NINF (-6)
+#define YYPACT_NINF (-7)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-1)
+#define YYTABLE_NINF (-16)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -589,10 +592,12 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,     3,    -6,    13,    12,    15,    19,    -5,    -6,    -1,
-      16,    18,    17,    11,    -6,    -3,    -6,     6,     6,    20,
-      18,    21,    22,    23,    -6,    -6,    -6,    24,    -6,     8,
-      25,    26,    -6,    -6,    -6,    27,    28,    -6,    -6
+       3,    22,    -2,    13,    -4,     7,    14,     7,    15,    -7,
+      17,    25,    -6,    -7,    23,    31,    38,    33,    -7,    34,
+      40,    21,     9,     7,     7,     7,     7,     9,    -7,     3,
+      -7,    43,    31,    37,    51,    52,    53,    -7,    -7,    34,
+      34,    34,    34,    -7,    -7,    41,    -7,     7,    54,    55,
+      56,    57,    34,     7,    44,    48,    34,    -7,    -7
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -600,22 +605,24 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,    14,    13,     0,     0,     0,     0,     0,     7,    12,
-       0,    18,     0,     9,     1,     0,     3,     0,     0,     0,
-      17,     0,     0,     0,     2,    10,    11,     0,    16,     0,
-       0,     0,    15,     5,     4,     0,     0,     6,     8
+       0,    17,    16,     0,     0,     0,     0,     0,    12,    19,
+       0,     0,     0,     6,     0,    27,     0,    17,    16,     7,
+       9,     0,     0,     0,     0,     0,     0,     0,     1,     0,
+       3,     0,    26,     0,     0,     0,     0,    24,    11,    20,
+      21,    22,    23,    10,     2,     0,    25,     0,     0,     0,
+       0,    18,     4,     0,     0,     0,     5,    18,     8
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -6,    14,    -6,    -4,    -6,    29
+      -7,    -5,    -7,    -7,    36,    -7,    18,    35
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     6,     7,     8,     9,    21
+      -1,     8,     9,    10,    11,    12,    13,    33
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -623,44 +630,52 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       1,     2,     3,     4,    15,    16,    17,    18,     5,     1,
-       2,    33,    34,    25,    26,    10,    11,    12,    13,    14,
-      19,    20,    22,    23,    27,    30,     0,    31,    29,    24,
-      36,    37,    35,     0,     0,     0,     0,    32,     0,     0,
-       0,    38,     0,     0,     0,     0,     0,     0,     0,    28
+      19,    16,    21,    29,    30,   -13,     1,     2,     3,     4,
+      17,    18,     1,     2,     5,     6,    15,    20,    39,    40,
+      41,    42,     7,    22,    27,    28,     7,    31,     7,   -14,
+      23,    24,    25,    26,    32,    14,    23,    24,    25,    26,
+      38,    37,    52,    34,    47,    43,    35,    45,    56,    23,
+      24,    25,    26,    36,    48,    51,    49,    50,    57,    54,
+      55,    53,    58,     0,   -15,    44,     0,    46
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     4,     5,     6,     9,    10,     7,     8,    11,     3,
-       4,     3,     4,    17,    18,    12,     3,     5,     3,     0,
-       4,     3,     5,    12,     4,     3,    -1,     4,     7,    15,
-       4,     4,     7,    -1,    -1,    -1,    -1,    13,    -1,    -1,
-      -1,    13,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    20
+       5,     5,     7,     9,    10,     7,     3,     4,     5,     6,
+       3,     4,     3,     4,    11,    12,     3,     3,    23,    24,
+      25,    26,    19,     8,     7,     0,    19,     4,    19,     7,
+      15,    16,    17,    18,     3,    13,    15,    16,    17,    18,
+      22,    20,    47,     5,     7,    27,    13,     4,    53,    15,
+      16,    17,    18,    13,     3,    14,     4,     4,    14,     4,
+       4,     7,    14,    -1,     7,    29,    -1,    32
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,     5,     6,    11,    15,    16,    17,    18,
-      12,     3,     5,     3,     0,     9,    10,     7,     8,     4,
-       3,    19,     5,    12,    15,    17,    17,     4,    19,     7,
-       3,     4,    13,     3,     4,     7,     4,     4,    13
+       0,     3,     4,     5,     6,    11,    12,    19,    22,    23,
+      24,    25,    26,    27,    13,     3,     5,     3,     4,    22,
+       3,    22,     8,    15,    16,    17,    18,     7,     0,     9,
+      10,     4,     3,    28,     5,    13,    13,    20,    27,    22,
+      22,    22,    22,    27,    25,     4,    28,     7,     3,     4,
+       4,    14,    22,     7,     4,     4,    22,    14,    14
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    14,    15,    15,    16,    16,    16,    16,    16,    16,
-      17,    17,    17,    18,    18,    18,    19,    19,    19
+       0,    21,    25,    25,    26,    26,    26,    26,    26,    26,
+      27,    27,    27,    24,    24,    24,    23,    23,    23,    22,
+      22,    22,    22,    22,    22,    28,    28,    28
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     3,     2,     5,     5,     6,     1,     6,     2,
-       3,     3,     1,     1,     1,     5,     2,     1,     0
+       0,     2,     3,     2,     5,     6,     1,     2,     6,     2,
+       3,     3,     1,     1,     1,     5,     1,     1,     5,     1,
+       3,     3,     3,     3,     3,     2,     1,     0
 };
 
 
@@ -1451,20 +1466,21 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 39 "bison/lang.y"
+#line 42 "bison/lang.y"
                                                {}
-#line 1457 "bison/bis.tab.c"
+#line 1472 "bison/bis.tab.c"
     break;
 
   case 3:
-#line 40 "bison/lang.y"
+#line 43 "bison/lang.y"
                                {}
-#line 1463 "bison/bis.tab.c"
+#line 1478 "bison/bis.tab.c"
     break;
 
   case 4:
-#line 43 "bison/lang.y"
-                                                   {
+#line 46 "bison/lang.y"
+                                                {
+						vm.clearBuffers();
 						vm.pushVarToInit(*(yyvsp[-3].str));
 						try
 						{
@@ -1485,47 +1501,13 @@ yyreduce:
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-#line 1489 "bison/bis.tab.c"
+#line 1505 "bison/bis.tab.c"
     break;
 
   case 5:
-#line 65 "bison/lang.y"
+#line 69 "bison/lang.y"
                                                 {
-						vm.pushVarToInit(*(yyvsp[-3].str));
-						try
-						{
-							vm.flushInit((yyvsp[-4].var_type), vm.getVar(*(yyvsp[0].str))->value);
-						}
-						catch(std::invalid_argument error)
-						{
-							if(vm.getErrCode()==Err::typeMisMatch || vm.getErrCode()==Err::undefined)
-							{
-								std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
-							}
-							else if(vm.getErrCode()==Err::redefinition)
-							{
-								std::cerr<<"Syntax error at line "<<(yylsp[-3]).first_line<<std::endl;
-							}
-							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							vm.setErrCode(Err::no_error);	
-							
-						}
-						bison_logger<<"All vars from init queue were intialized"<<std::endl;
-						/*
-
-						| ARRAY VAR_TYPE VAR_TYPE VAR_NAME '<''<' LITERAL 
-						{
-							Field fld{$2, $3, *$4, $7};
-							vm.addArr(fld);
-						}
-						*/
-						}
-#line 1524 "bison/bis.tab.c"
-    break;
-
-  case 6:
-#line 96 "bison/lang.y"
-                                                {
+							vm.clearBuffers();
 							//Field fld{$2, $3, *$4, $7};
 							try
 							{
@@ -1547,11 +1529,11 @@ yyreduce:
 								vm.setErrCode(Err::no_error);	
 							}
 						}
-#line 1551 "bison/bis.tab.c"
+#line 1533 "bison/bis.tab.c"
     break;
 
-  case 7:
-#line 253 "bison/lang.y"
+  case 6:
+#line 93 "bison/lang.y"
                                                 {
 							try
 							{
@@ -1572,11 +1554,19 @@ yyreduce:
 								vm.setErrCode(Err::no_error);	
 							}
 	  					}
-#line 1576 "bison/bis.tab.c"
+#line 1558 "bison/bis.tab.c"
+    break;
+
+  case 7:
+#line 113 "bison/lang.y"
+                                                {
+							std::cout<<(yyvsp[0].num)<<std::endl;
+						}
+#line 1566 "bison/bis.tab.c"
     break;
 
   case 8:
-#line 312 "bison/lang.y"
+#line 117 "bison/lang.y"
                                                 {
 							bool exists=vm.checkIfDefined(*(yyvsp[-4].str));
 
@@ -1612,11 +1602,11 @@ yyreduce:
 								std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[-4].str)+" was not defined."<<std::endl;
 							}
 						}
-#line 1616 "bison/bis.tab.c"
+#line 1606 "bison/bis.tab.c"
     break;
 
   case 9:
-#line 348 "bison/lang.y"
+#line 153 "bison/lang.y"
                         {
 				Var* var;
 				bool isError=false;
@@ -1644,42 +1634,58 @@ yyreduce:
 					std::cout<<std::endl;
 				}
 			}
-#line 1648 "bison/bis.tab.c"
+#line 1638 "bison/bis.tab.c"
     break;
 
   case 10:
-#line 378 "bison/lang.y"
+#line 183 "bison/lang.y"
                                         {
 						vm.pushOperator({AssignType::Left});	
 						bison_logger<<"left_assignment"<<std::endl;
 					}
-#line 1657 "bison/bis.tab.c"
+#line 1647 "bison/bis.tab.c"
     break;
 
   case 11:
-#line 382 "bison/lang.y"
-                                                {
+#line 187 "bison/lang.y"
+                                        {
+						vm.pushOperand({(yyvsp[-2].num)});
+
+						//vm.pushOperand(op);
 						vm.pushOperator({AssignType::Right});	
 						bison_logger<<"right_assignment"<<std::endl;
 					}
-#line 1666 "bison/bis.tab.c"
+#line 1659 "bison/bis.tab.c"
+    break;
+
+  case 12:
+#line 194 "bison/lang.y"
+                                        {
+						vm.pushOperand({(yyvsp[0].num)});
+
+						//vm.pushOperand(op);
+						bison_logger<<"expr"<<std::endl;	
+					}
+#line 1670 "bison/bis.tab.c"
     break;
 
   case 13:
-#line 389 "bison/lang.y"
+#line 202 "bison/lang.y"
                         {
+				(yyval.num)=(yyvsp[0].num);
 				vm.pushOperand({(yyvsp[0].num)});
 				bison_logger<<"operand_literal: "<<(yyvsp[0].num)<<std::endl;
 			}
-#line 1675 "bison/bis.tab.c"
+#line 1680 "bison/bis.tab.c"
     break;
 
   case 14:
-#line 393 "bison/lang.y"
+#line 207 "bison/lang.y"
                         {
-
+			
 				if(vm.checkIfDefined(*(yyvsp[0].str)))
 				{
+					(yyval.num)=vm.getVar(*(yyvsp[0].str))->value;
 					vm.pushOperand({vm.getVar(*(yyvsp[0].str))});
 					bison_logger<<"operand_variable: "<<std::endl;
 					bison_logger<<*vm.getVar(*(yyvsp[0].str));
@@ -1687,25 +1693,28 @@ yyreduce:
 				}
 				else
 				{
+					(yyval.num)=0;
 					std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
 					std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[0].str)+" was not defined."<<std::endl;
 				}
 			}
-#line 1695 "bison/bis.tab.c"
+#line 1702 "bison/bis.tab.c"
     break;
 
   case 15:
-#line 408 "bison/lang.y"
+#line 224 "bison/lang.y"
                                            {
 					bool exists=vm.checkIfDefined(*(yyvsp[-4].str));
 
 					if(exists && !vm.getVar(*(yyvsp[-4].str))->isField)
 					{
+						(yyval.num)=0;
 						std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
 						std::cerr<<"Error. Variable "+*(yyvsp[-4].str)+" is not an array."<<std::endl;
 					}
 					else if(exists)
 					{
+						bool isError=false;
 						try
 						{
 							vm.pushOperand({vm.getVar(*(yyvsp[-4].str)), (yyvsp[-2].num), (yyvsp[-1].num)});
@@ -1715,7 +1724,8 @@ yyreduce:
 						}
 						catch(std::invalid_argument error)
 						{
-								
+							(yyval.num)=0;
+							isError=true;
 							if(vm.getErrCode()==Err::undefined)
 							{
 								std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
@@ -1726,45 +1736,200 @@ yyreduce:
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
 						}
+						if(!isError)
+						{
+							(yyval.num)=dynamic_cast<Field*>(vm.getVar(*(yyvsp[-4].str)))->getVar((yyvsp[-2].num), (yyvsp[-1].num)).value;
+						}
 					}
 					else
 					{
+						(yyval.num)=0;
 						std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
 						std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[-4].str)+" was not defined."<<std::endl;
 					}
 					
 					}
-#line 1738 "bison/bis.tab.c"
+#line 1753 "bison/bis.tab.c"
     break;
 
   case 16:
-#line 448 "bison/lang.y"
+#line 272 "bison/lang.y"
+                        {
+				(yyval.num)=(yyvsp[0].num);
+				//vm.pushOperand({$1});
+				bison_logger<<"operand_literal: "<<(yyvsp[0].num)<<std::endl;
+			}
+#line 1763 "bison/bis.tab.c"
+    break;
+
+  case 17:
+#line 277 "bison/lang.y"
+                        {
+			
+				if(vm.checkIfDefined(*(yyvsp[0].str)))
+				{
+					(yyval.num)=vm.getVar(*(yyvsp[0].str))->value;
+					//vm.pushOperand({vm.getVar(*$1)});
+					bison_logger<<"operand_variable: "<<std::endl;
+					bison_logger<<*vm.getVar(*(yyvsp[0].str));
+					bison_logger<<std::endl;
+				}
+				else
+				{
+					(yyval.num)=0;
+					std::cerr<<"Syntax error at line "<<(yylsp[0]).first_line<<std::endl;
+					std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[0].str)+" was not defined."<<std::endl;
+				}
+			}
+#line 1785 "bison/bis.tab.c"
+    break;
+
+  case 18:
+#line 294 "bison/lang.y"
+                                           {
+					bool exists=vm.checkIfDefined(*(yyvsp[-4].str));
+
+					if(exists && !vm.getVar(*(yyvsp[-4].str))->isField)
+					{
+						(yyval.num)=0;
+						std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
+						std::cerr<<"Error. Variable "+*(yyvsp[-4].str)+" is not an array."<<std::endl;
+					}
+					else if(exists)
+					{
+						bool isError=false;
+						try
+						{
+							//vm.pushOperand({vm.getVar(*$1), $3, $4});
+							bison_logger<<"operand_indexed_variable: "<<std::endl;
+							bison_logger<<dynamic_cast<Field*>(vm.getVar(*(yyvsp[-4].str)))->getVar((yyvsp[-2].num), (yyvsp[-1].num));
+							bison_logger<<std::endl;
+						}
+						catch(std::invalid_argument error)
+						{
+							(yyval.num)=0;
+							isError=true;
+							if(vm.getErrCode()==Err::undefined)
+							{
+								std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
+							}
+							else if(vm.getErrCode()==Err::outOfRange)
+							{
+								std::cerr<<"Syntax error at line "<<(yylsp[-1]).first_line<<std::endl;
+							}
+							std::cerr<<"Error text: "<<error.what()<<std::endl;
+						}
+						if(!isError)
+						{
+							(yyval.num)=dynamic_cast<Field*>(vm.getVar(*(yyvsp[-4].str)))->getVar((yyvsp[-2].num), (yyvsp[-1].num)).value;
+						}
+					}
+					else
+					{
+						(yyval.num)=0;
+						std::cerr<<"Syntax error at line "<<(yylsp[-4]).first_line<<std::endl;
+						std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[-4].str)+" was not defined."<<std::endl;
+					}
+					
+					}
+#line 1836 "bison/bis.tab.c"
+    break;
+
+  case 19:
+#line 342 "bison/lang.y"
+                                        {
+					(yyval.num)=(yyvsp[0].num);
+					//vm.popOperand();
+					bison_logger<<"operand with value "<<(yyvsp[0].num)<<std::endl;
+				}
+#line 1846 "bison/bis.tab.c"
+    break;
+
+  case 20:
+#line 347 "bison/lang.y"
+                                {
+					(yyval.num)=(yyvsp[-2].num)*(yyvsp[0].num);
+					//vm.pushOperand($$);
+					bison_logger<<"product of two expressions with value "<<(yyval.num)<<std::endl;
+				}
+#line 1856 "bison/bis.tab.c"
+    break;
+
+  case 21:
+#line 352 "bison/lang.y"
+                                {
+					if((yyvsp[0].num)==0)
+					{
+						(yyval.num)=32768;
+					}
+					else
+					{
+						(yyval.num)=(yyvsp[-2].num)/(yyvsp[0].num);
+					}
+					bison_logger<<"division of two expressions with value "<<(yyval.num)<<std::endl;
+					//vm.pushOperand($$);
+				}
+#line 1873 "bison/bis.tab.c"
+    break;
+
+  case 22:
+#line 364 "bison/lang.y"
+                                {
+					(yyval.num)=(yyvsp[-2].num)+(yyvsp[0].num);
+					//vm.pushOperand($$);
+					bison_logger<<"sum of two expressions with value "<<(yyval.num)<<std::endl;
+				}
+#line 1883 "bison/bis.tab.c"
+    break;
+
+  case 23:
+#line 369 "bison/lang.y"
+                                {
+					(yyval.num)=(yyvsp[-2].num)-(yyvsp[0].num);
+					//vm.pushOperand($$);
+					bison_logger<<"difference between two expressions with value "<<(yyval.num)<<std::endl;
+				}
+#line 1893 "bison/bis.tab.c"
+    break;
+
+  case 24:
+#line 374 "bison/lang.y"
+                                {
+					(yyval.num)=(yyvsp[-1].num);
+					bison_logger<<"expression in brackets with value "<<(yyval.num)<<std::endl;
+					//vm.pushOperand($$);
+				}
+#line 1903 "bison/bis.tab.c"
+    break;
+
+  case 25:
+#line 381 "bison/lang.y"
                       {
 				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*(yyvsp[-1].str));
 				bison_logger<<"var "<<*(yyvsp[-1].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 1748 "bison/bis.tab.c"
+#line 1913 "bison/bis.tab.c"
     break;
 
-  case 17:
-#line 453 "bison/lang.y"
+  case 26:
+#line 386 "bison/lang.y"
                    {
 				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*(yyvsp[0].str));
 				bison_logger<<"var "<<*(yyvsp[0].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 1758 "bison/bis.tab.c"
+#line 1923 "bison/bis.tab.c"
     break;
 
-  case 18:
-#line 458 "bison/lang.y"
+  case 27:
+#line 391 "bison/lang.y"
                         {}
-#line 1764 "bison/bis.tab.c"
+#line 1929 "bison/bis.tab.c"
     break;
 
 
-#line 1768 "bison/bis.tab.c"
+#line 1933 "bison/bis.tab.c"
 
       default: break;
     }
@@ -2002,7 +2167,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 461 "bison/lang.y"
+#line 394 "bison/lang.y"
 
 
 
