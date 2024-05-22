@@ -1,9 +1,9 @@
-field normal small arr<<0,
-big GG<<-9000,
-small bbc<<8,
-tiny hh<<1,
-arr[9 9]>>GG<<-3>>bbc>>hh<<5,
-@arr[9 9],
-@GG,
-@bbc,
-@hh.
+small ab gg hh kk<<-10,
+normal j<<500,
+6>>ab,
+ab<<gg<<hh<<kk<<j,
+@ab,
+@gg,
+@hh,
+@kk,
+@j.

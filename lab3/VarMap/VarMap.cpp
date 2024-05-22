@@ -70,27 +70,29 @@ void AssignOperator::perform()
 {
 	if(type==AssignType::Left) //a<<b
 	{
-		if(!left.isVar)
+		if(!left->isVar)
 		{
 			VarMap::err_code=Err::invalidAssign;
 			throw std::invalid_argument("Error. Cant assign anything to literal.");
 		}
 		else
 		{
-			left.var->changeValue(right.value);
+			left->var->changeValue(right->value);
+			left->value=right->value;
 			//changeVar(left.var->name, right.value);
 		}
 	}
 	else
 	{
-		if(!right.isVar)
+		if(!right->isVar)
 		{
 			VarMap::err_code=Err::invalidAssign;
 			throw std::invalid_argument("Error. Cant assign anything to literal.");
 		}
 		else
 		{
-			right.var->changeValue(left.value);
+			right->var->changeValue(left->value);
+			right->value=left->value;
 			//changeVar(right.var->name, left.value);
 		}
 	}
@@ -279,24 +281,27 @@ void VarMap::flushAssign(int value)
 void VarMap::flushAssignExpr()
 {
 	std::vector<AssignOperator> operations;
-	//std::vector<Var*> vars;
 	while(!oper_queue.empty())
 	{
 		AssignOperator oper=oper_queue.front();
 		oper_queue.pop();
 
-		oper.right=operand_stack.top();
+		oper.right=&operand_stack.top();
+		
+
 		operand_stack.pop();
-		oper.left=operand_stack.top();
+		oper.left=&operand_stack.top();
+		
 		operations.push_back(oper);
 	}
 	operand_stack.pop();
 	
-	for(auto& operation: operations)
+	for(auto operation=--operations.end(); operation>=operations.begin(); --operation)
 	{
-		if(operation.type==AssignType::Right)
+		//std::cout<<operation.left<<" "<<operation.right<<std::endl;
+		if(operation->type==AssignType::Right)
 		{
-			operation.perform();
+			operation->perform();
 		}
 	}
 
@@ -308,6 +313,7 @@ void VarMap::flushAssignExpr()
 		}
 
 	}
+
 }
 /*void VarMap::flushAssignArr(int value)
 {

@@ -1,80 +1,84 @@
 small
 var_type parsed
-abc
+ab
+var_name parsed
+gg
+var_name parsed
+hh
+var_name parsed
+kk
 var_name parsed
 <<
 left_assign parsed
-9
+-10
 literal parsed
 ,
 , parsed
 normal
 var_type parsed
-bb
+j
 var_name parsed
 <<
 left_assign parsed
-3
+500
 literal parsed
 ,
 , parsed
-tiny
-var_type parsed
-h
-var_name parsed
-<<
-left_assign parsed
-1
+6
 literal parsed
-,
-, parsed
-big
-var_type parsed
-GG
-var_name parsed
-<<
-left_assign parsed
-9000
-literal parsed
-,
-, parsed
-abc
-var_name parsed
 >>
 right_assign parsed
-bb
+ab
+var_name parsed
+,
+, parsed
+ab
 var_name parsed
 <<
 left_assign parsed
-h
+gg
 var_name parsed
 <<
 left_assign parsed
-GG
+hh
+var_name parsed
+<<
+left_assign parsed
+kk
+var_name parsed
+<<
+left_assign parsed
+j
 var_name parsed
 ,
 , parsed
 @
 @ parsed
-abc
+ab
 var_name parsed
 ,
 , parsed
 @
 @ parsed
-GG
+gg
 var_name parsed
 ,
 , parsed
 @
 @ parsed
-h
+hh
 var_name parsed
 ,
 , parsed
 @
 @ parsed
-bb
+kk
 var_name parsed
 ,
 , parsed
+@
+@ parsed
+j
+var_name parsed
+.
+. parsed

@@ -71,11 +71,11 @@ struct Operand
 
 struct AssignOperator
 {
-	Operand left;
-	Operand right;
+	Operand* left;
+	Operand* right;
 	AssignType type;
-	AssignOperator(Operand left, Operand right, AssignType type) : left(left), right(right), type(type) {}
-	AssignOperator(AssignType type) : left(), right(), type(type) {}
+	AssignOperator(Operand* left, Operand* right, AssignType type) : left(left), right(right), type(type) {}
+	AssignOperator(AssignType type) : left(nullptr), right(nullptr), type(type) {}
 	void perform();
 };
 
