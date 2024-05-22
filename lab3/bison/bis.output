@@ -1,4 +1,4 @@
-State 8 conflicts: 3 reduce/reduce
+State 20 conflicts: 1 reduce/reduce
 
 
 Grammar
@@ -11,18 +11,21 @@ Grammar
     3 simple_statement: VAR_TYPE VAR_NAME vars LEFT_ASSIGN LITERAL
     4                 | VAR_TYPE VAR_NAME vars LEFT_ASSIGN VAR_NAME
     5                 | ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN LITERAL
-    6                 | VAR_NAME vars LEFT_ASSIGN VAR_NAME
-    7                 | VAR_NAME vars LEFT_ASSIGN LITERAL
-    8                 | VAR_NAME '[' LITERAL LITERAL ']' LEFT_ASSIGN LITERAL
-    9                 | VAR_NAME RIGHT_ASSIGN VAR_NAME vars
-   10                 | LITERAL RIGHT_ASSIGN VAR_NAME vars
-   11                 | LITERAL RIGHT_ASSIGN VAR_NAME '[' LITERAL LITERAL ']'
-   12                 | '@' VAR_NAME '[' LITERAL LITERAL ']'
-   13                 | '@' VAR_NAME
+    6                 | assign_expr
+    7                 | '@' VAR_NAME '[' LITERAL LITERAL ']'
+    8                 | '@' VAR_NAME
 
-   14 vars: VAR_NAME vars
-   15     | VAR_NAME
-   16     | %empty
+    9 assign_expr: operand LEFT_ASSIGN assign_expr
+   10            | operand RIGHT_ASSIGN assign_expr
+   11            | operand
+
+   12 operand: LITERAL
+   13        | VAR_NAME
+   14        | VAR_NAME '[' LITERAL LITERAL ']'
+
+   15 vars: VAR_NAME vars
+   16     | VAR_NAME
+   17     | %empty
 
 
 Terminals, with rules where they appear
@@ -30,16 +33,16 @@ Terminals, with rules where they appear
     $end (0) 0
     ',' (44) 1
     '.' (46) 2
-    '@' (64) 12 13
-    '[' (91) 8 11 12
-    ']' (93) 8 11 12
+    '@' (64) 7 8
+    '[' (91) 7 14
+    ']' (93) 7 14
     error (256)
-    VAR_NAME <str> (258) 3 4 5 6 7 8 9 10 11 12 13 14 15
-    LITERAL <num> (259) 3 5 7 8 10 11 12
+    VAR_NAME <str> (258) 3 4 5 7 8 13 14 15 16
+    LITERAL <num> (259) 3 5 7 12 14
     VAR_TYPE <var_type> (260) 3 4 5
     ARRAY (261) 5
-    LEFT_ASSIGN (262) 3 4 5 6 7 8
-    RIGHT_ASSIGN (263) 9 10 11
+    LEFT_ASSIGN (262) 3 4 5 9
+    RIGHT_ASSIGN (263) 10
 
 
 Nonterminals, with rules where they appear
@@ -50,11 +53,17 @@ Nonterminals, with rules where they appear
         on left: 1 2
         on right: 0 1
     simple_statement (16)
-        on left: 3 4 5 6 7 8 9 10 11 12 13
+        on left: 3 4 5 6 7 8
         on right: 1 2
-    vars (17)
-        on left: 14 15 16
-        on right: 3 4 6 7 9 10 14
+    assign_expr (17)
+        on left: 9 10 11
+        on right: 6 9 10
+    operand (18)
+        on left: 12 13 14
+        on right: 9 10 11
+    vars (19)
+        on left: 15 16 17
+        on right: 3 4 15
 
 
 State 0
@@ -69,30 +78,25 @@ State 0
 
     complex_statement  go to state 6
     simple_statement   go to state 7
+    assign_expr        go to state 8
+    operand            go to state 9
 
 
 State 1
 
-    6 simple_statement: VAR_NAME . vars LEFT_ASSIGN VAR_NAME
-    7                 | VAR_NAME . vars LEFT_ASSIGN LITERAL
-    8                 | VAR_NAME . '[' LITERAL LITERAL ']' LEFT_ASSIGN LITERAL
-    9                 | VAR_NAME . RIGHT_ASSIGN VAR_NAME vars
+   13 operand: VAR_NAME .
+   14        | VAR_NAME . '[' LITERAL LITERAL ']'
 
-    VAR_NAME      shift, and go to state 8
-    RIGHT_ASSIGN  shift, and go to state 9
-    '['           shift, and go to state 10
+    '['  shift, and go to state 10
 
-    $default  reduce using rule 16 (vars)
-
-    vars  go to state 11
+    $default  reduce using rule 13 (operand)
 
 
 State 2
 
-   10 simple_statement: LITERAL . RIGHT_ASSIGN VAR_NAME vars
-   11                 | LITERAL . RIGHT_ASSIGN VAR_NAME '[' LITERAL LITERAL ']'
+   12 operand: LITERAL .
 
-    RIGHT_ASSIGN  shift, and go to state 12
+    $default  reduce using rule 12 (operand)
 
 
 State 3
@@ -100,29 +104,29 @@ State 3
     3 simple_statement: VAR_TYPE . VAR_NAME vars LEFT_ASSIGN LITERAL
     4                 | VAR_TYPE . VAR_NAME vars LEFT_ASSIGN VAR_NAME
 
-    VAR_NAME  shift, and go to state 13
+    VAR_NAME  shift, and go to state 11
 
 
 State 4
 
     5 simple_statement: ARRAY . VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN LITERAL
 
-    VAR_TYPE  shift, and go to state 14
+    VAR_TYPE  shift, and go to state 12
 
 
 State 5
 
-   12 simple_statement: '@' . VAR_NAME '[' LITERAL LITERAL ']'
-   13                 | '@' . VAR_NAME
+    7 simple_statement: '@' . VAR_NAME '[' LITERAL LITERAL ']'
+    8                 | '@' . VAR_NAME
 
-    VAR_NAME  shift, and go to state 15
+    VAR_NAME  shift, and go to state 13
 
 
 State 6
 
     0 $accept: complex_statement . $end
 
-    $end  shift, and go to state 16
+    $end  shift, and go to state 14
 
 
 State 7
@@ -130,95 +134,73 @@ State 7
     1 complex_statement: simple_statement . ',' complex_statement
     2                  | simple_statement . '.'
 
-    ','  shift, and go to state 17
-    '.'  shift, and go to state 18
+    ','  shift, and go to state 15
+    '.'  shift, and go to state 16
 
 
 State 8
 
-   14 vars: VAR_NAME . vars
-   15     | VAR_NAME .
+    6 simple_statement: assign_expr .
 
-    VAR_NAME  shift, and go to state 8
-
-    LEFT_ASSIGN  reduce using rule 15 (vars)
-    LEFT_ASSIGN  [reduce using rule 16 (vars)]
-    ','          reduce using rule 15 (vars)
-    ','          [reduce using rule 16 (vars)]
-    '.'          reduce using rule 15 (vars)
-    '.'          [reduce using rule 16 (vars)]
-    $default     reduce using rule 15 (vars)
-
-    vars  go to state 19
+    $default  reduce using rule 6 (simple_statement)
 
 
 State 9
 
-    9 simple_statement: VAR_NAME RIGHT_ASSIGN . VAR_NAME vars
+    9 assign_expr: operand . LEFT_ASSIGN assign_expr
+   10            | operand . RIGHT_ASSIGN assign_expr
+   11            | operand .
 
-    VAR_NAME  shift, and go to state 20
+    LEFT_ASSIGN   shift, and go to state 17
+    RIGHT_ASSIGN  shift, and go to state 18
+
+    $default  reduce using rule 11 (assign_expr)
 
 
 State 10
 
-    8 simple_statement: VAR_NAME '[' . LITERAL LITERAL ']' LEFT_ASSIGN LITERAL
+   14 operand: VAR_NAME '[' . LITERAL LITERAL ']'
 
-    LITERAL  shift, and go to state 21
+    LITERAL  shift, and go to state 19
 
 
 State 11
 
-    6 simple_statement: VAR_NAME vars . LEFT_ASSIGN VAR_NAME
-    7                 | VAR_NAME vars . LEFT_ASSIGN LITERAL
+    3 simple_statement: VAR_TYPE VAR_NAME . vars LEFT_ASSIGN LITERAL
+    4                 | VAR_TYPE VAR_NAME . vars LEFT_ASSIGN VAR_NAME
 
-    LEFT_ASSIGN  shift, and go to state 22
+    VAR_NAME  shift, and go to state 20
+
+    $default  reduce using rule 17 (vars)
+
+    vars  go to state 21
 
 
 State 12
 
-   10 simple_statement: LITERAL RIGHT_ASSIGN . VAR_NAME vars
-   11                 | LITERAL RIGHT_ASSIGN . VAR_NAME '[' LITERAL LITERAL ']'
+    5 simple_statement: ARRAY VAR_TYPE . VAR_TYPE VAR_NAME LEFT_ASSIGN LITERAL
 
-    VAR_NAME  shift, and go to state 23
+    VAR_TYPE  shift, and go to state 22
 
 
 State 13
 
-    3 simple_statement: VAR_TYPE VAR_NAME . vars LEFT_ASSIGN LITERAL
-    4                 | VAR_TYPE VAR_NAME . vars LEFT_ASSIGN VAR_NAME
+    7 simple_statement: '@' VAR_NAME . '[' LITERAL LITERAL ']'
+    8                 | '@' VAR_NAME .
 
-    VAR_NAME  shift, and go to state 8
+    '['  shift, and go to state 23
 
-    $default  reduce using rule 16 (vars)
-
-    vars  go to state 24
+    $default  reduce using rule 8 (simple_statement)
 
 
 State 14
-
-    5 simple_statement: ARRAY VAR_TYPE . VAR_TYPE VAR_NAME LEFT_ASSIGN LITERAL
-
-    VAR_TYPE  shift, and go to state 25
-
-
-State 15
-
-   12 simple_statement: '@' VAR_NAME . '[' LITERAL LITERAL ']'
-   13                 | '@' VAR_NAME .
-
-    '['  shift, and go to state 26
-
-    $default  reduce using rule 13 (simple_statement)
-
-
-State 16
 
     0 $accept: complex_statement $end .
 
     $default  accept
 
 
-State 17
+State 15
 
     1 complex_statement: simple_statement ',' . complex_statement
 
@@ -228,237 +210,186 @@ State 17
     ARRAY     shift, and go to state 4
     '@'       shift, and go to state 5
 
-    complex_statement  go to state 27
+    complex_statement  go to state 24
     simple_statement   go to state 7
+    assign_expr        go to state 8
+    operand            go to state 9
 
 
-State 18
+State 16
 
     2 complex_statement: simple_statement '.' .
 
     $default  reduce using rule 2 (complex_statement)
 
 
+State 17
+
+    9 assign_expr: operand LEFT_ASSIGN . assign_expr
+
+    VAR_NAME  shift, and go to state 1
+    LITERAL   shift, and go to state 2
+
+    assign_expr  go to state 25
+    operand      go to state 9
+
+
+State 18
+
+   10 assign_expr: operand RIGHT_ASSIGN . assign_expr
+
+    VAR_NAME  shift, and go to state 1
+    LITERAL   shift, and go to state 2
+
+    assign_expr  go to state 26
+    operand      go to state 9
+
+
 State 19
 
-   14 vars: VAR_NAME vars .
+   14 operand: VAR_NAME '[' LITERAL . LITERAL ']'
 
-    $default  reduce using rule 14 (vars)
+    LITERAL  shift, and go to state 27
 
 
 State 20
 
-    9 simple_statement: VAR_NAME RIGHT_ASSIGN VAR_NAME . vars
+   15 vars: VAR_NAME . vars
+   16     | VAR_NAME .
 
-    VAR_NAME  shift, and go to state 8
+    VAR_NAME  shift, and go to state 20
 
-    $default  reduce using rule 16 (vars)
+    LEFT_ASSIGN  reduce using rule 16 (vars)
+    LEFT_ASSIGN  [reduce using rule 17 (vars)]
+    $default     reduce using rule 16 (vars)
 
     vars  go to state 28
 
 
 State 21
 
-    8 simple_statement: VAR_NAME '[' LITERAL . LITERAL ']' LEFT_ASSIGN LITERAL
+    3 simple_statement: VAR_TYPE VAR_NAME vars . LEFT_ASSIGN LITERAL
+    4                 | VAR_TYPE VAR_NAME vars . LEFT_ASSIGN VAR_NAME
 
-    LITERAL  shift, and go to state 29
+    LEFT_ASSIGN  shift, and go to state 29
 
 
 State 22
 
-    6 simple_statement: VAR_NAME vars LEFT_ASSIGN . VAR_NAME
-    7                 | VAR_NAME vars LEFT_ASSIGN . LITERAL
+    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE . VAR_NAME LEFT_ASSIGN LITERAL
 
     VAR_NAME  shift, and go to state 30
-    LITERAL   shift, and go to state 31
 
 
 State 23
 
-   10 simple_statement: LITERAL RIGHT_ASSIGN VAR_NAME . vars
-   11                 | LITERAL RIGHT_ASSIGN VAR_NAME . '[' LITERAL LITERAL ']'
+    7 simple_statement: '@' VAR_NAME '[' . LITERAL LITERAL ']'
 
-    VAR_NAME  shift, and go to state 8
-    '['       shift, and go to state 32
-
-    $default  reduce using rule 16 (vars)
-
-    vars  go to state 33
+    LITERAL  shift, and go to state 31
 
 
 State 24
-
-    3 simple_statement: VAR_TYPE VAR_NAME vars . LEFT_ASSIGN LITERAL
-    4                 | VAR_TYPE VAR_NAME vars . LEFT_ASSIGN VAR_NAME
-
-    LEFT_ASSIGN  shift, and go to state 34
-
-
-State 25
-
-    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE . VAR_NAME LEFT_ASSIGN LITERAL
-
-    VAR_NAME  shift, and go to state 35
-
-
-State 26
-
-   12 simple_statement: '@' VAR_NAME '[' . LITERAL LITERAL ']'
-
-    LITERAL  shift, and go to state 36
-
-
-State 27
 
     1 complex_statement: simple_statement ',' complex_statement .
 
     $default  reduce using rule 1 (complex_statement)
 
 
+State 25
+
+    9 assign_expr: operand LEFT_ASSIGN assign_expr .
+
+    $default  reduce using rule 9 (assign_expr)
+
+
+State 26
+
+   10 assign_expr: operand RIGHT_ASSIGN assign_expr .
+
+    $default  reduce using rule 10 (assign_expr)
+
+
+State 27
+
+   14 operand: VAR_NAME '[' LITERAL LITERAL . ']'
+
+    ']'  shift, and go to state 32
+
+
 State 28
 
-    9 simple_statement: VAR_NAME RIGHT_ASSIGN VAR_NAME vars .
+   15 vars: VAR_NAME vars .
 
-    $default  reduce using rule 9 (simple_statement)
+    $default  reduce using rule 15 (vars)
 
 
 State 29
 
-    8 simple_statement: VAR_NAME '[' LITERAL LITERAL . ']' LEFT_ASSIGN LITERAL
+    3 simple_statement: VAR_TYPE VAR_NAME vars LEFT_ASSIGN . LITERAL
+    4                 | VAR_TYPE VAR_NAME vars LEFT_ASSIGN . VAR_NAME
 
-    ']'  shift, and go to state 37
+    VAR_NAME  shift, and go to state 33
+    LITERAL   shift, and go to state 34
 
 
 State 30
 
-    6 simple_statement: VAR_NAME vars LEFT_ASSIGN VAR_NAME .
+    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME . LEFT_ASSIGN LITERAL
 
-    $default  reduce using rule 6 (simple_statement)
+    LEFT_ASSIGN  shift, and go to state 35
 
 
 State 31
 
-    7 simple_statement: VAR_NAME vars LEFT_ASSIGN LITERAL .
+    7 simple_statement: '@' VAR_NAME '[' LITERAL . LITERAL ']'
 
-    $default  reduce using rule 7 (simple_statement)
+    LITERAL  shift, and go to state 36
 
 
 State 32
 
-   11 simple_statement: LITERAL RIGHT_ASSIGN VAR_NAME '[' . LITERAL LITERAL ']'
+   14 operand: VAR_NAME '[' LITERAL LITERAL ']' .
 
-    LITERAL  shift, and go to state 38
+    $default  reduce using rule 14 (operand)
 
 
 State 33
-
-   10 simple_statement: LITERAL RIGHT_ASSIGN VAR_NAME vars .
-
-    $default  reduce using rule 10 (simple_statement)
-
-
-State 34
-
-    3 simple_statement: VAR_TYPE VAR_NAME vars LEFT_ASSIGN . LITERAL
-    4                 | VAR_TYPE VAR_NAME vars LEFT_ASSIGN . VAR_NAME
-
-    VAR_NAME  shift, and go to state 39
-    LITERAL   shift, and go to state 40
-
-
-State 35
-
-    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME . LEFT_ASSIGN LITERAL
-
-    LEFT_ASSIGN  shift, and go to state 41
-
-
-State 36
-
-   12 simple_statement: '@' VAR_NAME '[' LITERAL . LITERAL ']'
-
-    LITERAL  shift, and go to state 42
-
-
-State 37
-
-    8 simple_statement: VAR_NAME '[' LITERAL LITERAL ']' . LEFT_ASSIGN LITERAL
-
-    LEFT_ASSIGN  shift, and go to state 43
-
-
-State 38
-
-   11 simple_statement: LITERAL RIGHT_ASSIGN VAR_NAME '[' LITERAL . LITERAL ']'
-
-    LITERAL  shift, and go to state 44
-
-
-State 39
 
     4 simple_statement: VAR_TYPE VAR_NAME vars LEFT_ASSIGN VAR_NAME .
 
     $default  reduce using rule 4 (simple_statement)
 
 
-State 40
+State 34
 
     3 simple_statement: VAR_TYPE VAR_NAME vars LEFT_ASSIGN LITERAL .
 
     $default  reduce using rule 3 (simple_statement)
 
 
-State 41
+State 35
 
     5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN . LITERAL
 
-    LITERAL  shift, and go to state 45
+    LITERAL  shift, and go to state 37
 
 
-State 42
+State 36
 
-   12 simple_statement: '@' VAR_NAME '[' LITERAL LITERAL . ']'
+    7 simple_statement: '@' VAR_NAME '[' LITERAL LITERAL . ']'
 
-    ']'  shift, and go to state 46
-
-
-State 43
-
-    8 simple_statement: VAR_NAME '[' LITERAL LITERAL ']' LEFT_ASSIGN . LITERAL
-
-    LITERAL  shift, and go to state 47
+    ']'  shift, and go to state 38
 
 
-State 44
-
-   11 simple_statement: LITERAL RIGHT_ASSIGN VAR_NAME '[' LITERAL LITERAL . ']'
-
-    ']'  shift, and go to state 48
-
-
-State 45
+State 37
 
     5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN LITERAL .
 
     $default  reduce using rule 5 (simple_statement)
 
 
-State 46
+State 38
 
-   12 simple_statement: '@' VAR_NAME '[' LITERAL LITERAL ']' .
+    7 simple_statement: '@' VAR_NAME '[' LITERAL LITERAL ']' .
 
-    $default  reduce using rule 12 (simple_statement)
-
-
-State 47
-
-    8 simple_statement: VAR_NAME '[' LITERAL LITERAL ']' LEFT_ASSIGN LITERAL .
-
-    $default  reduce using rule 8 (simple_statement)
-
-
-State 48
-
-   11 simple_statement: LITERAL RIGHT_ASSIGN VAR_NAME '[' LITERAL LITERAL ']' .
-
-    $default  reduce using rule 11 (simple_statement)
+    $default  reduce using rule 7 (simple_statement)

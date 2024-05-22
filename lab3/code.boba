@@ -1,16 +1,9 @@
-small abc<<2,
-tiny gg<<1,
-big GG<<-16384,
-
-@gg,
-@abc,
+field normal small arr<<0,
+big GG<<-9000,
+small bbc<<8,
+tiny hh<<1,
+arr[9 9]>>GG<<-3>>bbc>>hh<<5,
+@arr[9 9],
 @GG,
-
-
-gg abc<<GG,
-@gg,
-@abc,
-@GG,
-9>>abc,
-@abc.
-
+@bbc,
+@hh.

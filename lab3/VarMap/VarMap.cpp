@@ -24,6 +24,22 @@ Var::Var(VarType type, const std::string& name, int value) : name(name), isField
 	}
 }
 
+void Var::changeValue(int nvalue)
+{
+	if(nvalue>=VarMap::size_table[type]) 
+	{
+		if(type==VarType::tiny) value=VarMap::size_table[type];
+		else value=VarMap::size_table[type]-1;
+	}
+	else if(nvalue<-VarMap::size_table[type]/2) value=-VarMap::size_table[type]/2;
+	else value=nvalue;
+
+	if(isField)
+	{
+		dynamic_cast<Field*>(this)->updateItems();
+	}
+}
+
 Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : Var(item_type, name, value), size_type(size_type), matr(VarMap::size_table[size_type]*VarMap::size_table[size_type], Var(item_type, "", value))
 {
 	isField=true;
@@ -47,6 +63,36 @@ Var& Field::getVar(int ind1, int ind2)
 	else
 	{
 		return matr[VarMap::size_table[size_type]*ind1+ind2];
+	}
+}
+
+void AssignOperator::perform()
+{
+	if(type==AssignType::Left) //a<<b
+	{
+		if(!left.isVar)
+		{
+			VarMap::err_code=Err::invalidAssign;
+			throw std::invalid_argument("Error. Cant assign anything to literal.");
+		}
+		else
+		{
+			left.var->changeValue(right.value);
+			//changeVar(left.var->name, right.value);
+		}
+	}
+	else
+	{
+		if(!right.isVar)
+		{
+			VarMap::err_code=Err::invalidAssign;
+			throw std::invalid_argument("Error. Cant assign anything to literal.");
+		}
+		else
+		{
+			right.var->changeValue(left.value);
+			//changeVar(right.var->name, left.value);
+		}
 	}
 }
 
@@ -193,6 +239,16 @@ void VarMap::pushVarToInit(const std::string& name)
 	to_initialize.emplace_back(VarType::tiny, name, 0);	
 }
 
+void VarMap::pushOperand(Operand op)
+{
+	operand_stack.push(op);
+}
+
+void VarMap::pushOperator(AssignOperator op)
+{
+	oper_queue.push(op);
+}
+
 void VarMap::flushInit(VarType init_type, int value)
 {
 	for(auto& var: to_initialize)
@@ -220,6 +276,39 @@ void VarMap::flushAssign(int value)
 	to_initialize.clear();
 }
 
+void VarMap::flushAssignExpr()
+{
+	std::vector<AssignOperator> operations;
+	//std::vector<Var*> vars;
+	while(!oper_queue.empty())
+	{
+		AssignOperator oper=oper_queue.front();
+		oper_queue.pop();
+
+		oper.right=operand_stack.top();
+		operand_stack.pop();
+		oper.left=operand_stack.top();
+		operations.push_back(oper);
+	}
+	operand_stack.pop();
+	
+	for(auto& operation: operations)
+	{
+		if(operation.type==AssignType::Right)
+		{
+			operation.perform();
+		}
+	}
+
+	for(auto& operation: operations)
+	{
+		if(operation.type==AssignType::Left)
+		{
+			operation.perform();
+		}
+
+	}
+}
 /*void VarMap::flushAssignArr(int value)
 {
 	for(auto& var: to_initialize)

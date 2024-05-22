@@ -1,0 +1,15 @@
+All vars from init queue were intialized
+All vars from init queue were intialized
+All vars from init queue were intialized
+All vars from init queue were intialized
+operand_variable: 
+small abc 9
+operand_variable: 
+normal bb 3
+operand_variable: 
+tiny h 1
+operand_variable: 
+big GG 9000
+left_assignment
+left_assignment
+right_assignment

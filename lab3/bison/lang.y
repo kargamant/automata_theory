@@ -20,6 +20,7 @@
 	void yyerror(const char *s);
 
 	VarMap vm;	
+	int last_operand;
 	std::vector<std::string> targetVec;
 	int source_value;
 	std::ofstream bison_logger("report_bison.txt");
@@ -114,7 +115,7 @@ simple_statement:
 								vm.setErrCode(Err::no_error);	
 							}
 						}
-	| VAR_NAME vars LEFT_ASSIGN VAR_NAME
+	/*| VAR_NAME vars LEFT_ASSIGN VAR_NAME
 						{
 						vm.pushVarToInit(*$1);
 						try
@@ -161,8 +162,8 @@ simple_statement:
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
-						}
-	| VAR_NAME '[' LITERAL LITERAL ']' LEFT_ASSIGN LITERAL
+						}*/
+	/*| VAR_NAME '[' LITERAL LITERAL ']' LEFT_ASSIGN LITERAL
 						{
 							bool isVar=true;
 							try
@@ -199,8 +200,8 @@ simple_statement:
 									vm.setErrCode(Err::no_error);	
 								}
 							}
-						}
-	|  VAR_NAME RIGHT_ASSIGN VAR_NAME vars
+						}*/
+	/*|  VAR_NAME RIGHT_ASSIGN VAR_NAME vars
 						{
 						vm.pushVarToInit(*$3);
 						try
@@ -247,8 +248,12 @@ simple_statement:
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 							
-						}
-	| LITERAL RIGHT_ASSIGN VAR_NAME '[' LITERAL LITERAL ']'
+						}*/
+	  | assign_expr 				
+	  					{
+	  						vm.flushAssignExpr();
+	  					}
+	/*| LITERAL RIGHT_ASSIGN VAR_NAME '[' LITERAL LITERAL ']'
 						{
 							bool isVar=true;
 							try
@@ -285,7 +290,7 @@ simple_statement:
 									vm.setErrCode(Err::no_error);	
 								}
 							}
-						}
+						}*/
 	| '@' VAR_NAME '[' LITERAL LITERAL ']' 
 						{
 							if(!vm.getVar(*$2)->isField)
@@ -344,29 +349,39 @@ simple_statement:
 				}
 				/*
 					
-				assign_expr:
-	  				 target LEFT_ASSIGN source {}
-	   				| source RIGHT_ASSIGN target {}
-				target:
-					VAR_NAME {
-							targetVec.push_back(*$1);
-						}
-					;
-					source:
-					VAR_NAME {
-							try
-							{
-								source_value=vm.getVar(*$1);
-							}
-							catch(std::invalid_argument error)
-							{
-				
-							}
-						}
-					| LITERAL {}
-					;
 								*/
 			}
+	;
+assign_expr:
+	operand LEFT_ASSIGN assign_expr	
+					{
+						vm.pushOperator({AssignType::Left});	
+						bison_logger<<"left_assignment"<<std::endl;
+					}
+	| operand RIGHT_ASSIGN assign_expr	{
+						vm.pushOperator({AssignType::Right});	
+						bison_logger<<"right_assignment"<<std::endl;
+					}
+	| operand
+	;
+operand:
+	LITERAL		{
+				vm.pushOperand({$1});
+				bison_logger<<"operand_literal: "<<$1<<std::endl;
+			}
+	| VAR_NAME	{
+				vm.pushOperand({vm.getVar(*$1)});
+				bison_logger<<"operand_variable: "<<std::endl;
+				bison_logger<<*vm.getVar(*$1);
+				bison_logger<<std::endl;
+			}
+	| VAR_NAME '[' LITERAL LITERAL ']' {
+					vm.pushOperand({vm.getVar(*$1), $3, $4});
+					bison_logger<<"operand_indexed_variable: "<<std::endl;
+					bison_logger<<dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
+					bison_logger<<std::endl;
+					
+					}
 	;
 vars:
     	VAR_NAME vars {

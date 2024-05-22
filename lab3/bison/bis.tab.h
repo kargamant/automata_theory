@@ -71,7 +71,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 29 "bison/lang.y"
+#line 30 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
