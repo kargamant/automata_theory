@@ -4,6 +4,7 @@
 %token <num> LITERAL
 %token <var_type> VAR_TYPE
 %token ARRAY
+//%nterm <num> signed_operand
 %nterm <num> operand
 %nterm <num> numeric_operand
 %nterm <num> logic_expr
@@ -74,6 +75,7 @@ simple_statement:
 						}
 	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN operand
 						{
+							bison_logger<<$6<<std::endl;
 							vm.clearBuffers();
 							//Field fld{$2, $3, *$4, $7};
 							try
@@ -205,6 +207,19 @@ assign_expr:
 						//bison_logger<<"expr"<<std::endl;	
 					}
 	;
+/*signed_operand:
+	'+' operand	{
+				$$=$2;
+				bison_logger<<"plused operand_literal: "<<$$<<std::endl;
+			}
+	| '-' operand	{
+				$$=-$2;
+				bison_logger<<"minused operand_literal: "<<$$<<std::endl;
+			}
+	| operand	{
+				$$=$1;
+			}
+	;*/
 operand:
 	numeric_operand		{
 					$$=$1;
@@ -361,7 +376,17 @@ expr:
 					$$=$1;
 					//vm.popOperand();
 					bison_logger<<"operand with value "<<$1<<std::endl;
-				}
+					}
+	| '+' expr_operand		{
+					$$=$2;
+					//vm.popOperand();
+					bison_logger<<"plused operand with value "<<$2<<std::endl;
+					}
+	| '-' expr_operand		{
+					$$=-$2;
+					//vm.popOperand();
+					bison_logger<<"minused operand with value "<<-$2<<std::endl;
+					}
 	| expr '*' expr		{
 					$$=$1*$3;
 					//vm.pushOperand($$);

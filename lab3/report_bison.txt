@@ -1,65 +1,24 @@
-operand_literal: 3
-operand with value 3
-expr from logic expr
+operand_literal: 9
+All vars from init queue were intialized
+operand_variable: 
+small a 9
+plused operand with value 9
+operand_literal: 9
+operand_variable: 
+small a 9
+plused operand with value 9
+operand_variable: 
+small a 9
+operand with value 9
+difference between two expressions with value 0
+operand_literal: 0
+operand_variable: 
+small a 9
+plused operand with value 9
 operand_literal: 5
 operand with value 5
-expr from logic expr
-operand_literal: 9
-operand with value 9
-expr from logic expr
-operand_literal: 8
-operand with value 8
-expr from logic expr
-9>8: 1
-(1)
-5<1: 0
-(0)
-3>0: 1
-operand_literal: 1
-All vars from init queue were intialized
-operand_literal: 90
-operand_indexed_variable: 
-normal  90
-operand with value 90
-expr from logic expr
+sum of two expressions with value 14
+operand_literal: 14
+14
 operand_variable: 
-small a 1
-operand with value 1
-expr from logic expr
-90>1: 1
-operand_literal: 1
-operand_literal: 9
-operand with value 9
-operand_literal: 8
-operand with value 8
-sum of two expressions with value 17
-expression in brackets with value 17
-operand_variable: 
-small a 1
-operand with value 1
-operand_literal: 3
-operand with value 3
-sum of two expressions with value 4
-expression in brackets with value 4
-product of two expressions with value 68
-operand_literal: 68
-operand_indexed_variable: 
-normal  90
-operand_indexed_variable: 
-normal  90
-right_assignment
-right_assignment
-operand_indexed_variable: 
-normal  68
-operand_indexed_variable: 
-normal  68
-operand_indexed_variable: 
-normal  68
-operand with value 68
-expr from logic expr
-operand_indexed_variable: 
-normal  68
-operand with value 68
-expr from logic expr
-68<=68: 1
-operand_literal: 1
+small HH 14
