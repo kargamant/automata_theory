@@ -482,9 +482,10 @@ char *yytext;
 #include "../bison/bis.tab.h"
 #include <cstdlib>
 #include <string>
+#include "../Ast/Ast.h"
 std::ofstream flex_logger("report_flex.txt");
-#line 487 "flex/lex.yy.c"
 #line 488 "flex/lex.yy.c"
+#line 489 "flex/lex.yy.c"
 
 #define INITIAL 0
 
@@ -701,10 +702,10 @@ YY_DECL
 		}
 
 	{
-#line 22 "flex/recognizer.l"
+#line 23 "flex/recognizer.l"
 
 
-#line 708 "flex/lex.yy.c"
+#line 709 "flex/lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -763,7 +764,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 24 "flex/recognizer.l"
+#line 25 "flex/recognizer.l"
 {
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
@@ -776,7 +777,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 33 "flex/recognizer.l"
+#line 34 "flex/recognizer.l"
 {
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
@@ -789,7 +790,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 43 "flex/recognizer.l"
+#line 44 "flex/recognizer.l"
 {
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
@@ -804,7 +805,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 54 "flex/recognizer.l"
+#line 55 "flex/recognizer.l"
 {
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
@@ -817,7 +818,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 63 "flex/recognizer.l"
+#line 64 "flex/recognizer.l"
 {
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
@@ -830,7 +831,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 72 "flex/recognizer.l"
+#line 73 "flex/recognizer.l"
 {
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
@@ -843,7 +844,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 81 "flex/recognizer.l"
+#line 82 "flex/recognizer.l"
 {
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
@@ -856,7 +857,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 91 "flex/recognizer.l"
+#line 92 "flex/recognizer.l"
 {
 						yylloc.first_column=yylloc.last_column+1;
 						yylloc.last_column+=strlen(yytext);
@@ -868,7 +869,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 100 "flex/recognizer.l"
+#line 101 "flex/recognizer.l"
 {
 			yylloc.first_column=yylloc.last_column+1;
 			yylloc.last_column+=strlen(yytext);
@@ -882,7 +883,7 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 109 "flex/recognizer.l"
+#line 110 "flex/recognizer.l"
 {
 			yylloc.last_line=++yylloc.first_line;
 			yylloc.last_column=yylloc.first_column=0;
@@ -890,10 +891,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 114 "flex/recognizer.l"
+#line 115 "flex/recognizer.l"
 ECHO;
 	YY_BREAK
-#line 897 "flex/lex.yy.c"
+#line 898 "flex/lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1898,7 +1899,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 114 "flex/recognizer.l"
+#line 115 "flex/recognizer.l"
 
 
 

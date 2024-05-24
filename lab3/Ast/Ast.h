@@ -1,3 +1,4 @@
+#pragma once
 #include "../VarMap/VarMap.h"
 
 enum class nodeType
@@ -48,9 +49,23 @@ struct Node
 	virtual void printNode(std::ostream& stream=std::cout, int spaces=0)=0;
 };
 
+
+class Ast
+{
+	public:
+		Node* root;
+		Ast(Node* root=nullptr) : root(root) {}
+		Ast(Node* node, Ast* ast);
+		Ast(Node* node, Ast* ast1, Ast* ast2);
+		void printAst(std::ostream& stream=std::cout);
+		void execute();
+};
+
+
 struct CstmtNode : public Node
 {
 	std::string func_name;
+	VarMap vm;
 	std::vector<Ast*> stmts;
 	CstmtNode(std::vector<Ast*> stmts, std::string func_name) : Node(nodeType::cstmt), stmts(stmts), func_name(func_name) {}
 	int execute() override;
@@ -69,13 +84,15 @@ struct OperatorNode : public Node
 {
 	operatorType type;
 	std::vector<Node*> args;
-	OpertorNode(operatorType type, std::vector<Node*> args) : Node(nodeType::oper), type(type), args(args) {}
-	int execute() override;
+	OperatorNode(operatorType type, std::vector<Node*> args) : Node(nodeType::oper), type(type), args(args) {}
+	//int execute() override;
+	//void printNode(std::ostream& stream=std::cout, int spaces=0);
+	//virtual ~OperatorNode() {}
 };
 
 struct PrintValueOperator : public OperatorNode
 {
-	PrintOperator(Node* target) : OperatorNode(operatorType::printValue, {target}) {}	
+	PrintValueOperator(Node* target) : OperatorNode(operatorType::printValue, {target}) {}	
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
@@ -96,16 +113,6 @@ struct LogicOperator : public OperatorNode
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
-class Ast
-{
-	public:
-		Node* root;
-		Ast(Node* root=nullptr) : root(root) {}
-		Ast(Node* node, Ast* ast);
-		Ast(Node* node, Ast* ast1, Ast* ast2);
-		void printAst(std::ostream& stream=std::cout);
-		void execute();
-};
 
 
 

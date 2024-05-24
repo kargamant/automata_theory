@@ -5,7 +5,7 @@ Ast::Ast(Node* node, Ast* ast)
 	root=node;
 	root->left=ast->root;
 }
-Ast(Node* node, Ast* ast1, Ast* ast2) 
+Ast::Ast(Node* node, Ast* ast1, Ast* ast2) 
 {
 	root=node;
 	root->left=ast1->root;
@@ -15,19 +15,19 @@ void Ast::execute()
 {
 	root->execute();
 }
-int CstmtNode::execute() override
+int CstmtNode::execute()
 {
 	for(auto& ast: stmts)
 	{
 		ast->execute();
 	}
 }
-int OperandNode::execute() override
+int OperandNode::execute()
 {
 	return operand->value;
 }
 
-int PrintValueOperator::execute() override
+int PrintValueOperator::execute()
 {
 	if(args[0]->type==nodeType::operand) std::cout<<dynamic_cast<OperandNode*>(args[0])->operand->value<<std::endl;
 	else
@@ -37,7 +37,7 @@ int PrintValueOperator::execute() override
 	return 0;
 }
 
-int ArifmeticOperator::execute() override
+int ArifmeticOperator::execute()
 {
 	switch(type)
 	{
@@ -56,22 +56,22 @@ int ArifmeticOperator::execute() override
 	}
 }
 
-int LogicOperator::execute() override
+int LogicOperator::execute()
 {
 	switch(type)
 	{
-		case ArifmeticType::le:
+		case LogicType::le:
 			return args[0]->execute()<=args[1]->execute();	
-		case ArifmeticType::me:
+		case LogicType::me:
 			return args[0]->execute()>=args[1]->execute();
-		case ArifmeticType::l:
+		case LogicType::l:
 		        return args[0]->execute()<args[1]->execute();
-		case ArifmeticType::m:
+		case LogicType::m:
 		        return args[0]->execute()>args[1]->execute();
 	}
 }
 
-void OperandNode::printNode(std::ostream& stream=std::cout, int spaces=0) override
+void OperandNode::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
 	if(operand->isVar)
@@ -81,11 +81,11 @@ void OperandNode::printNode(std::ostream& stream=std::cout, int spaces=0) overri
 	}
 	else
 	{
-		stream<<operand->value;
+		stream<<operand->value<<std::endl;
 	}
 }
 
-void PrintValueOperator::printNode(std::ostream& stream=std::cout, int spaces=0) override
+void PrintValueOperator::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
 	stream<<"@"<<std::endl;
@@ -93,7 +93,7 @@ void PrintValueOperator::printNode(std::ostream& stream=std::cout, int spaces=0)
 }
 
 
-void ArifmeticOperator::printNode(std::ostream& stream=std::cout, int spaces=0) override
+void ArifmeticOperator::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
 	switch(type)
@@ -102,48 +102,58 @@ void ArifmeticOperator::printNode(std::ostream& stream=std::cout, int spaces=0) 
 			stream<<"+"<<std::endl;
 			left->printNode(stream, spaces+4);
 			right->printNode(stream, spaces+4);
+			break;
 		case ArifmeticType::minus:
 			stream<<"-"<<std::endl;
 			left->printNode(stream, spaces+4);
 			right->printNode(stream, spaces+4);
+			break;
 		case ArifmeticType::div:
 			stream<<"/"<<std::endl;
 			left->printNode(stream, spaces+4);
 			right->printNode(stream, spaces+4);
+			break;
 		case ArifmeticType::mult:
 			stream<<"*"<<std::endl;
 			left->printNode(stream, spaces+4);
 			right->printNode(stream, spaces+4);
+			break;
 		case ArifmeticType::uminus:
 			stream<<"-"<<std::endl;
 			left->printNode(stream, spaces+4);
+			break;
 		case ArifmeticType::uplus:
 			stream<<"+"<<std::endl;
 			left->printNode(stream, spaces+4);
+			break;
 	}
 	
 }
 
 
-void LogicOperator::printNode(std::ostream& stream=std::cout, int spaces=0) override
+void LogicOperator::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
 	switch(type)
 	{
-		case ArifmeticType::le:
+		case LogicType::le:
 			stream<<"<="<<std::endl;
-		case ArifmeticType::me:
+			break;
+		case LogicType::me:
 			stream<<"=>"<<std::endl;
-		case ArifmeticType::l:
+			break;
+		case LogicType::l:
 			stream<<"<"<<std::endl;
-		case ArifmeticType::m:
+			break;
+		case LogicType::m:
 			stream<<">"<<std::endl;
+			break;
 	}
 	left->printNode(stream, spaces+4);
 	right->printNode(stream, spaces+4);
 }
 
-void CstmtNode::printNode(std::ostream& stream=std::cout, int spaces=0) override
+void CstmtNode::printNode(std::ostream& stream, int spaces)
 {
 	stream<<"function "<<func_name<<std::endl;
 	for(auto& ast: stmts)

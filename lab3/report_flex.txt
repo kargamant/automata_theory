@@ -1,22 +1,16 @@
 @
 @ parsed
-2
+5
 literal parsed
-,
-, parsed
-small
-var_type parsed
-k
-var_name parsed
-<<
-left_assign parsed
-9
+-
+- parsed
+-3
 literal parsed
 ,
 , parsed
 @
 @ parsed
-k
-var_name parsed
-,
-, parsed
+5
+literal parsed
+.
+. parsed

@@ -1,5 +1,7 @@
-operand_literal: 2
-operand_literal: 9
-All vars from init queue were intialized
-operand_variable: 
-small k 9
+operand_literal: 5
+operand with value 0x563d789106a0
+operand_literal: -3
+operand with value 0x563d78910710
+difference between two expressions with value 0x563d78910780
+operand_literal: 0x563d78910780
+operand_literal: 0x563d789108c0

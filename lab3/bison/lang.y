@@ -23,6 +23,7 @@
 	#include <iostream>
 	#include <string>
 	#include "../VarMap/VarMap.h"
+	#include "../Ast/Ast.h"
 	#include <fstream>
 }
 %{
@@ -34,6 +35,7 @@
 
 	VarMap vm;	
 	Ast ast;
+	CstmtNode* main_func=new CstmtNode({}, "main");
 	std::ofstream bison_logger("report_bison.txt");
 %}
 
@@ -44,7 +46,6 @@
 	int num;
 	bool logic;
 	Ast* st;
-	CstmtNode* main_func=new CstmtNode({}, "main");
 	//st->setRoot(main);
 }
 
@@ -52,10 +53,12 @@
 %%
 complex_statement:
 	simple_statement ',' complex_statement {
-						st->setRoot(main_func);
-						st->printAst();
+						ast.root=main_func;
+						ast.printAst();
 						}
 	| simple_statement '.' {
+					ast.root=main_func;
+					ast.printAst();
 				}
 
 simple_statement:
@@ -127,10 +130,11 @@ simple_statement:
 								vm.setErrCode(Err::no_error);	
 							}
 	  					}*/
-	| '@' operand				{
+	//place | after debug here
+	'@' operand				{
 							Ast* ost=new Ast(new PrintValueOperator($2->root), $2);
 							$$=ost;
-							main_func.stmts.push_back(ost);
+							main_func->stmts.push_back(ost);
 							//std::cout<<$2<<std::endl;
 						}
 	/*| '$' VAR_NAME '[' LITERAL LITERAL ']' 
@@ -294,7 +298,7 @@ operand:
 	;
 numeric_operand:
 	LITERAL		{
-				Ast* ost=new Ast(new OperandNode({$1}));
+				Ast* ost=new Ast(new OperandNode(new Operand({$1})));
 				$$=ost;
 			}
 	| expr		{
@@ -396,7 +400,7 @@ expr:
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uminus, {$2->root}), $2);
 					$$=ost;
 					//vm.popOperand();
-					bison_logger<<"minused operand with value "<<-$2<<std::endl;
+					//bison_logger<<"minused operand with value "<<-$2<<std::endl;
 					}
 	| expr '*' expr		{
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::mult, {$1->root, $3->root}), $1, $3);
