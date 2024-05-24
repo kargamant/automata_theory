@@ -105,28 +105,16 @@ simple_statement:
 							ost->execute();
 							$$=ost;	
 						}
-	  /*| assign_expr 				
+	| assign_expr 				
 	  					{
-							try
-							{
-	  							vm->flushAssignExpr();
-							}
-							catch(std::invalid_argument error)
-							{
-								if(vm->getErrCode()==Err::invalidAssign)
-								{
-									std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-								}
-								else if(vm->getErrCode()==Err::outOfRange)
-								{
-									std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-								}
-
-								std::cerr<<"Error text: "<<error.what()<<std::endl;
-								vm->setErrCode(Err::no_error);	
-							}
-	  					}*/
-	//place | after debug here
+							std::vector<int> params;
+							params.push_back(@1.first_line);
+							OperatorNode* on=new AssigningOperator(vm, params);
+							Ast* ost=new Ast(on);
+							main_func->stmts.push_back(ost);
+							ost->execute();
+							$$=ost;	
+	  					}
 	| '@' operand				{
 							Ast* ost=new Ast(new PrintValueOperator($2->root), $2);
 							$$=ost;
@@ -199,7 +187,7 @@ simple_statement:
 				}
 			}
 	;*/
-/*
+
 assign_expr:
 	operand LEFT_ASSIGN assign_expr	
 					{
@@ -219,12 +207,19 @@ assign_expr:
 						//vm->pushOperand(op);
 						//bison_logger<<"expr"<<std::endl;	
 					}
-	;*/
+	;
 
 operand:
 	numeric_operand		{
 					$$=$1;
-					//vm->pushOperand({$1});
+					if($1->root->type==nodeType::oper)
+					{
+						vm->pushOperand({$1->root->execute()});
+					}
+					else
+					{
+						vm->pushOperand(*dynamic_cast<OperandNode*>($1->root)->operand);
+					}
 					bison_logger<<"operand_literal: "<<$1<<std::endl;
 				}
 	| VAR_NAME	{
@@ -260,7 +255,7 @@ operand:
 						bool isError=false;
 						try
 						{
-							//vm->pushOperand({vm->getVar(*$1), $3, $4});
+							vm->pushOperand({vm->getVar(*$1), $3, $4});
 							bison_logger<<"operand_indexed_variable: "<<std::endl;
 							bison_logger<<dynamic_cast<Field*>(vm->getVar(*$1))->getVar($3, $4);
 							bison_logger<<std::endl;

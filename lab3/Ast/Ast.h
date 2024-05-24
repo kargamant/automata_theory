@@ -81,9 +81,11 @@ struct OperandNode : public Node
 
 struct OperatorNode : public Node
 {
+	bool isExecuted=false;
 	operatorType type;
 	std::vector<Node*> args;
 	OperatorNode(operatorType type, std::vector<Node*> args) : Node(nodeType::oper), type(type), args(args) {}
+	OperatorNode(operatorType type) : Node(nodeType::oper), type(type) {}
 	//int execute() override;
 	//void printNode(std::ostream& stream=std::cout, int spaces=0);
 	//virtual ~OperatorNode() {}
@@ -123,7 +125,14 @@ struct DefiningOperator : public OperatorNode
 
 };
 
-
+struct AssigningOperator : public OperatorNode
+{
+	VarMap* vm;
+	std::vector<int> params;
+	AssigningOperator(VarMap* vm, std::vector<int> params) : OperatorNode(operatorType::assignExpr), vm(vm), params(params) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+};
 
 
 

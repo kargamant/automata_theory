@@ -76,6 +76,7 @@ int LogicOperator::execute()
 
 int DefiningOperator::execute()
 {
+	if(isExecuted) return 0;
 	try
 	{
 		int operand=args[0]->execute();
@@ -101,7 +102,33 @@ int DefiningOperator::execute()
 		std::cerr<<"E00000rror text: "<<error.what()<<std::endl;
 		vm->setErrCode(Err::no_error);	
 	}
+	isExecuted=true;
 	return 0;
+}
+
+int AssigningOperator::execute()
+{
+	if(isExecuted) return 0;
+	try
+	{
+		vm->flushAssignExpr();
+	}
+	catch(std::invalid_argument error)
+	{
+		if(vm->getErrCode()==Err::invalidAssign)
+		{
+			std::cerr<<"Syntax error at line "<<params[0]<<std::endl;
+		}
+		else if(vm->getErrCode()==Err::outOfRange)
+		{
+			std::cerr<<"Syntax error at line "<<params[0]<<std::endl;
+		}
+
+		std::cerr<<"Error text: "<<error.what()<<std::endl;
+		vm->setErrCode(Err::no_error);	
+	}
+	isExecuted=true;
+	return 0;	
 }
 
 void OperandNode::printNode(std::ostream& stream, int spaces)
@@ -204,6 +231,11 @@ void DefiningOperator::printNode(std::ostream& stream, int spaces)
 {
 	stream<<"<"<<nameByType(typeByInt(params[0]))<<"> defining with:"<<std::endl;
 	args[0]->printNode(stream, spaces+6);
+}
+
+void AssigningOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<"assigning expression"<<std::endl;
 }
 
 

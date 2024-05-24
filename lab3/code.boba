@@ -1,11 +1,11 @@
 normal b<<30,
 small k<<5,
 small f<<-2,
-big Hype<<1023,
+small Hype<<23,
 big GG<<9,
 (b+k)/(k-f)>>GG<<Hype<<f<<(k+b)>>b,
-$b,
-$k,
-$f,
-$GG,
-$Hype.
+@b,
+@k,
+@f,
+@GG,
+@Hype.
