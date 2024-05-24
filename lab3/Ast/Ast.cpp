@@ -21,6 +21,7 @@ int CstmtNode::execute()
 	{
 		ast->execute();
 	}
+	return 0;
 }
 int OperandNode::execute()
 {
@@ -54,6 +55,7 @@ int ArifmeticOperator::execute()
 		case ArifmeticType::uplus:
 			return args[0]->execute();
 	}
+	return 0;
 }
 
 int LogicOperator::execute()
@@ -69,6 +71,30 @@ int LogicOperator::execute()
 		case LogicType::m:
 		        return args[0]->execute()>args[1]->execute();
 	}
+	return 0;
+}
+
+int DefiningOperator::execute()
+{
+	try
+	{
+		int operand=args[0]->execute();
+		vm->flushInit(typeByInt(params[0]), operand);
+	}
+	catch(std::invalid_argument error)
+	{
+		if(vm->getErrCode()==Err::typeMisMatch)
+		{
+			std::cerr<<"Syntax error at line "<<params[1]<<std::endl;
+		}
+		else if(vm->getErrCode()==Err::redefinition)
+		{
+			std::cerr<<"Syntax error at line "<<params[2]<<std::endl;
+		}
+		std::cerr<<"E00000rror text: "<<error.what()<<std::endl;
+		vm->setErrCode(Err::no_error);	
+	}
+	return 0;
 }
 
 void OperandNode::printNode(std::ostream& stream, int spaces)
@@ -167,6 +193,11 @@ void Ast::printAst(std::ostream& stream)
 	root->printNode(stream, 0);
 }
 
+void DefiningOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<"<"<<nameByType(typeByInt(params[0]))<<"> defining with:"<<std::endl;
+	args[0]->printNode(stream, spaces+6);
+}
 
 
 

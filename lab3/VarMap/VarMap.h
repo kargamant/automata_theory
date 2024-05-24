@@ -8,7 +8,7 @@
 
 //todo: table with boundaries for every type
 
-enum class VarType
+enum VarType
 {
 	tiny,
 	small,
@@ -36,7 +36,9 @@ enum class Err
 
 
 VarType typeByName(const std::string& type_name);
-std::string nameByType(VarType& type);
+std::string nameByType(VarType type);
+VarType typeByInt(int t);
+int intByType(VarType type);
 
 struct Var
 {

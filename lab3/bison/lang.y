@@ -33,7 +33,7 @@
 	int yylex(void);
 	void yyerror(const char *s);
 
-	VarMap vm;	
+	VarMap* vm=new VarMap();	
 	Ast ast;
 	CstmtNode* main_func=new CstmtNode(std::vector<Ast*>(), "main");
 	std::ofstream bison_logger("report_bison.txt");
@@ -53,85 +53,97 @@
 %%
 complex_statement:
 	simple_statement ',' complex_statement {
-						ast.root=main_func;
-						ast.printAst();
-						main_func->execute();
+						//ast.root=main_func;
+						//main_func->execute();
+						//ast.printAst();
 						//ast.execute();
 						}
 	| simple_statement '.' {
 					ast.root=main_func;
-					ast.printAst();
 					main_func->execute();
+					ast.printAst();
 					//ast.execute();
 				}
 
 simple_statement:
 	VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
-						/*vm.clearBuffers();
-						vm.pushVarToInit(*$2);
-						try
+						vm->clearBuffers();
+						vm->pushVarToInit(*$2);
+						std::vector<Node*> args;
+						args.push_back($5->root);
+						std::vector<int> params;
+						params.push_back(intByType($1));
+						params.push_back(@5.first_line);
+						params.push_back(@2.first_line);
+						OperatorNode* on=new DefiningOperator(vm, args, params);
+						Ast* ost=new Ast(on);
+
+						main_func->stmts.push_back(ost);
+						ost->execute();
+						$$=ost;	
+						/*try
 						{
-							vm.flushInit($1, $5);
+							vm->flushInit($1, $5);
 						}
 						catch(std::invalid_argument error)
 						{
-							if(vm.getErrCode()==Err::typeMisMatch)
+							if(vm->getErrCode()==Err::typeMisMatch)
 							{
 								std::cerr<<"Syntax error at line "<<@5.first_line<<std::endl;
 							}
-							else if(vm.getErrCode()==Err::redefinition)
+							else if(vm->getErrCode()==Err::redefinition)
 							{
 								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							vm.setErrCode(Err::no_error);	
+							vm->setErrCode(Err::no_error);	
 						}*/
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
 	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN operand
 						{
 							/*bison_logger<<$6<<std::endl;
-							vm.clearBuffers();
+							vm->clearBuffers();
 							//Field fld{$2, $3, *$4, $7};
 							try
 							{
 								Var* fld=new Field($2, $3, *$4, $6);
-								vm.addVar(fld);
+								vm->addVar(fld);
 							}
 							catch(std::invalid_argument error)
 							{
 								
-								if(vm.getErrCode()==Err::typeMisMatch)
+								if(vm->getErrCode()==Err::typeMisMatch)
 								{
 									std::cerr<<"Syntax error at line "<<@6.first_line<<std::endl;
 								}
-								else if(vm.getErrCode()==Err::redefinition)
+								else if(vm->getErrCode()==Err::redefinition)
 								{
 									std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
 								}
 								std::cerr<<"Error text: "<<error.what()<<std::endl;
-								vm.setErrCode(Err::no_error);	
+								vm->setErrCode(Err::no_error);	
 							}*/
 						}
 	  /*| assign_expr 				
 	  					{
 							try
 							{
-	  							vm.flushAssignExpr();
+	  							vm->flushAssignExpr();
 							}
 							catch(std::invalid_argument error)
 							{
-								if(vm.getErrCode()==Err::invalidAssign)
+								if(vm->getErrCode()==Err::invalidAssign)
 								{
 									std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								}
-								else if(vm.getErrCode()==Err::outOfRange)
+								else if(vm->getErrCode()==Err::outOfRange)
 								{
 									std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								}
 
 								std::cerr<<"Error text: "<<error.what()<<std::endl;
-								vm.setErrCode(Err::no_error);	
+								vm->setErrCode(Err::no_error);	
 							}
 	  					}*/
 	//place | after debug here
@@ -144,9 +156,9 @@ simple_statement:
 	;
 	/*| '$' VAR_NAME '[' LITERAL LITERAL ']' 
 						{
-							bool exists=vm.checkIfDefined(*$2);
+							bool exists=vm->checkIfDefined(*$2);
 
-							if(exists && !vm.getVar(*$2)->isField)
+							if(exists && !vm->getVar(*$2)->isField)
 							{
 								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 								std::cerr<<"Error. Variable "+*$2+" is not an array."<<std::endl;
@@ -155,21 +167,21 @@ simple_statement:
 							{
 								try
 								{
-									std::cout<<dynamic_cast<Field*>(vm.getVar(*$2))->getVar($4, $5);
+									std::cout<<dynamic_cast<Field*>(vm->getVar(*$2))->getVar($4, $5);
 									std::cout<<std::endl;
 								}
 								catch(std::invalid_argument error)
 								{
-									if(vm.getErrCode()==Err::undefined)
+									if(vm->getErrCode()==Err::undefined)
 									{
 										std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 									}
-									else if(vm.getErrCode()==Err::outOfRange)
+									else if(vm->getErrCode()==Err::outOfRange)
 									{
 										std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
 									}
 									std::cerr<<"Error text: "<<error.what()<<std::endl;
-									vm.setErrCode(Err::no_error);	
+									vm->setErrCode(Err::no_error);	
 								}
 							}
 							else
@@ -184,14 +196,14 @@ simple_statement:
 				bool isError=false;
 				try
 				{
-					var=vm.getVar(*$2);
+					var=vm->getVar(*$2);
 				}
 				catch(std::invalid_argument error)
 				{
 					isError=true;
 					std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
 					std::cerr<<"Error text: "<<error.what()<<std::endl;
-					vm.setErrCode(Err::no_error);	
+					vm->setErrCode(Err::no_error);	
 				}
 				if(!isError) 
 				{
@@ -211,20 +223,20 @@ simple_statement:
 assign_expr:
 	operand LEFT_ASSIGN assign_expr	
 					{
-						vm.pushOperator({AssignType::Left});	
+						vm->pushOperator({AssignType::Left});	
 						bison_logger<<"left_assignment"<<std::endl;
 					}
 	| operand RIGHT_ASSIGN assign_expr	{
-						//vm.pushOperand({$1});
+						//vm->pushOperand({$1});
 
-						//vm.pushOperand(op);
-						vm.pushOperator({AssignType::Right});	
+						//vm->pushOperand(op);
+						vm->pushOperator({AssignType::Right});	
 						bison_logger<<"right_assignment"<<std::endl;
 					}
 	| operand			{
-						//vm.pushOperand({$1});
+						//vm->pushOperand({$1});
 
-						//vm.pushOperand(op);
+						//vm->pushOperand(op);
 						//bison_logger<<"expr"<<std::endl;	
 					}
 	;*/
@@ -232,19 +244,19 @@ assign_expr:
 operand:
 	numeric_operand		{
 					$$=$1;
-					//vm.pushOperand({$1});
+					//vm->pushOperand({$1});
 					bison_logger<<"operand_literal: "<<$1<<std::endl;
 				}
 	| VAR_NAME	{
 			
-				if(vm.checkIfDefined(*$1))
+				if(vm->checkIfDefined(*$1))
 				{
-					Ast* ost=new Ast(new OperandNode(new Operand({vm.getVar(*$1)})));
+					Ast* ost=new Ast(new OperandNode(new Operand({vm->getVar(*$1)})));
 					$$=ost;
-					//$$=vm.getVar(*$1)->value;
-					vm.pushOperand({vm.getVar(*$1)});
+					//$$=vm->getVar(*$1)->value;
+					vm->pushOperand({vm->getVar(*$1)});
 					bison_logger<<"operand_variable: "<<std::endl;
-					bison_logger<<*vm.getVar(*$1);
+					bison_logger<<*vm->getVar(*$1);
 					bison_logger<<std::endl;
 				}
 				else
@@ -255,9 +267,9 @@ operand:
 				}
 			}
 	| VAR_NAME '[' LITERAL LITERAL ']' {
-					bool exists=vm.checkIfDefined(*$1);
+					bool exists=vm->checkIfDefined(*$1);
 
-					if(exists && !vm.getVar(*$1)->isField)
+					if(exists && !vm->getVar(*$1)->isField)
 					{
 						//$$=0;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
@@ -268,20 +280,20 @@ operand:
 						bool isError=false;
 						try
 						{
-							//vm.pushOperand({vm.getVar(*$1), $3, $4});
+							//vm->pushOperand({vm->getVar(*$1), $3, $4});
 							bison_logger<<"operand_indexed_variable: "<<std::endl;
-							bison_logger<<dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
+							bison_logger<<dynamic_cast<Field*>(vm->getVar(*$1))->getVar($3, $4);
 							bison_logger<<std::endl;
 						}
 						catch(std::invalid_argument error)
 						{
 							//$$=0;
 							isError=true;
-							if(vm.getErrCode()==Err::undefined)
+							if(vm->getErrCode()==Err::undefined)
 							{
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 							}
-							else if(vm.getErrCode()==Err::outOfRange)
+							else if(vm->getErrCode()==Err::outOfRange)
 							{
 								std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
 							}
@@ -289,7 +301,7 @@ operand:
 						}
 						if(!isError)
 						{
-							Ast* ost=new Ast(new OperandNode(new Operand({vm.getVar(*$1), $3, $4})));
+							Ast* ost=new Ast(new OperandNode(new Operand({vm->getVar(*$1), $3, $4})));
 							$$=ost;
 						}
 					}
@@ -322,14 +334,14 @@ expr_operand:
 				bison_logger<<"operand_literal: "<<$1<<std::endl;
 			}
 	| VAR_NAME	{
-				if(vm.checkIfDefined(*$1))
+				if(vm->checkIfDefined(*$1))
 				{
-					Ast* ost=new Ast(new OperandNode(new Operand({vm.getVar(*$1)})));
+					Ast* ost=new Ast(new OperandNode(new Operand({vm->getVar(*$1)})));
 					$$=ost;
-					//$$=vm.getVar(*$1)->value;
-					//vm.pushOperand({vm.getVar(*$1)});
+					//$$=vm->getVar(*$1)->value;
+					//vm->pushOperand({vm->getVar(*$1)});
 					bison_logger<<"operand_variable: "<<std::endl;
-					bison_logger<<*vm.getVar(*$1);
+					bison_logger<<*vm->getVar(*$1);
 					bison_logger<<std::endl;
 				}
 				else
@@ -340,9 +352,9 @@ expr_operand:
 				}
 			}
 	| VAR_NAME '[' LITERAL LITERAL ']' {
-					bool exists=vm.checkIfDefined(*$1);
+					bool exists=vm->checkIfDefined(*$1);
 
-					if(exists && !vm.getVar(*$1)->isField)
+					if(exists && !vm->getVar(*$1)->isField)
 					{
 						//$$=0;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
@@ -353,20 +365,20 @@ expr_operand:
 						bool isError=false;
 						try
 						{
-							//vm.pushOperand({vm.getVar(*$1), $3, $4});
+							//vm->pushOperand({vm->getVar(*$1), $3, $4});
 							bison_logger<<"operand_indexed_variable: "<<std::endl;
-							bison_logger<<dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
+							bison_logger<<dynamic_cast<Field*>(vm->getVar(*$1))->getVar($3, $4);
 							bison_logger<<std::endl;
 						}
 						catch(std::invalid_argument error)
 						{
 							//$$=0;
 							isError=true;
-							if(vm.getErrCode()==Err::undefined)
+							if(vm->getErrCode()==Err::undefined)
 							{
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 							}
-							else if(vm.getErrCode()==Err::outOfRange)
+							else if(vm->getErrCode()==Err::outOfRange)
 							{
 								std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
 							}
@@ -374,8 +386,8 @@ expr_operand:
 						}
 						if(!isError)
 						{
-							//$$=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4).value;
-							Ast* ost=new Ast(new OperandNode(new Operand({vm.getVar(*$1), $3, $4})));
+							//$$=dynamic_cast<Field*>(vm->getVar(*$1))->getVar($3, $4).value;
+							Ast* ost=new Ast(new OperandNode(new Operand({vm->getVar(*$1), $3, $4})));
 							$$=ost;
 						}
 					}
@@ -391,7 +403,7 @@ expr_operand:
 expr:
 	expr_operand			{
 					$$=$1;
-					//vm.popOperand();
+					//vm->popOperand();
 					bison_logger<<"operand with value "<<$1<<std::endl;
 					}
 	| '+' expr_operand		{
@@ -399,20 +411,20 @@ expr:
 					$$=ost;
 
 					//$$=$2;
-					//vm.popOperand();
+					//vm->popOperand();
 					bison_logger<<"plused operand with value "<<$2<<std::endl;
 					}
 	| '-' expr_operand		{
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uminus, {$2->root}), $2);
 					$$=ost;
-					//vm.popOperand();
+					//vm->popOperand();
 					//bison_logger<<"minused operand with value "<<-$2<<std::endl;
 					}
 	| expr '*' expr		{
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::mult, {$1->root, $3->root}), $1, $3);
 					$$=ost;
 					//$$=$1*$3;
-					//vm.pushOperand($$);
+					//vm->pushOperand($$);
 					bison_logger<<"product of two expressions with value "<<$$<<std::endl;
 				}
 	| expr '/' expr		{
@@ -427,26 +439,26 @@ expr:
 						$$=$1/$3;
 					}*/
 					bison_logger<<"division of two expressions with value "<<$$<<std::endl;
-					//vm.pushOperand($$);
+					//vm->pushOperand($$);
 				}
 	| expr '+' expr		{
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::plus, {$1->root, $3->root}), $1, $3);
 					$$=ost;
 					//$$=$1+$3;
-					//vm.pushOperand($$);
+					//vm->pushOperand($$);
 					bison_logger<<"sum of two expressions with value "<<$$<<std::endl;
 				}
 	| expr '-' expr		{
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::minus, {$1->root, $3->root}), $1, $3);
 					$$=ost;
 					//$$=$1-$3;
-					//vm.pushOperand($$);
+					//vm->pushOperand($$);
 					bison_logger<<"difference between two expressions with value "<<$$<<std::endl;
 				}
 	| '(' expr ')'		{
 					$$=$2;
 					bison_logger<<"expression in brackets with value "<<$$<<std::endl;
-					//vm.pushOperand($$);
+					//vm->pushOperand($$);
 				}
 	;
 logic_expr:
@@ -486,12 +498,12 @@ logic_expr:
 vars:
     	VAR_NAME vars {
 				//targetVec.push_back(*$1);
-				vm.pushVarToInit(*$1);
+				vm->pushVarToInit(*$1);
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
  	| VAR_NAME {
 				//targetVec.push_back(*$1);
-				vm.pushVarToInit(*$1);
+				vm->pushVarToInit(*$1);
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
 	|		{} 

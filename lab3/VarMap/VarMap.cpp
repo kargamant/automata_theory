@@ -138,22 +138,59 @@ VarType typeByName(const std::string& type_name)
 	}
 	else
 	{
-		//throw 
+		return VarType::tiny; 
 	}
 }
 
-std::string nameByType(VarType& type)
+VarType typeByInt(int t)
+{
+	switch(t)
+	{
+		case 1:
+			return VarType::tiny;
+		case 2:
+			return VarType::small;
+		case 3:
+			return VarType::normal;
+		case 4:
+			return VarType::big;
+		default:
+			return VarType::tiny;
+	}
+}
+
+int intByType(VarType type)
 {
 	switch(type)
 	{
 		case VarType::tiny:
-			return "tiny";
+			return 1;
 		case VarType::small:
-			return "small";
+			return 2;
 		case VarType::normal:
-			return "normal";
+			return 3;
 		case VarType::big:
+			return 4;
+		default:
+			return 1;
+	}
+
+}
+
+std::string nameByType(VarType type)
+{
+	switch(type)
+	{
+		case (int)VarType::tiny:
+			return "tiny";
+		case (int)VarType::small:
+			return "small";
+		case (int)VarType::normal:
+			return "normal";
+		case (int)VarType::big:
 			return "big";
+		default:
+			return "";
 	}
 }
 

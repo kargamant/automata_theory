@@ -11,7 +11,6 @@ enum class nodeType
 enum class operatorType
 {
 	defineVar,
-	defineArray,
 	indexedVar,
 	assignExpr,
 	printValue,
@@ -111,6 +110,16 @@ struct LogicOperator : public OperatorNode
 	LogicOperator(LogicType type, std::vector<Node*> args) : type(type), OperatorNode(operatorType::logic, args) {}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+};
+
+struct DefiningOperator : public OperatorNode
+{
+	VarMap* vm;
+	std::vector<int> params;
+	DefiningOperator(VarMap* vm, std::vector<Node*> args, std::vector<int> params) : OperatorNode(operatorType::defineVar, args), vm(vm), params(params) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+
 };
 
 

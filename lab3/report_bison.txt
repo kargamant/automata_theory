@@ -1,49 +1,38 @@
+operand_literal: 9
+operand with value 0x55a8ebab5be0
 operand_literal: 3
-operand with value 0x56173f8166a0
-expr from logic expr
-operand_literal: 4
-operand with value 0x56173f816710
-expr from logic expr
-0x56173f8166a0<0x56173f816710: 0x56173f816780
-operand_literal: 0x56173f816780
+operand with value 0x55a8ebab5c50
+division of two expressions with value 0x55a8ebab5cc0
 operand_literal: 5
-operand with value 0x56173f8168c0
-expr from logic expr
+operand with value 0x55a8ebab5d30
+product of two expressions with value 0x55a8ebab5dc0
 operand_literal: 6
-operand with value 0x56173f816930
-operand_literal: 7
-operand with value 0x56173f8169a0
-sum of two expressions with value 0x56173f816a10
-expr from logic expr
-0x56173f8168c0>0x56173f816a10: 0x56173f816a80
-operand_literal: 0x56173f816a80
-operand_literal: 6
-operand with value 0x56173f816810
-operand_literal: 3
-operand with value 0x56173f816c30
-operand_literal: 8
-operand with value 0x56173f816ca0
-product of two expressions with value 0x56173f816d10
-sum of two expressions with value 0x56173f816d80
-expr from logic expr
-operand_literal: -1
-operand with value 0x56173f816da0
-expr from logic expr
-0x56173f816d80<0x56173f816da0: 0x56173f816ea0
-operand_literal: 0x56173f816ea0
-operand_literal: 0
-operand with value 0x56173f816b30
-expr from logic expr
-operand_literal: 0
-operand with value 0x56173f817040
-expr from logic expr
-0x56173f816b30>=0x56173f817040: 0x56173f8170b0
-operand_literal: 0x56173f8170b0
-operand_literal: 3
-operand with value 0x56173f817140
-expr from logic expr
-operand_literal: 3
-operand with value 0x56173f817240
-expr from logic expr
-0x56173f817140<=0x56173f817240: 0x56173f8172b0
-operand_literal: 0x56173f8172b0
+operand with value 0x55a8ebab5e30
+sum of two expressions with value 0x55a8ebab5ec0
+operand_literal: 0x55a8ebab5ec0
+All vars from init queue were intialized
+operand_variable: 
+big GG 21
+operand with value 0x55a8ebab5f30
+operand_literal: 5
+operand with value 0x55a8ebab6240
+sum of two expressions with value 0x55a8ebab62b0
+operand_literal: 0x55a8ebab62b0
+All vars from init queue were intialized
+operand_literal: 0x55a8ebab6320
+All vars from init queue were intialized
+operand_variable: 
+normal k 26
+operand with value 0x55a8ebab6060
+operand_variable: 
+big GG 21
+operand with value 0x55a8ebab6410
+product of two expressions with value 0x55a8ebab6910
+operand_literal: 0x55a8ebab6910
+All vars from init queue were intialized
+operand_variable: 
+normal kk 546
+operand_variable: 
+normal k 26
+operand_variable: 
+big GG 21
