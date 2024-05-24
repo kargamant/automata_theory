@@ -25,7 +25,7 @@ Grammar
     2                  | simple_statement '.'
 
     3 simple_statement: VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand
-    4                 | ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN operand
+    4                 | ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand
     5                 | '@' operand
 
     6 operand: numeric_operand
@@ -117,7 +117,7 @@ Nonterminals, with rules where they appear
         on right: 15 16 17
     vars (34)
         on left: 29 30 31
-        on right: 3 29
+        on right: 3 4 29
 
 
 State 0
@@ -141,7 +141,7 @@ State 1
 
 State 2
 
-    4 simple_statement: ARRAY . VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN operand
+    4 simple_statement: ARRAY . VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand
 
     VAR_TYPE  shift, and go to state 7
 
@@ -192,7 +192,7 @@ State 6
 
 State 7
 
-    4 simple_statement: ARRAY VAR_TYPE . VAR_TYPE VAR_NAME LEFT_ASSIGN operand
+    4 simple_statement: ARRAY VAR_TYPE . VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand
 
     VAR_TYPE  shift, and go to state 23
 
@@ -368,7 +368,7 @@ State 22
 
 State 23
 
-    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE . VAR_NAME LEFT_ASSIGN operand
+    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE . VAR_NAME vars LEFT_ASSIGN operand
 
     VAR_NAME  shift, and go to state 42
 
@@ -595,9 +595,13 @@ State 41
 
 State 42
 
-    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME . LEFT_ASSIGN operand
+    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME . vars LEFT_ASSIGN operand
 
-    LEFT_ASSIGN  shift, and go to state 58
+    VAR_NAME  shift, and go to state 21
+
+    $default  reduce using rule 31 (vars)
+
+    vars  go to state 58
 
 
 State 43
@@ -790,19 +794,9 @@ State 57
 
 State 58
 
-    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN . operand
+    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars . LEFT_ASSIGN operand
 
-    VAR_NAME  shift, and go to state 8
-    LITERAL   shift, and go to state 9
-    '+'       shift, and go to state 10
-    '-'       shift, and go to state 11
-    '('       shift, and go to state 12
-
-    operand          go to state 62
-    numeric_operand  go to state 14
-    logic_expr       go to state 15
-    expr             go to state 16
-    expr_operand     go to state 17
+    LEFT_ASSIGN  shift, and go to state 62
 
 
 State 59
@@ -837,9 +831,19 @@ State 61
 
 State 62
 
-    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN operand .
+    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN . operand
 
-    $default  reduce using rule 4 (simple_statement)
+    VAR_NAME  shift, and go to state 8
+    LITERAL   shift, and go to state 9
+    '+'       shift, and go to state 10
+    '-'       shift, and go to state 11
+    '('       shift, and go to state 12
+
+    operand          go to state 65
+    numeric_operand  go to state 14
+    logic_expr       go to state 15
+    expr             go to state 16
+    expr_operand     go to state 17
 
 
 State 63
@@ -858,10 +862,17 @@ State 64
 
    14 expr_operand: VAR_NAME '[' LITERAL LITERAL . ']'
 
-    ']'  shift, and go to state 65
+    ']'  shift, and go to state 66
 
 
 State 65
+
+    4 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand .
+
+    $default  reduce using rule 4 (simple_statement)
+
+
+State 66
 
    14 expr_operand: VAR_NAME '[' LITERAL LITERAL ']' .
 

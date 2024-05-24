@@ -79,13 +79,20 @@ int DefiningOperator::execute()
 	try
 	{
 		int operand=args[0]->execute();
-		vm->flushInit(typeByInt(params[0]), operand);
+		if(!fieldDefine)
+		{
+			vm->flushInit(typeByInt(params[0]), operand);
+		}
+		else
+		{
+			vm->flushInit(typeByInt(params[0]), typeByInt(params[1]), operand);
+		}
 	}
 	catch(std::invalid_argument error)
 	{
 		if(vm->getErrCode()==Err::typeMisMatch)
 		{
-			std::cerr<<"Syntax error at line "<<params[1]<<std::endl;
+			std::cerr<<"Syntax error at line "<<params[2]<<std::endl;
 		}
 		else if(vm->getErrCode()==Err::redefinition)
 		{

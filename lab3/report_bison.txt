@@ -1,38 +1,46 @@
-operand_literal: 9
-operand with value 0x55a8ebab5be0
-operand_literal: 3
-operand with value 0x55a8ebab5c50
-division of two expressions with value 0x55a8ebab5cc0
-operand_literal: 5
-operand with value 0x55a8ebab5d30
-product of two expressions with value 0x55a8ebab5dc0
-operand_literal: 6
-operand with value 0x55a8ebab5e30
-sum of two expressions with value 0x55a8ebab5ec0
-operand_literal: 0x55a8ebab5ec0
+operand_literal: 0x560f478919c0
+All vars from init queue were intialized
+operand_literal: 0x560f47891a70
+All vars from init queue were intialized
+operand_literal: 0x560f47891cf0
+All vars from init queue were intialized
+operand_literal: 0x560f47891b40
 All vars from init queue were intialized
 operand_variable: 
-big GG 21
-operand with value 0x55a8ebab5f30
-operand_literal: 5
-operand with value 0x55a8ebab6240
-sum of two expressions with value 0x55a8ebab62b0
-operand_literal: 0x55a8ebab62b0
-All vars from init queue were intialized
-operand_literal: 0x55a8ebab6320
-All vars from init queue were intialized
+small a 8
+operand with value 0x560f47891dc0
 operand_variable: 
-normal k 26
-operand with value 0x55a8ebab6060
+tiny b 1
+operand with value 0x560f47892280
+product of two expressions with value 0x560f47892470
 operand_variable: 
-big GG 21
-operand with value 0x55a8ebab6410
-product of two expressions with value 0x55a8ebab6910
-operand_literal: 0x55a8ebab6910
-All vars from init queue were intialized
+normal k -3
+operand with value 0x560f47892490
+sum of two expressions with value 0x560f47892550
+operand_literal: 0x560f47892550
+operand_indexed_variable: 
+big  5
+operand with value 0x560f478925c0
 operand_variable: 
-normal kk 546
+small a 8
+operand with value 0x560f478926b0
+sum of two expressions with value 0x560f478a0890
 operand_variable: 
-normal k 26
+tiny b 1
+operand with value 0x560f478a0900
 operand_variable: 
-big GG 21
+normal k -3
+operand with value 0x560f478a09f0
+product of two expressions with value 0x560f478a0a60
+difference between two expressions with value 0x560f478a0ad0
+operand_literal: 0x560f478a0ad0
+operand_variable: 
+tiny b 1
+operand_variable: 
+normal k -3
+operand_variable: 
+small a 8
+operand_indexed_variable: 
+big  5
+operand_indexed_variable: 
+normal  16

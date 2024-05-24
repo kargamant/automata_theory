@@ -116,13 +116,12 @@ struct DefiningOperator : public OperatorNode
 {
 	VarMap* vm;
 	std::vector<int> params;
-	DefiningOperator(VarMap* vm, std::vector<Node*> args, std::vector<int> params) : OperatorNode(operatorType::defineVar, args), vm(vm), params(params) {}
+	bool fieldDefine;
+	DefiningOperator(VarMap* vm, std::vector<Node*> args, std::vector<int> params, bool fieldDefine=false) : OperatorNode(operatorType::defineVar, args), vm(vm), params(params), fieldDefine(fieldDefine) {}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 
 };
-
-
 
 
 

@@ -1,0 +1,11 @@
+small a<<8,
+tiny b<<4,
+tiny b<<1,
+normal k<<-3,
+field big small hh<<a*b+k,
+field normal normal LL<<hh[2 3]+a-b*k,
+@b,
+@k,
+@a,
+@hh[0 0],
+@LL[0 0].

@@ -337,6 +337,24 @@ void VarMap::flushInit(VarType init_type, int value)
 	to_initialize.clear();
 }
 
+void VarMap::flushInit(VarType init_type, VarType size_type, int value)
+{
+	for(auto& var: to_initialize)
+	{
+		try
+		{
+			Var* var_init=new Field(init_type, size_type, var.name, value);
+			addVar(var_init);
+		}
+		catch(...)
+		{
+			to_initialize.clear();
+			throw;
+		}
+	}
+	to_initialize.clear();
+}
+
 void VarMap::flushAssign(int value)
 {
 	for(auto& var: to_initialize)

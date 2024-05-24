@@ -69,61 +69,41 @@ simple_statement:
 	VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
 						vm->clearBuffers();
 						vm->pushVarToInit(*$2);
+						
 						std::vector<Node*> args;
 						args.push_back($5->root);
 						std::vector<int> params;
 						params.push_back(intByType($1));
 						params.push_back(@5.first_line);
 						params.push_back(@2.first_line);
+						
 						OperatorNode* on=new DefiningOperator(vm, args, params);
+						
 						Ast* ost=new Ast(on);
 
 						main_func->stmts.push_back(ost);
 						ost->execute();
 						$$=ost;	
-						/*try
-						{
-							vm->flushInit($1, $5);
-						}
-						catch(std::invalid_argument error)
-						{
-							if(vm->getErrCode()==Err::typeMisMatch)
-							{
-								std::cerr<<"Syntax error at line "<<@5.first_line<<std::endl;
-							}
-							else if(vm->getErrCode()==Err::redefinition)
-							{
-								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
-							}
-							std::cerr<<"Error text: "<<error.what()<<std::endl;
-							vm->setErrCode(Err::no_error);	
-						}*/
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN operand
+	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand
 						{
-							/*bison_logger<<$6<<std::endl;
 							vm->clearBuffers();
-							//Field fld{$2, $3, *$4, $7};
-							try
-							{
-								Var* fld=new Field($2, $3, *$4, $6);
-								vm->addVar(fld);
-							}
-							catch(std::invalid_argument error)
-							{
-								
-								if(vm->getErrCode()==Err::typeMisMatch)
-								{
-									std::cerr<<"Syntax error at line "<<@6.first_line<<std::endl;
-								}
-								else if(vm->getErrCode()==Err::redefinition)
-								{
-									std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
-								}
-								std::cerr<<"Error text: "<<error.what()<<std::endl;
-								vm->setErrCode(Err::no_error);	
-							}*/
+							vm->pushVarToInit(*$4);
+							
+							std::vector<Node*> args;
+							args.push_back($7->root);
+							std::vector<int> params;
+							params.push_back(intByType($2));
+							params.push_back(intByType($3));
+							params.push_back(@1.first_line);
+							OperatorNode* on=new DefiningOperator(vm, args, params, true);
+							
+							Ast* ost=new Ast(on);
+
+							main_func->stmts.push_back(ost);
+							ost->execute();
+							$$=ost;	
 						}
 	  /*| assign_expr 				
 	  					{
