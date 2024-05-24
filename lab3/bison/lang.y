@@ -35,7 +35,7 @@
 
 	VarMap vm;	
 	Ast ast;
-	CstmtNode* main_func=new CstmtNode({}, "main");
+	CstmtNode* main_func=new CstmtNode(std::vector<Ast*>(), "main");
 	std::ofstream bison_logger("report_bison.txt");
 %}
 
@@ -55,10 +55,14 @@ complex_statement:
 	simple_statement ',' complex_statement {
 						ast.root=main_func;
 						ast.printAst();
+						main_func->execute();
+						//ast.execute();
 						}
 	| simple_statement '.' {
 					ast.root=main_func;
 					ast.printAst();
+					main_func->execute();
+					//ast.execute();
 				}
 
 simple_statement:

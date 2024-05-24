@@ -108,7 +108,7 @@ struct ArifmeticOperator : public OperatorNode
 struct LogicOperator : public OperatorNode
 {
 	LogicType type;
-	LogicOperator(LogicType type, std::vector<Node*> args) : OperatorNode(operatorType::logic, args) {}
+	LogicOperator(LogicType type, std::vector<Node*> args) : type(type), OperatorNode(operatorType::logic, args) {}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
