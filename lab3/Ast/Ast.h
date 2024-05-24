@@ -100,7 +100,7 @@ struct PrintValueOperator : public OperatorNode
 struct ArifmeticOperator : public OperatorNode
 {
 	ArifmeticType type;
-	ArifmeticOperator(ArifmeticType type, std::vector<Node*> args) : OperatorNode(operatorType::arifmetic, args) {} 
+	ArifmeticOperator(ArifmeticType type, std::vector<Node*> args) : type(type), OperatorNode(operatorType::arifmetic, args) {} 
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };

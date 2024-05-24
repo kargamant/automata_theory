@@ -60,8 +60,8 @@ extern int yydebug;
   enum yytokentype
   {
     VAR_NAME = 258,
-    LITERAL = 259,
-    VAR_TYPE = 260,
+    VAR_TYPE = 259,
+    LITERAL = 260,
     ARRAY = 261,
     LESS_EQUAL = 262,
     MORE_EQUAL = 263,

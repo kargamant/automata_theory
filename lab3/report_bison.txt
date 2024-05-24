@@ -1,7 +1,10 @@
-operand_literal: 5
-operand with value 0x563d789106a0
-operand_literal: -3
-operand with value 0x563d78910710
-difference between two expressions with value 0x563d78910780
-operand_literal: 0x563d78910780
-operand_literal: 0x563d789108c0
+operand_literal: 2
+operand with value 0x55e4967606a0
+operand_literal: 3
+operand with value 0x55e496760710
+operand_literal: 4
+operand with value 0x55e496760780
+sum of two expressions with value 0x55e4967607f0
+expression in brackets with value 0x55e4967607f0
+difference between two expressions with value 0x55e496760860
+operand_literal: 0x55e496760860

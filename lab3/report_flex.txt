@@ -1,16 +1,18 @@
 @
 @ parsed
-5
+2
 literal parsed
 -
 - parsed
--3
+(
+( parsed
+3
 literal parsed
-,
-, parsed
-@
-@ parsed
-5
++
++ parsed
+4
 literal parsed
+)
+) parsed
 .
 . parsed

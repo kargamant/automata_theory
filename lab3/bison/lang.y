@@ -3,8 +3,8 @@
 %nterm <st> complex_statement
 %nterm <st> simple_statement
 %token <str> VAR_NAME
-%token <num> LITERAL
 %token <var_type> VAR_TYPE
+%token <num> LITERAL
 %token ARRAY
 //%nterm <num> signed_operand
 %nterm <st> operand
@@ -62,8 +62,8 @@ complex_statement:
 				}
 
 simple_statement:
-	/*VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
-						vm.clearBuffers();
+	VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
+						/*vm.clearBuffers();
 						vm.pushVarToInit(*$2);
 						try
 						{
@@ -81,12 +81,12 @@ simple_statement:
 							}
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
 							vm.setErrCode(Err::no_error);	
-						}
+						}*/
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
 	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME LEFT_ASSIGN operand
 						{
-							bison_logger<<$6<<std::endl;
+							/*bison_logger<<$6<<std::endl;
 							vm.clearBuffers();
 							//Field fld{$2, $3, *$4, $7};
 							try
@@ -107,9 +107,9 @@ simple_statement:
 								}
 								std::cerr<<"Error text: "<<error.what()<<std::endl;
 								vm.setErrCode(Err::no_error);	
-							}
+							}*/
 						}
-	  | assign_expr 				
+	  /*| assign_expr 				
 	  					{
 							try
 							{
@@ -131,12 +131,13 @@ simple_statement:
 							}
 	  					}*/
 	//place | after debug here
-	'@' operand				{
+	| '@' operand				{
 							Ast* ost=new Ast(new PrintValueOperator($2->root), $2);
 							$$=ost;
 							main_func->stmts.push_back(ost);
 							//std::cout<<$2<<std::endl;
 						}
+	;
 	/*| '$' VAR_NAME '[' LITERAL LITERAL ']' 
 						{
 							bool exists=vm.checkIfDefined(*$2);
@@ -223,6 +224,7 @@ assign_expr:
 						//bison_logger<<"expr"<<std::endl;	
 					}
 	;*/
+
 operand:
 	numeric_operand		{
 					$$=$1;
@@ -477,7 +479,7 @@ logic_expr:
 					bison_logger<<"expr from logic expr"<<std::endl;
 				}
 	;
-/*vars:
+vars:
     	VAR_NAME vars {
 				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*$1);
@@ -489,7 +491,7 @@ logic_expr:
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
 	|		{} 
-	;*/
+	;
 
 %%
 
