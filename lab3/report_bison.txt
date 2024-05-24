@@ -1,11 +1,5 @@
 operand_literal: 2
-operand with value 2
-operand_literal: 3
-operand with value 3
-sum of two expressions with value 5
-expr from logic expr
-operand_literal: 7
-operand with value 7
-expr from logic expr
-5<7: 1
-operand_literal: 1
+operand_literal: 9
+All vars from init queue were intialized
+operand_variable: 
+small k 9

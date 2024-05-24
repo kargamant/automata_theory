@@ -74,12 +74,9 @@
 	void yyerror(const char *s);
 
 	VarMap vm;	
-	int last_operand;
-	std::vector<std::string> targetVec;
-	int source_value;
 	std::ofstream bison_logger("report_bison.txt");
 
-#line 83 "bison/bis.tab.c"
+#line 80 "bison/bis.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -129,7 +126,7 @@ extern int yydebug;
 	#include "../VarMap/VarMap.h"
 	#include <fstream>
 
-#line 133 "bison/bis.tab.c"
+#line 130 "bison/bis.tab.c"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -151,14 +148,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 40 "bison/lang.y"
+#line 37 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
 	int num;
 	bool logic;
 
-#line 162 "bison/bis.tab.c"
+#line 159 "bison/bis.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -551,10 +548,10 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    50,    50,    51,    54,    76,   101,   122,   125,   161,
-     191,   196,   203,   224,   229,   246,   294,   297,   300,   305,
-     310,   327,   375,   380,   385,   390,   395,   407,   412,   417,
-     424,   428,   432,   436,   440,   444,   450,   455,   460
+       0,    47,    47,    48,    51,    73,    98,   119,   122,   158,
+     188,   193,   200,   221,   226,   243,   291,   294,   297,   302,
+     307,   324,   372,   377,   382,   387,   392,   404,   409,   414,
+     421,   425,   429,   433,   437,   441,   447,   452,   457
 };
 #endif
 
@@ -1489,19 +1486,19 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 50 "bison/lang.y"
+#line 47 "bison/lang.y"
                                                {}
-#line 1495 "bison/bis.tab.c"
+#line 1492 "bison/bis.tab.c"
     break;
 
   case 3:
-#line 51 "bison/lang.y"
+#line 48 "bison/lang.y"
                                {}
-#line 1501 "bison/bis.tab.c"
+#line 1498 "bison/bis.tab.c"
     break;
 
   case 4:
-#line 54 "bison/lang.y"
+#line 51 "bison/lang.y"
                                                    {
 						vm.clearBuffers();
 						vm.pushVarToInit(*(yyvsp[-3].str));
@@ -1524,11 +1521,11 @@ yyreduce:
 						}
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-#line 1528 "bison/bis.tab.c"
+#line 1525 "bison/bis.tab.c"
     break;
 
   case 5:
-#line 77 "bison/lang.y"
+#line 74 "bison/lang.y"
                                                 {
 							bison_logger<<(yyvsp[0].num)<<std::endl;
 							vm.clearBuffers();
@@ -1553,11 +1550,11 @@ yyreduce:
 								vm.setErrCode(Err::no_error);	
 							}
 						}
-#line 1557 "bison/bis.tab.c"
+#line 1554 "bison/bis.tab.c"
     break;
 
   case 6:
-#line 102 "bison/lang.y"
+#line 99 "bison/lang.y"
                                                 {
 							try
 							{
@@ -1578,19 +1575,19 @@ yyreduce:
 								vm.setErrCode(Err::no_error);	
 							}
 	  					}
-#line 1582 "bison/bis.tab.c"
+#line 1579 "bison/bis.tab.c"
     break;
 
   case 7:
-#line 122 "bison/lang.y"
+#line 119 "bison/lang.y"
                                                 {
 							std::cout<<(yyvsp[0].num)<<std::endl;
 						}
-#line 1590 "bison/bis.tab.c"
+#line 1587 "bison/bis.tab.c"
     break;
 
   case 8:
-#line 126 "bison/lang.y"
+#line 123 "bison/lang.y"
                                                 {
 							bool exists=vm.checkIfDefined(*(yyvsp[-4].str));
 
@@ -1626,11 +1623,11 @@ yyreduce:
 								std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[-4].str)+" was not defined."<<std::endl;
 							}
 						}
-#line 1630 "bison/bis.tab.c"
+#line 1627 "bison/bis.tab.c"
     break;
 
   case 9:
-#line 162 "bison/lang.y"
+#line 159 "bison/lang.y"
                         {
 				Var* var;
 				bool isError=false;
@@ -1658,20 +1655,20 @@ yyreduce:
 					std::cout<<std::endl;
 				}
 			}
-#line 1662 "bison/bis.tab.c"
+#line 1659 "bison/bis.tab.c"
     break;
 
   case 10:
-#line 192 "bison/lang.y"
+#line 189 "bison/lang.y"
                                         {
 						vm.pushOperator({AssignType::Left});	
 						bison_logger<<"left_assignment"<<std::endl;
 					}
-#line 1671 "bison/bis.tab.c"
+#line 1668 "bison/bis.tab.c"
     break;
 
   case 11:
-#line 196 "bison/lang.y"
+#line 193 "bison/lang.y"
                                                 {
 						//vm.pushOperand({$1});
 
@@ -1679,32 +1676,32 @@ yyreduce:
 						vm.pushOperator({AssignType::Right});	
 						bison_logger<<"right_assignment"<<std::endl;
 					}
-#line 1683 "bison/bis.tab.c"
+#line 1680 "bison/bis.tab.c"
     break;
 
   case 12:
-#line 203 "bison/lang.y"
+#line 200 "bison/lang.y"
                                         {
 						//vm.pushOperand({$1});
 
 						//vm.pushOperand(op);
 						//bison_logger<<"expr"<<std::endl;	
 					}
-#line 1694 "bison/bis.tab.c"
+#line 1691 "bison/bis.tab.c"
     break;
 
   case 13:
-#line 224 "bison/lang.y"
+#line 221 "bison/lang.y"
                                 {
 					(yyval.num)=(yyvsp[0].num);
 					vm.pushOperand({(yyvsp[0].num)});
 					bison_logger<<"operand_literal: "<<(yyvsp[0].num)<<std::endl;
 				}
-#line 1704 "bison/bis.tab.c"
+#line 1701 "bison/bis.tab.c"
     break;
 
   case 14:
-#line 229 "bison/lang.y"
+#line 226 "bison/lang.y"
                         {
 			
 				if(vm.checkIfDefined(*(yyvsp[0].str)))
@@ -1722,11 +1719,11 @@ yyreduce:
 					std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[0].str)+" was not defined."<<std::endl;
 				}
 			}
-#line 1726 "bison/bis.tab.c"
+#line 1723 "bison/bis.tab.c"
     break;
 
   case 15:
-#line 246 "bison/lang.y"
+#line 243 "bison/lang.y"
                                            {
 					bool exists=vm.checkIfDefined(*(yyvsp[-4].str));
 
@@ -1773,45 +1770,45 @@ yyreduce:
 					}
 					
 					}
-#line 1777 "bison/bis.tab.c"
+#line 1774 "bison/bis.tab.c"
     break;
 
   case 16:
+#line 291 "bison/lang.y"
+                        {
+				(yyval.num)=(yyvsp[0].num);
+			}
+#line 1782 "bison/bis.tab.c"
+    break;
+
+  case 17:
 #line 294 "bison/lang.y"
                         {
 				(yyval.num)=(yyvsp[0].num);
 			}
-#line 1785 "bison/bis.tab.c"
+#line 1790 "bison/bis.tab.c"
     break;
 
-  case 17:
+  case 18:
 #line 297 "bison/lang.y"
                         {
 				(yyval.num)=(yyvsp[0].num);
 			}
-#line 1793 "bison/bis.tab.c"
-    break;
-
-  case 18:
-#line 300 "bison/lang.y"
-                        {
-				(yyval.num)=(yyvsp[0].num);
-			}
-#line 1801 "bison/bis.tab.c"
+#line 1798 "bison/bis.tab.c"
     break;
 
   case 19:
-#line 305 "bison/lang.y"
+#line 302 "bison/lang.y"
                         {
 				(yyval.num)=(yyvsp[0].num);
 				//vm.pushOperand({$1});
 				bison_logger<<"operand_literal: "<<(yyvsp[0].num)<<std::endl;
 			}
-#line 1811 "bison/bis.tab.c"
+#line 1808 "bison/bis.tab.c"
     break;
 
   case 20:
-#line 310 "bison/lang.y"
+#line 307 "bison/lang.y"
                         {
 			
 				if(vm.checkIfDefined(*(yyvsp[0].str)))
@@ -1829,11 +1826,11 @@ yyreduce:
 					std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[0].str)+" was not defined."<<std::endl;
 				}
 			}
-#line 1833 "bison/bis.tab.c"
+#line 1830 "bison/bis.tab.c"
     break;
 
   case 21:
-#line 327 "bison/lang.y"
+#line 324 "bison/lang.y"
                                            {
 					bool exists=vm.checkIfDefined(*(yyvsp[-4].str));
 
@@ -1880,51 +1877,51 @@ yyreduce:
 					}
 					
 					}
-#line 1884 "bison/bis.tab.c"
+#line 1881 "bison/bis.tab.c"
     break;
 
   case 22:
-#line 375 "bison/lang.y"
+#line 372 "bison/lang.y"
                                         {
 					(yyval.num)=(yyvsp[0].num);
 					//vm.popOperand();
 					bison_logger<<"operand with value "<<(yyvsp[0].num)<<std::endl;
 					}
-#line 1894 "bison/bis.tab.c"
+#line 1891 "bison/bis.tab.c"
     break;
 
   case 23:
-#line 380 "bison/lang.y"
+#line 377 "bison/lang.y"
                                         {
 					(yyval.num)=(yyvsp[0].num);
 					//vm.popOperand();
 					bison_logger<<"plused operand with value "<<(yyvsp[0].num)<<std::endl;
 					}
-#line 1904 "bison/bis.tab.c"
+#line 1901 "bison/bis.tab.c"
     break;
 
   case 24:
-#line 385 "bison/lang.y"
+#line 382 "bison/lang.y"
                                         {
 					(yyval.num)=-(yyvsp[0].num);
 					//vm.popOperand();
 					bison_logger<<"minused operand with value "<<-(yyvsp[0].num)<<std::endl;
 					}
-#line 1914 "bison/bis.tab.c"
+#line 1911 "bison/bis.tab.c"
     break;
 
   case 25:
-#line 390 "bison/lang.y"
+#line 387 "bison/lang.y"
                                 {
 					(yyval.num)=(yyvsp[-2].num)*(yyvsp[0].num);
 					//vm.pushOperand($$);
 					bison_logger<<"product of two expressions with value "<<(yyval.num)<<std::endl;
 				}
-#line 1924 "bison/bis.tab.c"
+#line 1921 "bison/bis.tab.c"
     break;
 
   case 26:
-#line 395 "bison/lang.y"
+#line 392 "bison/lang.y"
                                 {
 					if((yyvsp[0].num)==0)
 					{
@@ -1937,121 +1934,121 @@ yyreduce:
 					bison_logger<<"division of two expressions with value "<<(yyval.num)<<std::endl;
 					//vm.pushOperand($$);
 				}
-#line 1941 "bison/bis.tab.c"
+#line 1938 "bison/bis.tab.c"
     break;
 
   case 27:
-#line 407 "bison/lang.y"
+#line 404 "bison/lang.y"
                                 {
 					(yyval.num)=(yyvsp[-2].num)+(yyvsp[0].num);
 					//vm.pushOperand($$);
 					bison_logger<<"sum of two expressions with value "<<(yyval.num)<<std::endl;
 				}
-#line 1951 "bison/bis.tab.c"
+#line 1948 "bison/bis.tab.c"
     break;
 
   case 28:
-#line 412 "bison/lang.y"
+#line 409 "bison/lang.y"
                                 {
 					(yyval.num)=(yyvsp[-2].num)-(yyvsp[0].num);
 					//vm.pushOperand($$);
 					bison_logger<<"difference between two expressions with value "<<(yyval.num)<<std::endl;
 				}
-#line 1961 "bison/bis.tab.c"
+#line 1958 "bison/bis.tab.c"
     break;
 
   case 29:
-#line 417 "bison/lang.y"
+#line 414 "bison/lang.y"
                                 {
 					(yyval.num)=(yyvsp[-1].num);
 					bison_logger<<"expression in brackets with value "<<(yyval.num)<<std::endl;
 					//vm.pushOperand($$);
 				}
-#line 1971 "bison/bis.tab.c"
+#line 1968 "bison/bis.tab.c"
     break;
 
   case 30:
-#line 424 "bison/lang.y"
+#line 421 "bison/lang.y"
                                                 {
 					(yyval.num)=(yyvsp[-2].num)<=(yyvsp[0].num);
 					bison_logger<<(yyvsp[-2].num)<<"<="<<(yyvsp[0].num)<<": "<<(yyval.num)<<std::endl;
 				}
-#line 1980 "bison/bis.tab.c"
+#line 1977 "bison/bis.tab.c"
     break;
 
   case 31:
-#line 428 "bison/lang.y"
+#line 425 "bison/lang.y"
                                             {
 					(yyval.num)=(yyvsp[-2].num)>=(yyvsp[0].num);
 					bison_logger<<(yyvsp[-2].num)<<">="<<(yyvsp[0].num)<<": "<<(yyval.num)<<std::endl;
 				}
-#line 1989 "bison/bis.tab.c"
+#line 1986 "bison/bis.tab.c"
     break;
 
   case 32:
-#line 432 "bison/lang.y"
+#line 429 "bison/lang.y"
                                                 {
 					(yyval.num)=(yyvsp[-2].num)<(yyvsp[0].num);
 					bison_logger<<(yyvsp[-2].num)<<"<"<<(yyvsp[0].num)<<": "<<(yyval.num)<<std::endl;
 				}
-#line 1998 "bison/bis.tab.c"
+#line 1995 "bison/bis.tab.c"
     break;
 
   case 33:
-#line 436 "bison/lang.y"
+#line 433 "bison/lang.y"
                                                 {
 					(yyval.num)=(yyvsp[-2].num)>(yyvsp[0].num);
 					bison_logger<<(yyvsp[-2].num)<<">"<<(yyvsp[0].num)<<": "<<(yyval.num)<<std::endl;
 				}
-#line 2007 "bison/bis.tab.c"
+#line 2004 "bison/bis.tab.c"
     break;
 
   case 34:
-#line 440 "bison/lang.y"
+#line 437 "bison/lang.y"
                                 {
 					(yyval.num)=(yyvsp[-1].num);
 					bison_logger<<"("<<(yyvsp[-1].num)<<")"<<std::endl;
 				}
-#line 2016 "bison/bis.tab.c"
+#line 2013 "bison/bis.tab.c"
     break;
 
   case 35:
-#line 444 "bison/lang.y"
+#line 441 "bison/lang.y"
                                 {
 					(yyval.num)=(yyvsp[0].num);
 					bison_logger<<"expr from logic expr"<<std::endl;
 				}
-#line 2025 "bison/bis.tab.c"
+#line 2022 "bison/bis.tab.c"
     break;
 
   case 36:
-#line 450 "bison/lang.y"
+#line 447 "bison/lang.y"
                       {
 				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*(yyvsp[-1].str));
 				bison_logger<<"var "<<*(yyvsp[-1].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 2035 "bison/bis.tab.c"
+#line 2032 "bison/bis.tab.c"
     break;
 
   case 37:
-#line 455 "bison/lang.y"
+#line 452 "bison/lang.y"
                    {
 				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*(yyvsp[0].str));
 				bison_logger<<"var "<<*(yyvsp[0].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 2045 "bison/bis.tab.c"
+#line 2042 "bison/bis.tab.c"
     break;
 
   case 38:
-#line 460 "bison/lang.y"
+#line 457 "bison/lang.y"
                         {}
-#line 2051 "bison/bis.tab.c"
+#line 2048 "bison/bis.tab.c"
     break;
 
 
-#line 2055 "bison/bis.tab.c"
+#line 2052 "bison/bis.tab.c"
 
       default: break;
     }
@@ -2289,7 +2286,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 463 "bison/lang.y"
+#line 460 "bison/lang.y"
 
 
 

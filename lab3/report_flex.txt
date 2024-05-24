@@ -2,13 +2,21 @@
 @ parsed
 2
 literal parsed
-+
-+ parsed
-3
+,
+, parsed
+small
+var_type parsed
+k
+var_name parsed
+<<
+left_assign parsed
+9
 literal parsed
-<
-< parsed
-7
-literal parsed
+,
+, parsed
+@
+@ parsed
+k
+var_name parsed
 ,
 , parsed

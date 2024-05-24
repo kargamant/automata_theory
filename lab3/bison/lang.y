@@ -5,11 +5,11 @@
 %token <var_type> VAR_TYPE
 %token ARRAY
 //%nterm <num> signed_operand
-%nterm <num> operand
-%nterm <num> numeric_operand
-%nterm <num> logic_expr
-%nterm <num> expr
-%nterm <num> expr_operand
+%nterm <st> operand
+%nterm <st> numeric_operand
+%nterm <st> logic_expr
+%nterm <st> expr
+%nterm <st> expr_operand
 %left '+' '-'
 %left '*' '/'
 %left LESS_EQUAL MORE_EQUAL
@@ -25,14 +25,13 @@
 }
 %{
 	#include "../VarMap/VarMap.h"
+	#include "../Ast/Ast.h"
 	#include <fstream>
 	int yylex(void);
 	void yyerror(const char *s);
 
 	VarMap vm;	
-	int last_operand;
-	std::vector<std::string> targetVec;
-	int source_value;
+	Ast ast;
 	std::ofstream bison_logger("report_bison.txt");
 %}
 
@@ -42,6 +41,7 @@
 	std::string* str;
 	int num;
 	bool logic;
+	Ast* st;
 }
 
 
@@ -51,7 +51,7 @@ complex_statement:
 	| simple_statement '.' {}
 
 simple_statement:
-	VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
+	/*VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
 						vm.clearBuffers();
 						vm.pushVarToInit(*$2);
 						try
@@ -118,11 +118,11 @@ simple_statement:
 								std::cerr<<"Error text: "<<error.what()<<std::endl;
 								vm.setErrCode(Err::no_error);	
 							}
-	  					}
+	  					}*/
 	| '@' operand				{
 							std::cout<<$2<<std::endl;
 						}
-	| '$' VAR_NAME '[' LITERAL LITERAL ']' 
+	/*| '$' VAR_NAME '[' LITERAL LITERAL ']' 
 						{
 							bool exists=vm.checkIfDefined(*$2);
 
@@ -186,7 +186,8 @@ simple_statement:
 					std::cout<<std::endl;
 				}
 			}
-	;
+	;*/
+/*
 assign_expr:
 	operand LEFT_ASSIGN assign_expr	
 					{
@@ -206,19 +207,6 @@ assign_expr:
 						//vm.pushOperand(op);
 						//bison_logger<<"expr"<<std::endl;	
 					}
-	;
-/*signed_operand:
-	'+' operand	{
-				$$=$2;
-				bison_logger<<"plused operand_literal: "<<$$<<std::endl;
-			}
-	| '-' operand	{
-				$$=-$2;
-				bison_logger<<"minused operand_literal: "<<$$<<std::endl;
-			}
-	| operand	{
-				$$=$1;
-			}
 	;*/
 operand:
 	numeric_operand		{
