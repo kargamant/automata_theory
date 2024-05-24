@@ -1,56 +1,14 @@
-small
-var_type parsed
-a
-var_name parsed
-<<
-left_assign parsed
-9
+@
+@ parsed
+2
 literal parsed
-,
-, parsed
-@
-@ parsed
 +
 + parsed
-a
-var_name parsed
-,
-, parsed
-@
-@ parsed
-+
-+ parsed
-a
-var_name parsed
--
-- parsed
-a
-var_name parsed
-,
-, parsed
-field
-array_type parsed
-small
-var_type parsed
-normal
-var_type parsed
-HH
-var_name parsed
-<<
-left_assign parsed
-+
-+ parsed
-a
-var_name parsed
-+
-+ parsed
-5
+3
 literal parsed
-,
-, parsed
-@
-@ parsed
-HH
-var_name parsed
+<
+< parsed
+7
+literal parsed
 ,
 , parsed
