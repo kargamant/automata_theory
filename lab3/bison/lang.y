@@ -1,5 +1,7 @@
 %require "3.2"
 
+%nterm <st> complex_statement
+%nterm <st> simple_statement
 %token <str> VAR_NAME
 %token <num> LITERAL
 %token <var_type> VAR_TYPE
@@ -42,13 +44,19 @@
 	int num;
 	bool logic;
 	Ast* st;
+	CstmtNode* main_func=new CstmtNode({}, "main");
+	//st->setRoot(main);
 }
 
 
 %%
 complex_statement:
-	simple_statement ',' complex_statement {}
-	| simple_statement '.' {}
+	simple_statement ',' complex_statement {
+						st->setRoot(main_func);
+						st->printAst();
+						}
+	| simple_statement '.' {
+				}
 
 simple_statement:
 	/*VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
@@ -120,7 +128,10 @@ simple_statement:
 							}
 	  					}*/
 	| '@' operand				{
-							std::cout<<$2<<std::endl;
+							Ast* ost=new Ast(new PrintValueOperator($2->root), $2);
+							$$=ost;
+							main_func.stmts.push_back(ost);
+							//std::cout<<$2<<std::endl;
 						}
 	/*| '$' VAR_NAME '[' LITERAL LITERAL ']' 
 						{
@@ -211,14 +222,16 @@ assign_expr:
 operand:
 	numeric_operand		{
 					$$=$1;
-					vm.pushOperand({$1});
+					//vm.pushOperand({$1});
 					bison_logger<<"operand_literal: "<<$1<<std::endl;
 				}
 	| VAR_NAME	{
 			
 				if(vm.checkIfDefined(*$1))
 				{
-					$$=vm.getVar(*$1)->value;
+					Ast* ost=new Ast(new OperandNode(new Operand({vm.getVar(*$1)})));
+					$$=ost;
+					//$$=vm.getVar(*$1)->value;
 					vm.pushOperand({vm.getVar(*$1)});
 					bison_logger<<"operand_variable: "<<std::endl;
 					bison_logger<<*vm.getVar(*$1);
@@ -226,7 +239,7 @@ operand:
 				}
 				else
 				{
-					$$=0;
+					//$$=0;
 					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 				}
@@ -236,88 +249,7 @@ operand:
 
 					if(exists && !vm.getVar(*$1)->isField)
 					{
-						$$=0;
-						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
-					}
-					else if(exists)
-					{
-						bool isError=false;
-						try
-						{
-							vm.pushOperand({vm.getVar(*$1), $3, $4});
-							bison_logger<<"operand_indexed_variable: "<<std::endl;
-							bison_logger<<dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
-							bison_logger<<std::endl;
-						}
-						catch(std::invalid_argument error)
-						{
-							$$=0;
-							isError=true;
-							if(vm.getErrCode()==Err::undefined)
-							{
-								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-							}
-							else if(vm.getErrCode()==Err::outOfRange)
-							{
-								std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
-							}
-							std::cerr<<"Error text: "<<error.what()<<std::endl;
-						}
-						if(!isError)
-						{
-							$$=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4).value;
-						}
-					}
-					else
-					{
-						$$=0;
-						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
-					}
-					
-					}
-	;
-numeric_operand:
-	LITERAL		{
-				$$=$1;
-			}
-	| expr		{
-				$$=$1;
-			}
-	| logic_expr	{
-				$$=$1;
-			}
-	;
-expr_operand:
-	LITERAL		{
-				$$=$1;
-				//vm.pushOperand({$1});
-				bison_logger<<"operand_literal: "<<$1<<std::endl;
-			}
-	| VAR_NAME	{
-			
-				if(vm.checkIfDefined(*$1))
-				{
-					$$=vm.getVar(*$1)->value;
-					//vm.pushOperand({vm.getVar(*$1)});
-					bison_logger<<"operand_variable: "<<std::endl;
-					bison_logger<<*vm.getVar(*$1);
-					bison_logger<<std::endl;
-				}
-				else
-				{
-					$$=0;
-					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
-				}
-			}
-	| VAR_NAME '[' LITERAL LITERAL ']' {
-					bool exists=vm.checkIfDefined(*$1);
-
-					if(exists && !vm.getVar(*$1)->isField)
-					{
-						$$=0;
+						//$$=0;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
 					}
@@ -333,7 +265,7 @@ expr_operand:
 						}
 						catch(std::invalid_argument error)
 						{
-							$$=0;
+							//$$=0;
 							isError=true;
 							if(vm.getErrCode()==Err::undefined)
 							{
@@ -347,12 +279,99 @@ expr_operand:
 						}
 						if(!isError)
 						{
-							$$=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4).value;
+							Ast* ost=new Ast(new OperandNode(new Operand({vm.getVar(*$1), $3, $4})));
+							$$=ost;
 						}
 					}
 					else
 					{
-						$$=0;
+						//$$=0;
+						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
+					}
+					
+					}
+	;
+numeric_operand:
+	LITERAL		{
+				Ast* ost=new Ast(new OperandNode({$1}));
+				$$=ost;
+			}
+	| expr		{
+
+				$$=$1;
+			}
+	| logic_expr	{
+				$$=$1;
+			}
+	;
+expr_operand:
+	LITERAL		{
+				Ast* ost=new Ast(new OperandNode(new Operand({$1})));
+				$$=ost;
+				bison_logger<<"operand_literal: "<<$1<<std::endl;
+			}
+	| VAR_NAME	{
+				if(vm.checkIfDefined(*$1))
+				{
+					Ast* ost=new Ast(new OperandNode(new Operand({vm.getVar(*$1)})));
+					$$=ost;
+					//$$=vm.getVar(*$1)->value;
+					//vm.pushOperand({vm.getVar(*$1)});
+					bison_logger<<"operand_variable: "<<std::endl;
+					bison_logger<<*vm.getVar(*$1);
+					bison_logger<<std::endl;
+				}
+				else
+				{
+					//$$=0;
+					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
+				}
+			}
+	| VAR_NAME '[' LITERAL LITERAL ']' {
+					bool exists=vm.checkIfDefined(*$1);
+
+					if(exists && !vm.getVar(*$1)->isField)
+					{
+						//$$=0;
+						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
+					}
+					else if(exists)
+					{
+						bool isError=false;
+						try
+						{
+							//vm.pushOperand({vm.getVar(*$1), $3, $4});
+							bison_logger<<"operand_indexed_variable: "<<std::endl;
+							bison_logger<<dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4);
+							bison_logger<<std::endl;
+						}
+						catch(std::invalid_argument error)
+						{
+							//$$=0;
+							isError=true;
+							if(vm.getErrCode()==Err::undefined)
+							{
+								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+							}
+							else if(vm.getErrCode()==Err::outOfRange)
+							{
+								std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
+							}
+							std::cerr<<"Error text: "<<error.what()<<std::endl;
+						}
+						if(!isError)
+						{
+							//$$=dynamic_cast<Field*>(vm.getVar(*$1))->getVar($3, $4).value;
+							Ast* ost=new Ast(new OperandNode(new Operand({vm.getVar(*$1), $3, $4})));
+							$$=ost;
+						}
+					}
+					else
+					{
+						//$$=0;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 					}
@@ -366,39 +385,51 @@ expr:
 					bison_logger<<"operand with value "<<$1<<std::endl;
 					}
 	| '+' expr_operand		{
-					$$=$2;
+					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uplus, {$2->root}), $2);
+					$$=ost;
+
+					//$$=$2;
 					//vm.popOperand();
 					bison_logger<<"plused operand with value "<<$2<<std::endl;
 					}
 	| '-' expr_operand		{
-					$$=-$2;
+					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uminus, {$2->root}), $2);
+					$$=ost;
 					//vm.popOperand();
 					bison_logger<<"minused operand with value "<<-$2<<std::endl;
 					}
 	| expr '*' expr		{
-					$$=$1*$3;
+					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::mult, {$1->root, $3->root}), $1, $3);
+					$$=ost;
+					//$$=$1*$3;
 					//vm.pushOperand($$);
 					bison_logger<<"product of two expressions with value "<<$$<<std::endl;
 				}
 	| expr '/' expr		{
-					if($3==0)
+					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::div, {$1->root, $3->root}), $1, $3);
+					$$=ost;
+					/*if($3==0)
 					{
 						$$=32768;
 					}
 					else
 					{
 						$$=$1/$3;
-					}
+					}*/
 					bison_logger<<"division of two expressions with value "<<$$<<std::endl;
 					//vm.pushOperand($$);
 				}
 	| expr '+' expr		{
-					$$=$1+$3;
+					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::plus, {$1->root, $3->root}), $1, $3);
+					$$=ost;
+					//$$=$1+$3;
 					//vm.pushOperand($$);
 					bison_logger<<"sum of two expressions with value "<<$$<<std::endl;
 				}
 	| expr '-' expr		{
-					$$=$1-$3;
+					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::minus, {$1->root, $3->root}), $1, $3);
+					$$=ost;
+					//$$=$1-$3;
 					//vm.pushOperand($$);
 					bison_logger<<"difference between two expressions with value "<<$$<<std::endl;
 				}
@@ -410,19 +441,27 @@ expr:
 	;
 logic_expr:
 	logic_expr LESS_EQUAL logic_expr	{
-					$$=$1<=$3;
+					Ast* ost=new Ast(new LogicOperator(LogicType::le, {$1->root, $3->root}), $1, $3);
+					$$=ost;
+					//$$=$1<=$3;
 					bison_logger<<$1<<"<="<<$3<<": "<<$$<<std::endl;
 				}
 	| logic_expr MORE_EQUAL logic_expr  {
-					$$=$1>=$3;
+					Ast* ost=new Ast(new LogicOperator(LogicType::me, {$1->root, $3->root}), $1, $3);
+					$$=ost;
+					//$$=$1>=$3;
 					bison_logger<<$1<<">="<<$3<<": "<<$$<<std::endl;
 				}
 	| logic_expr '<' logic_expr		{
-					$$=$1<$3;
+					Ast* ost=new Ast(new LogicOperator(LogicType::l, {$1->root, $3->root}), $1, $3);
+					$$=ost;
+					//$$=$1<$3;
 					bison_logger<<$1<<"<"<<$3<<": "<<$$<<std::endl;
 				}
 	| logic_expr '>' logic_expr		{
-					$$=$1>$3;
+					Ast* ost=new Ast(new LogicOperator(LogicType::m, {$1->root, $3->root}), $1, $3);
+					$$=ost;
+					//$$=$1>$3;
 					bison_logger<<$1<<">"<<$3<<": "<<$$<<std::endl;
 				}
 	| '(' logic_expr ')'	{
@@ -434,7 +473,7 @@ logic_expr:
 					bison_logger<<"expr from logic expr"<<std::endl;
 				}
 	;
-vars:
+/*vars:
     	VAR_NAME vars {
 				//targetVec.push_back(*$1);
 				vm.pushVarToInit(*$1);
@@ -446,7 +485,7 @@ vars:
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
 	|		{} 
-	;
+	;*/
 
 %%
 

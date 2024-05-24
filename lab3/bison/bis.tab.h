@@ -44,7 +44,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 20 "bison/lang.y"
+#line 22 "bison/lang.y"
 
 	#include <iostream>
 	#include <string>
@@ -73,14 +73,17 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 37 "bison/lang.y"
+#line 41 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
 	int num;
 	bool logic;
+	Ast* st;
+	CstmtNode* main_func=new CstmtNode({}, "main");
+	//st->setRoot(main);
 
-#line 84 "bison/bis.tab.h"
+#line 87 "bison/bis.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

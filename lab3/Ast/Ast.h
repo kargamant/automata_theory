@@ -3,7 +3,8 @@
 enum class nodeType
 {
 	operand,
-	oper
+	oper,
+	cstmt
 };
 
 enum class operatorType
@@ -38,13 +39,22 @@ enum class LogicType
 
 struct Node
 {
-	std::string name;
 	nodeType type;
 	Node* left;
 	Node* right;
 	Node(nodeType type, Node* left=nullptr, Node* right=nullptr) : type(type), left(left), right(right) {}
 	virtual ~Node() {}
 	virtual int execute()=0;
+	virtual void printNode(std::ostream& stream=std::cout, int spaces=0)=0;
+};
+
+struct CstmtNode : public Node
+{
+	std::string func_name;
+	std::vector<Ast*> stmts;
+	CstmtNode(std::vector<Ast*> stmts, std::string func_name) : Node(nodeType::cstmt), stmts(stmts), func_name(func_name) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
 struct OperandNode : public Node
@@ -52,6 +62,7 @@ struct OperandNode : public Node
 	Operand* operand;
 	OperandNode(Operand* operand) : Node(nodeType::operand), operand(operand) {}
 	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
 struct OperatorNode : public Node
@@ -66,6 +77,7 @@ struct PrintValueOperator : public OperatorNode
 {
 	PrintOperator(Node* target) : OperatorNode(operatorType::printValue, {target}) {}	
 	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
 struct ArifmeticOperator : public OperatorNode
@@ -73,6 +85,7 @@ struct ArifmeticOperator : public OperatorNode
 	ArifmeticType type;
 	ArifmeticOperator(ArifmeticType type, std::vector<Node*> args) : OperatorNode(operatorType::arifmetic, args) {} 
 	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
 struct LogicOperator : public OperatorNode
@@ -80,17 +93,18 @@ struct LogicOperator : public OperatorNode
 	LogicType type;
 	LogicOperator(LogicType type, std::vector<Node*> args) : OperatorNode(operatorType::logic, args) {}
 	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
 class Ast
 {
-	private:
-		Node* root;
 	public:
+		Node* root;
 		Ast(Node* root=nullptr) : root(root) {}
-		Ast(Node* node, Ast& ast) : root(new Node(node->type, ast.root)) {}
-		Ast(Node* node, Ast& ast1, Ast& ast2) : root(new Node(node->type, ast1.root, ast2.root)) {}
-
+		Ast(Node* node, Ast* ast);
+		Ast(Node* node, Ast* ast1, Ast* ast2);
+		void printAst(std::ostream& stream=std::cout);
+		void execute();
 };
 
 
