@@ -1,14 +1,15 @@
-Numeric ALERT PUSH
-operand_literal: 0x561fa9f611d0
-All vars from init queue were intialized
-operand_variable: 
-small a 0
-operand with value 0x561fa9f61280
-expr from logic expr
 operand_literal: 1
-operand with value 0x561fa9f61520
+operand with value 0x5611a1bbe1a0
 expr from logic expr
-0x561fa9f61280>=0x561fa9f61520: 0x561fa9f61590
+Numeric ALERT PUSH
+operand_literal: 0x5611a1bbe240
+All vars from init queue were intialized
 ALERT PUSH
 operand_variable: 
-small a 0
+small k 8
+Numeric ALERT PUSH
+operand_literal: 0x5611a1bbe680
+left_assignment
+ALERT PUSH
+operand_variable: 
+small k 8

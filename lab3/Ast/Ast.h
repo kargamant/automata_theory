@@ -18,7 +18,8 @@ enum class operatorType
 	printVar,
 	arifmetic,
 	logic,
-	until
+	until,
+	check
 };
 
 enum class ArifmeticType
@@ -157,7 +158,15 @@ struct UntilOperator : public OperatorNode
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
-
+struct CheckOperator : public OperatorNode
+{
+	Node* expr;
+	Node* stmts;
+	VarMap* vm;
+	CheckOperator(VarMap* vm, Node* expr, Node* stmts) :vm(vm), OperatorNode(operatorType::check), expr(expr), stmts(stmts) {left=expr; right=stmts;}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+};
 
 
 

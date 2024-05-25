@@ -1,6 +1,22 @@
+check
+check parsed
+1
+literal parsed
+do
+do parsed
 small
 var_type parsed
-a
+k
+var_name parsed
+<<
+left_assign parsed
+8
+literal parsed
+,
+, parsed
+.
+. parsed
+k
 var_name parsed
 <<
 left_assign parsed
@@ -8,23 +24,11 @@ left_assign parsed
 literal parsed
 ,
 , parsed
-until
-until parsed
-a
-var_name parsed
-=>
-more_equal parsed
-1
-literal parsed
-do
-do parsed
 @
 @ parsed
-a
+k
 var_name parsed
 ,
 , parsed
-.
-. parsed
 .
 . parsed

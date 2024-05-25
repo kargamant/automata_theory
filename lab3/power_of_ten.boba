@@ -1,4 +1,12 @@
-small power<<0,
+small power<<1,
 big a<<1,
-until power=>4 do power<<1+power, 10*a>>a,.
+tiny condition<<0,
+
+until condition
+do 
+power<<1+power, 
+10*a>>a,
+check power>4 do condition<<1,.
+.
+
 @a,.

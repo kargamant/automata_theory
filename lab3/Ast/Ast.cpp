@@ -261,10 +261,23 @@ int UntilOperator::execute()
 		
 		stmts->execute();
 		
+	//	if(expr->type==nodeType::oper) dynamic_cast<OperatorNode*>(expr)->isExecuted=false;
+	//	if(stmts->left!=nullptr && stmts->left->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->left)->isExecuted=false;
+	//	if(stmts->right!=nullptr && stmts->right->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->right)->isExecuted=false;
+		
+	}
+	return 0;
+}
+
+int CheckOperator::execute()
+{
+	if(expr->execute())
+	{
+		stmts->execute();
+		
 		if(expr->type==nodeType::oper) dynamic_cast<OperatorNode*>(expr)->isExecuted=false;
 		if(stmts->left!=nullptr && stmts->left->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->left)->isExecuted=false;
 		if(stmts->right!=nullptr && stmts->right->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->right)->isExecuted=false;
-		
 	}
 	return 0;
 }
@@ -392,13 +405,21 @@ void AssigningOperator::printNode(std::ostream& stream, int spaces)
 void UntilOperator::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
-	stream<<"until ";
+	stream<<"until "<<std::endl;
 	expr->printNode();
-	stream<<" do ";
+	stream<<" do "<<std::endl;
 	stmts->printNode();
 }
 
 
+void CheckOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	stream<<"check "<<std::endl;
+	expr->printNode();
+	stream<<"do "<<std::endl;
+	stmts->printNode();
+}
 
 
 

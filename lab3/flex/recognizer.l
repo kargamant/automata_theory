@@ -17,6 +17,7 @@ right_assign >>
 more_equal =>
 less_equal <=
 until until
+check check
 do do
 
 
@@ -49,6 +50,14 @@ do do
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"until parsed"<<std::endl;
 			return UNTIL;
+		}
+{check}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"check parsed"<<std::endl;
+			return CHECK;
 		}
 {do}		{
 			yylloc.first_column=yylloc.last_column+1;

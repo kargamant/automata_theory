@@ -9,6 +9,7 @@
 %token ARRAY
 %token UNTIL
 %token DO
+%token CHECK
 //%nterm statement_group
 //%nterm <num> signed_operand
 %nterm <st> expr
@@ -156,6 +157,13 @@ simple_statement:
 							Ast* ost=new Ast(op);
 							$$=ost;
 							//ost->execute();
+						}
+	| CHECK logic_expr DO complex_statement {
+							OperatorNode* op=new CheckOperator(vm, $2->root, $4->root);
+							Ast* ost=new Ast(op);
+							$$=ost;
+
+							
 						}
 	;
 
