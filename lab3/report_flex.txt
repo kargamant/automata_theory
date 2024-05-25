@@ -1,38 +1,52 @@
-small
+big
 var_type parsed
-foo
+GG
 var_name parsed
+<<
+left_assign parsed
+9
+literal parsed
+,
+, parsed
+@
+@ parsed
+GG
+var_name parsed
+*
+* parsed
+9
+literal parsed
+,
+, parsed
 tiny
 var_type parsed
-a
+isGood
 var_name parsed
-small
+big
 var_type parsed
-b
-var_name parsed
-normal
-var_type parsed
-c
+GG
 var_name parsed
 begin
 begin parsed
+check
+check parsed
+GG
+var_name parsed
+do
+do parsed
 @
 @ parsed
-a
-var_name parsed
-+
-+ parsed
-b
-var_name parsed
-+
-+ parsed
-c
+GG
 var_name parsed
 ,
 , parsed
 .
 . parsed
+.
+. parsed
 end
 end parsed
+,
+, parsed
 .
 . parsed

@@ -44,9 +44,7 @@
 	void yyerror(const char *s);
 
 	VarMap* vm=new VarMap();	
-	Ast ast;
-	CstmtNode* stmt_group=new CstmtNode(std::vector<Ast*>(), "queue");
-	CstmtNode* main_func=new CstmtNode(std::vector<Ast*>(), "main");
+	std::unordered_map<std::string, Ast*> declared_funcs;
 	std::ofstream bison_logger("report_bison.txt");
 %}
 
@@ -66,6 +64,11 @@ main:
     complex_statement	{
     				//ast.root=main_func;
 				$$->printAst();
+				std::cout<<"funcs:"<<std::endl;
+				for(auto& func: declared_funcs)
+				{
+					func.second->printAst();
+				}
 				//$$->execute();
 				//ast.printAst();
     			}
@@ -108,8 +111,8 @@ simple_statement:
 						
 						Ast* ost=new Ast(on);
 
-						main_func->stmts.push_back(ost);
-						stmt_group->stmts.push_back(ost);
+						//main_func->stmts.push_back(ost);
+						//stmt_group->stmts.push_back(ost);
 						ost->execute();
 						$$=ost;	
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
@@ -129,7 +132,7 @@ simple_statement:
 							
 							Ast* ost=new Ast(on);
 
-							main_func->stmts.push_back(ost);
+							//main_func->stmts.push_back(ost);
 							ost->execute();
 							$$=ost;	
 						}
@@ -147,7 +150,7 @@ simple_statement:
 	| '@' operand	','			{
 							Ast* ost=new Ast(new PrintValueOperator($2->root), $2);
 							$$=ost;
-							main_func->stmts.push_back(ost);
+							//main_func->stmts.push_back(ost);
 							//std::cout<<$2<<std::endl;
 						}
 	|					{
@@ -168,9 +171,11 @@ simple_statement:
 
 							
 						}
-	| VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC {
+	| VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC ',' {
 								OperatorNode* func=new FunctionOperator($1, *$2, $3, $5->root, vm);		
-								$$=new Ast(func);
+								declared_funcs.insert({*$2, new Ast(func)});
+								Ast* ost=new Ast();
+								$$=ost;
 								}
 	;
 args:
@@ -217,15 +222,6 @@ assign_expr:
 operand:
 	numeric_operand		{
 					$$=$1;
-					//if($1->root->type==nodeType::oper)
-					//{
-					//vm->pushOperand({$1->execute()});
-					bison_logger<<"Numeric ALERT PUSH"<<std::endl;
-					//}
-					//else
-					//{
-					//	vm->pushOperand(*dynamic_cast<OperandNode*>($1->root)->operand);
-					//}
 					bison_logger<<"operand_literal: "<<$1<<std::endl;
 				}
 	| VAR_NAME	{
@@ -234,16 +230,14 @@ operand:
 				{
 					Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1))));
 					$$=ost;
-					//$$=vm->getVar(*$1)->value;
-					//vm->pushOperand({vm->getVar(*$1)});
-					bison_logger<<"ALERT PUSH"<<std::endl;
 					bison_logger<<"operand_variable: "<<std::endl;
 					bison_logger<<*vm->getVar(*$1);
 					bison_logger<<std::endl;
 				}
 				else
 				{
-					//$$=0;
+					Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+					$$=ost;
 					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 				}
@@ -253,7 +247,8 @@ operand:
 
 					if(exists && !vm->getVar(*$1)->isField)
 					{
-						//$$=0;
+						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						$$=ost;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
 					}
@@ -262,24 +257,16 @@ operand:
 						bool isError=false;
 						try
 						{
-							//vm->pushOperand({vm->getVar(*$1), $3, $4});
-							bison_logger<<"ALERT PUSH"<<std::endl;
 							bison_logger<<"operand_indexed_variable: "<<std::endl;
 							bison_logger<<dynamic_cast<Field*>(vm->getVar(*$1))->getVar($3, $4);
 							bison_logger<<std::endl;
 						}
 						catch(std::invalid_argument error)
 						{
-							//$$=0;
+							Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+							$$=ost;
 							isError=true;
-							if(vm->getErrCode()==Err::undefined)
-							{
-								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-							}
-							else if(vm->getErrCode()==Err::outOfRange)
-							{
-								std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
-							}
+							std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
 						}
 						if(!isError)
@@ -290,7 +277,8 @@ operand:
 					}
 					else
 					{
-						//$$=0;
+						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						$$=ost;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 					}

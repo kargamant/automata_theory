@@ -37,7 +37,7 @@ Grammar
     8                 | %empty
     9                 | UNTIL logic_expr DO complex_statement
    10                 | CHECK logic_expr DO complex_statement
-   11                 | VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC
+   11                 | VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC ','
 
    12 args: VAR_TYPE VAR_NAME args
    13     | VAR_TYPE VAR_NAME
@@ -86,7 +86,7 @@ Terminals, with rules where they appear
     ')' (41) 33 38
     '*' (42) 29
     '+' (43) 27 31
-    ',' (44) 4 5 6 7
+    ',' (44) 4 5 6 7 11
     '-' (45) 28 32
     '.' (46) 3
     '/' (47) 30
@@ -211,7 +211,7 @@ State 1
 State 2
 
     4 simple_statement: VAR_TYPE . VAR_NAME vars LEFT_ASSIGN operand ','
-   11                 | VAR_TYPE . VAR_NAME args BEGIN_FUNC complex_statement END_FUNC
+   11                 | VAR_TYPE . VAR_NAME args BEGIN_FUNC complex_statement END_FUNC ','
 
     VAR_NAME  shift, and go to state 21
 
@@ -456,7 +456,7 @@ State 20
 State 21
 
     4 simple_statement: VAR_TYPE VAR_NAME . vars LEFT_ASSIGN operand ','
-   11                 | VAR_TYPE VAR_NAME . args BEGIN_FUNC complex_statement END_FUNC
+   11                 | VAR_TYPE VAR_NAME . args BEGIN_FUNC complex_statement END_FUNC ','
 
     VAR_NAME  shift, and go to state 48
     VAR_TYPE  shift, and go to state 49
@@ -804,7 +804,7 @@ State 49
 
 State 50
 
-   11 simple_statement: VAR_TYPE VAR_NAME args . BEGIN_FUNC complex_statement END_FUNC
+   11 simple_statement: VAR_TYPE VAR_NAME args . BEGIN_FUNC complex_statement END_FUNC ','
 
     BEGIN_FUNC  shift, and go to state 73
 
@@ -1104,7 +1104,7 @@ State 72
 
 State 73
 
-   11 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC . complex_statement END_FUNC
+   11 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC . complex_statement END_FUNC ','
 
     VAR_NAME  shift, and go to state 1
     VAR_TYPE  shift, and go to state 2
@@ -1226,7 +1226,7 @@ State 81
 
 State 82
 
-   11 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement . END_FUNC
+   11 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement . END_FUNC ','
 
     END_FUNC  shift, and go to state 86
 
@@ -1254,9 +1254,9 @@ State 85
 
 State 86
 
-   11 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC .
+   11 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC . ','
 
-    $default  reduce using rule 11 (simple_statement)
+    ','  shift, and go to state 90
 
 
 State 87
@@ -1277,7 +1277,7 @@ State 88
     '('       shift, and go to state 10
 
     expr             go to state 14
-    operand          go to state 90
+    operand          go to state 91
     numeric_operand  go to state 16
     logic_expr       go to state 17
     expr_operand     go to state 18
@@ -1292,12 +1292,19 @@ State 89
 
 State 90
 
-    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand . ','
+   11 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC ',' .
 
-    ','  shift, and go to state 91
+    $default  reduce using rule 11 (simple_statement)
 
 
 State 91
+
+    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand . ','
+
+    ','  shift, and go to state 92
+
+
+State 92
 
     5 simple_statement: ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand ',' .
 
