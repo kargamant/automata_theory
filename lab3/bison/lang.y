@@ -75,7 +75,7 @@ complex_statement:
 						//ast.printAst();
 						//ast.execute();
 						}
-	| simple_statement {
+	| simple_statement '.' {
 					Ast* nst=new Ast();
 					nst->root=new ConnectingNode(".", $1->root, nullptr);
 					$$=nst;
@@ -148,9 +148,12 @@ simple_statement:
 							Ast* ost=new Ast();
 							$$=ost;
 						}
-	/*| UNTIL logic_expr DO simple_statement ',' statement_group	{
-										
-									}*/
+	| UNTIL logic_expr DO complex_statement	{
+							OperatorNode* op=new UntilOperator(vm, $2->root, $4->root);
+							Ast* ost=new Ast(op);
+							$$=ost;
+							ost->execute();
+						}
 	;
 
 assign_expr:

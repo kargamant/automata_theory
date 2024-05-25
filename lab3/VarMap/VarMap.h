@@ -90,11 +90,11 @@ class VarMap
 {
 	private:
 		std::unordered_map<std::string, Var*> map;
+		static Err err_code;
+	public:
 		std::vector<Var> to_initialize;
 		std::stack<Operand> operand_stack;
 		std::queue<AssignOperator> oper_queue;
-		static Err err_code;
-	public:
 		~VarMap()
 		{
 			for(auto& v: map)
@@ -120,6 +120,31 @@ class VarMap
 		void flushAssignExpr();
 
 		Err getErrCode() {return err_code;}
+		std::vector<Var> get_to_initialize() const {
+			  return to_initialize;
+		}
+
+		std::stack<Operand> get_operand_stack() const {
+			  return operand_stack;
+		}
+
+		std::queue<AssignOperator> get_oper_queue() const {
+			  return oper_queue;
+		}
+		
+		void set_to_initialize(std::vector<Var> to_initialize) {
+			  this->to_initialize = to_initialize;
+		}
+
+		void set_operand_stack(std::stack<Operand> operand_stack) {
+			  this->operand_stack = operand_stack;
+		}
+
+		void set_oper_queue(std::queue<AssignOperator> oper_queue) {
+			  this->oper_queue = oper_queue;
+		}
+
+
 		VarMap& setErrCode(Err nerr_code) {err_code=nerr_code; return *this;}
 		void clearBuffers();
 		friend Var;

@@ -27,8 +27,8 @@ int CstmtNode::execute()
 
 int ConnectingNode::execute()
 {
-	left->execute();
-	right->execute();
+	if(left!=nullptr) left->execute();
+	if(right!=nullptr) right->execute();
 	return 0;
 }
 
@@ -140,6 +140,31 @@ int AssigningOperator::execute()
 	return 0;	
 }
 
+int UntilOperator::execute()
+{
+	std::vector<Var> init_copy=vm->get_to_initialize();
+	std::stack<Operand> operand_stack_copy=vm->get_operand_stack();
+	std::queue<AssignOperator> oper_queue_copy=vm->get_oper_queue();
+	while(!expr->execute())
+	{
+		
+		stmts->execute();
+		
+		if(expr->type==nodeType::oper) dynamic_cast<OperatorNode*>(expr)->isExecuted=false;
+		if(stmts->left->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->left)->isExecuted=false;
+		if(stmts->right->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->right)->isExecuted=false;
+		
+		vm->set_to_initialize(init_copy);
+		vm->set_operand_stack(operand_stack_copy);
+		vm->set_oper_queue(oper_queue_copy);
+		std::cout<<"emptiness"<<std::endl;
+		std::cout<<vm->to_initialize.empty()<<std::endl;
+		std::cout<<vm->operand_stack.empty()<<std::endl;
+		std::cout<<vm->oper_queue.empty()<<std::endl;
+	}
+	return 0;
+}
+
 void OperandNode::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
@@ -246,16 +271,25 @@ void Ast::printAst(std::ostream& stream)
 
 void DefiningOperator::printNode(std::ostream& stream, int spaces)
 {
+	stream<<std::string(spaces, ' ');
 	stream<<"<"<<nameByType(typeByInt(params[0]))<<"> defining with:"<<std::endl;
 	args[0]->printNode(stream, spaces+6);
 }
 
 void AssigningOperator::printNode(std::ostream& stream, int spaces)
 {
+	stream<<std::string(spaces, ' ');
 	stream<<"assigning expression"<<std::endl;
 }
 
-
+void UntilOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	stream<<"until ";
+	expr->printNode();
+	stream<<" do ";
+	stmts->printNode();
+}
 
 
 

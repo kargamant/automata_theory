@@ -4,105 +4,47 @@ a
 var_name parsed
 <<
 left_assign parsed
-8
+0
 literal parsed
 ,
 , parsed
-tiny
-var_type parsed
-b
-var_name parsed
-<<
-left_assign parsed
-4
-literal parsed
-,
-, parsed
-tiny
-var_type parsed
-b
-var_name parsed
-<<
-left_assign parsed
-1
-literal parsed
-,
-, parsed
-normal
-var_type parsed
-k
-var_name parsed
-<<
-left_assign parsed
--3
-literal parsed
-,
-, parsed
-field
-array_type parsed
-big
-var_type parsed
 small
 var_type parsed
-hh
+c
 var_name parsed
 <<
 left_assign parsed
 a
 var_name parsed
-*
-* parsed
-b
+,
+, parsed
+until
+until parsed
+a
+var_name parsed
+=>
+more_equal parsed
+5
+literal parsed
+do
+do parsed
+a
 var_name parsed
 +
 + parsed
-k
+1
+literal parsed
+>>
+right_assign parsed
+c
 var_name parsed
 ,
 , parsed
-field
-array_type parsed
-normal
-var_type parsed
-normal
-var_type parsed
-LL
+a
 var_name parsed
 <<
 left_assign parsed
-hh
-var_name parsed
-[
-[ parsed
-2
-literal parsed
-3
-literal parsed
-]
-] parsed
-+
-+ parsed
-a
-var_name parsed
--
-- parsed
-b
-var_name parsed
-*
-* parsed
-k
-var_name parsed
-,
-, parsed
-@
-@ parsed
-b
-var_name parsed
-,
-, parsed
-@
-@ parsed
-k
+c
 var_name parsed
 ,
 , parsed
@@ -110,34 +52,6 @@ var_name parsed
 @ parsed
 a
 var_name parsed
-,
-, parsed
-@
-@ parsed
-hh
-var_name parsed
-[
-[ parsed
-0
-literal parsed
-0
-literal parsed
-]
-] parsed
-,
-, parsed
-@
-@ parsed
-LL
-var_name parsed
-[
-[ parsed
-0
-literal parsed
-0
-literal parsed
-]
-] parsed
 ,
 , parsed
 .
