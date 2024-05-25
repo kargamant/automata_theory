@@ -1,0 +1,4 @@
+small power<<0,
+big a<<1,
+until power=>4 do power<<1+power, 10*a>>a,.
+@a,.

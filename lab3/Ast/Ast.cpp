@@ -34,6 +34,7 @@ int ConnectingNode::execute()
 
 int OperandNode::execute()
 {
+	operand->updateValue();
 	return operand->value;
 }
 
@@ -255,30 +256,16 @@ int AssigningOperator::execute()
 
 int UntilOperator::execute()
 {
-	/*std::vector<Var> init_copy=vm->get_to_initialize();
-	std::stack<Operand> operand_stack_copy=vm->get_operand_stack();
-	std::queue<AssignOperator> oper_queue_copy=vm->get_oper_queue();
-		//std::cout<<vm->to_initialize.empty()<<std::endl;
-		std::cout<<vm->operand_stack.empty()<<std::endl;
-		std::cout<<vm->oper_queue.empty()<<std::endl;
 	while(!expr->execute())
 	{
 		
 		stmts->execute();
 		
 		if(expr->type==nodeType::oper) dynamic_cast<OperatorNode*>(expr)->isExecuted=false;
-		if(stmts->left->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->left)->isExecuted=false;
-		if(stmts->right->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->right)->isExecuted=false;
+		if(stmts->left!=nullptr && stmts->left->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->left)->isExecuted=false;
+		if(stmts->right!=nullptr && stmts->right->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->right)->isExecuted=false;
 		
-		//vm->clearBuffers();
-		//vm->set_to_initialize(init_copy);
-		//vm->set_operand_stack(operand_stack_copy);
-		//vm->set_oper_queue(oper_queue_copy);
-		std::cout<<"emptiness"<<std::endl;
-		std::cout<<vm->to_initialize.empty()<<std::endl;
-		std::cout<<vm->operand_stack.empty()<<std::endl;
-		std::cout<<vm->oper_queue.empty()<<std::endl;
-	}*/
+	}
 	return 0;
 }
 

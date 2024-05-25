@@ -1,0 +1,11 @@
+small q<<3,
+big a<<1,
+big summ<<a,
+small n<<3,
+
+until n<=0 do 
+a<<a*q, 
+summ<<summ+a, 
+-1+n>>n,.
+
+@summ,.

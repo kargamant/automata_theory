@@ -1506,8 +1506,8 @@ yyreduce:
 #line 62 "bison/lang.y"
                         {
     				//ast.root=main_func;
-				(yyval.st)->execute();
 				(yyval.st)->printAst();
+				(yyval.st)->execute();
 				//ast.printAst();
     			}
 #line 1514 "bison/bis.tab.c"

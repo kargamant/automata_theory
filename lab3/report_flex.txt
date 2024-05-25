@@ -4,103 +4,27 @@ a
 var_name parsed
 <<
 left_assign parsed
-1
+0
 literal parsed
 ,
 , parsed
-normal
-var_type parsed
-b
-var_name parsed
-<<
-left_assign parsed
-6
-literal parsed
-,
-, parsed
-big
-var_type parsed
-c
-var_name parsed
-<<
-left_assign parsed
-9
-literal parsed
-,
-, parsed
-field
-array_type parsed
-big
-var_type parsed
-small
-var_type parsed
-omogus
-var_name parsed
-<<
-left_assign parsed
-1488
-literal parsed
-,
-, parsed
+until
+until parsed
 a
 var_name parsed
-<<
-left_assign parsed
-b
-var_name parsed
-+
-+ parsed
-4
-literal parsed
->>
-right_assign parsed
-c
-var_name parsed
->>
-right_assign parsed
-omogus
-var_name parsed
-[
-[ parsed
+=>
+more_equal parsed
 1
 literal parsed
-1
-literal parsed
-]
-] parsed
-,
-, parsed
+do
+do parsed
 @
 @ parsed
 a
 var_name parsed
 ,
 , parsed
-@
-@ parsed
-b
-var_name parsed
-,
-, parsed
-@
-@ parsed
-c
-var_name parsed
-,
-, parsed
-@
-@ parsed
-omogus
-var_name parsed
-[
-[ parsed
-1
-literal parsed
-1
-literal parsed
-]
-] parsed
-,
-, parsed
+.
+. parsed
 .
 . parsed

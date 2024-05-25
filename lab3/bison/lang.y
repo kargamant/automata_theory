@@ -61,8 +61,8 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-				$$->execute();
 				$$->printAst();
+				$$->execute();
 				//ast.printAst();
     			}
 	;
