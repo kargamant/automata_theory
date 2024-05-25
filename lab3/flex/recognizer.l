@@ -19,6 +19,8 @@ less_equal <=
 until until
 check check
 do do
+begin begin
+end end
 
 
 %option noyywrap
@@ -50,6 +52,22 @@ do do
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"until parsed"<<std::endl;
 			return UNTIL;
+		}
+{begin}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"begin parsed"<<std::endl;
+			return BEGIN_FUNC;
+		}
+{end}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"end parsed"<<std::endl;
+			return END_FUNC;
 		}
 {check}		{
 			yylloc.first_column=yylloc.last_column+1;

@@ -10,8 +10,11 @@
 %token UNTIL
 %token DO
 %token CHECK
+%token BEGIN_FUNC
+%token END_FUNC
 //%nterm statement_group
 //%nterm <num> signed_operand
+%nterm <st> args
 %nterm <st> expr
 %nterm <st> operand
 %nterm <st> numeric_operand
@@ -63,7 +66,7 @@ main:
     complex_statement	{
     				//ast.root=main_func;
 				$$->printAst();
-				$$->execute();
+				//$$->execute();
 				//ast.printAst();
     			}
 	;
@@ -165,7 +168,22 @@ simple_statement:
 
 							
 						}
+	| VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC {
+								OperatorNode* func=new FunctionOperator($1, *$2, $3, $5->root, vm);		
+								$$=new Ast(func);
+								}
 	;
+args:
+    	VAR_TYPE VAR_NAME args {
+					OperandNode* op=new OperandNode(new Operand(new Var($1, *$2)));
+
+					$$=new Ast(op, $3);
+    				}
+	| VAR_TYPE VAR_NAME	{
+					OperandNode* op=new OperandNode(new Operand(new Var($1, *$2)));
+					Ast* ost=new Ast(op);
+					$$=ost;
+				}
 
 assign_expr:
 	operand LEFT_ASSIGN assign_expr	
@@ -201,7 +219,7 @@ operand:
 					$$=$1;
 					//if($1->root->type==nodeType::oper)
 					//{
-					vm->pushOperand({$1->execute()});
+					//vm->pushOperand({$1->execute()});
 					bison_logger<<"Numeric ALERT PUSH"<<std::endl;
 					//}
 					//else

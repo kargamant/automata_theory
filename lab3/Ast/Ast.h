@@ -19,7 +19,8 @@ enum class operatorType
 	arifmetic,
 	logic,
 	until,
-	check
+	check,
+	func
 };
 
 enum class ArifmeticType
@@ -168,7 +169,20 @@ struct CheckOperator : public OperatorNode
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
+struct FunctionOperator : public OperatorNode
+{
+	VarType return_type;
+	std::string name;
+	Ast* arguments;
+	VarMap* global_scope;
+	VarMap scope;
 
+	Node* stmts;
+	FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope);
+	void unparseArguments();
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+};
 
 
 

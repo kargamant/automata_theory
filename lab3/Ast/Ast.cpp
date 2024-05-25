@@ -12,6 +12,29 @@ Ast::Ast(Node* node, Ast* ast1, Ast* ast2)
 	root->left=ast1->root;
 	root->right=ast2->root;
 }
+
+FunctionOperator::FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope) : OperatorNode(operatorType::func), return_type(return_type), name(name), arguments(arguments), stmts(stmts), global_scope(global_scope)
+{
+	//defines argument names in local scope
+	unparseArguments();
+}
+
+void FunctionOperator::unparseArguments()
+{
+	Node* ptr=arguments->root;
+	while(ptr!=nullptr)
+	{
+		scope.addVar(dynamic_cast<OperandNode*>(ptr)->operand->var);
+		ptr=ptr->left;
+	}
+}
+
+int FunctionOperator::execute()
+{
+	//stmts->exec
+	return 0;
+}
+
 int Ast::execute()
 {
 	return root->execute();
@@ -421,7 +444,21 @@ void CheckOperator::printNode(std::ostream& stream, int spaces)
 	stmts->printNode();
 }
 
-
+void FunctionOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<nameByType(return_type)<<" "<<name<<" (";
+	Node* ptr=arguments->root;
+	while(ptr!=nullptr)
+	{
+		stream<<nameByType(dynamic_cast<OperandNode*>(ptr)->operand->var->type)<<" ";
+		stream<<dynamic_cast<OperandNode*>(ptr)->operand->var->name<<", ";
+		ptr=ptr->left;
+	}
+	stream<<") "<<std::endl;
+	stream<<"do"<<std::endl;
+	stmts->printNode(stream, spaces+4);
+	stream<<"end"<<std::endl;
+}
 
 
 

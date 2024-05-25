@@ -1,15 +1,7 @@
-operand_literal: 1
-operand with value 0x5611a1bbe1a0
-expr from logic expr
+operand with value 0x55654b10c470
+operand with value 0x55654b10c4a0
+sum of two expressions with value 0x55654b10c550
+operand with value 0x55654b10c520
+sum of two expressions with value 0x55654b10c570
 Numeric ALERT PUSH
-operand_literal: 0x5611a1bbe240
-All vars from init queue were intialized
-ALERT PUSH
-operand_variable: 
-small k 8
-Numeric ALERT PUSH
-operand_literal: 0x5611a1bbe680
-left_assignment
-ALERT PUSH
-operand_variable: 
-small k 8
+operand_literal: 0x55654b10c570
