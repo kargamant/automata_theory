@@ -56,10 +56,10 @@ struct Field : public Var
 	//size_type_max - amount of elements in matrix
 	//value of Field itself is amount of items in one line
 	VarType size_type;
-	std::vector<Var> matr;
+	std::vector<Var*> matr;
 	Field(VarType item_type=VarType::tiny, VarType size_type=VarType::tiny, const std::string& name="a", int value=0);
 	void updateItems();
-	Var& getVar(int ind1, int ind2);
+	Var* getVar(int ind1, int ind2);
 };
 
 struct Operand
@@ -70,7 +70,8 @@ struct Operand
 	int value;
 	Operand(int value=0) : isVar(false), var(nullptr), value(value) {}
 	Operand(Var* var) : isVar(true), var(var), value(var->value) {}
-	Operand(Var* var, int i, int j) : isVar(true), var(&dynamic_cast<Field*>(var)->getVar(i, j)), value(var->value) {}
+	Operand(Var* var, int i, int j) : isVar(true), var(dynamic_cast<Field*>(var)->getVar(i, j)), value(var->value) {}
+	void updateValue();
 };
 
 struct AssignOperator

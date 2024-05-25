@@ -11,11 +11,12 @@
 %token DO
 //%nterm statement_group
 //%nterm <num> signed_operand
+%nterm <st> expr
 %nterm <st> operand
 %nterm <st> numeric_operand
 %nterm <st> logic_expr
-%nterm <st> expr
 %nterm <st> expr_operand
+%nterm <st> assign_expr
 %left '+' '-'
 %left '*' '/'
 %left LESS_EQUAL MORE_EQUAL
@@ -59,8 +60,8 @@
 %%
 main:
     complex_statement	{
-    				ast.root=main_func;
-				main_func->execute();
+    				//ast.root=main_func;
+				$$->execute();
 				$$->printAst();
 				//ast.printAst();
     			}
@@ -130,13 +131,14 @@ simple_statement:
 						}
 	| assign_expr 	','			
 	  					{
-							std::vector<int> params;
-							params.push_back(@1.first_line);
-							OperatorNode* on=new AssigningOperator(vm, params);
-							Ast* ost=new Ast(on);
-							main_func->stmts.push_back(ost);
-							ost->execute();
-							$$=ost;	
+							//std::vector<int> params;
+							//params.push_back(@1.first_line);
+							//OperatorNode* on=new AssigningOperator(vm, params);
+							//Ast* ost=new Ast(on);
+							//main_func->stmts.push_back(ost);
+							//ost->execute();
+							$$=$1;
+							//$$->execute();
 	  					}
 	| '@' operand	','			{
 							Ast* ost=new Ast(new PrintValueOperator($2->root), $2);
@@ -144,25 +146,33 @@ simple_statement:
 							main_func->stmts.push_back(ost);
 							//std::cout<<$2<<std::endl;
 						}
-	| '.'					{
+	|					{
 							Ast* ost=new Ast();
 							$$=ost;
 						}
 	| UNTIL logic_expr DO complex_statement	{
+							//vm->clearBuffers();
 							OperatorNode* op=new UntilOperator(vm, $2->root, $4->root);
 							Ast* ost=new Ast(op);
 							$$=ost;
-							ost->execute();
+							//ost->execute();
 						}
 	;
 
 assign_expr:
 	operand LEFT_ASSIGN assign_expr	
 					{
+						std::vector<int> params;
+						params.push_back(@1.first_line);
+						$$=new Ast(new AssigningOperator($1->root, AssignType::Left, $3->root, vm, params));
 						vm->pushOperator({AssignType::Left});	
 						bison_logger<<"left_assignment"<<std::endl;
 					}
 	| operand RIGHT_ASSIGN assign_expr	{
+						std::vector<int> params;
+						params.push_back(@1.first_line);
+						$$=new Ast(new AssigningOperator($1->root, AssignType::Right, $3->root, vm, params));
+						
 						//vm->pushOperand({$1});
 
 						//vm->pushOperand(op);
@@ -170,6 +180,7 @@ assign_expr:
 						bison_logger<<"right_assignment"<<std::endl;
 					}
 	| operand			{
+						$$=$1;
 						//vm->pushOperand({$1});
 
 						//vm->pushOperand(op);
@@ -180,24 +191,26 @@ assign_expr:
 operand:
 	numeric_operand		{
 					$$=$1;
-					if($1->root->type==nodeType::oper)
-					{
-						vm->pushOperand({$1->root->execute()});
-					}
-					else
-					{
-						vm->pushOperand(*dynamic_cast<OperandNode*>($1->root)->operand);
-					}
+					//if($1->root->type==nodeType::oper)
+					//{
+					vm->pushOperand({$1->execute()});
+					bison_logger<<"Numeric ALERT PUSH"<<std::endl;
+					//}
+					//else
+					//{
+					//	vm->pushOperand(*dynamic_cast<OperandNode*>($1->root)->operand);
+					//}
 					bison_logger<<"operand_literal: "<<$1<<std::endl;
 				}
 	| VAR_NAME	{
 			
 				if(vm->checkIfDefined(*$1))
 				{
-					Ast* ost=new Ast(new OperandNode(new Operand({vm->getVar(*$1)})));
+					Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1))));
 					$$=ost;
 					//$$=vm->getVar(*$1)->value;
-					vm->pushOperand({vm->getVar(*$1)});
+					//vm->pushOperand({vm->getVar(*$1)});
+					bison_logger<<"ALERT PUSH"<<std::endl;
 					bison_logger<<"operand_variable: "<<std::endl;
 					bison_logger<<*vm->getVar(*$1);
 					bison_logger<<std::endl;
@@ -223,7 +236,8 @@ operand:
 						bool isError=false;
 						try
 						{
-							vm->pushOperand({vm->getVar(*$1), $3, $4});
+							//vm->pushOperand({vm->getVar(*$1), $3, $4});
+							bison_logger<<"ALERT PUSH"<<std::endl;
 							bison_logger<<"operand_indexed_variable: "<<std::endl;
 							bison_logger<<dynamic_cast<Field*>(vm->getVar(*$1))->getVar($3, $4);
 							bison_logger<<std::endl;
@@ -244,7 +258,7 @@ operand:
 						}
 						if(!isError)
 						{
-							Ast* ost=new Ast(new OperandNode(new Operand({vm->getVar(*$1), $3, $4})));
+							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1), $3, $4)));
 							$$=ost;
 						}
 					}
@@ -279,7 +293,7 @@ expr_operand:
 	| VAR_NAME	{
 				if(vm->checkIfDefined(*$1))
 				{
-					Ast* ost=new Ast(new OperandNode(new Operand({vm->getVar(*$1)})));
+					Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1))));
 					$$=ost;
 					//$$=vm->getVar(*$1)->value;
 					//vm->pushOperand({vm->getVar(*$1)});
@@ -330,7 +344,7 @@ expr_operand:
 						if(!isError)
 						{
 							//$$=dynamic_cast<Field*>(vm->getVar(*$1))->getVar($3, $4).value;
-							Ast* ost=new Ast(new OperandNode(new Operand({vm->getVar(*$1), $3, $4})));
+							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1), $3, $4)));
 							$$=ost;
 						}
 					}

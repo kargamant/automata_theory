@@ -24,6 +24,7 @@ Var::Var(VarType type, const std::string& name, int value) : name(name), isField
 	}
 }
 
+
 void Var::changeValue(int nvalue)
 {
 	if(nvalue>=VarMap::size_table[type]) 
@@ -40,7 +41,7 @@ void Var::changeValue(int nvalue)
 	}
 }
 
-Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : Var(item_type, name, value), size_type(size_type), matr(VarMap::size_table[size_type]*VarMap::size_table[size_type], Var(item_type, "", value))
+Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : Var(item_type, name, value), size_type(size_type), matr(VarMap::size_table[size_type]*VarMap::size_table[size_type], new Var(item_type, "", value))
 {
 	isField=true;
 }
@@ -49,11 +50,11 @@ void Field::updateItems()
 {
 	for(auto& item: matr)
 	{
-		item.value=value;
+		item->value=value;
 	}
 }
 
-Var& Field::getVar(int ind1, int ind2)
+Var* Field::getVar(int ind1, int ind2)
 {
 	if((VarMap::size_table[size_type]*ind1+ind2)>=matr.size())
 	{
@@ -63,6 +64,14 @@ Var& Field::getVar(int ind1, int ind2)
 	else
 	{
 		return matr[VarMap::size_table[size_type]*ind1+ind2];
+	}
+}
+
+void Operand::updateValue()
+{
+	if(isVar)
+	{
+		if(value!=var->value) value=var->value;
 	}
 }
 

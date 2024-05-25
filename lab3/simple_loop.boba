@@ -1,3 +1,4 @@
 small a<<0,
 small c<<a,
-until a=>5 do a+1>>c, a<<c, @a,.
+until a=>5 do (a+1)>>a, @a,.
+.

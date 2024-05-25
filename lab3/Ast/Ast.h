@@ -59,7 +59,7 @@ class Ast
 		Ast(Node* node, Ast* ast);
 		Ast(Node* node, Ast* ast1, Ast* ast2);
 		void printAst(std::ostream& stream=std::cout);
-		void execute();
+		int execute();
 };
 
 
@@ -138,8 +138,11 @@ struct DefiningOperator : public OperatorNode
 struct AssigningOperator : public OperatorNode
 {
 	VarMap* vm;
+	AssignType assign_type;
+	Node* left;
+	Node* right;
 	std::vector<int> params;
-	AssigningOperator(VarMap* vm, std::vector<int> params) : OperatorNode(operatorType::assignExpr), vm(vm), params(params) {}
+	AssigningOperator(Node* left, AssignType type, Node* right, VarMap* vm, std::vector<int> params) : left(left), right(right), assign_type(type), OperatorNode(operatorType::assignExpr), vm(vm), params(params) {}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };

@@ -1,0 +1,10 @@
+small a<<1,
+normal b<<6,
+big c<<9,
+field big small omogus<<1488,
+a<<b+4>>c>>omogus[1 1],
+@a,
+@b,
+@c,
+@omogus[1 1],
+.

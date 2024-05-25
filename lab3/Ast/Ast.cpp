@@ -12,9 +12,9 @@ Ast::Ast(Node* node, Ast* ast1, Ast* ast2)
 	root->left=ast1->root;
 	root->right=ast2->root;
 }
-void Ast::execute()
+int Ast::execute()
 {
-	root->execute();
+	return root->execute();
 }
 int CstmtNode::execute()
 {
@@ -39,7 +39,11 @@ int OperandNode::execute()
 
 int PrintValueOperator::execute()
 {
-	if(args[0]->type==nodeType::operand) std::cout<<dynamic_cast<OperandNode*>(args[0])->operand->value<<std::endl;
+	if(args[0]->type==nodeType::operand) 
+	{
+		dynamic_cast<OperandNode*>(args[0])->operand->updateValue();
+		std::cout<<dynamic_cast<OperandNode*>(args[0])->operand->value<<std::endl;
+	}
 	else
 	{
 		std::cout<<dynamic_cast<OperatorNode*>(args[0])->execute()<<std::endl;
@@ -117,34 +121,146 @@ int DefiningOperator::execute()
 
 int AssigningOperator::execute()
 {
-	if(isExecuted) return 0;
-	try
+	if(assign_type==AssignType::Left)
 	{
-		vm->flushAssignExpr();
+		if(left->type!=nodeType::operand)
+		{
+			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+			std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
+			return 1;
+		}
+		else if(!dynamic_cast<OperandNode*>(left)->operand->isVar)
+		{
+			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+			std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
+		}
+		else
+		{
+			if(right->type==nodeType::operand)
+			{
+				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->operand->value);	
+				dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->operand->value;
+				//vm->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->operand->value);
+				return dynamic_cast<OperandNode*>(left)->operand->value;
+			}
+			else
+			{
+				int execution=right->execute();
+				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(execution);	
+				dynamic_cast<OperandNode*>(left)->operand->value=execution;
+				//vm->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
+				return dynamic_cast<OperandNode*>(left)->operand->value;
+			}
+		}
 	}
-	catch(std::invalid_argument error)
+	else
 	{
-		if(vm->getErrCode()==Err::invalidAssign)
+		if(right->type!=nodeType::operand && right->type!=nodeType::oper)
 		{
-			std::cerr<<"Syntax error at line "<<params[0]<<std::endl;
+			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+			std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
+			return 1;
 		}
-		else if(vm->getErrCode()==Err::outOfRange)
+		else if(right->type==nodeType::operand && !dynamic_cast<OperandNode*>(right)->operand->isVar)
 		{
-			std::cerr<<"Syntax error at line "<<params[0]<<std::endl;
+			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+			std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
 		}
+		else
+		{
+			if(left->type==nodeType::operand)
+			{
+				if(right->type==nodeType::operand)
+				{
+					dynamic_cast<OperandNode*>(right)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->operand->value);	
+					dynamic_cast<OperandNode*>(right)->operand->value=dynamic_cast<OperandNode*>(left)->operand->value;
 
-		std::cerr<<"Error text: "<<error.what()<<std::endl;
-		vm->setErrCode(Err::no_error);	
+					//vm->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->operand->value);
+					return dynamic_cast<OperandNode*>(right)->operand->value;
+				}
+				else
+				{
+					
+					if(dynamic_cast<OperatorNode*>(right)->type!=operatorType::assignExpr)
+					{
+						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+						std::cerr<<"Error. You cant assign anything to result of some operator, because it is literal."<<std::endl;
+						return 1;
+					}
+					else if(dynamic_cast<AssigningOperator*>(right)->left->type!=nodeType::operand)
+					{
+						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+						std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
+						return 1;
+					}
+					else if(dynamic_cast<AssigningOperator*>(right)->left->type==nodeType::operand && !dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->isVar)
+					{
+						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+						std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
+						return 1;
+					}
+					else
+					{
+						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->operand->value);
+						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->operand->value;
+
+						//vm->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->operand->value);
+						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
+					}
+				}
+			}
+			else
+			{
+				int execution=left->execute();
+				if(right->type==nodeType::operand)
+				{
+					dynamic_cast<OperandNode*>(right)->operand->var->changeValue(execution);	
+					dynamic_cast<OperandNode*>(right)->operand->value=execution;
+					return dynamic_cast<OperandNode*>(right)->operand->value;
+				}
+				else
+				{
+					if(dynamic_cast<OperatorNode*>(right)->type!=operatorType::assignExpr)
+					{
+						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+						std::cerr<<"Error. You cant assign anything to result of some operator, because it is literal."<<std::endl;
+						return 1;
+					}
+					else if(dynamic_cast<AssigningOperator*>(right)->left->type!=nodeType::operand)
+					{
+						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+						std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
+						return 1;
+					}
+					else if(dynamic_cast<AssigningOperator*>(right)->left->type==nodeType::operand && !dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->isVar)
+					{
+						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+						std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
+						return 1;
+					}
+					else
+					{
+						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(execution);
+						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=execution;
+
+						//vm->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, execution);
+						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
+					}
+				}
+			}
+		}
 	}
-	isExecuted=true;
 	return 0;	
 }
 
 int UntilOperator::execute()
 {
-	std::vector<Var> init_copy=vm->get_to_initialize();
+	/*std::vector<Var> init_copy=vm->get_to_initialize();
 	std::stack<Operand> operand_stack_copy=vm->get_operand_stack();
 	std::queue<AssignOperator> oper_queue_copy=vm->get_oper_queue();
+		//std::cout<<vm->to_initialize.empty()<<std::endl;
+		std::cout<<vm->operand_stack.empty()<<std::endl;
+		std::cout<<vm->oper_queue.empty()<<std::endl;
 	while(!expr->execute())
 	{
 		
@@ -154,14 +270,15 @@ int UntilOperator::execute()
 		if(stmts->left->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->left)->isExecuted=false;
 		if(stmts->right->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->right)->isExecuted=false;
 		
-		vm->set_to_initialize(init_copy);
-		vm->set_operand_stack(operand_stack_copy);
-		vm->set_oper_queue(oper_queue_copy);
+		//vm->clearBuffers();
+		//vm->set_to_initialize(init_copy);
+		//vm->set_operand_stack(operand_stack_copy);
+		//vm->set_oper_queue(oper_queue_copy);
 		std::cout<<"emptiness"<<std::endl;
 		std::cout<<vm->to_initialize.empty()<<std::endl;
 		std::cout<<vm->operand_stack.empty()<<std::endl;
 		std::cout<<vm->oper_queue.empty()<<std::endl;
-	}
+	}*/
 	return 0;
 }
 
@@ -279,7 +396,10 @@ void DefiningOperator::printNode(std::ostream& stream, int spaces)
 void AssigningOperator::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
-	stream<<"assigning expression"<<std::endl;
+	if(assign_type==AssignType::Left) stream<<"<<"<<std::endl;
+	else stream<<">>"<<std::endl;
+	left->printNode(stream, spaces+8);
+	right->printNode(stream, spaces+8);
 }
 
 void UntilOperator::printNode(std::ostream& stream, int spaces)
