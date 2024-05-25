@@ -16,6 +16,8 @@ left_assign <<
 right_assign >>
 more_equal =>
 less_equal <=
+until until
+do do
 
 
 %option noyywrap
@@ -39,6 +41,22 @@ less_equal <=
 			flex_logger<<"array_type parsed"<<std::endl;
 			return ARRAY;
 
+		}
+{until}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"until parsed"<<std::endl;
+			return UNTIL;
+		}
+{do}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"do parsed"<<std::endl;
+			return DO;
 		}
 
 {var_name}	{

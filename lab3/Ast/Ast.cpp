@@ -4,6 +4,7 @@ Ast::Ast(Node* node, Ast* ast)
 {
 	root=node;
 	root->left=ast->root;
+	root->right=nullptr;
 }
 Ast::Ast(Node* node, Ast* ast1, Ast* ast2) 
 {
@@ -23,6 +24,14 @@ int CstmtNode::execute()
 	}
 	return 0;
 }
+
+int ConnectingNode::execute()
+{
+	left->execute();
+	right->execute();
+	return 0;
+}
+
 int OperandNode::execute()
 {
 	return operand->value;
@@ -220,6 +229,14 @@ void CstmtNode::printNode(std::ostream& stream, int spaces)
 	{
 		ast->printAst(stream);
 	}
+}
+
+void ConnectingNode::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	//if(name==".") stream<<"."<<std::endl;
+	if(left!=nullptr) left->printNode(stream, spaces+4);
+	if(right!=nullptr) right->printNode(stream, spaces+4);
 }
 
 void Ast::printAst(std::ostream& stream)

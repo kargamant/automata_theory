@@ -1,11 +1,15 @@
 %require "3.2"
 
+%nterm <st> main
 %nterm <st> complex_statement
 %nterm <st> simple_statement
 %token <str> VAR_NAME
 %token <var_type> VAR_TYPE
 %token <num> LITERAL
 %token ARRAY
+%token UNTIL
+%token DO
+//%nterm statement_group
 //%nterm <num> signed_operand
 %nterm <st> operand
 %nterm <st> numeric_operand
@@ -29,12 +33,14 @@
 %{
 	#include "../VarMap/VarMap.h"
 	#include "../Ast/Ast.h"
+	#include <queue>
 	#include <fstream>
 	int yylex(void);
 	void yyerror(const char *s);
 
 	VarMap* vm=new VarMap();	
 	Ast ast;
+	CstmtNode* stmt_group=new CstmtNode(std::vector<Ast*>(), "queue");
 	CstmtNode* main_func=new CstmtNode(std::vector<Ast*>(), "main");
 	std::ofstream bison_logger("report_bison.txt");
 %}
@@ -51,22 +57,38 @@
 
 
 %%
+main:
+    complex_statement	{
+    				ast.root=main_func;
+				main_func->execute();
+				$$->printAst();
+				//ast.printAst();
+    			}
+	;
 complex_statement:
-	simple_statement ',' complex_statement {
+	simple_statement complex_statement {
+						Ast* nst=new Ast();
+						nst->root=new ConnectingNode(",", $1->root, $2->root);
+						$$=nst;
 						//ast.root=main_func;
 						//main_func->execute();
 						//ast.printAst();
 						//ast.execute();
 						}
-	| simple_statement '.' {
-					ast.root=main_func;
-					main_func->execute();
-					ast.printAst();
+	| simple_statement {
+					Ast* nst=new Ast();
+					nst->root=new ConnectingNode(".", $1->root, nullptr);
+					$$=nst;
+					//$$=$1;
+					//$$->printAst();
+					//ast.root=main_func;
+					//main_func->execute();
+					//ast.printAst();
 					//ast.execute();
 				}
-
+	;
 simple_statement:
-	VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand {
+	VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand ',' {
 						vm->clearBuffers();
 						vm->pushVarToInit(*$2);
 						
@@ -82,11 +104,12 @@ simple_statement:
 						Ast* ost=new Ast(on);
 
 						main_func->stmts.push_back(ost);
+						stmt_group->stmts.push_back(ost);
 						ost->execute();
 						$$=ost;	
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand
+	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand ','
 						{
 							vm->clearBuffers();
 							vm->pushVarToInit(*$4);
@@ -105,7 +128,7 @@ simple_statement:
 							ost->execute();
 							$$=ost;	
 						}
-	| assign_expr 				
+	| assign_expr 	','			
 	  					{
 							std::vector<int> params;
 							params.push_back(@1.first_line);
@@ -115,78 +138,20 @@ simple_statement:
 							ost->execute();
 							$$=ost;	
 	  					}
-	| '@' operand				{
+	| '@' operand	','			{
 							Ast* ost=new Ast(new PrintValueOperator($2->root), $2);
 							$$=ost;
 							main_func->stmts.push_back(ost);
 							//std::cout<<$2<<std::endl;
 						}
-	;
-	/*| '$' VAR_NAME '[' LITERAL LITERAL ']' 
-						{
-							bool exists=vm->checkIfDefined(*$2);
-
-							if(exists && !vm->getVar(*$2)->isField)
-							{
-								std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
-								std::cerr<<"Error. Variable "+*$2+" is not an array."<<std::endl;
-							}
-							else if(exists)
-							{
-								try
-								{
-									std::cout<<dynamic_cast<Field*>(vm->getVar(*$2))->getVar($4, $5);
-									std::cout<<std::endl;
-								}
-								catch(std::invalid_argument error)
-								{
-									if(vm->getErrCode()==Err::undefined)
-									{
-										std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
-									}
-									else if(vm->getErrCode()==Err::outOfRange)
-									{
-										std::cerr<<"Syntax error at line "<<@4.first_line<<std::endl;
-									}
-									std::cerr<<"Error text: "<<error.what()<<std::endl;
-									vm->setErrCode(Err::no_error);	
-								}
-							}
-							else
-							{
-								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
-								std::cerr<<"Error text: "<<"Error. Variable "+*$2+" was not defined."<<std::endl;
-							}
+	| '.'					{
+							Ast* ost=new Ast();
+							$$=ost;
 						}
-	| '$' VAR_NAME
-			{
-				Var* var;
-				bool isError=false;
-				try
-				{
-					var=vm->getVar(*$2);
-				}
-				catch(std::invalid_argument error)
-				{
-					isError=true;
-					std::cerr<<"Syntax error at line "<<@2.first_line<<std::endl;
-					std::cerr<<"Error text: "<<error.what()<<std::endl;
-					vm->setErrCode(Err::no_error);	
-				}
-				if(!isError) 
-				{
-					if(var->isField)
-					{
-						std::cout<<(*dynamic_cast<Field*>(var));
-					}
-					else
-					{	
-						std::cout<<(*var);
-					}
-					std::cout<<std::endl;
-				}
-			}
-	;*/
+	/*| UNTIL logic_expr DO simple_statement ',' statement_group	{
+										
+									}*/
+	;
 
 assign_expr:
 	operand LEFT_ASSIGN assign_expr	

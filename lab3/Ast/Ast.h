@@ -5,7 +5,8 @@ enum class nodeType
 {
 	operand,
 	oper,
-	cstmt
+	cstmt,
+	connecting
 };
 
 enum class operatorType
@@ -40,8 +41,8 @@ enum class LogicType
 struct Node
 {
 	nodeType type;
-	Node* left;
-	Node* right;
+	Node* left=nullptr;
+	Node* right=nullptr;
 	Node(nodeType type, Node* left=nullptr, Node* right=nullptr) : type(type), left(left), right(right) {}
 	virtual ~Node() {}
 	virtual int execute()=0;
@@ -89,6 +90,14 @@ struct OperatorNode : public Node
 	//int execute() override;
 	//void printNode(std::ostream& stream=std::cout, int spaces=0);
 	//virtual ~OperatorNode() {}
+};
+
+struct ConnectingNode : public Node
+{
+	std::string name;
+	ConnectingNode(const std::string& name, Node* left=nullptr, Node* right=nullptr) : Node(nodeType::connecting, left, right), name(name) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
 struct PrintValueOperator : public OperatorNode
