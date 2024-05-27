@@ -20,7 +20,8 @@ enum class operatorType
 	logic,
 	until,
 	check,
-	func
+	func,
+	return_stmt
 };
 
 enum class ArifmeticType
@@ -88,6 +89,7 @@ struct OperatorNode : public Node
 	bool isExecuted=false;
 	operatorType type;
 	std::vector<Node*> args;
+	//VarMap* args_scope;
 	OperatorNode(operatorType type, std::vector<Node*> args) : Node(nodeType::oper), type(type), args(args) {}
 	OperatorNode(operatorType type) : Node(nodeType::oper), type(type) {}
 	//int execute() override;
@@ -176,15 +178,24 @@ struct FunctionOperator : public OperatorNode
 	Ast* arguments;
 	VarMap* global_scope;
 	VarMap scope;
+	std::vector<std::string> args_order;
 
 	Node* stmts;
 	FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope);
 	void unparseArguments();
+	void loadArgs(Ast* args_to_call);
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
-
+struct ReturnOperator : public OperatorNode
+{
+	//VarType return_type;
+	Node* value_to_return;
+	ReturnOperator(Node* value_to_return) : OperatorNode(operatorType::return_stmt), value_to_return(value_to_return) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+};
 
 
 

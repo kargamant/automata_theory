@@ -24,15 +24,48 @@ void FunctionOperator::unparseArguments()
 	Node* ptr=arguments->root;
 	while(ptr!=nullptr)
 	{
-		scope.addVar(dynamic_cast<OperandNode*>(ptr)->operand->var);
+		Var* v=dynamic_cast<OperandNode*>(ptr)->operand->var;
+		args_order.push_back(v->name);
+		scope.addVar(new Var(v->type, v->name, v->value));
 		ptr=ptr->left;
+	}
+}
+
+void FunctionOperator::loadArgs(Ast* args_to_call)
+{
+	Node* ptr=args_to_call->root;
+	int k=0;
+	while(ptr!=nullptr)
+	{
+		std::cout<<args_order[k]<<std::endl;
+		if(dynamic_cast<OperandNode*>(ptr)->operand->isVar) 
+		{
+			dynamic_cast<OperandNode*>(ptr)->operand->updateValue();
+		}
+		std::cout<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;
+		scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->operand->value);
+		ptr=ptr->left;
+		k++;
 	}
 }
 
 int FunctionOperator::execute()
 {
-	//stmts->exec
+	stmts->execute();
 	return 0;
+}
+
+int ReturnOperator::execute()
+{
+	if(value_to_return->type!=nodeType::operand)
+	{
+		std::cerr<<"Error. Cant return anything but operand type."<<std::endl;
+		return 0;
+	}
+	else
+	{
+		return value_to_return->execute();
+	}
 }
 
 int Ast::execute()
@@ -455,12 +488,17 @@ void FunctionOperator::printNode(std::ostream& stream, int spaces)
 		ptr=ptr->left;
 	}
 	stream<<") "<<std::endl;
-	stream<<"do"<<std::endl;
+	stream<<"begin"<<std::endl;
 	stmts->printNode(stream, spaces+4);
 	stream<<"end"<<std::endl;
 }
 
-
+void ReturnOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	stream<<"return ";
+	value_to_return->printNode(stream, 0);
+}
 
 
 

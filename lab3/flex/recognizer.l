@@ -21,6 +21,7 @@ check check
 do do
 begin begin
 end end
+return return
 
 
 %option noyywrap
@@ -52,6 +53,14 @@ end end
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"until parsed"<<std::endl;
 			return UNTIL;
+		}
+{return}	{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"return parsed"<<std::endl;
+			return RETURN;
 		}
 {begin}		{
 			yylloc.first_column=yylloc.last_column+1;

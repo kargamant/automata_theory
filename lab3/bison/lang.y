@@ -12,6 +12,7 @@
 %token CHECK
 %token BEGIN_FUNC
 %token END_FUNC
+%token RETURN
 //%nterm statement_group
 //%nterm <num> signed_operand
 %nterm <st> args
@@ -21,6 +22,7 @@
 %nterm <st> logic_expr
 %nterm <st> expr_operand
 %nterm <st> assign_expr
+%nterm <st> args_to_call
 %left '+' '-'
 %left '*' '/'
 %left LESS_EQUAL MORE_EQUAL
@@ -69,7 +71,7 @@ main:
 				{
 					func.second->printAst();
 				}
-				//$$->execute();
+				$$->execute();
 				//ast.printAst();
     			}
 	;
@@ -153,10 +155,10 @@ simple_statement:
 							//main_func->stmts.push_back(ost);
 							//std::cout<<$2<<std::endl;
 						}
-	|					{
+	/*|					{
 							Ast* ost=new Ast();
 							$$=ost;
-						}
+						}*/
 	| UNTIL logic_expr DO complex_statement	{
 							//vm->clearBuffers();
 							OperatorNode* op=new UntilOperator(vm, $2->root, $4->root);
@@ -177,7 +179,32 @@ simple_statement:
 								Ast* ost=new Ast();
 								$$=ost;
 								}
+	| RETURN operand '.'			{
+							OperatorNode* return_stmt=new ReturnOperator($2->root);
+							$$=new Ast(return_stmt);
+						}
+	| VAR_NAME '(' args_to_call ')' ','	{
+							if(declared_funcs.contains(*$1))
+							{
+								dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->loadArgs($3);	
+								$$=declared_funcs[*$1];
+							}
+							else
+							{
+								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
+							}
+						}
 	;
+args_to_call:
+	    operand args_to_call {
+					$$=new Ast($1->root, $2);
+	    				
+	    			}
+	    | operand		{
+	    				$$=$1;
+	    			}
+	    ;
 args:
     	VAR_TYPE VAR_NAME args {
 					OperandNode* op=new OperandNode(new Operand(new Var($1, *$2)));
@@ -189,7 +216,7 @@ args:
 					Ast* ost=new Ast(op);
 					$$=ost;
 				}
-
+	;
 assign_expr:
 	operand LEFT_ASSIGN assign_expr	
 					{
@@ -317,7 +344,8 @@ expr_operand:
 				}
 				else
 				{
-					//$$=0;
+					Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+					$$=ost;
 					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 				}
@@ -327,7 +355,8 @@ expr_operand:
 
 					if(exists && !vm->getVar(*$1)->isField)
 					{
-						//$$=0;
+						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						$$=ost;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
 					}
@@ -343,7 +372,8 @@ expr_operand:
 						}
 						catch(std::invalid_argument error)
 						{
-							//$$=0;
+							Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+							$$=ost;
 							isError=true;
 							if(vm->getErrCode()==Err::undefined)
 							{
@@ -364,7 +394,8 @@ expr_operand:
 					}
 					else
 					{
-						//$$=0;
+						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						$$=ost;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 					}
