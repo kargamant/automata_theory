@@ -109,7 +109,7 @@ struct ConnectingNode : public Node
 
 struct PrintValueOperator : public OperatorNode
 {
-	PrintValueOperator(Node* target) : OperatorNode(operatorType::printValue, {target}) {}	
+	PrintValueOperator(Node* target) : OperatorNode(operatorType::printValue, {target}) {left=target;}	
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
@@ -117,7 +117,7 @@ struct PrintValueOperator : public OperatorNode
 struct ArifmeticOperator : public OperatorNode
 {
 	ArifmeticType type;
-	ArifmeticOperator(ArifmeticType type, std::vector<Node*> args) : type(type), OperatorNode(operatorType::arifmetic, args) {} 
+	ArifmeticOperator(ArifmeticType type, std::vector<Node*> args) : type(type), OperatorNode(operatorType::arifmetic, args) {left=args[0]; right=args[1];}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
@@ -125,7 +125,7 @@ struct ArifmeticOperator : public OperatorNode
 struct LogicOperator : public OperatorNode
 {
 	LogicType type;
-	LogicOperator(LogicType type, std::vector<Node*> args) : type(type), OperatorNode(operatorType::logic, args) {}
+	LogicOperator(LogicType type, std::vector<Node*> args) : type(type), OperatorNode(operatorType::logic, args) {left=args[0]; right=args[1];}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
@@ -135,7 +135,9 @@ struct DefiningOperator : public OperatorNode
 	VarMap* vm;
 	std::vector<int> params;
 	bool fieldDefine;
-	DefiningOperator(VarMap* vm, std::vector<Node*> args, std::vector<int> params, bool fieldDefine=false) : OperatorNode(operatorType::defineVar, args), vm(vm), params(params), fieldDefine(fieldDefine) {}
+	Ast* args;
+	Node* operand;
+	DefiningOperator(VarMap* vm, Ast* args, Node* operand, std::vector<int> params, bool fieldDefine=false) : OperatorNode(operatorType::defineVar), vm(vm), params(params), fieldDefine(fieldDefine), args(args), operand(operand) {isExecuted=false;}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 
@@ -145,10 +147,10 @@ struct AssigningOperator : public OperatorNode
 {
 	VarMap* vm;
 	AssignType assign_type;
-	Node* left;
-	Node* right;
+	//Node* left;
+	//Node* right;
 	std::vector<int> params;
-	AssigningOperator(Node* left, AssignType type, Node* right, VarMap* vm, std::vector<int> params) : left(left), right(right), assign_type(type), OperatorNode(operatorType::assignExpr, {left, right}), vm(vm), params(params) {}
+	AssigningOperator(Node* left_op, AssignType type, Node* right_op, VarMap* vm, std::vector<int> params) : assign_type(type), OperatorNode(operatorType::assignExpr, {left_op, right_op}), vm(vm), params(params) {left=left_op; right=right_op;}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };

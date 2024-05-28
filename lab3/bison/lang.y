@@ -23,6 +23,7 @@
 %nterm <st> expr_operand
 %nterm <st> assign_expr
 %nterm <st> args_to_call
+%nterm <st> vars
 %left '+' '-'
 %left '*' '/'
 %left LESS_EQUAL MORE_EQUAL
@@ -98,18 +99,18 @@ complex_statement:
 				}
 	;
 simple_statement:
-	VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand ',' {
+	VAR_TYPE vars LEFT_ASSIGN operand ',' {
 						vm->clearBuffers();
-						vm->pushVarToInit(*$2);
+						//vm->pushVarToInit(*$2);
 						
-						std::vector<Node*> args;
-						args.push_back($5->root);
+						//std::vector<Node*> args;
+						//args.push_back($5->root);
 						std::vector<int> params;
 						params.push_back(intByType($1));
 						params.push_back(@5.first_line);
 						params.push_back(@2.first_line);
 						
-						OperatorNode* on=new DefiningOperator(vm, args, params);
+						OperatorNode* on=new DefiningOperator(vm, $2, $4->root, params);
 						
 						Ast* ost=new Ast(on);
 
@@ -119,18 +120,18 @@ simple_statement:
 						$$=ost;	
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-	| ARRAY VAR_TYPE VAR_TYPE VAR_NAME vars LEFT_ASSIGN operand ','
+	| ARRAY VAR_TYPE VAR_TYPE vars LEFT_ASSIGN operand ','
 						{
 							vm->clearBuffers();
-							vm->pushVarToInit(*$4);
+							//vm->pushVarToInit(*$4);
 							
-							std::vector<Node*> args;
-							args.push_back($7->root);
+							//std::vector<Node*> args;
+							//args.push_back($7->root);
 							std::vector<int> params;
 							params.push_back(intByType($2));
 							params.push_back(intByType($3));
 							params.push_back(@1.first_line);
-							OperatorNode* on=new DefiningOperator(vm, args, params, true);
+							OperatorNode* on=new DefiningOperator(vm, $4, $6->root, params, true);
 							
 							Ast* ost=new Ast(on);
 
@@ -499,13 +500,18 @@ logic_expr:
 	;
 vars:
     	VAR_NAME vars {
+				
+				OperandNode* op=new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0)));
+				$$=new Ast(op, $2);
 				//targetVec.push_back(*$1);
-				vm->pushVarToInit(*$1);
+				//vm->pushVarToInit(*$1);
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
  	| VAR_NAME {
+				OperandNode* op=new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0)));		
+				$$=new Ast(op);
 				//targetVec.push_back(*$1);
-				vm->pushVarToInit(*$1);
+				//vm->pushVarToInit(*$1);
 				bison_logger<<"var "<<*$1<<"pushed to init queue."<<std::endl;
 			}
 	|		{} 

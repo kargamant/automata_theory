@@ -23,6 +23,8 @@ void Node::applyScope(VarMap* nscope)
 
 FunctionOperator::FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope) : OperatorNode(operatorType::func), return_type(return_type), name(name), arguments(arguments), stmts(stmts), global_scope(global_scope)
 {
+	left=arguments->root;
+	right=stmts;
 	//defines argument names in local scope
 	unparseArguments();
 }
@@ -107,7 +109,7 @@ int PrintValueOperator::execute()
 {
 	if(args[0]->type==nodeType::operand) 
 	{
-		dynamic_cast<OperandNode*>(args[0])->operand->updateValue();
+		dynamic_cast<OperandNode*>(args[0])->operand->updateValue(scope);
 		std::cout<<dynamic_cast<OperandNode*>(args[0])->operand->value<<std::endl;
 	}
 	else
@@ -155,17 +157,55 @@ int LogicOperator::execute()
 
 int DefiningOperator::execute()
 {
-	if(isExecuted) return 0;
+	//if(isExecuted) return 0;
 	try
 	{
-		int operand=args[0]->execute();
+		int operand_value=operand->execute();
 		if(!fieldDefine)
 		{
-			vm->flushInit(typeByInt(params[0]), operand);
+			Node* ptr=args->root;
+			while(ptr!=nullptr)
+			{
+				VarType vtype=typeByInt(params[0]);
+				std::string vname=dynamic_cast<OperandNode*>(ptr)->operand->var->name;
+				
+				if(scope==nullptr)
+				{
+					//std::cout<<"operand value: "<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;
+					vm->addVar(new Var(vtype, vname, operand->execute()));
+				}
+				else
+				{
+					std::cout<<"operand: "<<operand->execute()<<std::endl;
+					scope->addVar(new Var(vtype, vname, operand->execute()));
+					std::cout<<"defined ";
+					std::cout<<*scope->getVar(vname);
+					std::cout<<std::endl;
+				}
+				ptr=ptr->left;
+			}
+			//vm->flushInit(typeByInt(params[0]), operand);
 		}
 		else
 		{
-			vm->flushInit(typeByInt(params[0]), typeByInt(params[1]), operand);
+			Node* ptr=args->root;
+			while(ptr!=nullptr)
+			{
+				VarType vtype=typeByInt(params[0]);
+				VarType stype=typeByInt(params[1]);
+				std::string vname=dynamic_cast<OperandNode*>(ptr)->operand->var->name;
+				
+				if(scope==nullptr)
+				{
+					vm->addVar(new Field(vtype, stype, vname, ptr->execute()));
+				}
+				else
+				{
+					scope->addVar(new Field(vtype, stype, vname, ptr->execute()));
+				}
+				ptr=ptr->left;
+			}
+			//vm->flushInit(typeByInt(params[0]), typeByInt(params[1]), operand);
 		}
 	}
 	catch(std::invalid_argument error)
@@ -181,7 +221,7 @@ int DefiningOperator::execute()
 		std::cerr<<"E00000rror text: "<<error.what()<<std::endl;
 		vm->setErrCode(Err::no_error);	
 	}
-	isExecuted=true;
+	//isExecuted=true;
 	return 0;
 }
 
@@ -204,17 +244,17 @@ int AssigningOperator::execute()
 		{
 			if(right->type==nodeType::operand)
 			{
-				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->operand->value);	
-				dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->operand->value;
-				//vm->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->operand->value);
-				return dynamic_cast<OperandNode*>(left)->operand->value;
+				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());	
+				dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->execute();
+				if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
+				return dynamic_cast<OperandNode*>(left)->execute();
 			}
 			else
 			{
 				int execution=right->execute();
 				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(execution);	
 				dynamic_cast<OperandNode*>(left)->operand->value=execution;
-				//vm->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
+				if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
 				return dynamic_cast<OperandNode*>(left)->operand->value;
 			}
 		}
@@ -238,10 +278,10 @@ int AssigningOperator::execute()
 			{
 				if(right->type==nodeType::operand)
 				{
-					dynamic_cast<OperandNode*>(right)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->operand->value);	
-					dynamic_cast<OperandNode*>(right)->operand->value=dynamic_cast<OperandNode*>(left)->operand->value;
+					dynamic_cast<OperandNode*>(right)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());	
+					dynamic_cast<OperandNode*>(right)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
-					//vm->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->operand->value);
+					if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
 					return dynamic_cast<OperandNode*>(right)->operand->value;
 				}
 				else
@@ -267,10 +307,10 @@ int AssigningOperator::execute()
 					}
 					else
 					{
-						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->operand->value);
-						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->operand->value;
+						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());
+						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
-						//vm->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->operand->value);
+						if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
 						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}
@@ -309,7 +349,7 @@ int AssigningOperator::execute()
 						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(execution);
 						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=execution;
 
-						//vm->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, execution);
+						if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, execution);
 						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}
@@ -455,7 +495,7 @@ void DefiningOperator::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
 	stream<<"<"<<nameByType(typeByInt(params[0]))<<"> defining with:"<<std::endl;
-	args[0]->printNode(stream, spaces+6);
+	operand->printNode(stream, spaces+6);
 }
 
 void AssigningOperator::printNode(std::ostream& stream, int spaces)

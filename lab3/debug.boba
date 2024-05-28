@@ -1,7 +1,24 @@
-small foo normal a normal b begin
-@(a+b)/2,.
+small geomProg small q big a small n begin
+
+big summ<<a,
+
+tiny condition<<0,
+
+until condition 
+do
+
+a<<(a*q),
+summ<<(summ+a),
+n<<(-1+n),
+check n<=0 do condition<<1,
+.
+.
+
+@summ,.
+
 end,
 
-small k<<4,
-small t<<2,
-foo(k t),.
+small qArg<<3,
+big aArg<<1,
+small nArg<<5,
+geomProg(qArg aArg nArg),.

@@ -73,7 +73,7 @@ void Operand::updateValue(VarMap* scope)
 	{
 		if(scope!=nullptr)
 		{
-			var->value=scope->getVar(var->name)->value;
+			if(scope->checkIfDefined(var->name)) var->value=scope->getVar(var->name)->value;
 		}
 		if(value!=var->value) value=var->value;
 	}
