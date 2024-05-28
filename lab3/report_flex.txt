@@ -24,6 +24,10 @@ b
 var_name parsed
 )
 ) parsed
+/
+/ parsed
+2
+literal parsed
 ,
 , parsed
 .
@@ -32,14 +36,34 @@ end
 end parsed
 ,
 , parsed
+small
+var_type parsed
+k
+var_name parsed
+<<
+left_assign parsed
+4
+literal parsed
+,
+, parsed
+small
+var_type parsed
+t
+var_name parsed
+<<
+left_assign parsed
+2
+literal parsed
+,
+, parsed
 foo
 var_name parsed
 (
 ( parsed
-1
-literal parsed
-2
-literal parsed
+k
+var_name parsed
+t
+var_name parsed
 )
 ) parsed
 ,

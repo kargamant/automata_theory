@@ -7,9 +7,9 @@ tiny condition<<0,
 
 until condition 
 do
-a<<a*q,
-summ<<summ+a,
--1+n>>n,
+a<<(a*q),
+summ<<(summ+a),
+(-1+n)>>n,
 
 check n<=0 do condition<<1,.
 .

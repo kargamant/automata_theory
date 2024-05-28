@@ -47,10 +47,12 @@ struct Node
 	nodeType type;
 	Node* left=nullptr;
 	Node* right=nullptr;
+	VarMap* scope=nullptr;
 	Node(nodeType type, Node* left=nullptr, Node* right=nullptr) : type(type), left(left), right(right) {}
 	virtual ~Node() {}
 	virtual int execute()=0;
 	virtual void printNode(std::ostream& stream=std::cout, int spaces=0)=0;
+	void applyScope(VarMap* nscope);
 };
 
 
@@ -89,7 +91,7 @@ struct OperatorNode : public Node
 	bool isExecuted=false;
 	operatorType type;
 	std::vector<Node*> args;
-	//VarMap* args_scope;
+	VarMap* args_scope;
 	OperatorNode(operatorType type, std::vector<Node*> args) : Node(nodeType::oper), type(type), args(args) {}
 	OperatorNode(operatorType type) : Node(nodeType::oper), type(type) {}
 	//int execute() override;
@@ -146,7 +148,7 @@ struct AssigningOperator : public OperatorNode
 	Node* left;
 	Node* right;
 	std::vector<int> params;
-	AssigningOperator(Node* left, AssignType type, Node* right, VarMap* vm, std::vector<int> params) : left(left), right(right), assign_type(type), OperatorNode(operatorType::assignExpr), vm(vm), params(params) {}
+	AssigningOperator(Node* left, AssignType type, Node* right, VarMap* vm, std::vector<int> params) : left(left), right(right), assign_type(type), OperatorNode(operatorType::assignExpr, {left, right}), vm(vm), params(params) {}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
@@ -156,7 +158,7 @@ struct UntilOperator : public OperatorNode
 	Node* expr;
 	Node* stmts;
 	VarMap* vm;
-	UntilOperator(VarMap* vm, Node* expr, Node* stmts) :vm(vm), OperatorNode(operatorType::until), expr(expr), stmts(stmts) {left=expr; right=stmts;}
+	UntilOperator(VarMap* vm, Node* expr, Node* stmts) :vm(vm), OperatorNode(operatorType::until, {expr, stmts}), expr(expr), stmts(stmts) {left=expr; right=stmts;}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
@@ -166,7 +168,7 @@ struct CheckOperator : public OperatorNode
 	Node* expr;
 	Node* stmts;
 	VarMap* vm;
-	CheckOperator(VarMap* vm, Node* expr, Node* stmts) :vm(vm), OperatorNode(operatorType::check), expr(expr), stmts(stmts) {left=expr; right=stmts;}
+	CheckOperator(VarMap* vm, Node* expr, Node* stmts) :vm(vm), OperatorNode(operatorType::check, {expr, stmts}), expr(expr), stmts(stmts) {left=expr; right=stmts;}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };

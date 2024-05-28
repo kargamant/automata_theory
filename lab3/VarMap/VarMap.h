@@ -7,6 +7,7 @@
 #include <stack>
 
 //todo: table with boundaries for every type
+class VarMap;
 
 enum VarType
 {
@@ -71,7 +72,7 @@ struct Operand
 	Operand(int value=0) : isVar(false), var(nullptr), value(value) {}
 	Operand(Var* var) : isVar(true), var(var), value(var->value) {}
 	Operand(Var* var, int i, int j) : isVar(true), var(dynamic_cast<Field*>(var)->getVar(i, j)), value(var->value) {}
-	void updateValue();
+	void updateValue(VarMap* scope=nullptr);
 };
 
 struct AssignOperator
@@ -153,3 +154,4 @@ class VarMap
 		friend AssignOperator;
 
 };
+

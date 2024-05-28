@@ -67,10 +67,14 @@ Var* Field::getVar(int ind1, int ind2)
 	}
 }
 
-void Operand::updateValue()
+void Operand::updateValue(VarMap* scope)
 {
 	if(isVar)
 	{
+		if(scope!=nullptr)
+		{
+			var->value=scope->getVar(var->name)->value;
+		}
 		if(value!=var->value) value=var->value;
 	}
 }

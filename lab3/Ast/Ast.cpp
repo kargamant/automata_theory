@@ -13,6 +13,14 @@ Ast::Ast(Node* node, Ast* ast1, Ast* ast2)
 	root->right=ast2->root;
 }
 
+//TOdo: FINISH this func
+void Node::applyScope(VarMap* nscope)
+{
+	scope=nscope;
+	if(left!=nullptr) left->applyScope(nscope);
+	if(right!=nullptr) right->applyScope(nscope);
+}
+
 FunctionOperator::FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope) : OperatorNode(operatorType::func), return_type(return_type), name(name), arguments(arguments), stmts(stmts), global_scope(global_scope)
 {
 	//defines argument names in local scope
@@ -51,6 +59,7 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 
 int FunctionOperator::execute()
 {
+	stmts->applyScope(&scope);
 	stmts->execute();
 	return 0;
 }
@@ -90,7 +99,7 @@ int ConnectingNode::execute()
 
 int OperandNode::execute()
 {
-	operand->updateValue();
+	operand->updateValue(scope);
 	return operand->value;
 }
 

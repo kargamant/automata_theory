@@ -4,7 +4,7 @@ tiny condition<<0,
 
 until condition
 do 
-power<<1+power, 
+power<<(1+power), 
 10*a>>a,
 check power>4 do condition<<1,.
 .

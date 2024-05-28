@@ -1,0 +1,7 @@
+small foo normal a normal b begin
+@(a+b)/2,.
+end,
+
+small k<<4,
+small t<<2,
+foo(k t),.
