@@ -1,15 +1,9 @@
-big pow big n small p 
+big factorial normal a
 begin
-	small power<<p,
-	big result<<1,
-	
-	until power<=0 do
-		result<<result*n,
-		power<<(-1+power),
-	.
-	return result,
+	check a<=1 do return 1,.
+	normal b<<(-1+a),
+	return factorial(b),
 	.
 end,
 
-@pow(2 5),
-.
+@factorial(3),.

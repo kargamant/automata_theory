@@ -184,7 +184,7 @@ simple_statement:
 							OperatorNode* return_stmt=new ReturnOperator($2->root);
 							$$=new Ast(return_stmt);
 						}
-	| VAR_NAME '(' args_to_call ')' ','	{
+	/*| VAR_NAME '(' args_to_call ')' ','	{
 							if(declared_funcs.contains(*$1))
 							{
 								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
@@ -197,7 +197,7 @@ simple_statement:
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
 							}
-						}
+						}*/
 	;
 args_to_call:
 	    operand args_to_call {

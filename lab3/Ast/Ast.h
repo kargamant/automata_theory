@@ -202,7 +202,7 @@ struct ReturnOperator : public OperatorNode
 {
 	//VarType return_type;
 	Node* value_to_return;
-	ReturnOperator(Node* value_to_return) : OperatorNode(operatorType::return_stmt), value_to_return(value_to_return) {}
+	ReturnOperator(Node* value_to_return) : OperatorNode(operatorType::return_stmt), value_to_return(value_to_return) {left=value_to_return;}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };

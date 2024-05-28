@@ -77,6 +77,7 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 
 int FunctionOperator::execute()
 {
+	std::cout<<"FUNCTION CALL!"<<std::endl;
 	stmts->applyScope(&scope);
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
@@ -94,8 +95,9 @@ int ReturnOperator::execute()
 //	}
 //	else
 //	{
+		int res=value_to_return->execute();
 		*returnFlag=true;
-		return value_to_return->execute();
+		return res;
 //	}
 }
 
