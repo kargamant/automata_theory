@@ -435,6 +435,38 @@ int CheckOperator::execute()
 	return 0;
 }
 
+int GoOperator::execute()
+{
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	labirint.moveRobo();
+	std::cout<<labirint;
+	std::cout<<std::endl;
+	return 0;
+}
+int RrOperator::execute()
+{
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	labirint.rrRobo();
+	std::cout<<labirint;
+	std::cout<<std::endl;
+	return 0;
+}
+int RlOperator::execute()
+{
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	labirint.rlRobo();
+	std::cout<<labirint;
+	std::cout<<std::endl;
+	return 0;
+}
+int SonarOperator::execute()
+{
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	std::cout<<labirint;
+	std::cout<<std::endl;
+	return labirint.sonarRobo();
+}
+
 void OperandNode::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
@@ -597,6 +629,37 @@ void ReturnOperator::printNode(std::ostream& stream, int spaces)
 	value_to_return->printNode(stream, 0);
 }
 
+void GoOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	stream<<"go operation in labirint:"<<std::endl;
+	stream<<labirint;
+	stream<<std::endl;
+}
+
+void RrOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	stream<<"rr operation in labirint:"<<std::endl;
+	stream<<labirint;
+	stream<<std::endl;
+}
+
+void RlOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	stream<<"rl operation in labirint:"<<std::endl;
+	stream<<labirint;
+	stream<<std::endl;
+}
+
+void SonarOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	stream<<"sonar operation in labirint:"<<std::endl;
+	stream<<labirint;
+	stream<<std::endl;
+}
 
 
 

@@ -5,7 +5,7 @@ extern FILE* yyin;
 
 int main(int argc, char* argv[])
 {
-	Map map{5, 5};
+	/*Map map{5, 5};
 	Robo robo(0, 0, 150);
 	map.changeCellType(0, 1, CellType::obstacle);
 	map.changeCellType(0, 2, CellType::obstacle);
@@ -26,10 +26,10 @@ int main(int argc, char* argv[])
 	{
 		std::cout<<pair.first<<" "<<pair.second<<std::endl;
 	}
-	std::cout<<map.sonarRobo()<<std::endl;
+	std::cout<<map.sonarRobo()<<std::endl;*/
 
 
-	//if(argc==2) yyin=fopen(argv[1], "r");
-	//yyparse();
+	if(argc==2) yyin=fopen(argv[1], "r");
+	yyparse();
 	return 0;
 }

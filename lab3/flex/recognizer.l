@@ -22,6 +22,10 @@ do do
 begin begin
 end end
 return return
+go go
+rl rl
+rr rr
+sonar sonar
 
 
 %option noyywrap
@@ -53,6 +57,38 @@ return return
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"until parsed"<<std::endl;
 			return UNTIL;
+		}
+{go}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"go parsed"<<std::endl;
+			return GO;
+		}
+{rl}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"rl parsed"<<std::endl;
+			return RL;
+		}
+{rr}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"rr parsed"<<std::endl;
+			return RR;
+		}
+{sonar}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"sonar parsed"<<std::endl;
+			return SONAR;
 		}
 {return}	{
 			yylloc.first_column=yylloc.last_column+1;

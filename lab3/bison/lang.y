@@ -13,6 +13,11 @@
 %token BEGIN_FUNC
 %token END_FUNC
 %token RETURN
+%token GO
+%token RL
+%token RR
+%token SONAR
+
 //%nterm statement_group
 //%nterm <num> signed_operand
 %nterm <st> args
@@ -43,9 +48,12 @@
 	#include "../Ast/Ast.h"
 	#include <queue>
 	#include <fstream>
+	#include "../Robo/Map.h"
 	int yylex(void);
 	void yyerror(const char *s);
 
+	Map labirint{5, 5};	
+	//labirint.changeCellType(3, 4, CellType::obstacle);
 	VarMap* vm=new VarMap();	
 	std::unordered_map<std::string, Ast*> declared_funcs;
 	std::ofstream bison_logger("report_bison.txt");
@@ -183,6 +191,22 @@ simple_statement:
 	| RETURN operand ','			{
 							OperatorNode* return_stmt=new ReturnOperator($2->root);
 							$$=new Ast(return_stmt);
+						}
+	| GO ','				{
+							labirint.changeCellType(3, 4, CellType::obstacle);
+							labirint.changeCellType(2, 4, CellType::obstacle);
+							labirint.changeCellType(3, 3, CellType::obstacle);
+							//labirint.changeCellType(1, 2, CellType::obstacle);
+							OperatorNode* op=new GoOperator(labirint);
+							$$=new Ast(op);
+						}
+	| RR ','				{
+							OperatorNode* op=new RrOperator(labirint);
+							$$=new Ast(op);
+						}
+	| RL ','				{
+							OperatorNode* op=new RlOperator(labirint);
+							$$=new Ast(op);
 						}
 	/*| VAR_NAME '(' args_to_call ')' ','	{
 							if(declared_funcs.contains(*$1))
@@ -329,6 +353,10 @@ operand:
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
 							}
+						}
+	| SONAR					{
+							OperatorNode* op=new SonarOperator(labirint);
+							$$=new Ast(op);
 						}
 	;
 numeric_operand:

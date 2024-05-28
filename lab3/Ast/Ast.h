@@ -1,5 +1,6 @@
 #pragma once
 #include "../VarMap/VarMap.h"
+#include "../Robo/Map.h"
 
 enum class nodeType
 {
@@ -21,7 +22,11 @@ enum class operatorType
 	until,
 	check,
 	func,
-	return_stmt
+	return_stmt,
+	go,
+	rl,
+	rr,
+	sonar
 };
 
 enum class ArifmeticType
@@ -207,10 +212,41 @@ struct ReturnOperator : public OperatorNode
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };
 
+struct GoOperator : public OperatorNode
+{
+	Map& labirint;
+	GoOperator(Map& labirint) : OperatorNode(operatorType::go), labirint(labirint) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 
+};
 
+struct RlOperator : public OperatorNode
+{
+	Map& labirint;
+	RlOperator(Map& labirint) : OperatorNode(operatorType::rl), labirint(labirint) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 
+};
 
+struct RrOperator : public OperatorNode
+{
+	Map& labirint;
+	RrOperator(Map& labirint) : OperatorNode(operatorType::rr), labirint(labirint) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+
+};
+
+struct SonarOperator : public OperatorNode
+{
+	Map& labirint;
+	SonarOperator(Map& labirint) : OperatorNode(operatorType::sonar), labirint(labirint) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+
+};
 
 
 

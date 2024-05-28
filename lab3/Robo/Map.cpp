@@ -19,7 +19,7 @@ std::string nameByType(CellType type)
 	}
 }
 
-Map::Map(int m, int n) : m(m), n(n)
+Map::Map(int m, int n) : m(m), n(n), robo(0, 0, 30)
 {
 	for(int i=0; i<m; i++)
 	{
