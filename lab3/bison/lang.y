@@ -187,8 +187,10 @@ simple_statement:
 	| VAR_NAME '(' args_to_call ')' ','	{
 							if(declared_funcs.contains(*$1))
 							{
-								dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->loadArgs($3);	
-								$$=declared_funcs[*$1];
+								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
+								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
+								dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
+								$$=new Ast(op);
 							}
 							else
 							{
@@ -315,8 +317,10 @@ operand:
 	| VAR_NAME '(' args_to_call ')' {
 							if(declared_funcs.contains(*$1))
 							{
-								dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->loadArgs($3);	
-								$$=declared_funcs[*$1];
+								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
+								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
+								dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
+								$$=new Ast(op);
 							}
 							else
 							{
@@ -416,6 +420,22 @@ expr_operand:
 					}
 					
 					}
+	| VAR_NAME '(' args_to_call ')' {
+							if(declared_funcs.contains(*$1))
+							{
+								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
+								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
+								dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
+								$$=new Ast(op);
+							}
+							else
+							{
+								Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+								$$=ost;
+								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
+							}
+						}
 	;
 expr:
 	expr_operand			{

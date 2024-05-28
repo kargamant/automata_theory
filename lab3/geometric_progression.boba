@@ -18,4 +18,6 @@ end,
 small qArg<<3,
 big aArg<<1,
 small nArg<<3,
-@geomProg(qArg aArg nArg),.
+@geomProg(qArg aArg nArg),
+@geomProg(5 1 5),
+.
