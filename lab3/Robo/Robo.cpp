@@ -30,3 +30,107 @@ void operator<<(std::ostream& stream, Robo& robo)
 			break;
 	}
 }
+
+void Robo::rl()
+{
+	angle+=60;
+	if(angle>360) angle-=360;
+}
+void Robo::rr()
+{
+	angle-=60;
+	if(angle<0) angle+=360;
+}
+
+std::pair<int, int> Robo::next_coordinates()
+{
+	std::pair<int, int> ncoordinates=coordinates;
+	if(coordinates.second%2==0)
+	{
+		switch(angle)
+		{
+			case 30:
+				ncoordinates.second++;
+				break;
+			case 90:
+				ncoordinates.first--;
+				break;
+			case 150:
+				ncoordinates.second--;
+				break;
+			case 210:
+				ncoordinates.first++;
+				ncoordinates.second--;
+				break;
+			case 270:
+				ncoordinates.first++;
+				break;
+			case 330:
+				ncoordinates.first++;
+				ncoordinates.second++;
+				break;
+		}
+	}
+	else
+	{
+		switch(angle)
+		{
+			case 30:
+				ncoordinates.first--;
+				ncoordinates.second++;
+				break;
+			case 90:
+				ncoordinates.first--;
+				break;
+			case 150:
+				ncoordinates.first--;
+				ncoordinates.second--;
+				break;
+			case 210:
+				ncoordinates.second--;
+				break;
+			case 270:
+				ncoordinates.first++;
+				break;
+			case 330:
+				ncoordinates.second++;
+				break;
+		}
+	}
+	return ncoordinates;
+}
+
+void Robo::go()
+{
+	coordinates=next_coordinates();
+}
+
+std::vector<std::pair<int, int>> Robo::sonar()
+{
+	std::vector<std::pair<int, int>> result;
+	int old_angle=angle;
+	result.push_back(next_coordinates());
+	rl();
+	while(angle!=old_angle)
+	{
+		if(angle!=(old_angle+180)%360) result.push_back(next_coordinates());
+		rl();
+	}
+	return result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

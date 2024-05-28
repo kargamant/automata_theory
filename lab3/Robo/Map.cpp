@@ -1,4 +1,5 @@
 #include "Map.h"
+#include <vector>
 
 
 /*Cell::Cell(CellType type, Cell* tBorder, Cell* bBorder, Cell* rtBorder, Cell* rbBorder, Cell* ltBorder,Cell* lbBorder) : type(type), tBorder(tBorder), bBorder(bBorder), rtBorder(rtBorder), rbBorder(rbBorder), ltBorder(ltBorder), lbBorder(lbBorder)
@@ -63,7 +64,33 @@ void Map::setRobo(Robo& robo)
 	this->robo=robo;
 }
 
+void Map::moveRobo()
+{
+	auto next_pos=robo.next_coordinates();
+	if(map.contains(next_pos) && map[next_pos].type!=CellType::obstacle)
+	{
+		robo.go();
+	}
+	else
+	{
+		std::cerr<<"Error. Obstacle is onthe way"<<std::endl;
+	}
+}
 
+int Map::sonarRobo()
+{
+	int bit_res=0;
+	auto cells=robo.sonar();
+	for(auto& cell: cells)
+	{
+		bit_res*=2;
+		if(map.contains(cell) && map[cell].type==CellType::obstacle)
+		{
+			bit_res++;
+		}
+	}
+	return bit_res;
+}
 
 
 

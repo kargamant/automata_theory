@@ -61,7 +61,12 @@ class Map
 		void changeCellType(int x, int y, CellType ntype);
 		void changeCellType(std::pair<int, int> xy, CellType ntype);
 		void setRobo(Robo& robo);
-
+		Robo getRobo() {return robo;}
+		void moveRobo();
+		void rlRobo() {robo.rl();}
+		void rrRobo() {robo.rr();}
+		int sonarRobo();
+		friend Cell;
 		friend void operator<<(std::ostream& stream, Map& map);
 };
 
