@@ -48,12 +48,13 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 	while(ptr!=nullptr)
 	{
 		std::cout<<args_order[k]<<std::endl;
-		if(dynamic_cast<OperandNode*>(ptr)->operand->isVar) 
+		/*if(dynamic_cast<OperandNode*>(ptr)->operand->isVar) 
 		{
 			dynamic_cast<OperandNode*>(ptr)->operand->updateValue();
 		}
-		std::cout<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;
-		scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->operand->value);
+		std::cout<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;*/
+		scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
+		std::cout<<ptr->execute()<<std::endl;
 		ptr=ptr->left;
 		k++;
 	}
@@ -172,7 +173,7 @@ int DefiningOperator::execute()
 				if(scope==nullptr)
 				{
 					//std::cout<<"operand value: "<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;
-					vm->addVar(new Var(vtype, vname, operand->execute()));
+					if(!isExecuted) vm->addVar(new Var(vtype, vname, operand->execute()));
 				}
 				else
 				{
@@ -197,11 +198,11 @@ int DefiningOperator::execute()
 				
 				if(scope==nullptr)
 				{
-					vm->addVar(new Field(vtype, stype, vname, ptr->execute()));
+					if(!isExecuted) vm->addVar(new Field(vtype, stype, vname, operand->execute()));
 				}
 				else
 				{
-					scope->addVar(new Field(vtype, stype, vname, ptr->execute()));
+					scope->addVar(new Field(vtype, stype, vname, operand->execute()));
 				}
 				ptr=ptr->left;
 			}
@@ -221,7 +222,7 @@ int DefiningOperator::execute()
 		std::cerr<<"E00000rror text: "<<error.what()<<std::endl;
 		vm->setErrCode(Err::no_error);	
 	}
-	//isExecuted=true;
+	isExecuted=true;
 	return 0;
 }
 

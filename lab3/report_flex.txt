@@ -150,7 +150,7 @@ nArg
 var_name parsed
 <<
 left_assign parsed
-5
+3
 literal parsed
 ,
 , parsed

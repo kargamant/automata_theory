@@ -137,7 +137,7 @@ struct DefiningOperator : public OperatorNode
 	bool fieldDefine;
 	Ast* args;
 	Node* operand;
-	DefiningOperator(VarMap* vm, Ast* args, Node* operand, std::vector<int> params, bool fieldDefine=false) : OperatorNode(operatorType::defineVar), vm(vm), params(params), fieldDefine(fieldDefine), args(args), operand(operand) {isExecuted=false;}
+	DefiningOperator(VarMap* vm, Ast* args, Node* operand, std::vector<int> params, bool fieldDefine=false) : OperatorNode(operatorType::defineVar), vm(vm), params(params), fieldDefine(fieldDefine), args(args), operand(operand) {isExecuted=false; left=args->root; right=operand;}
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 

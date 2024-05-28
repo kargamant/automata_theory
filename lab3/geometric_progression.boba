@@ -1,17 +1,21 @@
-small q<<3,
-big a<<1,
-big summ<<a,
-small n<<3,
+small geomProg small q big a small n 
+begin
 
-tiny condition<<0,
+	big summ<<a,
+	tiny condition<<0,
 
-until condition 
-do
-a<<(a*q),
-summ<<(summ+a),
-(-1+n)>>n,
+	until condition do
+		a<<(a*q),
+		summ<<(summ+a),
+		n<<(-1+n),
+		check n<=0 do condition<<1,
+	.
+	.
+	@summ,.
 
-check n<=0 do condition<<1,.
-.
+end,
 
-@summ,.
+small qArg<<3,
+big aArg<<1,
+small nArg<<3,
+geomProg(qArg aArg nArg),.

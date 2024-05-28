@@ -1,12 +1,18 @@
-small power<<1,
-big a<<1,
-tiny condition<<0,
+big pow big n small p 
+begin
+	small power<<p,
+	big result<<1,
+	
+	until power<=0 do
+		result<<result*n,
+		power<<(-1+power),
+	.
+	@result,
+	.
+end,
 
-until condition
-do 
-power<<(1+power), 
-10*a>>a,
-check power>4 do condition<<1,.
+
+big numeroFinco<<5,
+small powerArg<<5,
+pow(numeroFinco powerArg),
 .
-
-@a,.
