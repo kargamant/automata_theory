@@ -28,7 +28,6 @@ int main(int argc, char* argv[])
 	}
 	std::cout<<map.sonarRobo()<<std::endl;*/
 
-
 	if(argc==2) yyin=fopen(argv[1], "r");
 	yyparse();
 	return 0;

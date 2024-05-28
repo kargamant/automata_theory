@@ -1,5 +1,6 @@
 #include "Map.h"
 #include <vector>
+#include <fstream>
 
 
 /*Cell::Cell(CellType type, Cell* tBorder, Cell* bBorder, Cell* rtBorder, Cell* rbBorder, Cell* ltBorder,Cell* lbBorder) : type(type), tBorder(tBorder), bBorder(bBorder), rtBorder(rtBorder), rbBorder(rbBorder), ltBorder(ltBorder), lbBorder(lbBorder)
@@ -14,6 +15,8 @@ std::string nameByType(CellType type)
 			return "O";
 		case CellType::ground:
 			return "G";
+		case CellType::escape:
+			return "E";
 		default:
 			return "";
 	}
@@ -28,6 +31,41 @@ Map::Map(int m, int n) : m(m), n(n), robo(0, 0, 30)
 			map.insert({{i, j}, {CellType::ground, i, j}});
 		}
 	}
+}
+
+Map::Map(const std::string& filename)
+{
+	std::ifstream fs{filename};
+	std::string line;
+	std::getline(fs, line);
+	m=std::stoi(line.substr(0, line.find(" ")));
+	n=std::stoi(line.substr(line.find(" "), line.length()));
+	line.clear();
+	for(int i=0; i<m; i++)
+	{
+		std::getline(fs, line);
+		for(int j=0; j<n; j++)
+		{
+			if(line[j]=='0')
+			{
+				map.insert({{i, j}, {CellType::ground, i, j}});
+			}
+			else if(line[j]=='1')
+			{
+				map.insert({{i, j}, {CellType::obstacle, i, j}});
+			}
+			else if(line[j]=='2')
+			{
+				map.insert({{i, j}, {CellType::escape, i, j}});
+			}
+			else if(line[j]=='r')
+			{
+				robo.setCoordinates({i, j});	
+				robo.setAngle(30);
+			}
+		}
+	}
+
 }
 
 void operator<<(std::ostream& stream, Cell& cell)

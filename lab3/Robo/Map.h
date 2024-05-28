@@ -7,7 +7,8 @@ class Map;
 enum CellType
 {
 	obstacle,
-	ground
+	ground,
+	escape
 };
 
 std::string nameByType(CellType type);
@@ -58,6 +59,7 @@ class Map
 	public:
 		Map() : m(0), n(0), map() {}
 		Map(int m, int n);
+		Map(const std::string& filename);
 		void changeCellType(int x, int y, CellType ntype);
 		void changeCellType(std::pair<int, int> xy, CellType ntype);
 		void setRobo(Robo& robo);

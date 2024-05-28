@@ -17,6 +17,8 @@ class Robo
 		std::pair<int, int> getCoordinates() {return coordinates;}
 		int getX() {return coordinates.first;}
 		int getY() {return coordinates.second;}
+		Robo& setCoordinates(std::pair<int, int> ncoordinates) {coordinates=ncoordinates; return *this;}
+		Robo& setAngle(int nangle) {angle=nangle; return *this;}
 
 		friend void operator<<(std::ostream& stream, Robo& robo);
 };

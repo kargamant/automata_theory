@@ -76,7 +76,7 @@
 	int yylex(void);
 	void yyerror(const char *s);
 
-	Map labirint{5, 5};	
+	Map labirint{"labirint.txt"};
 	//labirint.changeCellType(3, 4, CellType::obstacle);
 	VarMap* vm=new VarMap();	
 	std::unordered_map<std::string, Ast*> declared_funcs;
@@ -1711,9 +1711,9 @@ yyreduce:
   case 13:
 #line 195 "bison/lang.y"
                                                 {
-							labirint.changeCellType(3, 4, CellType::obstacle);
-							labirint.changeCellType(2, 4, CellType::obstacle);
-							labirint.changeCellType(3, 3, CellType::obstacle);
+						//	labirint.changeCellType(3, 4, CellType::obstacle);
+						//	labirint.changeCellType(2, 4, CellType::obstacle);
+						//	labirint.changeCellType(3, 3, CellType::obstacle);
 							//labirint.changeCellType(1, 2, CellType::obstacle);
 							OperatorNode* op=new GoOperator(labirint);
 							(yyval.st)=new Ast(op);
