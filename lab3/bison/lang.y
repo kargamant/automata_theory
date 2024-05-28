@@ -180,7 +180,7 @@ simple_statement:
 								Ast* ost=new Ast();
 								$$=ost;
 								}
-	| RETURN operand '.'			{
+	| RETURN operand ','			{
 							OperatorNode* return_stmt=new ReturnOperator($2->root);
 							$$=new Ast(return_stmt);
 						}
@@ -312,6 +312,20 @@ operand:
 					}
 					
 					}
+	| VAR_NAME '(' args_to_call ')' {
+							if(declared_funcs.contains(*$1))
+							{
+								dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->loadArgs($3);	
+								$$=declared_funcs[*$1];
+							}
+							else
+							{
+								Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+								$$=ost;
+								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
+							}
+						}
 	;
 numeric_operand:
 	LITERAL		{

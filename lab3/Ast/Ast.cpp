@@ -21,12 +21,27 @@ void Node::applyScope(VarMap* nscope)
 	if(right!=nullptr) right->applyScope(nscope);
 }
 
+void Node::applyToReturn(Var* nreturn)
+{
+	to_return=nreturn;
+	if(left!=nullptr) left->applyToReturn(nreturn);
+	if(right!=nullptr) right->applyToReturn(nreturn);
+}
+
+void Node::applyReturnFlag(bool* nretFlag)
+{
+	returnFlag=nretFlag;
+	if(left!=nullptr) left->applyReturnFlag(nretFlag);
+	if(right!=nullptr) right->applyReturnFlag(nretFlag);
+}
+
 FunctionOperator::FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope) : OperatorNode(operatorType::func), return_type(return_type), name(name), arguments(arguments), stmts(stmts), global_scope(global_scope)
 {
 	left=arguments->root;
 	right=stmts;
 	//defines argument names in local scope
 	unparseArguments();
+	return_value=Var(return_type, "return", 0);
 }
 
 void FunctionOperator::unparseArguments()
@@ -63,21 +78,25 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 int FunctionOperator::execute()
 {
 	stmts->applyScope(&scope);
+	stmts->applyToReturn(&return_value);
+	returnMet=false;
+	stmts->applyReturnFlag(&returnMet);
 	stmts->execute();
-	return 0;
+	return return_value.value;
 }
 
 int ReturnOperator::execute()
 {
-	if(value_to_return->type!=nodeType::operand)
-	{
-		std::cerr<<"Error. Cant return anything but operand type."<<std::endl;
-		return 0;
-	}
-	else
-	{
+//	if(value_to_return->type!=nodeType::operand)
+//	{
+//		std::cerr<<"Error. Cant return anything but operand type."<<std::endl;
+//		return 0;
+//	}
+//	else
+//	{
+		*returnFlag=true;
 		return value_to_return->execute();
-	}
+//	}
 }
 
 int Ast::execute()
@@ -95,8 +114,27 @@ int CstmtNode::execute()
 
 int ConnectingNode::execute()
 {
-	if(left!=nullptr) left->execute();
-	if(right!=nullptr) right->execute();
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	if(left!=nullptr) 
+	{
+		int res=left->execute();
+		if(left->type==nodeType::oper && dynamic_cast<OperatorNode*>(left)->type==operatorType::return_stmt)
+		{
+			std::cout<<"return from left "<<res<<std::endl;
+			to_return->changeValue(res);
+			return res;
+		}
+	}
+	if(right!=nullptr) 
+	{
+		int res=right->execute();
+		if(right->type==nodeType::oper && dynamic_cast<OperatorNode*>(right)->type==operatorType::return_stmt)
+		{
+			std::cout<<"return from right "<<res<<std::endl;
+			to_return->changeValue(res);
+			return res;
+		}
+	}
 	return 0;
 }
 
@@ -108,6 +146,7 @@ int OperandNode::execute()
 
 int PrintValueOperator::execute()
 {
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	if(args[0]->type==nodeType::operand) 
 	{
 		dynamic_cast<OperandNode*>(args[0])->operand->updateValue(scope);
@@ -122,6 +161,7 @@ int PrintValueOperator::execute()
 
 int ArifmeticOperator::execute()
 {
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	switch(type)
 	{
 		case ArifmeticType::plus:
@@ -142,6 +182,7 @@ int ArifmeticOperator::execute()
 
 int LogicOperator::execute()
 {
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	switch(type)
 	{
 		case LogicType::le:
@@ -158,6 +199,7 @@ int LogicOperator::execute()
 
 int DefiningOperator::execute()
 {
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	//if(isExecuted) return 0;
 	try
 	{
@@ -228,6 +270,7 @@ int DefiningOperator::execute()
 
 int AssigningOperator::execute()
 {
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	if(assign_type==AssignType::Left)
 	{
 		if(left->type!=nodeType::operand)
@@ -362,6 +405,7 @@ int AssigningOperator::execute()
 
 int UntilOperator::execute()
 {
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	while(!expr->execute())
 	{
 		
@@ -377,6 +421,7 @@ int UntilOperator::execute()
 
 int CheckOperator::execute()
 {
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	if(expr->execute())
 	{
 		stmts->execute();

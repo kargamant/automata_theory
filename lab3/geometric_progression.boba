@@ -1,6 +1,6 @@
-small geomProg small q big a small n 
+normal geomProg small q big a small n 
 begin
-
+	check n<0 do return -1,.
 	big summ<<a,
 	tiny condition<<0,
 
@@ -11,11 +11,11 @@ begin
 		check n<=0 do condition<<1,
 	.
 	.
-	@summ,.
+	return summ,.
 
 end,
 
 small qArg<<3,
 big aArg<<1,
 small nArg<<3,
-geomProg(qArg aArg nArg),.
+@geomProg(qArg aArg nArg),.

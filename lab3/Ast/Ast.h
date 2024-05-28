@@ -47,12 +47,16 @@ struct Node
 	nodeType type;
 	Node* left=nullptr;
 	Node* right=nullptr;
+	Var* to_return;
 	VarMap* scope=nullptr;
+	bool* returnFlag=nullptr;
 	Node(nodeType type, Node* left=nullptr, Node* right=nullptr) : type(type), left(left), right(right) {}
 	virtual ~Node() {}
 	virtual int execute()=0;
 	virtual void printNode(std::ostream& stream=std::cout, int spaces=0)=0;
 	void applyScope(VarMap* nscope);
+	void applyToReturn(Var* nreturn);
+	void applyReturnFlag(bool* nretFlag);
 };
 
 
@@ -183,6 +187,8 @@ struct FunctionOperator : public OperatorNode
 	VarMap* global_scope;
 	VarMap scope;
 	std::vector<std::string> args_order;
+	Var return_value;
+	bool returnMet=false;
 
 	Node* stmts;
 	FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope);

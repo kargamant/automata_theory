@@ -1,55 +1,62 @@
+operand with value 0x563f5594b700
+expr from logic expr
+operand_literal: 0
+operand with value 0x563f5594b850
+expr from logic expr
+0x563f5594b700<0x563f5594b850: 0x563f5594b890
+operand_literal: 0x563f5594b920
 var summpushed to init queue.
 All vars from init queue were intialized
 var conditionpushed to init queue.
-operand_literal: 0x55fd8a899b80
+operand_literal: 0x563f5594c040
 All vars from init queue were intialized
 operand_variable: 
 tiny condition 0
-operand with value 0x55fd8a899c00
+operand with value 0x563f5594c0d0
 expr from logic expr
-operand with value 0x55fd8a899f20
-operand with value 0x55fd8a89a010
-product of two expressions with value 0x55fd8a89a100
-expression in brackets with value 0x55fd8a89a100
-operand_literal: 0x55fd8a89a100
+operand with value 0x563f5594c470
+operand with value 0x563f5594c570
+product of two expressions with value 0x563f5594c670
+expression in brackets with value 0x563f5594c670
+operand_literal: 0x563f5594c670
 left_assignment
 operand_variable: 
 big summ 0
 operand_variable: 
 big summ 0
-operand with value 0x55fd8a89a330
-operand with value 0x55fd8a89a3e0
-sum of two expressions with value 0x55fd8a89a4d0
-expression in brackets with value 0x55fd8a89a4d0
-operand_literal: 0x55fd8a89a4d0
+operand with value 0x563f5594c880
+operand with value 0x563f5594c940
+sum of two expressions with value 0x563f5594ca90
+expression in brackets with value 0x563f5594ca90
+operand_literal: 0x563f5594ca90
 left_assignment
 operand_literal: -1
-operand with value 0x55fd8a89a740
-operand with value 0x55fd8a89a7c0
-sum of two expressions with value 0x55fd8a89a8b0
-expression in brackets with value 0x55fd8a89a8b0
-operand_literal: 0x55fd8a89a8b0
+operand with value 0x563f5594cd30
+operand with value 0x563f5594cd70
+sum of two expressions with value 0x563f5594cec0
+expression in brackets with value 0x563f5594cec0
+operand_literal: 0x563f5594cec0
 left_assignment
-operand with value 0x55fd8a89a930
+operand with value 0x563f5594cf50
 expr from logic expr
 operand_literal: 0
-operand with value 0x55fd8a89ab20
+operand with value 0x563f5594d160
 expr from logic expr
-0x55fd8a89a930<=0x55fd8a89ab20: 0x55fd8a89aba0
+0x563f5594cf50<=0x563f5594d160: 0x563f5594d1a0
 operand_variable: 
 tiny condition 0
-operand_literal: 0x55fd8a89acc0
+operand_literal: 0x563f5594d2e0
 left_assignment
 operand_variable: 
 big summ 0
 var qArgpushed to init queue.
-operand_literal: 0x55fd8a89bf60
+operand_literal: 0x563f5594e730
 All vars from init queue were intialized
 var aArgpushed to init queue.
-operand_literal: 0x55fd8a89c220
+operand_literal: 0x563f5594ea20
 All vars from init queue were intialized
 var nArgpushed to init queue.
-operand_literal: 0x55fd8a89c4e0
+operand_literal: 0x563f5594ed10
 All vars from init queue were intialized
 operand_variable: 
 small qArg 3

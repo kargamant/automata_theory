@@ -1,4 +1,4 @@
-small
+normal
 var_type parsed
 geomProg
 var_name parsed
@@ -16,6 +16,24 @@ n
 var_name parsed
 begin
 begin parsed
+check
+check parsed
+n
+var_name parsed
+<
+< parsed
+0
+literal parsed
+do
+do parsed
+return
+return parsed
+-1
+literal parsed
+,
+, parsed
+.
+. parsed
 big
 var_type parsed
 summ
@@ -112,8 +130,8 @@ literal parsed
 . parsed
 .
 . parsed
-@
-@ parsed
+return
+return parsed
 summ
 var_name parsed
 ,
@@ -154,6 +172,8 @@ left_assign parsed
 literal parsed
 ,
 , parsed
+@
+@ parsed
 geomProg
 var_name parsed
 (
