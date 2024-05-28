@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <unordered_map>
+#include "Robo.h"
 
 class Map;
 enum CellType
@@ -53,11 +54,13 @@ class Map
 	private:
 		int m, n;
 		std::unordered_map<std::pair<int, int>, Cell, CoordHash, CoordEqual> map;
+		Robo robo;
 	public:
 		Map() : m(0), n(0), map() {}
 		Map(int m, int n);
 		void changeCellType(int x, int y, CellType ntype);
 		void changeCellType(std::pair<int, int> xy, CellType ntype);
+		void setRobo(Robo& robo);
 
 		friend void operator<<(std::ostream& stream, Map& map);
 };

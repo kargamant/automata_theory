@@ -40,7 +40,8 @@ void operator<<(std::ostream& stream, Map& map)
 	{
 		for(int j=0; j<map.n; j++)
 		{
-			stream<<map.map[{i, j}];
+			if(map.robo.getX()==i && map.robo.getY()==j) stream<<map.robo;
+			else stream<<map.map[{i, j}];
 			stream<<" ";
 		}
 		stream<<std::endl;
@@ -57,7 +58,10 @@ void Map::changeCellType(std::pair<int, int> xy, CellType ntype)
 	map[xy].type=ntype;
 }
 
-
+void Map::setRobo(Robo& robo)
+{
+	this->robo=robo;
+}
 
 
 
