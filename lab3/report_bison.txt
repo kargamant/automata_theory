@@ -1,57 +1,57 @@
-operand with value 0x55a2972d33b0
-division of two expressions with value 0x55a2972d34d0
-expression in brackets with value 0x55a2972d34d0
-operand with value 0x55a2972d3560
-product of two expressions with value 0x55a2972d3680
-operand with value 0x55a2972d3710
-sum of two expressions with value 0x55a2972d3830
-operand_literal: 0x55a2972d3830
+operand with value 0x5577239023b0
+division of two expressions with value 0x5577239024d0
+expression in brackets with value 0x5577239024d0
+operand with value 0x557723902560
+product of two expressions with value 0x557723902680
+operand with value 0x557723902710
+sum of two expressions with value 0x557723902830
+operand_literal: 0x557723902830
 var scanpushed to init queue.
 All vars from init queue were intialized
 var r32pushed to init queue.
-operand_literal: 0x55a2972d45a0
+operand_literal: 0x5577239035a0
 All vars from init queue were intialized
 var r16pushed to init queue.
-operand_literal: 0x55a2972d4a40
+operand_literal: 0x557723903a40
 All vars from init queue were intialized
 var r8pushed to init queue.
-operand_literal: 0x55a2972d4d30
+operand_literal: 0x557723903d30
 All vars from init queue were intialized
 var r4pushed to init queue.
-operand_literal: 0x55a2972d5020
+operand_literal: 0x557723904020
 All vars from init queue were intialized
 var r2pushed to init queue.
-operand_literal: 0x55a2972d5310
+operand_literal: 0x557723904310
 All vars from init queue were intialized
 var bit0pushed to init queue.
-operand_literal: 0x55a2972d5600
+operand_literal: 0x557723904600
 All vars from init queue were intialized
 var bit1pushed to init queue.
-operand_literal: 0x55a2972d58f0
+operand_literal: 0x5577239048f0
 All vars from init queue were intialized
 var bit2pushed to init queue.
-operand_literal: 0x55a2972d5be0
+operand_literal: 0x557723904be0
 All vars from init queue were intialized
 var bit3pushed to init queue.
-operand_literal: 0x55a2972d5ed0
+operand_literal: 0x557723904ed0
 All vars from init queue were intialized
 var bit4pushed to init queue.
-operand_literal: 0x55a2972d61c0
+operand_literal: 0x5577239051c0
 All vars from init queue were intialized
 var steppushed to init queue.
-operand_literal: 0x55a2972d64b0
+operand_literal: 0x5577239054b0
 All vars from init queue were intialized
 operand_variable: 
 small scan 17
-operand with value 0x55a2972d6540
+operand with value 0x557723905540
 expr from logic expr
 operand_literal: -1
-operand with value 0x55a2972d6760
+operand with value 0x557723905760
 expr from logic expr
-0x55a2972d6540<=0x55a2972d6760: 0x55a2972d67f0
+0x557723905540<=0x557723905760: 0x5577239057f0
 operand_variable: 
 tiny step 0
-operand_literal: 0x55a2972d6960
+operand_literal: 0x557723905960
 left_assignment
 operand_variable: 
 small scan 17
@@ -60,31 +60,31 @@ operand_variable:
 small r32 0
 operand_variable: 
 small scan 17
-operand_literal: 0x55a2972d6ed0
+operand_literal: 0x557723905ed0
 left_assignment
 operand_variable: 
 small r16 0
 operand_variable: 
 small scan 17
-operand_literal: 0x55a2972d7a90
+operand_literal: 0x557723906a90
 left_assignment
 operand_variable: 
 small r8 0
 operand_variable: 
 small scan 17
-operand_literal: 0x55a2972d8650
+operand_literal: 0x557723907650
 left_assignment
 operand_variable: 
 small r4 0
 operand_variable: 
 small scan 17
-operand_literal: 0x55a2972d9210
+operand_literal: 0x557723908210
 left_assignment
 operand_variable: 
 small r2 0
 operand_variable: 
 small scan 17
-operand_literal: 0x55a2972d9dd0
+operand_literal: 0x557723908dd0
 left_assignment
 operand_variable: 
 small r32 0
@@ -100,51 +100,51 @@ operand_variable:
 small bit0 0
 operand_variable: 
 small r2 0
-operand_literal: 0x55a2972db0c0
+operand_literal: 0x55772390a0c0
 left_assignment
 operand_variable: 
 small bit1 0
 operand_variable: 
 small r4 0
-operand with value 0x55a2972dbbf0
+operand with value 0x55772390abf0
 operand_literal: 2
-operand with value 0x55a2972dbc80
-division of two expressions with value 0x55a2972dbd10
-operand_literal: 0x55a2972dbd10
-operand_literal: 0x55a2972dbda0
+operand with value 0x55772390ac80
+division of two expressions with value 0x55772390ad10
+operand_literal: 0x55772390ad10
+operand_literal: 0x55772390ada0
 left_assignment
 operand_variable: 
 small bit2 0
 operand_variable: 
 small r8 0
-operand with value 0x55a2972dc8f0
+operand with value 0x55772390b8f0
 operand_literal: 4
-operand with value 0x55a2972dc980
-division of two expressions with value 0x55a2972dca10
-operand_literal: 0x55a2972dca10
-operand_literal: 0x55a2972dcaa0
+operand with value 0x55772390b980
+division of two expressions with value 0x55772390ba10
+operand_literal: 0x55772390ba10
+operand_literal: 0x55772390baa0
 left_assignment
 operand_variable: 
 small bit3 0
 operand_variable: 
 small r16 0
-operand with value 0x55a2972dd5f0
+operand with value 0x55772390c5f0
 operand_literal: 8
-operand with value 0x55a2972dd680
-division of two expressions with value 0x55a2972dd710
-operand_literal: 0x55a2972dd710
-operand_literal: 0x55a2972dd7a0
+operand with value 0x55772390c680
+division of two expressions with value 0x55772390c710
+operand_literal: 0x55772390c710
+operand_literal: 0x55772390c7a0
 left_assignment
 operand_variable: 
 small bit4 0
 operand_variable: 
 small r32 0
-operand with value 0x55a2972de2f0
+operand with value 0x55772390d2f0
 operand_literal: 16
-operand with value 0x55a2972de380
-division of two expressions with value 0x55a2972de410
-operand_literal: 0x55a2972de410
-operand_literal: 0x55a2972de4a0
+operand with value 0x55772390d380
+division of two expressions with value 0x55772390d410
+operand_literal: 0x55772390d410
+operand_literal: 0x55772390d4a0
 left_assignment
 operand_variable: 
 small bit0 0
@@ -158,85 +158,85 @@ operand_variable:
 small bit4 0
 operand_variable: 
 small bit4 0
-operand with value 0x55a2972df5e0
+operand with value 0x55772390e5e0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55a2972df6c0
+operand with value 0x55772390e6c0
 expr from logic expr
-0x55a2972df5e0<=0x55a2972df6c0: 0x55a2972df750
+0x55772390e5e0<=0x55772390e6c0: 0x55772390e750
 operand_variable: 
 tiny step 0
-operand_literal: 0x55a2972df950
+operand_literal: 0x55772390e950
 left_assignment
 operand_variable: 
 small bit3 0
-operand with value 0x55a2972dfce0
+operand with value 0x55772390ece0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55a2972dfd70
+operand with value 0x55772390ed70
 expr from logic expr
-0x55a2972dfce0<=0x55a2972dfd70: 0x55a2972dfe00
+0x55772390ece0<=0x55772390ed70: 0x55772390ee00
 operand_variable: 
 tiny step 0
-operand_literal: 0x55a2972e0090
+operand_literal: 0x55772390f090
 left_assignment
 operand_variable: 
 small bit2 0
-operand with value 0x55a2972e04b0
+operand with value 0x55772390f4b0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55a2972e0540
+operand with value 0x55772390f540
 expr from logic expr
-0x55a2972e04b0<=0x55a2972e0540: 0x55a2972e05d0
+0x55772390f4b0<=0x55772390f540: 0x55772390f5d0
 operand_variable: 
 tiny step 0
-operand with value 0x55a2972e0660
+operand with value 0x55772390f660
 expr from logic expr
 operand_literal: 1
-operand with value 0x55a2972e0740
+operand with value 0x55772390f740
 expr from logic expr
-0x55a2972e0660<0x55a2972e0740: 0x55a2972e07d0
+0x55772390f660<0x55772390f740: 0x55772390f7d0
 operand_variable: 
 tiny step 0
-operand_literal: 0x55a2972e0af0
+operand_literal: 0x55772390faf0
 left_assignment
 operand_variable: 
 small bit1 0
-operand with value 0x55a2972e10f0
+operand with value 0x5577239100f0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55a2972e1180
+operand with value 0x557723910180
 expr from logic expr
-0x55a2972e10f0<=0x55a2972e1180: 0x55a2972e1210
+0x5577239100f0<=0x557723910180: 0x557723910210
 operand_variable: 
 tiny step 0
-operand with value 0x55a2972e12a0
+operand with value 0x5577239102a0
 expr from logic expr
 operand_literal: 1
-operand with value 0x55a2972e1380
+operand with value 0x557723910380
 expr from logic expr
-0x55a2972e12a0<0x55a2972e1380: 0x55a2972e1410
+0x5577239102a0<0x557723910380: 0x557723910410
 operand_variable: 
 tiny step 0
-operand_literal: 0x55a2972e17c0
+operand_literal: 0x5577239107c0
 left_assignment
 operand_variable: 
 small bit0 0
-operand with value 0x55a2972e1e50
+operand with value 0x557723910e50
 expr from logic expr
 operand_literal: 0
-operand with value 0x55a2972e1ee0
+operand with value 0x557723910ee0
 expr from logic expr
-0x55a2972e1e50<=0x55a2972e1ee0: 0x55a2972e1f70
+0x557723910e50<=0x557723910ee0: 0x557723910f70
 operand_variable: 
 tiny step 0
-operand with value 0x55a2972e2000
+operand with value 0x557723911000
 expr from logic expr
 operand_literal: 1
-operand with value 0x55a2972e20e0
+operand with value 0x5577239110e0
 expr from logic expr
-0x55a2972e2000<0x55a2972e20e0: 0x55a2972e2170
+0x557723911000<0x5577239110e0: 0x557723911170
 operand_variable: 
 tiny step 0
-operand_literal: 0x55a2972e25b0
+operand_literal: 0x5577239115b0
 left_assignment

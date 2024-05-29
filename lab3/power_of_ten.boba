@@ -7,12 +7,12 @@ begin
 		result<<result*n,
 		power<<(-1+power),
 	.
-	@result,
+	return result,
 	.
 end,
 
 
-big numeroFinco<<5,
-small powerArg<<5,
-pow(numeroFinco powerArg),
+big numeroFinco<<2,
+small powerArg<<10,
+@pow(numeroFinco powerArg),
 .

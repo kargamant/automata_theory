@@ -240,11 +240,11 @@ int DefiningOperator::execute()
 				}
 				else
 				{
-					std::cout<<"operand: "<<operand->execute()<<std::endl;
+					//std::cout<<"operand: "<<operand->execute()<<std::endl;
 					scope->addVar(new Var(vtype, vname, operand->execute()));
-					std::cout<<"defined ";
-					std::cout<<*scope->getVar(vname);
-					std::cout<<std::endl;
+					//std::cout<<"defined ";
+					//std::cout<<*scope->getVar(vname);
+					//std::cout<<std::endl;
 				}
 				ptr=ptr->left;
 			}
@@ -274,7 +274,8 @@ int DefiningOperator::execute()
 	}
 	catch(std::invalid_argument error)
 	{
-		if(vm->getErrCode()==Err::typeMisMatch)
+		//to uncomment
+		/*if(vm->getErrCode()==Err::typeMisMatch)
 		{
 			std::cerr<<"Syntax error at line "<<params[2]<<std::endl;
 		}
@@ -282,7 +283,7 @@ int DefiningOperator::execute()
 		{
 			std::cerr<<"Syntax error at line "<<params[2]<<std::endl;
 		}
-		std::cerr<<"E00000rror text: "<<error.what()<<std::endl;
+		std::cerr<<"E00000rror text: "<<error.what()<<std::endl;*/
 		vm->setErrCode(Err::no_error);	
 	}
 	isExecuted=true;

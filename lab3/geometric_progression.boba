@@ -1,4 +1,4 @@
-normal geomProg small q big a small n 
+big geomProg small q big a small n 
 begin
 	check n<0 do return -1,.
 	big summ<<a,
@@ -23,4 +23,5 @@ big G<<geomProg(4 1 4),
 big H<<geomProg(2 1 4),
 @G,
 @H,
+@geomProg(10 1 3),
 .

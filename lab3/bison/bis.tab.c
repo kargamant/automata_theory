@@ -1547,12 +1547,12 @@ yyreduce:
 #line 75 "bison/lang.y"
                         {
     				//ast.root=main_func;
-			//	$$->printAst();
-			//	std::cout<<"funcs:"<<std::endl;
-			//	for(auto& func: declared_funcs)
-			//	{
-			//		func.second->printAst();
-			//	}
+				(yyval.st)->printAst();
+				std::cout<<"funcs:"<<std::endl;
+				for(auto& func: declared_funcs)
+				{
+					func.second->printAst();
+				}
 				(yyval.st)->root->applyFinalExec(true);
 				(yyval.st)->root->applyScope(vm);
 				(yyval.st)->execute();
