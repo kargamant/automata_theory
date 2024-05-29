@@ -117,6 +117,7 @@ void Map::moveRobo()
 
 int Map::sonarRobo()
 {
+	if(map[robo.getCoordinates()].type==CellType::escape) return -1;
 	int bit_res=0;
 	auto cells=robo.sonar();
 	for(auto& cell: cells)

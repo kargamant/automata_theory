@@ -74,12 +74,13 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-				$$->printAst();
-				std::cout<<"funcs:"<<std::endl;
-				for(auto& func: declared_funcs)
-				{
-					func.second->printAst();
-				}
+			//	$$->printAst();
+			//	std::cout<<"funcs:"<<std::endl;
+			//	for(auto& func: declared_funcs)
+			//	{
+			//		func.second->printAst();
+			//	}
+				$$->root->applyFinalExec(true);
 				$$->execute();
 				//ast.printAst();
     			}
@@ -198,14 +199,17 @@ simple_statement:
 						//	labirint.changeCellType(3, 3, CellType::obstacle);
 							//labirint.changeCellType(1, 2, CellType::obstacle);
 							OperatorNode* op=new GoOperator(labirint);
+							op->execute();
 							$$=new Ast(op);
 						}
 	| RR ','				{
 							OperatorNode* op=new RrOperator(labirint);
+							op->execute();
 							$$=new Ast(op);
 						}
 	| RL ','				{
 							OperatorNode* op=new RlOperator(labirint);
+							op->execute();
 							$$=new Ast(op);
 						}
 	/*| VAR_NAME '(' args_to_call ')' ','	{
@@ -344,6 +348,8 @@ operand:
 								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
 								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
 								dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
+							//	std::cout<<"func operand:"<<std::endl;
+							//	fp->printNode(std::cout, 1);
 								$$=new Ast(op);
 							}
 							else

@@ -1,5 +1,57 @@
-go
-go parsed
+small
+var_type parsed
+remainder
+var_name parsed
+normal
+var_type parsed
+a
+var_name parsed
+normal
+var_type parsed
+div
+var_name parsed
+begin
+begin parsed
+@
+@ parsed
+a
+var_name parsed
+,
+, parsed
+@
+@ parsed
+div
+var_name parsed
+,
+, parsed
+return
+return parsed
+(
+( parsed
+-
+- parsed
+a
+var_name parsed
+/
+/ parsed
+div
+var_name parsed
+)
+) parsed
+*
+* parsed
+div
+var_name parsed
++
++ parsed
+a
+var_name parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
 ,
 , parsed
 rr
@@ -18,18 +70,6 @@ go
 go parsed
 ,
 , parsed
-rr
-rr parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-rl
-rl parsed
-,
-, parsed
 go
 go parsed
 ,
@@ -38,64 +78,134 @@ go
 go parsed
 ,
 , parsed
-rl
-rl parsed
+small
+var_type parsed
+scan
+var_name parsed
+<<
+left_assign parsed
+sonar
+sonar parsed
 ,
 , parsed
-rl
-rl parsed
+small
+var_type parsed
+r32
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+scan
+var_name parsed
+32
+literal parsed
+)
+) parsed
 ,
 , parsed
-go
-go parsed
+small
+var_type parsed
+r16
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+scan
+var_name parsed
+16
+literal parsed
+)
+) parsed
 ,
 , parsed
-go
-go parsed
+small
+var_type parsed
+r8
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+scan
+var_name parsed
+8
+literal parsed
+)
+) parsed
 ,
 , parsed
-rr
-rr parsed
+small
+var_type parsed
+r4
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+scan
+var_name parsed
+4
+literal parsed
+)
+) parsed
 ,
 , parsed
-go
-go parsed
+small
+var_type parsed
+r2
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+scan
+var_name parsed
+2
+literal parsed
+)
+) parsed
 ,
 , parsed
-rl
-rl parsed
+@
+@ parsed
+r32
+var_name parsed
 ,
 , parsed
-go
-go parsed
+@
+@ parsed
+r16
+var_name parsed
 ,
 , parsed
-rl
-rl parsed
+@
+@ parsed
+r8
+var_name parsed
 ,
 , parsed
-go
-go parsed
+@
+@ parsed
+r4
+var_name parsed
 ,
 , parsed
-go
-go parsed
-,
-, parsed
-rl
-rl parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-rr
-rr parsed
-,
-, parsed
-go
-go parsed
+@
+@ parsed
+r2
+var_name parsed
 ,
 , parsed
 .

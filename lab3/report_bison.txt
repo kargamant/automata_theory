@@ -1,0 +1,45 @@
+operand with value 0x555a78552710
+division of two expressions with value 0x555a78552830
+expression in brackets with value 0x555a78552830
+operand with value 0x555a785528c0
+product of two expressions with value 0x555a785529e0
+operand with value 0x555a78552a70
+sum of two expressions with value 0x555a78552b90
+operand_literal: 0x555a78552b90
+var scanpushed to init queue.
+All vars from init queue were intialized
+var r32pushed to init queue.
+operand_variable: 
+small scan 20
+operand_literal: 0x555a78554020
+All vars from init queue were intialized
+var r16pushed to init queue.
+operand_variable: 
+small scan 20
+operand_literal: 0x555a78554c90
+All vars from init queue were intialized
+var r8pushed to init queue.
+operand_variable: 
+small scan 20
+operand_literal: 0x555a78555900
+All vars from init queue were intialized
+var r4pushed to init queue.
+operand_variable: 
+small scan 20
+operand_literal: 0x555a78556570
+All vars from init queue were intialized
+var r2pushed to init queue.
+operand_variable: 
+small scan 20
+operand_literal: 0x555a785571e0
+All vars from init queue were intialized
+operand_variable: 
+small r32 20
+operand_variable: 
+small r16 4
+operand_variable: 
+small r8 4
+operand_variable: 
+small r4 0
+operand_variable: 
+small r2 0

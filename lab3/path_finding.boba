@@ -1,0 +1,24 @@
+small remainder normal a normal div
+begin
+	@a,
+	@div,
+	return (-a/div)*div+a,.
+end,
+
+rr,
+rr,
+go,
+go,
+go,
+go,
+small scan<<sonar,
+small r32<<remainder(scan 32),
+small r16<<remainder(scan 16),
+small r8<<remainder(scan 8),
+small r4<<remainder(scan 4),
+small r2<<remainder(scan 2),
+@r32,
+@r16,
+@r8,
+@r4,
+@r2,.

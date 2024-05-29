@@ -34,6 +34,12 @@ void Node::applyReturnFlag(bool* nretFlag)
 	if(left!=nullptr) left->applyReturnFlag(nretFlag);
 	if(right!=nullptr) right->applyReturnFlag(nretFlag);
 }
+void Node::applyFinalExec(bool nFinalExec)
+{
+	isFinalExec=nFinalExec;
+	if(left!=nullptr) left->applyFinalExec(nFinalExec);
+	if(right!=nullptr) right->applyFinalExec(nFinalExec);
+}
 
 FunctionOperator::FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope) : OperatorNode(operatorType::func), return_type(return_type), name(name), arguments(arguments), stmts(stmts), global_scope(global_scope)
 {
@@ -51,7 +57,7 @@ void FunctionOperator::unparseArguments()
 	{
 		Var* v=dynamic_cast<OperandNode*>(ptr)->operand->var;
 		args_order.push_back(v->name);
-		scope.addVar(new Var(v->type, v->name, v->value));
+		local_scope.addVar(new Var(v->type, v->name, v->value));
 		ptr=ptr->left;
 	}
 }
@@ -68,7 +74,13 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 			dynamic_cast<OperandNode*>(ptr)->operand->updateValue();
 		}
 		std::cout<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;*/
-		scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
+		local_scope.changeVar(args_order[k], ptr->execute());
+		/*if(scope==nullptr) local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
+		else 
+		{
+			local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
+			scope->changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
+		}*/
 		std::cout<<ptr->execute()<<std::endl;
 		ptr=ptr->left;
 		k++;
@@ -78,7 +90,13 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 int FunctionOperator::execute()
 {
 	std::cout<<"FUNCTION CALL!"<<std::endl;
-	stmts->applyScope(&scope);
+	stmts->applyScope(&local_scope);
+	/*if(scope==nullptr) stmts->applyScope(&local_scope);
+	else 
+	{
+		
+		stmts->applyScope(scope);
+	}*/
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
 	stmts->applyReturnFlag(&returnMet);
@@ -438,25 +456,34 @@ int CheckOperator::execute()
 int GoOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
-	labirint.moveRobo();
-	std::cout<<labirint;
-	std::cout<<std::endl;
+//	if(isFinalExec)
+//	{
+		labirint.moveRobo();
+		std::cout<<labirint;
+		std::cout<<std::endl;
+//	}
 	return 0;
 }
 int RrOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
-	labirint.rrRobo();
-	std::cout<<labirint;
-	std::cout<<std::endl;
+//	if(isFinalExec)
+//	{
+		labirint.rrRobo();
+		std::cout<<labirint;
+		std::cout<<std::endl;
+//	}
 	return 0;
 }
 int RlOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
-	labirint.rlRobo();
-	std::cout<<labirint;
-	std::cout<<std::endl;
+//	if(isFinalExec)
+//	{
+		labirint.rlRobo();
+		std::cout<<labirint;
+		std::cout<<std::endl;
+//	}
 	return 0;
 }
 int SonarOperator::execute()
