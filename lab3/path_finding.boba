@@ -16,8 +16,7 @@ small bit2<<0,
 small bit3<<0,
 small bit4<<0,
 tiny step<<0,
-small k<<0,
-until  do
+until scan<=-1 do
 	step<<0,
 	scan<<sonar,
 	r32<<remainder(scan 32),
@@ -42,9 +41,10 @@ until  do
 	@bit2,
 	@bit3,
 	@bit4,
+	check bit4<=0 do go, step<<1,.
 	check bit3<=0 do rl, go, step<<1,.
 	check bit2<=0 do check step<1 do rl, rl, go, step<<1,..
 	check bit1<=0 do check step<1 do rl, rl, rl, go, step<<1,..
-	check bit0<=0 do check step<1 do rl, rl, rl, rl, go, step<<1,..	
+	check bit0<=0 do check step<1 do rl, rl, rl, rl, go, step<<1,..
 	.
 .

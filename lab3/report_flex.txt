@@ -426,6 +426,30 @@ var_name parsed
 , parsed
 check
 check parsed
+bit4
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+go
+go parsed
+,
+, parsed
+step
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+check
+check parsed
 bit3
 var_name parsed
 <=
