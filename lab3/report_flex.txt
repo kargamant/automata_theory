@@ -12,18 +12,6 @@ div
 var_name parsed
 begin
 begin parsed
-@
-@ parsed
-a
-var_name parsed
-,
-, parsed
-@
-@ parsed
-div
-var_name parsed
-,
-, parsed
 return
 return parsed
 (
@@ -54,30 +42,6 @@ end
 end parsed
 ,
 , parsed
-rr
-rr parsed
-,
-, parsed
-rr
-rr parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
 small
 var_type parsed
 scan
@@ -94,6 +58,140 @@ r32
 var_name parsed
 <<
 left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+r16
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+r8
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+r4
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+r2
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+bit0
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+bit1
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+bit2
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+bit3
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+small
+var_type parsed
+bit4
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+tiny
+var_type parsed
+step
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+until
+until parsed
+scan
+var_name parsed
+<=
+less_equal parsed
+-1
+literal parsed
+do
+do parsed
+step
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+scan
+var_name parsed
+<<
+left_assign parsed
+sonar
+sonar parsed
+,
+, parsed
+r32
+var_name parsed
+<<
+left_assign parsed
 remainder
 var_name parsed
 (
@@ -106,8 +204,6 @@ literal parsed
 ) parsed
 ,
 , parsed
-small
-var_type parsed
 r16
 var_name parsed
 <<
@@ -124,8 +220,6 @@ literal parsed
 ) parsed
 ,
 , parsed
-small
-var_type parsed
 r8
 var_name parsed
 <<
@@ -142,8 +236,6 @@ literal parsed
 ) parsed
 ,
 , parsed
-small
-var_type parsed
 r4
 var_name parsed
 <<
@@ -160,8 +252,6 @@ literal parsed
 ) parsed
 ,
 , parsed
-small
-var_type parsed
 r2
 var_name parsed
 <<
@@ -208,5 +298,305 @@ r2
 var_name parsed
 ,
 , parsed
+bit0
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+r2
+var_name parsed
+2
+literal parsed
+)
+) parsed
+,
+, parsed
+bit1
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+r4
+var_name parsed
+/
+/ parsed
+2
+literal parsed
+2
+literal parsed
+)
+) parsed
+,
+, parsed
+bit2
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+r8
+var_name parsed
+/
+/ parsed
+4
+literal parsed
+2
+literal parsed
+)
+) parsed
+,
+, parsed
+bit3
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+r16
+var_name parsed
+/
+/ parsed
+8
+literal parsed
+2
+literal parsed
+)
+) parsed
+,
+, parsed
+bit4
+var_name parsed
+<<
+left_assign parsed
+remainder
+var_name parsed
+(
+( parsed
+r32
+var_name parsed
+/
+/ parsed
+16
+literal parsed
+2
+literal parsed
+)
+) parsed
+,
+, parsed
+@
+@ parsed
+bit0
+var_name parsed
+,
+, parsed
+@
+@ parsed
+bit1
+var_name parsed
+,
+, parsed
+@
+@ parsed
+bit2
+var_name parsed
+,
+, parsed
+@
+@ parsed
+bit3
+var_name parsed
+,
+, parsed
+@
+@ parsed
+bit4
+var_name parsed
+,
+, parsed
+check
+check parsed
+bit3
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+rl
+rl parsed
+,
+, parsed
+go
+go parsed
+,
+, parsed
+step
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+check
+check parsed
+bit2
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+check
+check parsed
+step
+var_name parsed
+<
+< parsed
+1
+literal parsed
+do
+do parsed
+rl
+rl parsed
+,
+, parsed
+rl
+rl parsed
+,
+, parsed
+go
+go parsed
+,
+, parsed
+step
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+.
+. parsed
+check
+check parsed
+bit1
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+check
+check parsed
+step
+var_name parsed
+<
+< parsed
+1
+literal parsed
+do
+do parsed
+rl
+rl parsed
+,
+, parsed
+rl
+rl parsed
+,
+, parsed
+rl
+rl parsed
+,
+, parsed
+go
+go parsed
+,
+, parsed
+step
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+.
+. parsed
+check
+check parsed
+bit0
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+check
+check parsed
+step
+var_name parsed
+<
+< parsed
+1
+literal parsed
+do
+do parsed
+rl
+rl parsed
+,
+, parsed
+rl
+rl parsed
+,
+, parsed
+rl
+rl parsed
+,
+, parsed
+rl
+rl parsed
+,
+, parsed
+go
+go parsed
+,
+, parsed
+step
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+.
+. parsed
+.
+. parsed
 .
 . parsed

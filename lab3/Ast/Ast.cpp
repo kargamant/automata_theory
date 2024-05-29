@@ -68,35 +68,36 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 	int k=0;
 	while(ptr!=nullptr)
 	{
-		std::cout<<args_order[k]<<std::endl;
+		//std::cout<<args_order[k]<<std::endl;
 		/*if(dynamic_cast<OperandNode*>(ptr)->operand->isVar) 
 		{
 			dynamic_cast<OperandNode*>(ptr)->operand->updateValue();
 		}
 		std::cout<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;*/
 		local_scope.changeVar(args_order[k], ptr->execute());
-		/*if(scope==nullptr) local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
-		else 
-		{
-			local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
-			scope->changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
-		}*/
-		std::cout<<ptr->execute()<<std::endl;
+	//	if(scope==nullptr) local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
+	//	else 
+	//	{
+	//		local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
+	//		scope->changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
+	//	}
+		//std::cout<<ptr->execute()<<std::endl;
 		ptr=ptr->left;
 		k++;
 	}
+	arguments=args_to_call;
 }
 
 int FunctionOperator::execute()
 {
-	std::cout<<"FUNCTION CALL!"<<std::endl;
+	//std::cout<<"FUNCTION CALL!"<<std::endl;
+	loadArgs(arguments);
 	stmts->applyScope(&local_scope);
-	/*if(scope==nullptr) stmts->applyScope(&local_scope);
-	else 
-	{
-		
-		stmts->applyScope(scope);
-	}*/
+	//if(scope==nullptr) stmts->applyScope(&local_scope);
+	//else 
+	//{
+	//	stmts->applyScope(scope);
+	//}
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
 	stmts->applyReturnFlag(&returnMet);
@@ -140,7 +141,7 @@ int ConnectingNode::execute()
 		int res=left->execute();
 		if(left->type==nodeType::oper && dynamic_cast<OperatorNode*>(left)->type==operatorType::return_stmt)
 		{
-			std::cout<<"return from left "<<res<<std::endl;
+			//std::cout<<"return from left "<<res<<std::endl;
 			to_return->changeValue(res);
 			return res;
 		}
@@ -150,7 +151,7 @@ int ConnectingNode::execute()
 		int res=right->execute();
 		if(right->type==nodeType::oper && dynamic_cast<OperatorNode*>(right)->type==operatorType::return_stmt)
 		{
-			std::cout<<"return from right "<<res<<std::endl;
+			//std::cout<<"return from right "<<res<<std::endl;
 			to_return->changeValue(res);
 			return res;
 		}

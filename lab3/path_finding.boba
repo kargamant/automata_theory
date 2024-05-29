@@ -1,24 +1,50 @@
 small remainder normal a normal div
 begin
-	@a,
-	@div,
 	return (-a/div)*div+a,.
 end,
 
-rr,
-rr,
-go,
-go,
-go,
-go,
+
 small scan<<sonar,
-small r32<<remainder(scan 32),
-small r16<<remainder(scan 16),
-small r8<<remainder(scan 8),
-small r4<<remainder(scan 4),
-small r2<<remainder(scan 2),
-@r32,
-@r16,
-@r8,
-@r4,
-@r2,.
+small r32<<0,
+small r16<<0,
+small r8<<0,
+small r4<<0,
+small r2<<0,
+small bit0<<0,
+small bit1<<0,
+small bit2<<0,
+small bit3<<0,
+small bit4<<0,
+tiny step<<0,
+small k<<0,
+until  do
+	step<<0,
+	scan<<sonar,
+	r32<<remainder(scan 32),
+	r16<<remainder(scan 16),
+	r8<<remainder(scan 8),
+	r4<<remainder(scan 4),
+	r2<<remainder(scan 2),
+	@r32,
+	@r16,
+	@r8,
+	@r4,
+	@r2,
+
+	
+	bit0<<remainder(r2 2),
+	bit1<<remainder(r4/2 2),
+	bit2<<remainder(r8/4 2),
+	bit3<<remainder(r16/8 2),
+	bit4<<remainder(r32/16 2),
+	@bit0,
+	@bit1,
+	@bit2,
+	@bit3,
+	@bit4,
+	check bit3<=0 do rl, go, step<<1,.
+	check bit2<=0 do check step<1 do rl, rl, go, step<<1,..
+	check bit1<=0 do check step<1 do rl, rl, rl, go, step<<1,..
+	check bit0<=0 do check step<1 do rl, rl, rl, rl, go, step<<1,..	
+	.
+.

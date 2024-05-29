@@ -2,7 +2,7 @@ big factorial normal a
 begin
 	check a<=1 do return 1,.
 	normal b<<(-1+a),
-	return factorial(b),
+	return factorial(b)*a,
 	.
 end,
 

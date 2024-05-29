@@ -81,6 +81,7 @@ main:
 			//		func.second->printAst();
 			//	}
 				$$->root->applyFinalExec(true);
+				$$->root->applyScope(vm);
 				$$->execute();
 				//ast.printAst();
     			}
@@ -156,6 +157,7 @@ simple_statement:
 							//Ast* ost=new Ast(on);
 							//main_func->stmts.push_back(ost);
 							//ost->execute();
+							//$$->execute();
 							$$=$1;
 							//$$->execute();
 	  					}
