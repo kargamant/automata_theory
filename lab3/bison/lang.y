@@ -74,7 +74,7 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-			//	$$->printAst();
+				//$$->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
 			//	for(auto& func: declared_funcs)
 			//	{
@@ -187,7 +187,16 @@ simple_statement:
 						}
 	| VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC ',' {
 								OperatorNode* func=new FunctionOperator($1, *$2, $3, $5->root, vm);		
-								declared_funcs.insert({*$2, new Ast(func)});
+								dynamic_cast<FunctionOperator*>(func)->declared_funcs=&declared_funcs;
+								if(!declared_funcs.contains(*$2)) declared_funcs.insert({*$2, new Ast(func)});
+								else
+								{
+									std::cout<<"redeclariiiiing "<<*$2<<std::endl;
+									declared_funcs[*$2]->root=func;
+									
+									declared_funcs[*$2]->root->updateFunctionCalls(declared_funcs);
+									//declared_funcs[*$2]->root->printNode(std::cout);
+								}
 								Ast* ost=new Ast();
 								$$=ost;
 								}
@@ -356,8 +365,10 @@ operand:
 							}
 							else
 							{
-								Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
-								$$=ost;
+								std::cout<<"predeclaring "<<*$1<<std::endl;
+								Ast* ost=new Ast(new FunctionOperator(VarType::tiny, *$1, $3, nullptr, vm));
+								declared_funcs.insert({*$1, ost});
+								$$=declared_funcs[*$1];
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
 							}
@@ -462,12 +473,16 @@ expr_operand:
 								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
 								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
 								dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
+							//	std::cout<<"func operand:"<<std::endl;
+							//	fp->printNode(std::cout, 1);
 								$$=new Ast(op);
 							}
 							else
 							{
-								Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
-								$$=ost;
+								std::cout<<"predeclaring "<<*$1<<std::endl;
+								Ast* ost=new Ast(new FunctionOperator(VarType::tiny, *$1, $3, nullptr, vm));
+								declared_funcs.insert({*$1, ost});
+								$$=declared_funcs[*$1];
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
 							}

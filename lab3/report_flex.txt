@@ -1,37 +1,61 @@
-small
+big
 var_type parsed
-remainder
+factorial
 var_name parsed
 normal
 var_type parsed
 a
-var_name parsed
-normal
-var_type parsed
-div
 var_name parsed
 begin
 begin parsed
-return
-return parsed
-(
-( parsed
--
-- parsed
+check
+check parsed
 a
 var_name parsed
-/
-/ parsed
-div
+<=
+less_equal parsed
+1
+literal parsed
+do
+do parsed
+return
+return parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+b
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+-1
+literal parsed
++
++ parsed
+a
+var_name parsed
+)
+) parsed
+,
+, parsed
+return
+return parsed
+factorial
+var_name parsed
+(
+( parsed
+b
 var_name parsed
 )
 ) parsed
 *
 * parsed
-div
-var_name parsed
-+
-+ parsed
 a
 var_name parsed
 ,
@@ -42,585 +66,23 @@ end
 end parsed
 ,
 , parsed
-small
-var_type parsed
-scan
-var_name parsed
-<<
-left_assign parsed
-sonar
-sonar parsed
-,
-, parsed
-small
-var_type parsed
-r32
-var_name parsed
-<<
-left_assign parsed
-0
+@
+@ parsed
+-1000
 literal parsed
 ,
 , parsed
-small
-var_type parsed
-r16
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-small
-var_type parsed
-r8
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-small
-var_type parsed
-r4
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-small
-var_type parsed
-r2
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-small
-var_type parsed
-bit0
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-small
-var_type parsed
-bit1
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-small
-var_type parsed
-bit2
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-small
-var_type parsed
-bit3
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-small
-var_type parsed
-bit4
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-tiny
-var_type parsed
-step
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-until
-until parsed
-scan
-var_name parsed
-<=
-less_equal parsed
--1
-literal parsed
-do
-do parsed
-step
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
-scan
-var_name parsed
-<<
-left_assign parsed
-sonar
-sonar parsed
-,
-, parsed
-r32
-var_name parsed
-<<
-left_assign parsed
-remainder
+@
+@ parsed
+factorial
 var_name parsed
 (
 ( parsed
-scan
-var_name parsed
-32
+3
 literal parsed
 )
 ) parsed
 ,
 , parsed
-r16
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-scan
-var_name parsed
-16
-literal parsed
-)
-) parsed
-,
-, parsed
-r8
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-scan
-var_name parsed
-8
-literal parsed
-)
-) parsed
-,
-, parsed
-r4
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-scan
-var_name parsed
-4
-literal parsed
-)
-) parsed
-,
-, parsed
-r2
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-scan
-var_name parsed
-2
-literal parsed
-)
-) parsed
-,
-, parsed
-@
-@ parsed
-r32
-var_name parsed
-,
-, parsed
-@
-@ parsed
-r16
-var_name parsed
-,
-, parsed
-@
-@ parsed
-r8
-var_name parsed
-,
-, parsed
-@
-@ parsed
-r4
-var_name parsed
-,
-, parsed
-@
-@ parsed
-r2
-var_name parsed
-,
-, parsed
-bit0
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-r2
-var_name parsed
-2
-literal parsed
-)
-) parsed
-,
-, parsed
-bit1
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-r4
-var_name parsed
-/
-/ parsed
-2
-literal parsed
-2
-literal parsed
-)
-) parsed
-,
-, parsed
-bit2
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-r8
-var_name parsed
-/
-/ parsed
-4
-literal parsed
-2
-literal parsed
-)
-) parsed
-,
-, parsed
-bit3
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-r16
-var_name parsed
-/
-/ parsed
-8
-literal parsed
-2
-literal parsed
-)
-) parsed
-,
-, parsed
-bit4
-var_name parsed
-<<
-left_assign parsed
-remainder
-var_name parsed
-(
-( parsed
-r32
-var_name parsed
-/
-/ parsed
-16
-literal parsed
-2
-literal parsed
-)
-) parsed
-,
-, parsed
-@
-@ parsed
-bit0
-var_name parsed
-,
-, parsed
-@
-@ parsed
-bit1
-var_name parsed
-,
-, parsed
-@
-@ parsed
-bit2
-var_name parsed
-,
-, parsed
-@
-@ parsed
-bit3
-var_name parsed
-,
-, parsed
-@
-@ parsed
-bit4
-var_name parsed
-,
-, parsed
-check
-check parsed
-bit4
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
-go
-go parsed
-,
-, parsed
-step
-var_name parsed
-<<
-left_assign parsed
-1
-literal parsed
-,
-, parsed
-.
-. parsed
-check
-check parsed
-bit3
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
-rl
-rl parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-step
-var_name parsed
-<<
-left_assign parsed
-1
-literal parsed
-,
-, parsed
-.
-. parsed
-check
-check parsed
-bit2
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
-check
-check parsed
-step
-var_name parsed
-<
-< parsed
-1
-literal parsed
-do
-do parsed
-rl
-rl parsed
-,
-, parsed
-rl
-rl parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-step
-var_name parsed
-<<
-left_assign parsed
-1
-literal parsed
-,
-, parsed
-.
-. parsed
-.
-. parsed
-check
-check parsed
-bit1
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
-check
-check parsed
-step
-var_name parsed
-<
-< parsed
-1
-literal parsed
-do
-do parsed
-rl
-rl parsed
-,
-, parsed
-rl
-rl parsed
-,
-, parsed
-rl
-rl parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-step
-var_name parsed
-<<
-left_assign parsed
-1
-literal parsed
-,
-, parsed
-.
-. parsed
-.
-. parsed
-check
-check parsed
-bit0
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
-check
-check parsed
-step
-var_name parsed
-<
-< parsed
-1
-literal parsed
-do
-do parsed
-rl
-rl parsed
-,
-, parsed
-rl
-rl parsed
-,
-, parsed
-rl
-rl parsed
-,
-, parsed
-rl
-rl parsed
-,
-, parsed
-go
-go parsed
-,
-, parsed
-step
-var_name parsed
-<<
-left_assign parsed
-1
-literal parsed
-,
-, parsed
-.
-. parsed
-.
-. parsed
-.
-. parsed
 .
 . parsed

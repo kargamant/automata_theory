@@ -12,7 +12,7 @@ begin
 end,
 
 
-big numeroFinco<<2,
-small powerArg<<10,
+big numeroFinco<<5,
+small powerArg<<5,
 @pow(numeroFinco powerArg),
 .

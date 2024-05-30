@@ -88,10 +88,37 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 	arguments=args_to_call;
 }
 
+void Node::updateFunctionCalls(std::unordered_map<std::string, Ast*>& declared_funcs)
+{
+	bool isUpdated=false;
+	if(type==nodeType::oper)
+	{
+		if(dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
+		{
+			if(declared_funcs.contains(dynamic_cast<FunctionOperator*>(this)->name))
+			{
+				dynamic_cast<FunctionOperator*>(this)->return_type=dynamic_cast<FunctionOperator*>(declared_funcs[dynamic_cast<FunctionOperator*>(this)->name]->root)->return_type;
+				//dynamic_cast<FunctionOperator*>(this)->arguments=dynamic_cast<FunctionOperator*>(declared_funcs[dynamic_cast<FunctionOperator*>(this)->name]->root)->arguments;
+				dynamic_cast<FunctionOperator*>(this)->global_scope=dynamic_cast<FunctionOperator*>(declared_funcs[dynamic_cast<FunctionOperator*>(this)->name]->root)->global_scope;
+				dynamic_cast<FunctionOperator*>(this)->local_scope=dynamic_cast<FunctionOperator*>(declared_funcs[dynamic_cast<FunctionOperator*>(this)->name]->root)->local_scope;
+				dynamic_cast<FunctionOperator*>(this)->args_order=dynamic_cast<FunctionOperator*>(declared_funcs[dynamic_cast<FunctionOperator*>(this)->name]->root)->args_order;
+				dynamic_cast<FunctionOperator*>(this)->return_value=dynamic_cast<FunctionOperator*>(declared_funcs[dynamic_cast<FunctionOperator*>(this)->name]->root)->return_value;
+				dynamic_cast<FunctionOperator*>(this)->stmts=dynamic_cast<FunctionOperator*>(declared_funcs[dynamic_cast<FunctionOperator*>(this)->name]->root)->stmts;
+				isUpdated=true;
+			}
+		}
+	}
+	if(left!=nullptr) left->updateFunctionCalls(declared_funcs);
+	if(right!=nullptr) right->updateFunctionCalls(declared_funcs);
+//	left=dynamic_cast<FunctionOperator*>(this)->arguments->root;
+//	right=dynamic_cast<FunctionOperator*>(this)->stmts;
+}
+
 int FunctionOperator::execute()
 {
 	//std::cout<<"FUNCTION CALL!"<<std::endl;
 	loadArgs(arguments);
+	if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
 	stmts->applyScope(&local_scope);
 	//if(scope==nullptr) stmts->applyScope(&local_scope);
 	//else 
@@ -139,6 +166,7 @@ int ConnectingNode::execute()
 	if(left!=nullptr) 
 	{
 		int res=left->execute();
+		if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 		if(left->type==nodeType::oper && dynamic_cast<OperatorNode*>(left)->type==operatorType::return_stmt)
 		{
 			//std::cout<<"return from left "<<res<<std::endl;
@@ -149,6 +177,7 @@ int ConnectingNode::execute()
 	if(right!=nullptr) 
 	{
 		int res=right->execute();
+		if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 		if(right->type==nodeType::oper && dynamic_cast<OperatorNode*>(right)->type==operatorType::return_stmt)
 		{
 			//std::cout<<"return from right "<<res<<std::endl;
@@ -641,8 +670,15 @@ void FunctionOperator::printNode(std::ostream& stream, int spaces)
 	Node* ptr=arguments->root;
 	while(ptr!=nullptr)
 	{
-		stream<<nameByType(dynamic_cast<OperandNode*>(ptr)->operand->var->type)<<" ";
-		stream<<dynamic_cast<OperandNode*>(ptr)->operand->var->name<<", ";
+		if(dynamic_cast<OperandNode*>(ptr)->operand->isVar)
+		{
+			stream<<nameByType(dynamic_cast<OperandNode*>(ptr)->operand->var->type)<<" ";
+			stream<<dynamic_cast<OperandNode*>(ptr)->operand->var->name<<", ";
+		}
+		else
+		{
+			stream<<ptr->execute()<<std::endl;
+		}
 		ptr=ptr->left;
 	}
 	stream<<") "<<std::endl;

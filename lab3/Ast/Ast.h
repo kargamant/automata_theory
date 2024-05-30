@@ -2,6 +2,7 @@
 #include "../VarMap/VarMap.h"
 #include "../Robo/Map.h"
 
+class Ast;
 enum class nodeType
 {
 	operand,
@@ -65,6 +66,7 @@ struct Node
 	void applyToReturn(Var* nreturn);
 	void applyReturnFlag(bool* nretFlag);
 	void applyFinalExec(bool nFinalExec);
+	void updateFunctionCalls(std::unordered_map<std::string, Ast*>& declared_funcs);
 };
 
 
@@ -197,6 +199,7 @@ struct FunctionOperator : public OperatorNode
 	std::vector<std::string> args_order;
 	Var return_value;
 	bool returnMet=false;
+	std::unordered_map<std::string, Ast*>* declared_funcs=nullptr;
 
 	Node* stmts;
 	FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope);
