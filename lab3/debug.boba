@@ -1,0 +1,8 @@
+big boba small n small k
+begin
+	big summ<<(n+k),
+	return summ*k,.
+end,
+
+@boba(8 9),
+.

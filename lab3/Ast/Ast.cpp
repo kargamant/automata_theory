@@ -118,7 +118,7 @@ int FunctionOperator::execute()
 {
 	//std::cout<<"FUNCTION CALL!"<<std::endl;
 	loadArgs(arguments);
-	if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
+	//if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
 	stmts->applyScope(&local_scope);
 	//if(scope==nullptr) stmts->applyScope(&local_scope);
 	//else 
@@ -166,7 +166,7 @@ int ConnectingNode::execute()
 	if(left!=nullptr) 
 	{
 		int res=left->execute();
-		if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+		//if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 		if(left->type==nodeType::oper && dynamic_cast<OperatorNode*>(left)->type==operatorType::return_stmt)
 		{
 			//std::cout<<"return from left "<<res<<std::endl;

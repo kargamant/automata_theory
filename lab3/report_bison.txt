@@ -1,23 +1,45 @@
-operand with value 0x55c62e35f460
-expr from logic expr
-operand_literal: 1
-operand with value 0x55c62e368220
-expr from logic expr
-0x55c62e35f460<=0x55c62e368220: 0x55c62e368260
-operand_literal: 0x55c62e3682f0
-var bpushed to init queue.
-operand_literal: -1
-operand with value 0x55c62e368650
-operand with value 0x55c62e368710
-sum of two expressions with value 0x55c62e368860
-expression in brackets with value 0x55c62e368860
-operand_literal: 0x55c62e368860
+var powerpushed to init queue.
+All vars from init queue were intialized
+var resultpushed to init queue.
+operand_literal: 0x561a0a2a5670
 All vars from init queue were intialized
 operand_variable: 
-normal b -1
-operand with value 0x55c62e368b50
-operand with value 0x55c62e369460
-product of two expressions with value 0x55c62e369560
-operand_literal: 0x55c62e369560
-operand_literal: 0x55c62e369fb0
-operand_literal: 0x55c62e36a0d0
+small power 0
+operand with value 0x561a0a2a5700
+expr from logic expr
+operand_literal: 0
+operand with value 0x561a0a2a5920
+expr from logic expr
+0x561a0a2a5700<=0x561a0a2a5920: 0x561a0a2a59b0
+operand_variable: 
+big result 1
+operand_variable: 
+big result 1
+operand with value 0x561a0a2a5b50
+operand with value 0x561a0a2a5c10
+product of two expressions with value 0x561a0a2a5d60
+operand_literal: 0x561a0a2a5d60
+left_assignment
+operand_variable: 
+small power 0
+operand_literal: -1
+operand with value 0x561a0a2a5f40
+operand_variable: 
+small power 0
+operand with value 0x561a0a2a6000
+sum of two expressions with value 0x561a0a2a6090
+expression in brackets with value 0x561a0a2a6090
+operand_literal: 0x561a0a2a6090
+left_assignment
+operand_variable: 
+big result 0
+var numeroFincopushed to init queue.
+operand_literal: 0x561a0a2a71f0
+All vars from init queue were intialized
+var powerArgpushed to init queue.
+operand_literal: 0x561a0a2a74e0
+All vars from init queue were intialized
+operand_variable: 
+big numeroFinco 5
+operand_variable: 
+small powerArg 5

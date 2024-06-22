@@ -1,34 +1,60 @@
 big
 var_type parsed
-factorial
+pow
 var_name parsed
-normal
+big
 var_type parsed
-a
+n
+var_name parsed
+small
+var_type parsed
+p
 var_name parsed
 begin
 begin parsed
-check
-check parsed
-a
+small
+var_type parsed
+power
 var_name parsed
-<=
-less_equal parsed
-1
-literal parsed
-do
-do parsed
-return
-return parsed
+<<
+left_assign parsed
+p
+var_name parsed
+,
+, parsed
+big
+var_type parsed
+result
+var_name parsed
+<<
+left_assign parsed
 1
 literal parsed
 ,
 , parsed
-.
-. parsed
-normal
-var_type parsed
-b
+until
+until parsed
+power
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+result
+var_name parsed
+<<
+left_assign parsed
+result
+var_name parsed
+*
+* parsed
+n
+var_name parsed
+,
+, parsed
+power
 var_name parsed
 <<
 left_assign parsed
@@ -38,25 +64,17 @@ left_assign parsed
 literal parsed
 +
 + parsed
-a
+power
 var_name parsed
 )
 ) parsed
 ,
 , parsed
+.
+. parsed
 return
 return parsed
-factorial
-var_name parsed
-(
-( parsed
-b
-var_name parsed
-)
-) parsed
-*
-* parsed
-a
+result
 var_name parsed
 ,
 , parsed
@@ -66,20 +84,36 @@ end
 end parsed
 ,
 , parsed
-@
-@ parsed
--1000
+big
+var_type parsed
+numeroFinco
+var_name parsed
+<<
+left_assign parsed
+5
+literal parsed
+,
+, parsed
+small
+var_type parsed
+powerArg
+var_name parsed
+<<
+left_assign parsed
+5
 literal parsed
 ,
 , parsed
 @
 @ parsed
-factorial
+pow
 var_name parsed
 (
 ( parsed
-3
-literal parsed
+numeroFinco
+var_name parsed
+powerArg
+var_name parsed
 )
 ) parsed
 ,
