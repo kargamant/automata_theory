@@ -54,7 +54,8 @@
 
 	Map labirint{"labirint.txt"};
 	//labirint.changeCellType(3, 4, CellType::obstacle);
-	VarMap* vm=new VarMap();	
+	VarMap* vm=new VarMap();
+	//std::stack<> program_stack
 	std::unordered_map<std::string, Ast*> declared_funcs;
 	std::ofstream bison_logger("report_bison.txt");
 %}
@@ -157,7 +158,7 @@ simple_statement:
 							//Ast* ost=new Ast(on);
 							//main_func->stmts.push_back(ost);
 							//ost->execute();
-							$$->execute();
+							//$$->execute();
 							$$=$1;
 							//$$->execute();
 	  					}
