@@ -19,6 +19,7 @@ void Node::applyScope(VarMap* nscope)
 	//if(scope!=nullptr) nscope->mergeIntoVm(scope);
 	//else scope=nscope;
 	
+	//scope=nscope;
 	if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) scope=nscope;
 	//scope=new VarMap;
 	//nscope->mergeIntoVm(scope);
@@ -129,9 +130,24 @@ void Node::updateFunctionCalls(std::unordered_map<std::string, Ast*>& declared_f
 //	right=dynamic_cast<FunctionOperator*>(this)->stmts;
 }
 
+void FunctionOperator::build()
+{
+	//std::cout<<"is nullptr???: "<<(declared_funcs==nullptr)<<std::endl;
+	if(declared_funcs->contains(name))
+	{
+		return_type=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->return_type;
+		stmts=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->stmts;
+	}
+	else
+	{
+		throw std::invalid_argument("Error. Function \""+name+"\" was not defined.");
+	}
+}
+
 int FunctionOperator::execute()
 {
-	//std::cout<<"FUNCTION CALL!"<<std::endl;
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	build();
 	loadArgs(arguments);
 	//if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
 
@@ -150,8 +166,8 @@ int FunctionOperator::execute()
 		stmts->applyScope(scope);
 	}*/
 	
-//	std::cout<<"local scope:"<<std::endl;
-//	std::cout<<local_scope;
+	std::cout<<"local scope:"<<std::endl;
+	std::cout<<local_scope;
 //	
 //	if(scope!=nullptr)
 //	{
@@ -735,7 +751,7 @@ void FunctionOperator::printNode(std::ostream& stream, int spaces)
 	}
 	stream<<") "<<std::endl;
 	stream<<"begin"<<std::endl;
-	stmts->printNode(stream, spaces+4);
+	if(stmts!=nullptr) stmts->printNode(stream, spaces+4);
 	stream<<"end"<<std::endl;
 }
 

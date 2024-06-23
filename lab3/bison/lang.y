@@ -75,7 +75,7 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-				//$$->printAst();
+				$$->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
 			//	for(auto& func: declared_funcs)
 			//	{
@@ -127,7 +127,8 @@ simple_statement:
 
 						//main_func->stmts.push_back(ost);
 						//stmt_group->stmts.push_back(ost);
-						ost->execute();
+						//to uncomment
+						//ost->execute();
 						$$=ost;	
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
@@ -195,7 +196,7 @@ simple_statement:
 									std::cout<<"redeclariiiiing "<<*$2<<std::endl;
 									declared_funcs[*$2]->root=func;
 									
-									declared_funcs[*$2]->root->updateFunctionCalls(declared_funcs);
+									//declared_funcs[*$2]->root->updateFunctionCalls(declared_funcs);
 									//declared_funcs[*$2]->root->printNode(std::cout);
 								}
 								Ast* ost=new Ast();
@@ -359,6 +360,7 @@ operand:
 							{
 								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
 								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
+								dynamic_cast<FunctionOperator*>(op)->declared_funcs=&declared_funcs;
 								dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
 							//	std::cout<<"func operand:"<<std::endl;
 							//	fp->printNode(std::cout, 1);
@@ -369,6 +371,7 @@ operand:
 								std::cout<<"predeclaring "<<*$1<<std::endl;
 								Ast* ost=new Ast(new FunctionOperator(VarType::tiny, *$1, $3, nullptr, vm));
 								declared_funcs.insert({*$1, ost});
+								dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->declared_funcs=&declared_funcs;
 								$$=declared_funcs[*$1];
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
@@ -472,7 +475,9 @@ expr_operand:
 							if(declared_funcs.contains(*$1))
 							{
 								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
+								dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->declared_funcs=&declared_funcs;
 								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
+								dynamic_cast<FunctionOperator*>(op)->declared_funcs=&declared_funcs;
 								dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
 							//	std::cout<<"func operand:"<<std::endl;
 							//	fp->printNode(std::cout, 1);
@@ -483,6 +488,8 @@ expr_operand:
 								std::cout<<"predeclaring "<<*$1<<std::endl;
 								Ast* ost=new Ast(new FunctionOperator(VarType::tiny, *$1, $3, nullptr, vm));
 								declared_funcs.insert({*$1, ost});
+								dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->declared_funcs=&declared_funcs;
+								std::cout<<"here declared_funcs adress: "<<dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->declared_funcs<<std::endl;
 								$$=declared_funcs[*$1];
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;

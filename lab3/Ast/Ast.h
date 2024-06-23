@@ -205,6 +205,7 @@ struct FunctionOperator : public OperatorNode
 	FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope);
 	void unparseArguments();
 	void loadArgs(Ast* args_to_call);
+	void build();
 	int execute() override;
 	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
 };

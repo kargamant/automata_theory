@@ -1,26 +1,22 @@
-operand with value 0x55986df94460
+operand with value 0x560a30cb9460
 expr from logic expr
 operand_literal: 1
-operand with value 0x55986df9d220
+operand with value 0x560a30cc2220
 expr from logic expr
-0x55986df94460<=0x55986df9d220: 0x55986df9d260
-operand_literal: 0x55986df9d2f0
+0x560a30cb9460<=0x560a30cc2220: 0x560a30cc2260
+operand_literal: 0x560a30cc22f0
 var bpushed to init queue.
 operand_literal: -1
-operand with value 0x55986df9d650
-operand with value 0x55986df9d710
-sum of two expressions with value 0x55986df9d860
-expression in brackets with value 0x55986df9d860
-operand_literal: 0x55986df9d860
+operand with value 0x560a30cc2650
+operand with value 0x560a30cc2710
+sum of two expressions with value 0x560a30cc2860
+expression in brackets with value 0x560a30cc2860
+operand_literal: 0x560a30cc2860
 All vars from init queue were intialized
-operand_variable: 
-normal b -1
-operand with value 0x55986df9db50
-operand with value 0x55986df9e460
-product of two expressions with value 0x55986df9e560
-operand_literal: 0x55986df9e560
+operand with value 0x560a30cc2b20
+operand with value 0x560a30cc33b0
+product of two expressions with value 0x560a30cc34b0
+operand_literal: 0x560a30cc34b0
 var GGpushed to init queue.
-operand_literal: 0x55986df9f0e0
+operand_literal: 0x560a30cc4030
 All vars from init queue were intialized
-operand_variable: 
-big GG 0
