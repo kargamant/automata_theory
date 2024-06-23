@@ -76,6 +76,7 @@ void Operand::updateValue(VarMap* scope)
 			if(scope->checkIfDefined(var->name)) var->value=scope->getVar(var->name)->value;
 		}
 		if(value!=var->value) value=var->value;
+		//std::cout<<"updated operand: \""<<var->name<<"\" == "<<value<<std::endl;
 	}
 }
 
@@ -210,6 +211,16 @@ std::string nameByType(VarType type)
 void operator<<(std::ostream& stream, Var& var)
 {
 	stream<<nameByType(var.type)<<std::string(" ")<<var.name<<std::string(" ")<<var.value;
+}
+
+void operator<<(std::ostream& stream, VarMap& vm)
+{
+	for(auto& var: vm.map)
+	{
+		stream<<var.first<<" | ";
+		stream<<*var.second;
+		stream<<std::endl;
+	}
 }
 
 void operator<<(std::ostream& stream, Field& arr)
@@ -431,6 +442,17 @@ void VarMap::clearBuffers()
 {
 	while(!operand_stack.empty()) operand_stack.pop();
 	while(!oper_queue.empty()) oper_queue.pop();
+}
+void VarMap::mergeIntoVm(VarMap* nvm)
+{
+	for(auto& v: map)
+	{
+		if(nvm->checkIfDefined(v.first)) continue;
+		else
+		{
+			nvm->addVar(v.second);
+		}
+	}
 }
 /*void VarMap::flushAssignArr(int value)
 {

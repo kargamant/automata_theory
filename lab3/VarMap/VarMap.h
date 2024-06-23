@@ -87,6 +87,7 @@ struct AssignOperator
 
 void operator<<(std::ostream& stream, Var& var);
 void operator<<(std::ostream& stream, Field& arr);
+void operator<<(std::ostream& stream, VarMap& vm);
 
 class VarMap
 {
@@ -120,6 +121,7 @@ class VarMap
 		void flushInit(VarType init_type, VarType size_type, int value);
 		void flushAssign(int value);
 		void flushAssignExpr();
+		void mergeIntoVm(VarMap* nvm);
 
 		Err getErrCode() {return err_code;}
 		std::vector<Var> get_to_initialize() const {
@@ -152,6 +154,7 @@ class VarMap
 		friend Var;
 		friend Field;
 		friend AssignOperator;
+		friend void operator<<(std::ostream& stream, VarMap& vm);
 
 };
 

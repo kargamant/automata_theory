@@ -1,45 +1,26 @@
-var powerpushed to init queue.
-All vars from init queue were intialized
-var resultpushed to init queue.
-operand_literal: 0x561a0a2a5670
-All vars from init queue were intialized
-operand_variable: 
-small power 0
-operand with value 0x561a0a2a5700
+operand with value 0x55f170372460
 expr from logic expr
-operand_literal: 0
-operand with value 0x561a0a2a5920
+operand_literal: 1
+operand with value 0x55f17037b220
 expr from logic expr
-0x561a0a2a5700<=0x561a0a2a5920: 0x561a0a2a59b0
-operand_variable: 
-big result 1
-operand_variable: 
-big result 1
-operand with value 0x561a0a2a5b50
-operand with value 0x561a0a2a5c10
-product of two expressions with value 0x561a0a2a5d60
-operand_literal: 0x561a0a2a5d60
-left_assignment
-operand_variable: 
-small power 0
+0x55f170372460<=0x55f17037b220: 0x55f17037b260
+operand_literal: 0x55f17037b2f0
+var bpushed to init queue.
 operand_literal: -1
-operand with value 0x561a0a2a5f40
-operand_variable: 
-small power 0
-operand with value 0x561a0a2a6000
-sum of two expressions with value 0x561a0a2a6090
-expression in brackets with value 0x561a0a2a6090
-operand_literal: 0x561a0a2a6090
-left_assignment
-operand_variable: 
-big result 0
-var numeroFincopushed to init queue.
-operand_literal: 0x561a0a2a71f0
-All vars from init queue were intialized
-var powerArgpushed to init queue.
-operand_literal: 0x561a0a2a74e0
+operand with value 0x55f17037b650
+operand with value 0x55f17037b710
+sum of two expressions with value 0x55f17037b860
+expression in brackets with value 0x55f17037b860
+operand_literal: 0x55f17037b860
 All vars from init queue were intialized
 operand_variable: 
-big numeroFinco 5
+normal b -1
+operand with value 0x55f17037bb50
+operand with value 0x55f17037c460
+product of two expressions with value 0x55f17037c560
+operand_literal: 0x55f17037c560
+var GGpushed to init queue.
+operand_literal: 0x55f17037d0e0
+All vars from init queue were intialized
 operand_variable: 
-small powerArg 5
+big GG 0

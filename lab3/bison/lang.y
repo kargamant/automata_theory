@@ -74,7 +74,7 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-				$$->printAst();
+				//$$->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
 			//	for(auto& func: declared_funcs)
 			//	{
@@ -187,7 +187,6 @@ simple_statement:
 						}
 	| VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC ',' {
 								OperatorNode* func=new FunctionOperator($1, *$2, $3, $5->root, vm);		
-								//declared_funcs.insert({*$2, new Ast(func)});
 								dynamic_cast<FunctionOperator*>(func)->declared_funcs=&declared_funcs;
 								if(!declared_funcs.contains(*$2)) declared_funcs.insert({*$2, new Ast(func)});
 								else

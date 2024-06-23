@@ -24,4 +24,7 @@ big H<<geomProg(2 1 4),
 @G,
 @H,
 @geomProg(10 1 3),
+G<<7,
+3>>H,
+@geomProg(G 1 H),
 .

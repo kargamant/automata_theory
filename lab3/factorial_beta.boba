@@ -6,5 +6,6 @@ begin
 	.
 end,
 
-@-1000,
-@factorial(3),.
+big GG<<factorial(3),
+@GG,
+.

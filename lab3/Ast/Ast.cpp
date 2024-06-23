@@ -16,14 +16,28 @@ Ast::Ast(Node* node, Ast* ast1, Ast* ast2)
 //TOdo: FINISH this func
 void Node::applyScope(VarMap* nscope)
 {
-	scope=nscope;
+	//if(scope!=nullptr) nscope->mergeIntoVm(scope);
+	//else scope=nscope;
+	
+	if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) scope=nscope;
+	//scope=new VarMap;
+	//nscope->mergeIntoVm(scope);
+	/*if(this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
+	{
+		nscope->mergeIntoVm(scope);
+		//nscope->mergeIntoVm(&dynamic_cast<FunctionOperator*>(this)->local_scope);
+	}
+	else
+	{
+		scope=nscope;
+	}*/
 	if(left!=nullptr) left->applyScope(nscope);
 	if(right!=nullptr) right->applyScope(nscope);
 }
 
 void Node::applyToReturn(Var* nreturn)
 {
-	to_return=nreturn;
+	if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) to_return=nreturn;
 	if(left!=nullptr) left->applyToReturn(nreturn);
 	if(right!=nullptr) right->applyToReturn(nreturn);
 }
@@ -118,13 +132,33 @@ int FunctionOperator::execute()
 {
 	//std::cout<<"FUNCTION CALL!"<<std::endl;
 	loadArgs(arguments);
-	//if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
+	//To be tested
+	if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
+
+
+	
 	stmts->applyScope(&local_scope);
-	//if(scope==nullptr) stmts->applyScope(&local_scope);
-	//else 
-	//{
-	//	stmts->applyScope(scope);
-	//}
+	/*if(scope==nullptr) 
+	{
+		//scope=&local_scope;
+		stmts->applyScope(&local_scope);
+	}
+	else 
+	{
+		//merge local scope into scope without redeclarations
+		//local_scope.mergeIntoVm(scope);
+		stmts->applyScope(scope);
+	}*/
+	
+	//std::cout<<"local scope:"<<std::endl;
+	//std::cout<<local_scope;
+	
+	if(scope!=nullptr)
+	{
+		std::cout<<"scope: "<<std::endl;
+		std::cout<<*scope;
+	}
+
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
 	stmts->applyReturnFlag(&returnMet);
@@ -141,7 +175,16 @@ int ReturnOperator::execute()
 //	}
 //	else
 //	{
+		//std::cout<<"local scope return:"<<std::endl;
+		//std::cout<<local_scope;
+		
+		if(scope!=nullptr)
+		{
+			std::cout<<"scope return: "<<std::endl;
+			std::cout<<*scope;
+		}
 		int res=value_to_return->execute();
+		to_return->value=res;
 		*returnFlag=true;
 		return res;
 //	}
@@ -166,24 +209,24 @@ int ConnectingNode::execute()
 	if(left!=nullptr) 
 	{
 		int res=left->execute();
-		//if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 		if(left->type==nodeType::oper && dynamic_cast<OperatorNode*>(left)->type==operatorType::return_stmt)
 		{
 			//std::cout<<"return from left "<<res<<std::endl;
 			to_return->changeValue(res);
 			return res;
 		}
+		if(right==nullptr && returnFlag!=nullptr && *returnFlag) return to_return->value;
 	}
 	if(right!=nullptr) 
 	{
 		int res=right->execute();
-		if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 		if(right->type==nodeType::oper && dynamic_cast<OperatorNode*>(right)->type==operatorType::return_stmt)
 		{
 			//std::cout<<"return from right "<<res<<std::endl;
 			to_return->changeValue(res);
 			return res;
 		}
+		if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	}
 	return 0;
 }
@@ -212,6 +255,7 @@ int PrintValueOperator::execute()
 int ArifmeticOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	//int out=-1;
 	switch(type)
 	{
 		case ArifmeticType::plus:
@@ -221,6 +265,8 @@ int ArifmeticOperator::execute()
 		case ArifmeticType::div:
 		        return args[0]->execute()/args[1]->execute();
 		case ArifmeticType::mult:
+			//out=args[0]->execute()*args[1]->execute();
+			//std::cout<<"out: "<<out<<std::endl;
 		        return args[0]->execute()*args[1]->execute();
 		case ArifmeticType::uminus:
 			return -args[0]->execute();
@@ -480,6 +526,7 @@ int CheckOperator::execute()
 		if(expr->type==nodeType::oper) dynamic_cast<OperatorNode*>(expr)->isExecuted=false;
 		if(stmts->left!=nullptr && stmts->left->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->left)->isExecuted=false;
 		if(stmts->right!=nullptr && stmts->right->type==nodeType::oper) dynamic_cast<OperatorNode*>(stmts->right)->isExecuted=false;
+		if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	}
 	return 0;
 }
