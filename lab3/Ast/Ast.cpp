@@ -395,29 +395,36 @@ int ArifmeticOperator::execute()
 	//int out=-1;
 	int a=-1;
 	int b=-1;
+	Node* anode;
+	Node* bnode;
 	switch(type)
 	{
 		case ArifmeticType::plus:
-			return args[0]->execute()+args[1]->execute();	
+			anode=args[0];
+			bnode=args[1];
+			a=anode->execute();
+			b=bnode->execute();
+			std::cout<<"f(n-1) f(n-2): "<<a<<" "<<b<<std::endl;
+			return a+b;	
 		case ArifmeticType::minus:
 			return args[0]->execute()-args[1]->execute();
 		case ArifmeticType::div:
 		        return args[0]->execute()/args[1]->execute();
 		case ArifmeticType::mult:
-			std::cout<<"fac(b) a before calc: "<<a<<" "<<b<<std::endl;
+			/*std::cout<<"fac(b) a before calc: "<<a<<" "<<b<<std::endl;
 			if(scope!=nullptr)
 			{
 				std::cout<<"scope: "<<std::endl;
 				std::cout<<*scope;
-			}
+			}*/
 			a=args[0]->execute();
 			b=args[1]->execute();
-			std::cout<<"fac(b) a: "<<a<<" "<<b<<std::endl;
-			if(scope!=nullptr)
+			//std::cout<<"fac(b) a: "<<a<<" "<<b<<std::endl;
+			/*if(scope!=nullptr)
 			{
 				std::cout<<"scope: "<<std::endl;
 				std::cout<<*scope;
-			}
+			}*/
 			//std::cout<<"product: "<<a<<" * "<<b<<std::endl;
 			//out=args[0]->execute()*args[1]->execute();
 			//std::cout<<"out: "<<out<<std::endl;

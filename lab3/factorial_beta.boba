@@ -6,5 +6,6 @@ begin
 	.
 end,
 
-@factorial(7),
+big GG<<factorial(7),
+@GG,
 .

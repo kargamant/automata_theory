@@ -1,0 +1,16 @@
+big fibonachi normal n
+begin
+	check n<=0 do return 0,.
+	check n<=1 do return 1,.
+	normal a<<(-1+n),
+	normal b<<(-2+n),
+	@-1000,
+	@b,
+	@a,
+	@-1000,
+	return (fibonachi(a)+fibonachi(b)),
+	.
+end,
+
+@fibonachi(5),
+.
