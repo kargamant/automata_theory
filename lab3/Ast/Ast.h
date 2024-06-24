@@ -1,6 +1,7 @@
 #pragma once
 #include "../VarMap/VarMap.h"
 #include "../Robo/Map.h"
+#include <stack>
 
 class Ast;
 enum class nodeType
@@ -66,6 +67,7 @@ struct Node
 	void applyToReturn(Var* nreturn);
 	void applyReturnFlag(bool* nretFlag);
 	void applyFinalExec(bool nFinalExec);
+	void applyProgramStack(std::stack<VarMap*>* prog_stack);
 	void updateFunctionCalls(std::unordered_map<std::string, Ast*>& declared_funcs);
 };
 
@@ -202,6 +204,7 @@ struct FunctionOperator : public OperatorNode
 	std::unordered_map<std::string, Ast*>* declared_funcs=nullptr;
 
 	Node* stmts;
+	std::stack<VarMap*>* program_stack;	
 	FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope);
 	void unparseArguments();
 	void loadArgs(Ast* args_to_call);

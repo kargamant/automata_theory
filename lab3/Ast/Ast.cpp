@@ -20,7 +20,13 @@ void Node::applyScope(VarMap* nscope)
 	//else scope=nscope;
 	
 	//scope=nscope;
-	if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) scope=nscope;
+	
+	if(this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
+	{
+		dynamic_cast<FunctionOperator*>(this)->arguments->root->applyScope(nscope);
+	}
+	else scope=nscope;
+	//if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) scope=nscope;
 	//scope=new VarMap;
 	//nscope->mergeIntoVm(scope);
 	/*if(this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
@@ -34,6 +40,13 @@ void Node::applyScope(VarMap* nscope)
 	}*/
 	if(left!=nullptr) left->applyScope(nscope);
 	if(right!=nullptr) right->applyScope(nscope);
+}
+
+void Node::applyProgramStack(std::stack<VarMap*>* prog_stack)
+{
+	if(type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func) dynamic_cast<FunctionOperator*>(this)->program_stack=prog_stack;
+	if(left!=nullptr) left->applyProgramStack(prog_stack);
+	if(right!=nullptr) right->applyProgramStack(prog_stack);
 }
 
 void Node::applyToReturn(Var* nreturn)
@@ -90,7 +103,13 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 			dynamic_cast<OperandNode*>(ptr)->operand->updateValue();
 		}
 		std::cout<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;*/
+		if(ptr->scope!=nullptr)
+		{
+			std::cout<<"scope: "<<std::endl;
+			std::cout<<*ptr->scope;
+		}
 		local_scope.changeVar(args_order[k], ptr->execute());
+		//std::cout<<local_scope.getVar(args_order[k])->value<<std::endl;
 	//	if(scope==nullptr) local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
 	//	else 
 	//	{
@@ -136,6 +155,44 @@ void FunctionOperator::build()
 	if(declared_funcs->contains(name))
 	{
 		return_type=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->return_type;
+
+		std::vector<int> passed_values;
+		Node* ptr=arguments->root;
+		while(ptr!=nullptr)
+		{
+			passed_values.push_back(dynamic_cast<OperandNode*>(ptr)->operand->value);
+			ptr=ptr->left;
+		}
+		arguments=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->arguments;
+		int k=0;
+		ptr=arguments->root;
+		local_scope=VarMap();
+		while(ptr!=nullptr)
+		{
+			dynamic_cast<OperandNode*>(ptr)->operand->value=passed_values[k];
+			dynamic_cast<OperandNode*>(ptr)->operand->var->changeValue(passed_values[k]);
+			local_scope.addVar(dynamic_cast<OperandNode*>(ptr)->operand->var);
+
+			ptr=ptr->left;
+			k++;
+		}
+
+		/*Node* old_args=arguments->root;
+		arguments=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->arguments;
+		
+		Node* ptr=old_args;
+		Node* nptr=arguments->root;
+		while(ptr!=nullptr)
+		{
+			dynamic_cast<OperandNode*>(ptr)->operand->var->type=dynamic_cast<OperandNode*>(nptr)->operand->var->type;
+			if(dynamic_cast<OperandNode*>(ptr)->operand->var->name!=dynamic_cast<OperandNode*>(nptr)->operand->var->name)
+			{
+				
+			}
+			ptr=ptr->left;
+			nptr=nptr->left;
+		}*/
+		
 		stmts=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->stmts;
 	}
 	else
@@ -147,8 +204,10 @@ void FunctionOperator::build()
 int FunctionOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
-	build();
 	loadArgs(arguments);
+	build();
+	std::cout<<"local scope:"<<std::endl;
+	std::cout<<local_scope;
 	//if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
 
 
@@ -166,8 +225,6 @@ int FunctionOperator::execute()
 		stmts->applyScope(scope);
 	}*/
 	
-	std::cout<<"local scope:"<<std::endl;
-	std::cout<<local_scope;
 //	
 //	if(scope!=nullptr)
 //	{

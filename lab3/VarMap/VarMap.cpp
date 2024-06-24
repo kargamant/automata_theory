@@ -74,6 +74,7 @@ void Operand::updateValue(VarMap* scope)
 		if(scope!=nullptr)
 		{
 			if(scope->checkIfDefined(var->name)) var->value=scope->getVar(var->name)->value;
+			else throw std::invalid_argument("Error. Dolbaeb.");
 		}
 		if(value!=var->value) value=var->value;
 		//std::cout<<"updated operand: \""<<var->name<<"\" == "<<value<<std::endl;
@@ -219,6 +220,7 @@ void operator<<(std::ostream& stream, VarMap& vm)
 	{
 		stream<<var.first<<" | ";
 		stream<<*var.second;
+		//stream<<" actual value: "<<var.second->value;
 		stream<<std::endl;
 	}
 }

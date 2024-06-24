@@ -49,13 +49,14 @@
 	#include <queue>
 	#include <fstream>
 	#include "../Robo/Map.h"
+	#include <stack>
 	int yylex(void);
 	void yyerror(const char *s);
 
 	Map labirint{"labirint.txt"};
 	//labirint.changeCellType(3, 4, CellType::obstacle);
 	VarMap* vm=new VarMap();
-	//std::stack<> program_stack
+	std::stack<VarMap*> program_stack;
 	std::unordered_map<std::string, Ast*> declared_funcs;
 	std::ofstream bison_logger("report_bison.txt");
 %}
@@ -76,14 +77,17 @@ main:
     complex_statement	{
     				//ast.root=main_func;
 				$$->printAst();
-			//	std::cout<<"funcs:"<<std::endl;
-			//	for(auto& func: declared_funcs)
-			//	{
-			//		func.second->printAst();
-			//	}
+				std::cout<<"funcs:"<<std::endl;
+				for(auto& func: declared_funcs)
+				{
+					func.second->printAst();
+				}
 				//$$->root->applyFinalExec(true);
+				program_stack.push(vm);
+				$$->root->applyProgramStack(&program_stack);
 				$$->root->applyScope(vm);
 				$$->execute();
+				$$->printAst();
 				//ast.printAst();
     			}
 	;
@@ -307,7 +311,7 @@ operand:
 				}
 				else
 				{
-					Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+					Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::big, *$1, 0))));
 					$$=ost;
 					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
@@ -414,7 +418,7 @@ expr_operand:
 				}
 				else
 				{
-					Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+					Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::big, *$1, 0))));
 					$$=ost;
 					std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
