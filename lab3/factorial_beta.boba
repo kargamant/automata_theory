@@ -6,5 +6,5 @@ begin
 	.
 end,
 
-@factorial(6),
+@factorial(7),
 .

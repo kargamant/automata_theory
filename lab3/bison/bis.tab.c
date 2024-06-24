@@ -1931,7 +1931,7 @@ yyreduce:
 								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*(yyvsp[-3].str)]->root);
 								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
 								dynamic_cast<FunctionOperator*>(op)->declared_funcs=&declared_funcs;
-								//dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
+								dynamic_cast<FunctionOperator*>(op)->loadArgs((yyvsp[-1].st));
 							//	std::cout<<"func operand:"<<std::endl;
 							//	fp->printNode(std::cout, 1);
 								(yyval.st)=new Ast(op);

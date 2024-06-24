@@ -169,12 +169,14 @@ void FunctionOperator::build()
 	if(declared_funcs->contains(name))
 	{
 		return_type=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->return_type;
+		return_value=Var(return_type, "return", return_value.value);
 
 		std::vector<int> passed_values;
 		Node* ptr=arguments->root;
 		while(ptr!=nullptr)
 		{
 			passed_values.push_back(dynamic_cast<OperandNode*>(ptr)->operand->value);
+			//passed_values.push_back(ptr->execute());
 			ptr=ptr->left;
 		}
 		//arguments=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->arguments;
@@ -219,10 +221,19 @@ int FunctionOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	//std::cout<<"is prog stack null???: "<<(program_stack==nullptr)<<std::endl;
-	arguments->root->applyProgramStack(program_stack);
+	/*std::stack<VarMap*> copy_stack=*program_stack;
+				std::cout<<"Stack before func call:"<<std::endl;
+				while(!copy_stack.empty())
+				{
+					std::cout<<*copy_stack.top();
+					std::cout<<std::endl;
+					copy_stack.pop();
+				}*/
+	//arguments->root->applyScope(&local_scope);
+	//arguments->root->applyProgramStack(program_stack);
 	loadArgs(arguments);
-	std::cout<<"local scope after load args:"<<std::endl;
-	std::cout<<local_scope;
+	//std::cout<<"local scope lol:"<<std::endl;
+	//std::cout<<local_scope;
 	build();
 	std::cout<<"local scope after build:"<<std::endl;
 	std::cout<<local_scope;
@@ -256,8 +267,11 @@ int FunctionOperator::execute()
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
 	stmts->applyReturnFlag(&returnMet);
-	stmts->execute();
-	return return_value.value;
+	int actual_res=stmts->execute();
+	//std::cout<<"actual res: "<<actual_res<<std::endl;
+	program_stack->pop();
+	//return return_value.value;
+	return actual_res;
 }
 
 int ReturnOperator::execute()
@@ -327,7 +341,7 @@ int ConnectingNode::execute()
 
 int OperandNode::execute()
 {
-	if(program_stack!=nullptr)
+	if(program_stack!=nullptr && !program_stack->empty())
 	{
 		bool isSuccesful=false;
 		std::stack<VarMap*> copy_stack=*program_stack;

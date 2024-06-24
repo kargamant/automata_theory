@@ -72,7 +72,7 @@ factorial
 var_name parsed
 (
 ( parsed
-6
+7
 literal parsed
 )
 ) parsed
