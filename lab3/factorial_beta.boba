@@ -1,11 +1,10 @@
 big factorial normal a
 begin
-	check a<=1 do return 1,.
 	normal b<<(-1+a),
+	check a<=1 do return 1,.
 	return factorial(b)*a,
 	.
 end,
 
-big GG<<factorial(3),
-@GG,
+@factorial(6),
 .

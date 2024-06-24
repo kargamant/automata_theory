@@ -1560,7 +1560,7 @@ yyreduce:
 				(yyval.st)->root->applyProgramStack(&program_stack);
 				(yyval.st)->root->applyScope(vm);
 				(yyval.st)->execute();
-				(yyval.st)->printAst();
+				//$$->printAst();
 				//ast.printAst();
     			}
 #line 1567 "bison/bis.tab.c"

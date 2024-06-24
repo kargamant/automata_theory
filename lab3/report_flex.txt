@@ -8,24 +8,6 @@ a
 var_name parsed
 begin
 begin parsed
-check
-check parsed
-a
-var_name parsed
-<=
-less_equal parsed
-1
-literal parsed
-do
-do parsed
-return
-return parsed
-1
-literal parsed
-,
-, parsed
-.
-. parsed
 normal
 var_type parsed
 b
@@ -44,6 +26,24 @@ var_name parsed
 ) parsed
 ,
 , parsed
+check
+check parsed
+a
+var_name parsed
+<=
+less_equal parsed
+1
+literal parsed
+do
+do parsed
+return
+return parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
 return
 return parsed
 factorial
@@ -66,26 +66,16 @@ end
 end parsed
 ,
 , parsed
-big
-var_type parsed
-GG
-var_name parsed
-<<
-left_assign parsed
+@
+@ parsed
 factorial
 var_name parsed
 (
 ( parsed
-3
+6
 literal parsed
 )
 ) parsed
-,
-, parsed
-@
-@ parsed
-GG
-var_name parsed
 ,
 , parsed
 .

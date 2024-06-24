@@ -23,9 +23,21 @@ void Node::applyScope(VarMap* nscope)
 	
 	if(this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
 	{
-		dynamic_cast<FunctionOperator*>(this)->arguments->root->applyScope(nscope);
+		int biba=0;
+		//dynamic_cast<FunctionOperator*>(this)->arguments->root->applyScope(nscope);
+		//scope=new VarMap();
+		//nscope->mergeIntoVm(scope);
+		//scope=&dynamic_cast<FunctionOperator*>(this)->local_scope;
 	}
-	else scope=nscope;
+	else 
+	{
+		scope=nscope;
+		//scope=new VarMap();
+		//nscope->mergeIntoVm(scope);
+		//std::cout<<"scope after merging:"<<std::endl;
+		//std::cout<<*scope;
+		//std::cout<<std::endl;
+	}
 	//if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) scope=nscope;
 	//scope=new VarMap;
 	//nscope->mergeIntoVm(scope);
@@ -60,6 +72,7 @@ void Node::applyToReturn(Var* nreturn)
 void Node::applyReturnFlag(bool* nretFlag)
 {
 	returnFlag=nretFlag;
+	//if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) returnFlag=nretFlag;
 	if(left!=nullptr) left->applyReturnFlag(nretFlag);
 	if(right!=nullptr) right->applyReturnFlag(nretFlag);
 }
@@ -163,20 +176,20 @@ void FunctionOperator::build()
 			passed_values.push_back(dynamic_cast<OperandNode*>(ptr)->operand->value);
 			ptr=ptr->left;
 		}
-		arguments=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->arguments;
+		//arguments=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->arguments;
 		int k=0;
-		ptr=arguments->root;
+		ptr=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->arguments->root;
 		local_scope=VarMap();
 		while(ptr!=nullptr)
 		{
-			dynamic_cast<OperandNode*>(ptr)->operand->value=passed_values[k];
-			dynamic_cast<OperandNode*>(ptr)->operand->var->changeValue(passed_values[k]);
-			local_scope.addVar(dynamic_cast<OperandNode*>(ptr)->operand->var);
+			//dynamic_cast<OperandNode*>(ptr)->operand->value=passed_values[k];
+			//dynamic_cast<OperandNode*>(ptr)->operand->var->changeValue(passed_values[k]);
+			Var* v=dynamic_cast<OperandNode*>(ptr)->operand->var;
+			local_scope.addVar(new Var(v->type, v->name, passed_values[k]));
 
 			ptr=ptr->left;
 			k++;
 		}
-
 		/*Node* old_args=arguments->root;
 		arguments=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->arguments;
 		
@@ -205,8 +218,10 @@ int FunctionOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	loadArgs(arguments);
+	std::cout<<"local scope after load args:"<<std::endl;
+	std::cout<<local_scope;
 	build();
-	std::cout<<"local scope:"<<std::endl;
+	std::cout<<"local scope after build:"<<std::endl;
 	std::cout<<local_scope;
 	//if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
 
@@ -231,7 +246,7 @@ int FunctionOperator::execute()
 //		std::cout<<"scope: "<<std::endl;
 //		std::cout<<*scope;
 //	}
-
+	
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
 	stmts->applyReturnFlag(&returnMet);
@@ -342,6 +357,12 @@ int ArifmeticOperator::execute()
 		case ArifmeticType::mult:
 			a=args[0]->execute();
 			b=args[1]->execute();
+			std::cout<<"fac(b) a: "<<a<<" "<<b<<std::endl;
+			if(scope!=nullptr)
+			{
+				std::cout<<"scope: "<<std::endl;
+				std::cout<<*scope;
+			}
 			//std::cout<<"product: "<<a<<" * "<<b<<std::endl;
 			//out=args[0]->execute()*args[1]->execute();
 			//std::cout<<"out: "<<out<<std::endl;

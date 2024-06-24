@@ -87,7 +87,7 @@ main:
 				$$->root->applyProgramStack(&program_stack);
 				$$->root->applyScope(vm);
 				$$->execute();
-				$$->printAst();
+				//$$->printAst();
 				//ast.printAst();
     			}
 	;

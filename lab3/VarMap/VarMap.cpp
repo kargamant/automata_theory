@@ -74,7 +74,13 @@ void Operand::updateValue(VarMap* scope)
 		if(scope!=nullptr)
 		{
 			if(scope->checkIfDefined(var->name)) var->value=scope->getVar(var->name)->value;
-			else throw std::invalid_argument("Error. Dolbaeb.");
+			else
+			{
+				std::cout<<"AHTUNG"<<std::endl;
+				std::cout<<*scope;
+				std::cout<<std::endl<<var->name<<" was not defined"<<std::endl;
+				throw std::invalid_argument("Error. Dolbaeb.");
+			}
 		}
 		if(value!=var->value) value=var->value;
 		//std::cout<<"updated operand: \""<<var->name<<"\" == "<<value<<std::endl;
