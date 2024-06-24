@@ -87,6 +87,13 @@ main:
 				$$->root->applyProgramStack(&program_stack);
 				$$->root->applyScope(vm);
 				$$->execute();
+				std::cout<<"Stack:"<<std::endl;
+				while(!program_stack.empty())
+				{
+					std::cout<<*program_stack.top();
+					std::cout<<std::endl;
+					program_stack.pop();
+				}
 				//$$->printAst();
 				//ast.printAst();
     			}
@@ -365,7 +372,7 @@ operand:
 								FunctionOperator* fp=dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root);
 								OperatorNode* op=new FunctionOperator(fp->return_type, fp->name, fp->arguments, fp->stmts, vm);
 								dynamic_cast<FunctionOperator*>(op)->declared_funcs=&declared_funcs;
-								dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
+								//dynamic_cast<FunctionOperator*>(op)->loadArgs($3);
 							//	std::cout<<"func operand:"<<std::endl;
 							//	fp->printNode(std::cout, 1);
 								$$=new Ast(op);

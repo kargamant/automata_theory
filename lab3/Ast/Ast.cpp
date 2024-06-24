@@ -23,16 +23,16 @@ void Node::applyScope(VarMap* nscope)
 	
 	if(this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
 	{
-		int biba=0;
-		//dynamic_cast<FunctionOperator*>(this)->arguments->root->applyScope(nscope);
+		//int biba=0;
+		dynamic_cast<FunctionOperator*>(this)->arguments->root->applyScope(nscope);
 		//scope=new VarMap();
 		//nscope->mergeIntoVm(scope);
 		//scope=&dynamic_cast<FunctionOperator*>(this)->local_scope;
 	}
 	else 
 	{
-		scope=nscope;
 		//scope=new VarMap();
+		scope=nscope;
 		//nscope->mergeIntoVm(scope);
 		//std::cout<<"scope after merging:"<<std::endl;
 		//std::cout<<*scope;
@@ -56,7 +56,8 @@ void Node::applyScope(VarMap* nscope)
 
 void Node::applyProgramStack(std::stack<VarMap*>* prog_stack)
 {
-	if(type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func) dynamic_cast<FunctionOperator*>(this)->program_stack=prog_stack;
+	program_stack=prog_stack;
+	//if(type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func) dynamic_cast<FunctionOperator*>(this)->program_stack=prog_stack;
 	if(left!=nullptr) left->applyProgramStack(prog_stack);
 	if(right!=nullptr) right->applyProgramStack(prog_stack);
 }
@@ -217,6 +218,8 @@ void FunctionOperator::build()
 int FunctionOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	//std::cout<<"is prog stack null???: "<<(program_stack==nullptr)<<std::endl;
+	arguments->root->applyProgramStack(program_stack);
 	loadArgs(arguments);
 	std::cout<<"local scope after load args:"<<std::endl;
 	std::cout<<local_scope;
@@ -246,7 +249,10 @@ int FunctionOperator::execute()
 //		std::cout<<"scope: "<<std::endl;
 //		std::cout<<*scope;
 //	}
-	
+	VarMap* copy_scope=new VarMap;
+	*copy_scope=local_scope;
+	program_stack->push(copy_scope);
+	stmts->applyProgramStack(program_stack);
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
 	stmts->applyReturnFlag(&returnMet);
@@ -321,7 +327,36 @@ int ConnectingNode::execute()
 
 int OperandNode::execute()
 {
-	operand->updateValue(scope);
+	if(program_stack!=nullptr)
+	{
+		bool isSuccesful=false;
+		std::stack<VarMap*> copy_stack=*program_stack;
+		while(!isSuccesful)
+		{
+			bool error=false;
+			try
+			{
+				//operand->updateValue(scope);
+				if(copy_stack.empty()) break;
+				operand->updateValue(copy_stack.top());
+			}
+			catch(std::invalid_argument)
+			{
+				error=true;
+				if(copy_stack.empty()) break;
+				copy_stack.pop();
+			}
+			if(!error) isSuccesful=true;
+		}
+		if(!isSuccesful)
+		{
+			operand->updateValue(scope);
+		}
+	}
+	else
+	{
+		operand->updateValue(scope);
+	}
 	return operand->value;
 }
 
@@ -355,6 +390,12 @@ int ArifmeticOperator::execute()
 		case ArifmeticType::div:
 		        return args[0]->execute()/args[1]->execute();
 		case ArifmeticType::mult:
+			std::cout<<"fac(b) a before calc: "<<a<<" "<<b<<std::endl;
+			if(scope!=nullptr)
+			{
+				std::cout<<"scope: "<<std::endl;
+				std::cout<<*scope;
+			}
 			a=args[0]->execute();
 			b=args[1]->execute();
 			std::cout<<"fac(b) a: "<<a<<" "<<b<<std::endl;

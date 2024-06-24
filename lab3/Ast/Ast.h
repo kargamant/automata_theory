@@ -56,6 +56,7 @@ struct Node
 	Node* right=nullptr;
 	Var* to_return;
 	VarMap* scope=nullptr;
+	std::stack<VarMap*>* program_stack=nullptr;
 	bool* returnFlag=nullptr;
 	bool isFinalExec=false;
 	Node(nodeType type, Node* left=nullptr, Node* right=nullptr) : type(type), left(left), right(right) {}
@@ -204,7 +205,6 @@ struct FunctionOperator : public OperatorNode
 	std::unordered_map<std::string, Ast*>* declared_funcs=nullptr;
 
 	Node* stmts;
-	std::stack<VarMap*>* program_stack;	
 	FunctionOperator(VarType return_type, const std::string& name, Ast* arguments, Node* stmts, VarMap* global_scope);
 	void unparseArguments();
 	void loadArgs(Ast* args_to_call);
