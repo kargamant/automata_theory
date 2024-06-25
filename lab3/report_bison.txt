@@ -1,38 +1,38 @@
-operand with value 0x5555555c22c0
-expr from logic expr
-operand_literal: 0
-operand with value 0x5555555c2420
-expr from logic expr
-0x5555555c22c0<=0x5555555c2420: 0x5555555cb540
-operand_literal: 0x5555555cb5e0
-operand with value 0x5555555cb8a0
-expr from logic expr
-operand_literal: 1
-operand with value 0x5555555cb9b0
-expr from logic expr
-0x5555555cb8a0<=0x5555555cb9b0: 0x5555555cba50
-operand_literal: 0x5555555cbaf0
-var apushed to init queue.
-operand_literal: -1
-operand with value 0x5555555cbe90
-operand with value 0x5555555cbf60
-sum of two expressions with value 0x5555555cc070
-expression in brackets with value 0x5555555cc070
-operand_literal: 0x5555555cc070
-All vars from init queue were intialized
 var bpushed to init queue.
 operand_literal: -2
-operand with value 0x5555555cc300
-operand with value 0x5555555cc3d0
-sum of two expressions with value 0x5555555cc4e0
-expression in brackets with value 0x5555555cc4e0
-operand_literal: 0x5555555cc4e0
+operand with value 0x4e58860
+operand with value 0x4e58a00
+sum of two expressions with value 0x4e58ca0
+expression in brackets with value 0x4e58ca0
+operand_literal: 0x4e58ca0
 All vars from init queue were intialized
-operand_literal: 0x5555555cc580
-operand_literal: 0x5555555ccb40
-operand with value 0x5555555ccdf0
-operand with value 0x5555555cdf00
-sum of two expressions with value 0x5555555cdf20
-expression in brackets with value 0x5555555cdf20
-operand_literal: 0x5555555cdf20
-operand_literal: 0x5555555ceda0
+var apushed to init queue.
+operand_literal: -1
+operand with value 0x4e59370
+operand with value 0x4e59510
+sum of two expressions with value 0x4e597b0
+expression in brackets with value 0x4e597b0
+operand_literal: 0x4e597b0
+All vars from init queue were intialized
+operand with value 0x4e59cc0
+expr from logic expr
+operand_literal: 0
+operand with value 0x4e59f60
+expr from logic expr
+0x4e59cc0<=0x4e59f60: 0x4e5a0a0
+operand_literal: 0x4e5a290
+operand with value 0x4e5a7e0
+expr from logic expr
+operand_literal: 1
+operand with value 0x4e5aa80
+expr from logic expr
+0x4e5a7e0<=0x4e5aa80: 0x4e5abc0
+operand_literal: 0x4e5adb0
+operand_literal: 0x4e5b2a0
+operand_literal: 0x4e5bec0
+operand with value 0x4e5c500
+operand with value 0x4e5de60
+sum of two expressions with value 0x4e5deb0
+expression in brackets with value 0x4e5deb0
+operand_literal: 0x4e5deb0
+operand_literal: 0x4e5f520

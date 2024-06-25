@@ -24,6 +24,7 @@ void Node::applyScope(VarMap* nscope)
 	if(this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
 	{
 		//int biba=0;
+		//scope=&dynamic_cast<FunctionOperator*>(this)->local_scope;
 		dynamic_cast<FunctionOperator*>(this)->arguments->root->applyScope(nscope);
 		//scope=new VarMap();
 		//nscope->mergeIntoVm(scope);
@@ -72,7 +73,11 @@ void Node::applyToReturn(Var* nreturn)
 
 void Node::applyReturnFlag(bool* nretFlag)
 {
-	returnFlag=nretFlag;
+	if(this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
+	{
+		returnFlag=&dynamic_cast<FunctionOperator*>(this)->returnMet;
+	}
+	else returnFlag=nretFlag;
 	//if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) returnFlag=nretFlag;
 	if(left!=nullptr) left->applyReturnFlag(nretFlag);
 	if(right!=nullptr) right->applyReturnFlag(nretFlag);
@@ -117,11 +122,16 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 			dynamic_cast<OperandNode*>(ptr)->operand->updateValue();
 		}
 		std::cout<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;*/
-		if(ptr->scope!=nullptr)
+		//scope printing
+		/*if(ptr->scope!=nullptr)
 		{
 			std::cout<<"scope: "<<std::endl;
 			std::cout<<*ptr->scope;
-		}
+		}*/
+		/*if(ptr->type==nodeType::operand)
+		{
+			std::cout<<"value of ptr: "<<dynamic_cast<OperandNode*>(ptr)->operand->var->value<<std::endl;
+		}*/
 		local_scope.changeVar(args_order[k], ptr->execute());
 		//std::cout<<local_scope.getVar(args_order[k])->value<<std::endl;
 	//	if(scope==nullptr) local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
@@ -189,6 +199,7 @@ void FunctionOperator::build()
 			//dynamic_cast<OperandNode*>(ptr)->operand->var->changeValue(passed_values[k]);
 			Var* v=dynamic_cast<OperandNode*>(ptr)->operand->var;
 			local_scope.addVar(new Var(v->type, v->name, passed_values[k]));
+			std::cout<<"passed value: "<<passed_values[k]<<std::endl;
 
 			ptr=ptr->left;
 			k++;
@@ -220,6 +231,7 @@ void FunctionOperator::build()
 int FunctionOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	//if(returnMet) return to_return->value;
 	//std::cout<<"is prog stack null???: "<<(program_stack==nullptr)<<std::endl;
 	/*std::stack<VarMap*> copy_stack=*program_stack;
 				std::cout<<"Stack before func call:"<<std::endl;
@@ -230,7 +242,9 @@ int FunctionOperator::execute()
 					copy_stack.pop();
 				}*/
 	//arguments->root->applyScope(&local_scope);
-	//arguments->root->applyProgramStack(program_stack);
+	std::cout<<"local scope before anything:"<<std::endl;
+	std::cout<<local_scope;
+	arguments->root->applyProgramStack(program_stack);
 	loadArgs(arguments);
 	//std::cout<<"local scope lol:"<<std::endl;
 	//std::cout<<local_scope;
@@ -263,13 +277,30 @@ int FunctionOperator::execute()
 	VarMap* copy_scope=new VarMap;
 	*copy_scope=local_scope;
 	program_stack->push(copy_scope);
+	std::stack<VarMap*> copy_stack=*program_stack;
+				std::cout<<"Stack after push:"<<std::endl;
+				while(!copy_stack.empty())
+				{
+					std::cout<<*copy_stack.top();
+					std::cout<<std::endl;
+					copy_stack.pop();
+				}
 	stmts->applyProgramStack(program_stack);
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
 	stmts->applyReturnFlag(&returnMet);
 	int actual_res=stmts->execute();
+	std::cout<<"f("<<local_scope.getVar("n")->value<<")=="<<actual_res<<std::endl;
 	//std::cout<<"actual res: "<<actual_res<<std::endl;
 	program_stack->pop();
+	copy_stack=*program_stack;
+				std::cout<<"Stack after exec and pop:"<<std::endl;
+				while(!copy_stack.empty())
+				{
+					std::cout<<*copy_stack.top();
+					std::cout<<std::endl;
+					copy_stack.pop();
+				}
 	//return return_value.value;
 	return actual_res;
 }
@@ -379,7 +410,8 @@ int PrintValueOperator::execute()
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	if(args[0]->type==nodeType::operand) 
 	{
-		dynamic_cast<OperandNode*>(args[0])->operand->updateValue(scope);
+		dynamic_cast<OperandNode*>(args[0])->operand->updateValue(program_stack->top());
+		//dynamic_cast<OperandNode*>(args[0])->operand->updateValue(scope);
 		std::cout<<dynamic_cast<OperandNode*>(args[0])->operand->value<<std::endl;
 	}
 	else
@@ -477,7 +509,8 @@ int DefiningOperator::execute()
 				else
 				{
 					//std::cout<<"operand: "<<operand->execute()<<std::endl;
-					scope->addVar(new Var(vtype, vname, operand->execute()));
+					program_stack->top()->addVar(new Var(vtype, vname, operand->execute()));
+					//scope->addVar(new Var(vtype, vname, operand->execute()));
 					//std::cout<<"defined ";
 					//std::cout<<*scope->getVar(vname);
 					//std::cout<<std::endl;

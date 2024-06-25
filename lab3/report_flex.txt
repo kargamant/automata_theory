@@ -8,60 +8,6 @@ n
 var_name parsed
 begin
 begin parsed
-check
-check parsed
-n
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
-return
-return parsed
-0
-literal parsed
-,
-, parsed
-.
-. parsed
-check
-check parsed
-n
-var_name parsed
-<=
-less_equal parsed
-1
-literal parsed
-do
-do parsed
-return
-return parsed
-1
-literal parsed
-,
-, parsed
-.
-. parsed
-normal
-var_type parsed
-a
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
--1
-literal parsed
-+
-+ parsed
-n
-var_name parsed
-)
-) parsed
-,
-, parsed
 normal
 var_type parsed
 b
@@ -80,6 +26,60 @@ var_name parsed
 ) parsed
 ,
 , parsed
+normal
+var_type parsed
+a
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+-1
+literal parsed
++
++ parsed
+n
+var_name parsed
+)
+) parsed
+,
+, parsed
+check
+check parsed
+n
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+return
+return parsed
+0
+literal parsed
+,
+, parsed
+.
+. parsed
+check
+check parsed
+n
+var_name parsed
+<=
+less_equal parsed
+1
+literal parsed
+do
+do parsed
+return
+return parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
 @
 @ parsed
 -1000
@@ -112,7 +112,7 @@ fibonachi
 var_name parsed
 (
 ( parsed
-a
+b
 var_name parsed
 )
 ) parsed
@@ -122,7 +122,7 @@ fibonachi
 var_name parsed
 (
 ( parsed
-b
+a
 var_name parsed
 )
 ) parsed
@@ -142,7 +142,7 @@ fibonachi
 var_name parsed
 (
 ( parsed
-5
+3
 literal parsed
 )
 ) parsed
