@@ -1,6 +1,54 @@
+small
+var_type parsed
+remainder
+var_name parsed
 big
 var_type parsed
-fibonachi
+a
+var_name parsed
+normal
+var_type parsed
+div
+var_name parsed
+begin
+begin parsed
+return
+return parsed
+(
+( parsed
+-
+- parsed
+a
+var_name parsed
+/
+/ parsed
+div
+var_name parsed
+)
+) parsed
+*
+* parsed
+div
+var_name parsed
++
++ parsed
+a
+var_name parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+big
+var_type parsed
+pow
+var_name parsed
+big
+var_type parsed
+a
 var_name parsed
 normal
 var_type parsed
@@ -8,27 +56,45 @@ n
 var_name parsed
 begin
 begin parsed
+check
+check parsed
+n
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+return
+return parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+check
+check parsed
+n
+var_name parsed
+<=
+less_equal parsed
+1
+literal parsed
+do
+do parsed
+return
+return parsed
+a
+var_name parsed
+,
+, parsed
+.
+. parsed
 normal
 var_type parsed
 b
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
--2
-literal parsed
-+
-+ parsed
-n
-var_name parsed
-)
-) parsed
-,
-, parsed
-normal
-var_type parsed
-a
 var_name parsed
 <<
 left_assign parsed
@@ -44,88 +110,132 @@ var_name parsed
 ) parsed
 ,
 , parsed
-check
-check parsed
-n
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
 return
 return parsed
-0
-literal parsed
-,
-, parsed
-.
-. parsed
-check
-check parsed
-n
-var_name parsed
-<=
-less_equal parsed
-1
-literal parsed
-do
-do parsed
-return
-return parsed
-1
-literal parsed
-,
-, parsed
-.
-. parsed
-@
-@ parsed
--1000
-literal parsed
-,
-, parsed
-@
-@ parsed
-b
-var_name parsed
-,
-, parsed
-@
-@ parsed
 a
 var_name parsed
+*
+* parsed
+pow
+var_name parsed
+(
+( parsed
+a
+var_name parsed
+b
+var_name parsed
+)
+) parsed
 ,
 , parsed
-@
-@ parsed
--1000
+.
+. parsed
+end
+end parsed
+,
+, parsed
+big
+var_type parsed
+reverse
+var_name parsed
+big
+var_type parsed
+a
+var_name parsed
+normal
+var_type parsed
+d
+var_name parsed
+begin
+begin parsed
+check
+check parsed
+a
+var_name parsed
+<=
+less_equal parsed
+0
 literal parsed
+do
+do parsed
+return
+return parsed
+0
+literal parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+b
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+-1
+literal parsed
++
++ parsed
+d
+var_name parsed
+)
+) parsed
+,
+, parsed
+normal
+var_type parsed
+newa
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+a
+var_name parsed
+/
+/ parsed
+10
+literal parsed
+)
+) parsed
 ,
 , parsed
 return
 return parsed
-(
-( parsed
-fibonachi
+remainder
 var_name parsed
 (
 ( parsed
+a
+var_name parsed
+10
+literal parsed
+)
+) parsed
+*
+* parsed
+pow
+var_name parsed
+(
+( parsed
+10
+literal parsed
 b
 var_name parsed
 )
 ) parsed
 +
 + parsed
-fibonachi
+reverse
 var_name parsed
 (
 ( parsed
-a
+newa
 var_name parsed
-)
-) parsed
+b
+var_name parsed
 )
 ) parsed
 ,
@@ -138,11 +248,13 @@ end parsed
 , parsed
 @
 @ parsed
-fibonachi
+reverse
 var_name parsed
 (
 ( parsed
-9
+1234
+literal parsed
+4
 literal parsed
 )
 ) parsed

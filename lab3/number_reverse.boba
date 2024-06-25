@@ -1,0 +1,26 @@
+small remainder big a normal div
+begin
+	return (-a/div)*div+a,.
+end,
+
+
+big pow big a normal n
+begin
+	check n<=0 do return 1,.
+	check n<=1 do return a,.
+	normal b<<(-1+n),
+	return a*pow(a b),
+	.
+end,
+
+big reverse big a normal d
+begin
+	check a<=0 do return 0,.
+	normal b<<(-1+d),
+	normal newa<<(a/10),
+	return remainder(a 10)*pow(10 b)+reverse(newa b),
+	.
+end,
+
+@reverse(1234 4),
+.

@@ -1,0 +1,10 @@
+big pow normal a normal n
+begin
+	check n<=1 do return a,.
+	normal b<<(-1+n),
+	return a*pow(a b),
+	.
+end,
+
+@pow(10 4),
+.

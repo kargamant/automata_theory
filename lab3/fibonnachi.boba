@@ -1,9 +1,9 @@
 big fibonachi normal n
 begin
-	normal b<<(-2+n),
-	normal a<<(-1+n),
 	check n<=0 do return 0,.
 	check n<=1 do return 1,.
+	normal b<<(-2+n),
+	normal a<<(-1+n),
 	@-1000,
 	@b,
 	@a,
@@ -12,5 +12,5 @@ begin
 	.
 end,
 
-@fibonachi(9),
+@fibonachi(10),
 .
