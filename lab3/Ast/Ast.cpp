@@ -538,11 +538,11 @@ int DefiningOperator::execute()
 				
 				if(scope==nullptr)
 				{
-					if(!isExecuted) vm->addVar(new Field(vtype, stype, vname, operand->execute()));
+					if(!isExecuted) program_stack->top()->addVar(new Field(vtype, stype, vname, operand->execute()));
 				}
 				else
 				{
-					scope->addVar(new Field(vtype, stype, vname, operand->execute()));
+					program_stack->top()->addVar(new Field(vtype, stype, vname, operand->execute()));
 				}
 				ptr=ptr->left;
 			}

@@ -346,6 +346,15 @@ Operand VarMap::popOperand()
 	return op;
 }
 
+void VarMap::clear()
+{
+	for(auto& v: map)
+	{
+		delete v.second;
+	}
+	map.clear();
+}
+
 void VarMap::pushOperator(AssignOperator op)
 {
 	oper_queue.push(op);

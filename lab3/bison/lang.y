@@ -82,24 +82,27 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-				$$->printAst();
-				std::cout<<"funcs:"<<std::endl;
-				for(auto& func: declared_funcs)
-				{
-					func.second->printAst();
-				}
+			//	$$->printAst();
+			//	std::cout<<"funcs:"<<std::endl;
+			//	for(auto& func: declared_funcs)
+			//	{
+			//		func.second->printAst();
+			//	}
 				//$$->root->applyFinalExec(true);
 				program_stack.push(vm);
 				$$->root->applyProgramStack(&program_stack);
 				$$->root->applyScope(vm);
 				$$->execute();
-				std::cout<<"Stack:"<<std::endl;
-				while(!program_stack.empty())
-				{
-					std::cout<<*program_stack.top();
-					std::cout<<std::endl;
-					program_stack.pop();
-				}
+			//	std::cout<<"Stack:"<<std::endl;
+				
+				//cleaning
+			//	while(!program_stack.empty())
+			//	{
+			//		program_stack.top()->clear();
+			//		std::cout<<*program_stack.top();
+			//		std::cout<<std::endl;
+			//		program_stack.pop();
+			//	}
 				//$$->printAst();
 				//ast.printAst();
     			}
@@ -165,7 +168,7 @@ simple_statement:
 							Ast* ost=new Ast(on);
 
 							//main_func->stmts.push_back(ost);
-							ost->execute();
+							//ost->execute();
 							$$=ost;	
 						}
 	| assign_expr 	','			

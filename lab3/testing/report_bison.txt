@@ -1,3 +1,42 @@
 var apushed to init queue.
-operand_literal: 0x5631090a5390
+operand_literal: 0x556600a51b70
 All vars from init queue were intialized
+var bpushed to init queue.
+operand_literal: 0x556600a4cfc0
+All vars from init queue were intialized
+var cpushed to init queue.
+operand_literal: 0x556600a52550
+All vars from init queue were intialized
+var cpushed to init queue.
+operand_literal: 0x556600a2df50
+All vars from init queue were intialized
+var cpushed to init queue.
+operand_literal: 0x556600a2e880
+All vars from init queue were intialized
+var gpushed to init queue.
+operand_literal: 0x556600a2da50
+All vars from init queue were intialized
+var mmpushed to init queue.
+operand_literal: 0x556600a53110
+All vars from init queue were intialized
+var mmpushed to init queue.
+operand_literal: 0x556600a361d0
+All vars from init queue were intialized
+var cpushed to init queue.
+var bpushed to init queue.
+var apushed to init queue.
+operand_literal: 0x556600a2e8c0
+All vars from init queue were intialized
+var mmpushed to init queue.
+var hhpushed to init queue.
+var ggpushed to init queue.
+operand_literal: 0x556600a36460
+All vars from init queue were intialized
+var ffpushed to init queue.
+operand_literal: 0x556600a42d70
+var ggpushed to init queue.
+operand_literal: 0x556600a42ff0
+var ffpushed to init queue.
+var hhpushed to init queue.
+var ggpushed to init queue.
+operand_literal: 0x556600a3c6f0

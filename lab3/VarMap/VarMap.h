@@ -116,6 +116,7 @@ class VarMap
 		void pushOperand(Operand op);
 		void pushOperator(AssignOperator op);
 		Operand popOperand();
+		void clear();
 
 		void flushInit(VarType init_type, int value);
 		void flushInit(VarType init_type, VarType size_type, int value);

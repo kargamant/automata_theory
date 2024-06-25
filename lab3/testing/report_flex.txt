@@ -10,3 +10,171 @@ literal parsed
 , parsed
 .
 . parsed
+normal
+var_type parsed
+b
+var_name parsed
+<<
+left_assign parsed
+-7
+literal parsed
+,
+, parsed
+.
+. parsed
+tiny
+var_type parsed
+c
+var_name parsed
+<<
+left_assign parsed
+5
+literal parsed
+,
+, parsed
+.
+. parsed
+tiny
+var_type parsed
+c
+var_name parsed
+<<
+left_assign parsed
+-1
+literal parsed
+,
+, parsed
+.
+. parsed
+tiny
+var_type parsed
+c
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+g
+var_name parsed
+<<
+left_assign parsed
+1024
+literal parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+mm
+var_name parsed
+<<
+left_assign parsed
+-513
+literal parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+mm
+var_name parsed
+<<
+left_assign parsed
+-512
+literal parsed
+,
+, parsed
+.
+. parsed
+small
+var_type parsed
+a
+var_name parsed
+b
+var_name parsed
+c
+var_name parsed
+<<
+left_assign parsed
+-3
+literal parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+gg
+var_name parsed
+hh
+var_name parsed
+mm
+var_name parsed
+<<
+left_assign parsed
+1024
+literal parsed
+,
+, parsed
+.
+. parsed
+field
+array_type parsed
+tiny
+var_type parsed
+small
+var_type parsed
+ff
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+field
+array_type parsed
+small
+var_type parsed
+normal
+var_type parsed
+gg
+var_name parsed
+<<
+left_assign parsed
+-17
+literal parsed
+,
+, parsed
+.
+. parsed
+field
+array_type parsed
+small
+var_type parsed
+normal
+var_type parsed
+gg
+var_name parsed
+hh
+var_name parsed
+ff
+var_name parsed
+<<
+left_assign parsed
+15
+literal parsed
+,
+, parsed
+.
+. parsed
