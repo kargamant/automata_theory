@@ -75,7 +75,8 @@ void Node::applyReturnFlag(bool* nretFlag)
 {
 	if(this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type==operatorType::func)
 	{
-		returnFlag=&dynamic_cast<FunctionOperator*>(this)->returnMet;
+		int biba=0;
+		//returnFlag=&dynamic_cast<FunctionOperator*>(this)->returnMet;
 	}
 	else returnFlag=nretFlag;
 	//if(this->type!=nodeType::oper || (this->type==nodeType::oper && dynamic_cast<OperatorNode*>(this)->type!=operatorType::func)) returnFlag=nretFlag;
@@ -132,7 +133,14 @@ void FunctionOperator::loadArgs(Ast* args_to_call)
 		{
 			std::cout<<"value of ptr: "<<dynamic_cast<OperandNode*>(ptr)->operand->var->value<<std::endl;
 		}*/
-		local_scope.changeVar(args_order[k], ptr->execute());
+		try
+		{
+			local_scope.changeVar(args_order[k], ptr->execute());
+		}
+		catch(std::invalid_argument)
+		{
+			local_scope.addVar(new Var(VarType::big, args_order[k], ptr->execute()));
+		}
 		//std::cout<<local_scope.getVar(args_order[k])->value<<std::endl;
 	//	if(scope==nullptr) local_scope.changeVar(args_order[k], dynamic_cast<OperandNode*>(ptr)->execute());
 	//	else 
@@ -290,7 +298,7 @@ int FunctionOperator::execute()
 	returnMet=false;
 	stmts->applyReturnFlag(&returnMet);
 	int actual_res=stmts->execute();
-	std::cout<<"f("<<local_scope.getVar("n")->value<<")=="<<actual_res<<std::endl;
+	//std::cout<<"f("<<local_scope.getVar("n")->value<<")=="<<actual_res<<std::endl;
 	//std::cout<<"actual res: "<<actual_res<<std::endl;
 	program_stack->pop();
 	copy_stack=*program_stack;
@@ -581,7 +589,7 @@ int AssigningOperator::execute()
 			{
 				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());	
 				dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->execute();
-				if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
+				if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
 				return dynamic_cast<OperandNode*>(left)->execute();
 			}
 			else
@@ -589,7 +597,7 @@ int AssigningOperator::execute()
 				int execution=right->execute();
 				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(execution);	
 				dynamic_cast<OperandNode*>(left)->operand->value=execution;
-				if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
+				if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
 				return dynamic_cast<OperandNode*>(left)->operand->value;
 			}
 		}
@@ -616,7 +624,7 @@ int AssigningOperator::execute()
 					dynamic_cast<OperandNode*>(right)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());	
 					dynamic_cast<OperandNode*>(right)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
-					if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
 					return dynamic_cast<OperandNode*>(right)->operand->value;
 				}
 				else
@@ -645,7 +653,7 @@ int AssigningOperator::execute()
 						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());
 						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
-						if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+						if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
 						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}
@@ -684,7 +692,7 @@ int AssigningOperator::execute()
 						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(execution);
 						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=execution;
 
-						if(scope!=nullptr) scope->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, execution);
+						if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, execution);
 						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}

@@ -1,38 +1,38 @@
 var bpushed to init queue.
 operand_literal: -2
-operand with value 0x4e58860
-operand with value 0x4e58a00
-sum of two expressions with value 0x4e58ca0
-expression in brackets with value 0x4e58ca0
-operand_literal: 0x4e58ca0
+operand with value 0x55f4d0b0d3a0
+operand with value 0x55f4d0b0d470
+sum of two expressions with value 0x55f4d0b16660
+expression in brackets with value 0x55f4d0b16660
+operand_literal: 0x55f4d0b16660
 All vars from init queue were intialized
 var apushed to init queue.
 operand_literal: -1
-operand with value 0x4e59370
-operand with value 0x4e59510
-sum of two expressions with value 0x4e597b0
-expression in brackets with value 0x4e597b0
-operand_literal: 0x4e597b0
+operand with value 0x55f4d0b168f0
+operand with value 0x55f4d0b169c0
+sum of two expressions with value 0x55f4d0b16ad0
+expression in brackets with value 0x55f4d0b16ad0
+operand_literal: 0x55f4d0b16ad0
 All vars from init queue were intialized
-operand with value 0x4e59cc0
+operand with value 0x55f4d0b16b70
 expr from logic expr
 operand_literal: 0
-operand with value 0x4e59f60
+operand with value 0x55f4d0b16d90
 expr from logic expr
-0x4e59cc0<=0x4e59f60: 0x4e5a0a0
-operand_literal: 0x4e5a290
-operand with value 0x4e5a7e0
+0x55f4d0b16b70<=0x55f4d0b16d90: 0x55f4d0b16e30
+operand_literal: 0x55f4d0b16ed0
+operand with value 0x55f4d0b17190
 expr from logic expr
 operand_literal: 1
-operand with value 0x4e5aa80
+operand with value 0x55f4d0b172a0
 expr from logic expr
-0x4e5a7e0<=0x4e5aa80: 0x4e5abc0
-operand_literal: 0x4e5adb0
-operand_literal: 0x4e5b2a0
-operand_literal: 0x4e5bec0
-operand with value 0x4e5c500
-operand with value 0x4e5de60
-sum of two expressions with value 0x4e5deb0
-expression in brackets with value 0x4e5deb0
-operand_literal: 0x4e5deb0
-operand_literal: 0x4e5f520
+0x55f4d0b17190<=0x55f4d0b172a0: 0x55f4d0b17340
+operand_literal: 0x55f4d0b173e0
+operand_literal: 0x55f4d0b176a0
+operand_literal: 0x55f4d0b17b50
+operand with value 0x55f4d0b17e00
+operand with value 0x55f4d0b18f10
+sum of two expressions with value 0x55f4d0b18f30
+expression in brackets with value 0x55f4d0b18f30
+operand_literal: 0x55f4d0b18f30
+operand_literal: 0x55f4d0b19db0
