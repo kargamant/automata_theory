@@ -1,8 +1,12 @@
-big boba small n small k
-begin
-	big summ<<(n+k),
-	return summ*k,.
-end,
-
-@boba(8 9),
+normal a b c<<55,
+a<<9,
+b<<-13,
+@a,
+@b,
+@c,
+@-1000,
+a>>b>>c,
+@a,
+@b,
+@c,
 .

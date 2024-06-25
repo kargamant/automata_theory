@@ -82,7 +82,7 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-			//	$$->printAst();
+				$$->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
 			//	for(auto& func: declared_funcs)
 			//	{

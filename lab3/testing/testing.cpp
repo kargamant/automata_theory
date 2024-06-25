@@ -12,6 +12,8 @@ extern Map labirint;
 
 
 int parseStr(const std::string& str, const std::string& fname="buffer.boba");
+void loadStr(const std::string& str, const std::string& fname="buffer.boba");
+int parseFile(const std::string& fname="buffer.boba");
 void clear(const std::string& fname="buffer.boba");
 void cleanProgStack(std::stack<VarMap*>& prog_stack);
 
@@ -27,6 +29,22 @@ int parseStr(const std::string& str, const std::string& fname)
 	clear(fname);
 	return res;
 	
+}
+
+void loadStr(const std::string& str, const std::string& fname)
+{
+	std::fstream buffer{fname, std::ios::app};
+	buffer<<str;
+	buffer.close();
+}
+
+int parseFile(const std::string& fname)
+{
+	yyin=fopen(fname.c_str(), "r");
+	int res=yyparse();
+	fclose(yyin);
+	clear(fname);
+	return res;
 }
 
 void clear(const std::string& fname)
@@ -183,8 +201,85 @@ TEST_CASE("definition")
 		cleanProgStack(program_stack);
 	}
 }
+TEST_CASE("one to one assignment")
+{
+	SECTION("number to variable assignment")
+	{
+		loadStr("small a<<7,");
 
+		loadStr("a<<-3,.");
+		parseFile();
+		REQUIRE(vm->getVar("a")->value==-3);
 
+		parseStr("a<<-16,.");	
+		REQUIRE(vm->getVar("a")->value==-16);
+		
+		parseStr("a<<31,.");	
+		REQUIRE(vm->getVar("a")->value==31);
+		
+		parseStr("a<<32,.");	
+		REQUIRE(vm->getVar("a")->value==31);
+		
+		parseStr("a<<-32,.");	
+		REQUIRE(vm->getVar("a")->value==-16);
+
+		parseStr("-16>>a,.");	
+		REQUIRE(vm->getVar("a")->value==-16);
+		
+		parseStr("31>>a,.");	
+		REQUIRE(vm->getVar("a")->value==31);
+		
+		parseStr("32>>a,.");	
+		REQUIRE(vm->getVar("a")->value==31);
+		
+		parseStr("-32>>a,.");	
+		REQUIRE(vm->getVar("a")->value==-16);
+		
+		cleanProgStack(program_stack);
+	}
+	SECTION("variable to variable assignment")
+	{
+		loadStr("normal a<<33,");
+		loadStr("small c<<-4,.");
+		parseFile();
+
+		parseStr("c>>a,.");
+		REQUIRE(vm->getVar("a")->value==vm->getVar("c")->value);
+		REQUIRE(vm->getVar("a")->value==-4);
+
+		parseStr("88>>a,.");
+		parseStr("c<<a,.");
+		REQUIRE(vm->getVar("c")->value==(VarMap::size_table[VarType::small]-1));
+
+		parseStr("a<<-88,.");
+		parseStr("a>>c,.");
+		REQUIRE(vm->getVar("c")->value==-(VarMap::size_table[VarType::small]/2));
+		
+		cleanProgStack(program_stack);
+	}
+}
+TEST_CASE("chained assignment")
+{
+	SECTION("number to variables")
+	{
+		parseStr("normal a b c<<55,.");
+		
+		parseStr("a<<33>>b,.");
+		REQUIRE(vm->getVar("a")->value==33);
+		REQUIRE(vm->getVar("b")->value==33);
+
+		parseStr("a<<18,.");
+		//a=18, b=33, c=55
+		//a>>b<<c
+		parseStr("a>>b<<c,.");
+		REQUIRE(vm->getVar("b")->value==vm->getVar("a")->value);
+
+		parseStr("b<<22,.");
+		parseStr("b>>a>>c,.");
+		REQUIRE(vm->getVar("c")->value==18);
+		REQUIRE(vm->getVar("a")->value==22);
+	}
+}
 
 
 

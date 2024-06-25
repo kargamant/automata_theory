@@ -1553,7 +1553,7 @@ yyreduce:
 #line 83 "bison/lang.y"
                         {
     				//ast.root=main_func;
-			//	$$->printAst();
+				(yyval.st)->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
 			//	for(auto& func: declared_funcs)
 			//	{
