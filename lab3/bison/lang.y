@@ -42,7 +42,10 @@
 	#include "../VarMap/VarMap.h"
 	#include "../Ast/Ast.h"
 	#include <fstream>
+	
 }
+
+
 %{
 	#include "../VarMap/VarMap.h"
 	#include "../Ast/Ast.h"
@@ -50,15 +53,18 @@
 	#include <fstream>
 	#include "../Robo/Map.h"
 	#include <stack>
+	#include "../compile_vars.h"
+
+//	Map labirint{"labirint.txt"};
+//	//labirint.changeCellType(3, 4, CellType::obstacle);
+//	VarMap* vm=new VarMap();
+//	std::stack<VarMap*> program_stack;
+//	std::unordered_map<std::string, Ast*> declared_funcs;
+//	std::ofstream bison_logger("report_bison.txt");
+
 	int yylex(void);
 	void yyerror(const char *s);
 
-	Map labirint{"labirint.txt"};
-	//labirint.changeCellType(3, 4, CellType::obstacle);
-	VarMap* vm=new VarMap();
-	std::stack<VarMap*> program_stack;
-	std::unordered_map<std::string, Ast*> declared_funcs;
-	std::ofstream bison_logger("report_bison.txt");
 %}
 
 %union

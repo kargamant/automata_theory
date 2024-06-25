@@ -1,0 +1,12 @@
+small
+var_type parsed
+a
+var_name parsed
+<<
+left_assign parsed
+7
+literal parsed
+,
+, parsed
+.
+. parsed

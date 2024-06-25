@@ -1,0 +1,3 @@
+var apushed to init queue.
+operand_literal: 0x5631090a5390
+All vars from init queue were intialized
