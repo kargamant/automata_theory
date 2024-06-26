@@ -573,6 +573,60 @@ TEST_CASE("logic operations")
 	}
 }
 
+TEST_CASE("chained assignment with logic and arifmetic expressions")
+{
+	SECTION("logic")
+	{
+		parseStr("normal a b c d<<12,.");
+		parseStr("a<<3,.");
+		parseStr("b<<-100,.");
+		parseStr("c<<50,.");
+		parseStr("d<<140,.");
+	
+		parseStr("a<c>>b<<a>c,.");
+		REQUIRE(vm->getVar("b")->value==0);
 
+		parseStr("b<<-100,.");
+		parseStr("c<<a=>c>b>>d<<3*d<a,.");
+		REQUIRE(vm->getVar("c")->value==1);
+		REQUIRE(vm->getVar("d")->value==0);
+		
+		parseStr("c<<50,.");
+		parseStr("d<<140,.");
+		parseStr("a>>c<d<<b,.");
+		REQUIRE(err_vec.back().error_code==Err::invalidAssign);
+
+		//to be debugged
+	//	parseStr("d>c<a>>c<<a>b<c=>d>>a,.");
+	//	REQUIRE(vm->getVar("a")->value==0);
+	//	REQUIRE(vm->getVar("c")->value==0);
+
+		cleanCompileVars();
+	}
+	SECTION("arifmetic")
+	{
+		parseStr("normal a b c d<<12,.");
+		parseStr("a<<3,.");
+		parseStr("b<<-10,.");
+		parseStr("c<<5,.");
+		parseStr("d<<14,.");
+
+		parseStr("(a+b)*c>>d<<d*a+b,.");
+		REQUIRE(vm->getVar("d")->value==-115);
+
+		parseStr("d<<14,.");
+		parseStr("d<<b/(d/(a+4))+c>>a<<d/a,.");
+		REQUIRE(vm->getVar("a")->value==(VarMap::size_table[VarType::normal]-1));
+		REQUIRE(vm->getVar("d")->value==0);
+
+		parseStr("a<<3,.");
+		parseStr("d<<14,.");
+		parseStr("(a+b-a*(d/c))>>c<<d*b>>a<<-c,.");
+		REQUIRE(vm->getVar("a")->value==13);
+		REQUIRE(vm->getVar("c")->value==-140);
+
+		cleanCompileVars();
+	}
+}
 
 

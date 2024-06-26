@@ -1,6 +1,54 @@
+big
+var_type parsed
+geomProg
+var_name parsed
+small
+var_type parsed
+q
+var_name parsed
+big
+var_type parsed
+a
+var_name parsed
+small
+var_type parsed
+n
+var_name parsed
+begin
+begin parsed
+check
+check parsed
+n
+var_name parsed
+<
+< parsed
+0
+literal parsed
+do
+do parsed
+return
+return parsed
+-
+- parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+summ
+var_name parsed
+<<
+left_assign parsed
+a
+var_name parsed
+,
+, parsed
 tiny
 var_type parsed
-result
+condition
 var_name parsed
 <<
 left_assign parsed
@@ -8,25 +56,241 @@ left_assign parsed
 literal parsed
 ,
 , parsed
-result
+until
+until parsed
+condition
+var_name parsed
+do
+do parsed
+a
 var_name parsed
 <<
 left_assign parsed
-2
-literal parsed
+(
+( parsed
+a
+var_name parsed
 *
 * parsed
+q
+var_name parsed
+)
+) parsed
+,
+, parsed
+summ
+var_name parsed
+<<
+left_assign parsed
 (
 ( parsed
+summ
+var_name parsed
++
++ parsed
+a
+var_name parsed
+)
+) parsed
+,
+, parsed
+n
+var_name parsed
+<<
+left_assign parsed
 (
 ( parsed
-6
+-
+- parsed
+1
 literal parsed
 +
 + parsed
-7
+n
+var_name parsed
+)
+) parsed
+,
+, parsed
+check
+check parsed
+n
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+condition
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+.
+. parsed
+return
+return parsed
+summ
+var_name parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+small
+var_type parsed
+qArg
+var_name parsed
+<<
+left_assign parsed
+3
+literal parsed
+,
+, parsed
+big
+var_type parsed
+aArg
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+small
+var_type parsed
+nArg
+var_name parsed
+<<
+left_assign parsed
+3
+literal parsed
+,
+, parsed
+@
+@ parsed
+geomProg
+var_name parsed
+(
+( parsed
+qArg
+var_name parsed
+aArg
+var_name parsed
+nArg
+var_name parsed
+)
+) parsed
+,
+, parsed
+big
+var_type parsed
+G
+var_name parsed
+<<
+left_assign parsed
+geomProg
+var_name parsed
+(
+( parsed
+4
+literal parsed
+1
+literal parsed
+4
 literal parsed
 )
 ) parsed
-<
-< parsed
+,
+, parsed
+big
+var_type parsed
+H
+var_name parsed
+<<
+left_assign parsed
+geomProg
+var_name parsed
+(
+( parsed
+2
+literal parsed
+1
+literal parsed
+4
+literal parsed
+)
+) parsed
+,
+, parsed
+@
+@ parsed
+G
+var_name parsed
+,
+, parsed
+@
+@ parsed
+H
+var_name parsed
+,
+, parsed
+@
+@ parsed
+geomProg
+var_name parsed
+(
+( parsed
+10
+literal parsed
+1
+literal parsed
+3
+literal parsed
+)
+) parsed
+,
+, parsed
+G
+var_name parsed
+<<
+left_assign parsed
+7
+literal parsed
+,
+, parsed
+3
+literal parsed
+>>
+right_assign parsed
+H
+var_name parsed
+,
+, parsed
+@
+@ parsed
+geomProg
+var_name parsed
+(
+( parsed
+G
+var_name parsed
+1
+literal parsed
+H
+var_name parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed

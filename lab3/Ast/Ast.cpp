@@ -704,12 +704,14 @@ int AssigningOperator::execute()
 							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
 							if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+							//int temp=dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 							right->execute();
 					//	}
 					//	catch(std::invalid_argument error)
 					//	{
 					//		errors->push_back(Error(vm->getErrCode(), error.what(), this));
 					//	}
+						//return temp;
 						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}
@@ -760,11 +762,14 @@ int AssigningOperator::execute()
 							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=execution;
 
 							if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, execution);
+							int temp=dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
+							right->execute();
 					//	}catch(std::invalid_argument error)
 					//	{
 					//		errors->push_back(Error(vm->getErrCode(), error.what(), this));
 					//	}
-						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
+						return temp;
+						//return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}
 			}

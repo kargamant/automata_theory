@@ -2042,3 +2042,391 @@ var_name parsed
 / parsed
 b
 var_name parsed
+normal
+var_type parsed
+a
+var_name parsed
+b
+var_name parsed
+c
+var_name parsed
+d
+var_name parsed
+<<
+left_assign parsed
+12
+literal parsed
+,
+, parsed
+.
+. parsed
+a
+var_name parsed
+<<
+left_assign parsed
+3
+literal parsed
+,
+, parsed
+.
+. parsed
+b
+var_name parsed
+<<
+left_assign parsed
+-
+- parsed
+100
+literal parsed
+,
+, parsed
+.
+. parsed
+c
+var_name parsed
+<<
+left_assign parsed
+50
+literal parsed
+,
+, parsed
+.
+. parsed
+d
+var_name parsed
+<<
+left_assign parsed
+140
+literal parsed
+,
+, parsed
+.
+. parsed
+a
+var_name parsed
+<
+< parsed
+c
+var_name parsed
+>>
+right_assign parsed
+b
+var_name parsed
+<<
+left_assign parsed
+a
+var_name parsed
+>
+> parsed
+c
+var_name parsed
+,
+, parsed
+.
+. parsed
+b
+var_name parsed
+<<
+left_assign parsed
+-
+- parsed
+100
+literal parsed
+,
+, parsed
+.
+. parsed
+c
+var_name parsed
+<<
+left_assign parsed
+a
+var_name parsed
+=>
+more_equal parsed
+c
+var_name parsed
+>
+> parsed
+b
+var_name parsed
+>>
+right_assign parsed
+d
+var_name parsed
+<<
+left_assign parsed
+3
+literal parsed
+*
+* parsed
+d
+var_name parsed
+<
+< parsed
+a
+var_name parsed
+,
+, parsed
+.
+. parsed
+c
+var_name parsed
+<<
+left_assign parsed
+50
+literal parsed
+,
+, parsed
+.
+. parsed
+d
+var_name parsed
+<<
+left_assign parsed
+140
+literal parsed
+,
+, parsed
+.
+. parsed
+a
+var_name parsed
+>>
+right_assign parsed
+c
+var_name parsed
+<
+< parsed
+d
+var_name parsed
+<<
+left_assign parsed
+b
+var_name parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+a
+var_name parsed
+b
+var_name parsed
+c
+var_name parsed
+d
+var_name parsed
+<<
+left_assign parsed
+12
+literal parsed
+,
+, parsed
+.
+. parsed
+a
+var_name parsed
+<<
+left_assign parsed
+3
+literal parsed
+,
+, parsed
+.
+. parsed
+b
+var_name parsed
+<<
+left_assign parsed
+-
+- parsed
+10
+literal parsed
+,
+, parsed
+.
+. parsed
+c
+var_name parsed
+<<
+left_assign parsed
+5
+literal parsed
+,
+, parsed
+.
+. parsed
+d
+var_name parsed
+<<
+left_assign parsed
+14
+literal parsed
+,
+, parsed
+.
+. parsed
+(
+( parsed
+a
+var_name parsed
++
++ parsed
+b
+var_name parsed
+)
+) parsed
+*
+* parsed
+c
+var_name parsed
+>>
+right_assign parsed
+d
+var_name parsed
+<<
+left_assign parsed
+d
+var_name parsed
+*
+* parsed
+a
+var_name parsed
++
++ parsed
+b
+var_name parsed
+,
+, parsed
+.
+. parsed
+d
+var_name parsed
+<<
+left_assign parsed
+14
+literal parsed
+,
+, parsed
+.
+. parsed
+d
+var_name parsed
+<<
+left_assign parsed
+b
+var_name parsed
+/
+/ parsed
+(
+( parsed
+d
+var_name parsed
+/
+/ parsed
+(
+( parsed
+a
+var_name parsed
++
++ parsed
+4
+literal parsed
+)
+) parsed
+)
+) parsed
++
++ parsed
+c
+var_name parsed
+>>
+right_assign parsed
+a
+var_name parsed
+<<
+left_assign parsed
+d
+var_name parsed
+/
+/ parsed
+a
+var_name parsed
+,
+, parsed
+.
+. parsed
+a
+var_name parsed
+<<
+left_assign parsed
+3
+literal parsed
+,
+, parsed
+.
+. parsed
+d
+var_name parsed
+<<
+left_assign parsed
+14
+literal parsed
+,
+, parsed
+.
+. parsed
+(
+( parsed
+a
+var_name parsed
++
++ parsed
+b
+var_name parsed
+-
+- parsed
+a
+var_name parsed
+*
+* parsed
+(
+( parsed
+d
+var_name parsed
+/
+/ parsed
+c
+var_name parsed
+)
+) parsed
+)
+) parsed
+>>
+right_assign parsed
+c
+var_name parsed
+<<
+left_assign parsed
+d
+var_name parsed
+*
+* parsed
+b
+var_name parsed
+>>
+right_assign parsed
+a
+var_name parsed
+<<
+left_assign parsed
+-
+- parsed
+c
+var_name parsed
+,
+, parsed
+.
+. parsed
