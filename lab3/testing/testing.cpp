@@ -359,9 +359,121 @@ TEST_CASE("chained assignment")
 		REQUIRE(vm->getVar("c")->value==22);
 		REQUIRE(vm->getVar("a")->value==22);
 		
+		parseStr("c<<8,.");
+		parseStr("a<<c>>b,.");
+		REQUIRE(vm->getVar("b")->value==8);
+		REQUIRE(vm->getVar("a")->value==8);
+
+		parseStr("c<<9,.");
+		parseStr("a<<-100,.");
+		parseStr("b<<90,.");
+		parseStr("c<<a<<b<<a,.");
+		REQUIRE(vm->getVar("b")->value==-100);
+		REQUIRE(vm->getVar("c")->value==-100);
+		REQUIRE(vm->getVar("a")->value==-100);
+
+		parseStr("c<<9,.");
+		parseStr("a<<-100,.");
+		parseStr("b<<90,.");
+		parseStr("a>>b<<c<<b,.");
+		REQUIRE(vm->getVar("a")->value==-100);
+		REQUIRE(vm->getVar("b")->value==-100);
+		REQUIRE(vm->getVar("c")->value==-100);
+
+		parseStr("c<<9,.");
+		parseStr("a<<-100,.");
+		parseStr("b<<90,.");
+		parseStr("a>>c<<c<<b>>c<<a,.");
+		REQUIRE(vm->getVar("a")->value==-100);
+		REQUIRE(vm->getVar("b")->value==90);
+		REQUIRE(vm->getVar("c")->value==-100);
+		
+
 		cleanCompileVars();
 	}
 }
+TEST_CASE("single arifmetic operations")
+{
+	SECTION("plus")
+	{
+		parseStr("normal a b c d<<3+5,.");
+		REQUIRE(vm->getVar("a")->value==8);
+		
+		parseStr("a<<(b+c)+0,.");
+		REQUIRE(vm->getVar("a")->value==(vm->getVar("b")->value+vm->getVar("c")->value));
 
+		parseStr("(a+c+d)+(-3)>>b,.");
+		REQUIRE(vm->getVar("b")->value==(vm->getVar("a")->value+vm->getVar("c")->value+vm->getVar("d")->value-3));
 
+		parseStr("b>>(a+c),.");
+		REQUIRE(err_vec.back().error_code==Err::invalidAssign);
+
+		cleanCompileVars();
+	}
+	SECTION("minus")
+	{
+		parseStr("normal a b c d<<3-5,.");
+		REQUIRE(vm->getVar("a")->value==-2);
+		
+		parseStr("a<<(b-c)+34,.");
+		REQUIRE(vm->getVar("a")->value==(vm->getVar("b")->value-vm->getVar("c")->value+34));
+
+		parseStr("(a+c-d)-10>>b,.");
+		REQUIRE(vm->getVar("b")->value==(vm->getVar("a")->value+vm->getVar("c")->value-vm->getVar("d")->value-10));
+
+		parseStr("(-9)+(-3-1)-13>>b,.");
+		REQUIRE(vm->getVar("b")->value==-26);
+
+		parseStr("b>>(a-c),.");
+		REQUIRE(err_vec.back().error_code==Err::invalidAssign);
+
+		cleanCompileVars();
+	}
+	SECTION("product")
+	{
+		parseStr("normal a b c d<<3*5*8,.");
+		REQUIRE(vm->getVar("a")->value==120);
+		
+		parseStr("a<<b*c-d*c,.");
+		REQUIRE(vm->getVar("a")->value==(vm->getVar("b")->value*vm->getVar("c")->value-vm->getVar("d")->value*vm->getVar("c")->value));
+
+		parseStr("d*10>>b,.");
+		REQUIRE(vm->getVar("b")->value==1023);
+
+		parseStr("b<<1,.");
+		parseStr("a<<3,.");
+		parseStr("c<<-2,.");
+		parseStr("(a+b)*(-c)*(-1)>>d,.");
+		REQUIRE(vm->getVar("d")->value==-8);
+
+		cleanCompileVars();
+	}
+	SECTION("division")
+	{
+		parseStr("normal a b c d<<3*5/5,.");
+		REQUIRE(vm->getVar("a")->value==3);
+		
+		parseStr("b<<b*2,.");
+		parseStr("a*(b/c)>>d,.");
+		REQUIRE(vm->getVar("d")->value==6);
+		
+		parseStr("a*b/2>>d,.");
+		REQUIRE(vm->getVar("d")->value==9);
+
+		parseStr("d<<b/0,.");
+		REQUIRE(vm->getVar("d")->value==1023);
+
+		parseStr("b<<2,.");
+		parseStr("a<<6,.");
+		parseStr("d<<12,.");
+		parseStr("c<<20,.");
+		parseStr("b<<c/(d/(a/b)),.");
+		REQUIRE(vm->getVar("b")->value==5);
+
+		parseStr("b<<c/d/a/b,.");
+		REQUIRE(vm->getVar("b")->value==0);
+
+		cleanCompileVars();
+	}
+}
 

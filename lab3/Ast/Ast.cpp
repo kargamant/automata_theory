@@ -458,7 +458,17 @@ int ArifmeticOperator::execute()
 		case ArifmeticType::minus:
 			return args[0]->execute()-args[1]->execute();
 		case ArifmeticType::div:
-		        return args[0]->execute()/args[1]->execute();
+			a=args[0]->execute();
+			b=args[1]->execute();
+			if(b==0)
+			{
+				return VarMap::size_table[VarType::big];
+			}
+			else
+			{
+				return a/b;
+			}
+		        //return args[0]->execute()/args[1]->execute();
 		case ArifmeticType::mult:
 			/*std::cout<<"fac(b) a before calc: "<<a<<" "<<b<<std::endl;
 			if(scope!=nullptr)

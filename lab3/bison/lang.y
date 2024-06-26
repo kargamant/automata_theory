@@ -137,7 +137,29 @@ complex_statement:
 				}
 	;
 simple_statement:
-	VAR_TYPE vars LEFT_ASSIGN operand ',' {
+	/*VAR_TYPE vars LEFT_ASSIGN expr_operand ',' {
+						vm->clearBuffers();
+						//vm->pushVarToInit(*$2);
+						
+						//std::vector<Node*> args;
+						//args.push_back($5->root);
+						std::vector<int> params;
+						params.push_back(intByType($1));
+						params.push_back(@5.first_line);
+						params.push_back(@2.first_line);
+						
+						OperatorNode* on=new DefiningOperator(vm, $2, $4->root, params);
+						
+						Ast* ost=new Ast(on);
+
+						//main_func->stmts.push_back(ost);
+						//stmt_group->stmts.push_back(ost);
+						//to uncomment
+						//ost->execute();
+						$$=ost;	
+						bison_logger<<"All vars from init queue were intialized"<<std::endl;
+						}*/
+	VAR_TYPE vars LEFT_ASSIGN expr ',' {
 						vm->clearBuffers();
 						//vm->pushVarToInit(*$2);
 						
@@ -308,6 +330,14 @@ assign_expr:
 						vm->pushOperator({AssignType::Right});	
 						bison_logger<<"right_assignment"<<std::endl;
 					}
+	
+	| expr				{
+						$$=$1;
+						//vm->pushOperand({$1});
+
+						//vm->pushOperand(op);
+						//bison_logger<<"expr"<<std::endl;	
+					}
 	| operand			{
 						$$=$1;
 						//vm->pushOperand({$1});
@@ -315,6 +345,24 @@ assign_expr:
 						//vm->pushOperand(op);
 						//bison_logger<<"expr"<<std::endl;	
 					}
+	/*| expr_operand			{
+						$$=$1;
+						//vm->pushOperand({$1});
+
+						//vm->pushOperand(op);
+						//bison_logger<<"expr"<<std::endl;	
+					}
+	| LITERAL			{
+						Ast* ost=new Ast(new OperandNode(new Operand({$1})));
+						$$=ost;
+					}*/
+	/*| expr_operand			{
+						$$=$1;
+						//vm->pushOperand({$1});
+
+						//vm->pushOperand(op);
+						//bison_logger<<"expr"<<std::endl;	
+					}*/
 	;
 
 operand:
@@ -412,6 +460,10 @@ operand:
 numeric_operand:
 	LITERAL		{
 				Ast* ost=new Ast(new OperandNode(new Operand({$1})));
+				$$=ost;
+			}
+	| '-' LITERAL		{
+				Ast* ost=new Ast(new OperandNode(new Operand({-$2})));
 				$$=ost;
 			}
 	| expr		{

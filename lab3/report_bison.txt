@@ -1,4 +1,61 @@
-var apushed to init queue.
-operand_literal: 0x555ead020890
+operand with value 0x55722f569650
+division of two expressions with value 0x55722f569780
+expression in brackets with value 0x55722f569780
+operand with value 0x55722f569820
+product of two expressions with value 0x55722f569950
+operand with value 0x55722f5699f0
+sum of two expressions with value 0x55722f569b20
+operand_literal: 0x55722f569b20
+operand with value 0x55722f56a880
+expr from logic expr
+operand_literal: 0
+operand with value 0x55722f56a9e0
+expr from logic expr
+0x55722f56a880<=0x55722f56a9e0: 0x55722f56aa80
+operand_literal: 0x55722f56ab20
+operand with value 0x55722f56adf0
+expr from logic expr
+operand_literal: 1
+operand with value 0x55722f56af00
+expr from logic expr
+0x55722f56adf0<=0x55722f56af00: 0x55722f56afa0
+var bpushed to init queue.
+operand_literal: 1
+operand with value 0x55722f56b5a0
+sum of two expressions with value 0x55722f56b700
+expression in brackets with value 0x55722f56b700
 All vars from init queue were intialized
-left_assignment
+operand with value 0x55722f56b7a0
+operand with value 0x55722f56bc30
+product of two expressions with value 0x55722f56c500
+operand_literal: 0x55722f56c500
+operand with value 0x55722f56d370
+expr from logic expr
+operand_literal: 0
+operand with value 0x55722f56d4d0
+expr from logic expr
+0x55722f56d370<=0x55722f56d4d0: 0x55722f56d570
+operand_literal: 0x55722f56d610
+var bpushed to init queue.
+operand_literal: 1
+operand with value 0x55722f56db00
+sum of two expressions with value 0x55722f56dc60
+expression in brackets with value 0x55722f56dc60
+All vars from init queue were intialized
+var newapushed to init queue.
+operand with value 0x55722f56df20
+operand_literal: 10
+operand with value 0x55722f56e030
+division of two expressions with value 0x55722f56e0d0
+expression in brackets with value 0x55722f56e0d0
+All vars from init queue were intialized
+operand_literal: 0x55722f56e3c0
+operand with value 0x55722f56eca0
+operand_literal: 0x55722f56ecf0
+operand with value 0x55722f56f730
+product of two expressions with value 0x55722f56f750
+operand with value 0x55722f56fad0
+sum of two expressions with value 0x55722f5703a0
+operand_literal: 0x55722f5703a0
+operand_literal: 0x55722f570fc0
+operand_literal: 0x55722f571060
