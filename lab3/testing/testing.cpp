@@ -173,8 +173,21 @@ TEST_CASE("definition")
 			}
 		}
 
+		parseStr("ff[7 7]<<0,.");
+		REQUIRE(dynamic_cast<Field*>(vm->getVar("ff"))->getVar(7, 7)->value==0);
+		
+		parseStr("ff[32 32]<<0,.");
+		REQUIRE(err_vec.back().error_code==Err::outOfRange);
+
 		parseStr("field small normal gg<<-17,.");
 		REQUIRE(!vm->checkIfDefined("gg"));
+
+		parseStr("gg[0 0]<<1,.");
+		REQUIRE(err_vec.back().error_code==Err::undefined);
+
+		parseStr("normal kk<<55,.");
+		parseStr("kk[1 1]<<7,.");
+		REQUIRE(err_vec.back().error_code==Err::typeMisMatch);
 
 		cleanCompileVars();
 	}
@@ -392,7 +405,7 @@ TEST_CASE("chained assignment")
 		cleanCompileVars();
 	}
 }
-TEST_CASE("single arifmetic operations")
+TEST_CASE("arifmetic operations")
 {
 	SECTION("plus")
 	{
@@ -476,4 +489,90 @@ TEST_CASE("single arifmetic operations")
 		cleanCompileVars();
 	}
 }
+
+TEST_CASE("logic operations")
+{
+	SECTION("numbers")
+	{
+		parseStr("normal a<<33,.");
+
+		parseStr("a<<1<5,.");
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("a<<1>5,.");
+		REQUIRE(vm->getVar("a")->value==0);
+
+		parseStr("a<<1=>5,.");
+		REQUIRE(vm->getVar("a")->value==0);
+		
+		parseStr("a<<1<=5,.");
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("a<<-1<=5<=0,.");
+		REQUIRE(vm->getVar("a")->value==0);
+		
+		parseStr("a<<-1<=(5<=0),.");
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("normal d c<<4,.");
+		parseStr("a<<d<=c,.");
+		REQUIRE(vm->getVar("a")->value==1);
+		
+		parseStr("a<<d<c,.");
+		REQUIRE(vm->getVar("a")->value==0);
+
+		parseStr("c<<(c+1),.");
+		parseStr("a<<d<c,.");
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("a<<d>c<a,.");
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("tiny result<<0,.");
+		parseStr("a<<-9,.");
+		parseStr("c<<5,.");
+		parseStr("d<<1,.");
+		parseStr("result<<(a<(d<=(c=>d)))<a,.");
+		REQUIRE(vm->getVar("result")->value==0);
+		
+		parseStr("result<<a<(d<=(c=>d))<a,.");
+		REQUIRE(vm->getVar("result")->value==1);
+		
+		//testing priority
+		parseStr("result<<1>2<=(-1),.");
+		REQUIRE(vm->getVar("result")->value==1);
+
+		cleanCompileVars();
+	}
+	SECTION("expressions")
+	{
+		parseStr("tiny result<<0,.");
+		
+		parseStr("result<<(1+1)=>1,.");
+		REQUIRE(vm->getVar("result")->value==1);
+
+		parseStr("result<<(5<(-30))=>(-1+1),.");
+		REQUIRE(vm->getVar("result")->value==1);
+
+		parseStr("result<<(((6+7)<(8*9))),.");
+		REQUIRE(vm->getVar("result")->value==1);
+
+		parseStr("normal a b c<<1023,.");
+		parseStr("b<<130,.");
+		parseStr("c<<-390,.");
+		parseStr("result<<(a+c)*b=>(a*c+b)<b+a-c,.");
+		REQUIRE(vm->getVar("result")->value==1);
+
+		parseStr("normal kk<<7,.");
+		parseStr("b<<49,.");
+		parseStr("a<<343,.");
+		parseStr("result<<a/b=>kk*7<=a*kk/b");
+		REQUIRE(vm->getVar("result")->value==1);
+
+		cleanCompileVars();
+	}
+}
+
+
+
 

@@ -395,6 +395,7 @@ operand:
 					{
 						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
 						$$=ost;
+						err_vec.push_back(Error(Err::typeMisMatch, "Error. Variable "+*$1+" is not an array.", $$->root));
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
 					}
@@ -411,6 +412,7 @@ operand:
 						{
 							Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
 							$$=ost;
+							err_vec.push_back(Error(vm->getErrCode(), error.what(), $$->root));
 							isError=true;
 							std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 							std::cerr<<"Error text: "<<error.what()<<std::endl;
@@ -425,6 +427,7 @@ operand:
 					{
 						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
 						$$=ost;
+						err_vec.push_back(Error(Err::undefined, "Error. Variable "+*$1+" was not defined.", $$->root));
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 					}

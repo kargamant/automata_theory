@@ -462,7 +462,8 @@ int ArifmeticOperator::execute()
 			b=args[1]->execute();
 			if(b==0)
 			{
-				return VarMap::size_table[VarType::big];
+				if(a>=0) return VarMap::size_table[VarType::big];
+				else return -VarMap::size_table[VarType::big];
 			}
 			else
 			{
