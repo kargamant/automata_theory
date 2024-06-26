@@ -283,6 +283,7 @@ void VarMap::addVar(Var* var)
 	}
 	else
 	{
+		//errors->push_back(Error(Err::redefinition, "Error. Redefenition of variable "+var->name+".", this));
 		err_code=Err::redefinition;
 		throw std::invalid_argument("Error. Redefenition of variable "+var->name+".");
 	}
@@ -308,6 +309,7 @@ void VarMap::changeVar(const std::string& name, int val)
 	}
 	else
 	{
+		//errors->push_back(Error(Err::undefined, "Error. Variable "+name+" was not defined.", this));
 		err_code=Err::undefined;
 		throw std::invalid_argument("Error. Variable "+name+" was not defined.");
 	}
@@ -318,6 +320,7 @@ Var* VarMap::getVar(const std::string& name)
 	if(map.contains(name)) return map[name];
 	else
 	{
+		//errors->push_back(Error(Err::undefined, "Error. Variable "+name+" was not defined.", this));
 		err_code=Err::undefined;
 		throw std::invalid_argument("Error. Variable "+name+" was not defined.");
 	}
@@ -416,6 +419,7 @@ void VarMap::flushAssignExpr()
 
 		if(operand_stack.empty())
 		{
+			//errors->push_back(Error(Err::bruh, "Error. Left operand ptr is null. Perhaps out of range occured or you havent defined something or anything else. Go fix your code!", this));
 			VarMap::err_code=Err::bruh;
 			throw std::invalid_argument("Error. Left operand ptr is null. Perhaps out of range occured or you havent defined something or anything else. Go fix your code!");
 		}

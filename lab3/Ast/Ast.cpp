@@ -560,6 +560,7 @@ int DefiningOperator::execute()
 	}
 	catch(std::invalid_argument error)
 	{
+		errors->push_back(Error(vm->getErrCode(), error.what(), this));
 		//to uncomment
 		/*if(vm->getErrCode()==Err::typeMisMatch)
 		{
@@ -584,31 +585,44 @@ int AssigningOperator::execute()
 		if(left->type!=nodeType::operand)
 		{
 			errors->push_back(Error(Err::invalidAssign, "Error. You cant assign anything to not operand.", this));
-			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-			std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
+			//std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+			//std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
 			return 1;
 		}
 		else if(!dynamic_cast<OperandNode*>(left)->operand->isVar)
 		{
 			errors->push_back(Error(Err::invalidAssign, "Error. Cant assign anything to literal. It's not a memory.", this));
-			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-			std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
+			//std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+			//std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
 		}
 		else
 		{
 			if(right->type==nodeType::operand)
 			{
-				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());	
-				dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->execute();
-				if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
-				return dynamic_cast<OperandNode*>(left)->execute();
+				try
+				{
+					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());	
+					dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->execute();
+					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
+					return dynamic_cast<OperandNode*>(left)->execute();
+				}catch(std::invalid_argument error)
+				{
+					errors->push_back(Error(vm->getErrCode(), error.what(), this));
+				}
 			}
 			else
 			{
-				int execution=right->execute();
-				dynamic_cast<OperandNode*>(left)->operand->var->changeValue(execution);	
-				dynamic_cast<OperandNode*>(left)->operand->value=execution;
-				if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
+			//	try
+			//	{
+					int execution=right->execute();
+					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(execution);	
+					dynamic_cast<OperandNode*>(left)->operand->value=execution;
+					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
+			//	}
+			//	catch(std::invalid_argument error)
+			//	{
+			//		errors->push_back(Error(vm->getErrCode(), error.what(), this));
+			//	}
 				return dynamic_cast<OperandNode*>(left)->operand->value;
 			}
 		}
@@ -617,14 +631,16 @@ int AssigningOperator::execute()
 	{
 		if(right->type!=nodeType::operand && right->type!=nodeType::oper)
 		{
-			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-			std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
+			errors->push_back(Error(Err::invalidAssign, "Error. You cant assign anything to not operand.", this));
+		//	std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+		//	std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
 			return 1;
 		}
 		else if(right->type==nodeType::operand && !dynamic_cast<OperandNode*>(right)->operand->isVar)
 		{
-			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-			std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
+			errors->push_back(Error(Err::invalidAssign, "Error. Cant assign anything to literal. It's not a memory.", this));
+		//	std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+		//	std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
 		}
 		else
 		{
@@ -632,10 +648,17 @@ int AssigningOperator::execute()
 			{
 				if(right->type==nodeType::operand)
 				{
-					dynamic_cast<OperandNode*>(right)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());	
-					dynamic_cast<OperandNode*>(right)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
+					try
+					{
+						dynamic_cast<OperandNode*>(right)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());	
+						dynamic_cast<OperandNode*>(right)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
-					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+						if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+					}
+					catch(std::invalid_argument error)
+					{
+						errors->push_back(Error(vm->getErrCode(), error.what(), this));
+					}
 					return dynamic_cast<OperandNode*>(right)->operand->value;
 				}
 				else
@@ -643,36 +666,52 @@ int AssigningOperator::execute()
 					
 					if(dynamic_cast<OperatorNode*>(right)->type!=operatorType::assignExpr)
 					{
-						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-						std::cerr<<"Error. You cant assign anything to result of some operator, because it is literal."<<std::endl;
+						errors->push_back(Error(Err::invalidAssign, "Error. You cant assign anything to result of some operator, because it is literal.", this));
+					//	std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+					//	std::cerr<<"Error. You cant assign anything to result of some operator, because it is literal."<<std::endl;
 						return 1;
 					}
 					else if(dynamic_cast<AssigningOperator*>(right)->left->type!=nodeType::operand)
 					{
-						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-						std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
+						errors->push_back(Error(Err::invalidAssign, "Error. You cant assign anything to not operand.", this));
+					//	std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+					//	std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
 						return 1;
 					}
 					else if(dynamic_cast<AssigningOperator*>(right)->left->type==nodeType::operand && !dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->isVar)
 					{
-						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-						std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
+						errors->push_back(Error(Err::invalidAssign, "Error. Cant assign anything to literal. It's not a memory.", this));
+					//	std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+					//	std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
 						return 1;
 					}
 					else
 					{
-						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());
-						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
+					//	try
+					//	{
+							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());
+							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
-						if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
-						right->execute();
+							if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+							right->execute();
+					//	}
+					//	catch(std::invalid_argument error)
+					//	{
+					//		errors->push_back(Error(vm->getErrCode(), error.what(), this));
+					//	}
 						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}
 			}
 			else
 			{
+			//	try
+			//	{
 				int execution=left->execute();
+			//	} catch(std::invalid_argument error)
+			//	{
+			//		errors->push_back(Error(vm->getErrCode(), error.what(), this));
+			//	}
 				if(right->type==nodeType::operand)
 				{
 					dynamic_cast<OperandNode*>(right)->operand->var->changeValue(execution);	
@@ -683,28 +722,37 @@ int AssigningOperator::execute()
 				{
 					if(dynamic_cast<OperatorNode*>(right)->type!=operatorType::assignExpr)
 					{
-						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-						std::cerr<<"Error. You cant assign anything to result of some operator, because it is literal."<<std::endl;
+						errors->push_back(Error(Err::invalidAssign, "Error. You cant assign anything to result of some operator, because it is literal.", this));
+					//	std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+					//	std::cerr<<"Error. You cant assign anything to result of some operator, because it is literal."<<std::endl;
 						return 1;
 					}
 					else if(dynamic_cast<AssigningOperator*>(right)->left->type!=nodeType::operand)
 					{
-						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-						std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
+						errors->push_back(Error(Err::invalidAssign, "Error. You cant assign anything to not operand.", this));
+					//	std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+					//	std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
 						return 1;
 					}
 					else if(dynamic_cast<AssigningOperator*>(right)->left->type==nodeType::operand && !dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->isVar)
 					{
-						std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
-						std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
+						errors->push_back(Error(Err::invalidAssign, "Error. Cant assign anything to literal. It's not a memory.", this));
+					//	std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
+					//	std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
 						return 1;
 					}
 					else
 					{
-						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(execution);
-						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=execution;
+					//	try
+					//	{
+							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(execution);
+							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=execution;
 
-						if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, execution);
+							if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, execution);
+					//	}catch(std::invalid_argument error)
+					//	{
+					//		errors->push_back(Error(vm->getErrCode(), error.what(), this));
+					//	}
 						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}

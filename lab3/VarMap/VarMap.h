@@ -8,6 +8,7 @@
 
 //todo: table with boundaries for every type
 class VarMap;
+struct Node;
 
 enum VarType
 {
@@ -34,6 +35,7 @@ enum class Err
 	invalidAssign,
 	bruh
 };
+
 
 
 VarType typeByName(const std::string& type_name);
@@ -95,6 +97,7 @@ class VarMap
 		std::unordered_map<std::string, Var*> map;
 		static Err err_code;
 	public:
+		//std::vector<Error>* errors;
 		std::vector<Var> to_initialize;
 		std::stack<Operand> operand_stack;
 		std::queue<AssignOperator> oper_queue;

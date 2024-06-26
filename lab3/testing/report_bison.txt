@@ -1,94 +1,101 @@
 var apushed to init queue.
-operand_literal: 0x55e6ac7425f0
+operand_literal: 0x559050a925f0
 All vars from init queue were intialized
 var bpushed to init queue.
-operand_literal: 0x55e6ac73a900
+operand_literal: 0x559050a8a900
 All vars from init queue were intialized
 var cpushed to init queue.
-operand_literal: 0x55e6ac73b3a0
+operand_literal: 0x559050a8b3a0
 All vars from init queue were intialized
 var cpushed to init queue.
-operand_literal: 0x55e6ac73b260
+operand_literal: 0x559050a8b280
 All vars from init queue were intialized
 var cpushed to init queue.
-operand_literal: 0x55e6ac740c60
+operand_literal: 0x559050a90d70
 All vars from init queue were intialized
 var gpushed to init queue.
-operand_literal: 0x55e6ac73b070
+operand_literal: 0x559050a919a0
 All vars from init queue were intialized
 var mmpushed to init queue.
-operand_literal: 0x55e6ac73ad20
+operand_literal: 0x559050a93710
 All vars from init queue were intialized
 var mmpushed to init queue.
-operand_literal: 0x55e6ac7437f0
+operand_literal: 0x559050a91e30
+All vars from init queue were intialized
+var mmpushed to init queue.
+operand_literal: 0x559050a945c0
 All vars from init queue were intialized
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
-operand_literal: 0x55e6ac742fa0
+operand_literal: 0x559050aa0460
 All vars from init queue were intialized
 var mmpushed to init queue.
 var hhpushed to init queue.
 var ggpushed to init queue.
-operand_literal: 0x55e6ac750290
+operand_literal: 0x559050a95640
 All vars from init queue were intialized
 var ffpushed to init queue.
-operand_literal: 0x55e6ac745210
+operand_literal: 0x559050aafe50
 var ggpushed to init queue.
-operand_literal: 0x55e6ac745490
+operand_literal: 0x559050aa93a0
 var ffpushed to init queue.
 var hhpushed to init queue.
 var ggpushed to init queue.
-operand_literal: 0x55e6ac75fd20
+operand_literal: 0x559050a94f10
 var apushed to init queue.
-operand_literal: 0x55e6ac744d10
+operand_literal: 0x559050aacaf0
 All vars from init queue were intialized
-operand_literal: 0x55e6ac744e80
+operand_literal: 0x559050aacc60
 left_assignment
 operand_variable: 
 small a -3
-operand_literal: 0x55e6ac75c720
+operand_literal: 0x559050a95af0
 left_assignment
 operand_variable: 
 small a -16
-operand_literal: 0x55e6ac75c980
+operand_literal: 0x559050a95d60
 left_assignment
 operand_variable: 
 small a 31
-operand_literal: 0x55e6ac75cbe0
+operand_literal: 0x559050a95fd0
 left_assignment
 operand_variable: 
 small a 31
-operand_literal: 0x55e6ac75ce40
+operand_literal: 0x559050a96240
 left_assignment
-operand_literal: 0x55e6ac745ad0
+operand_literal: 0x559050a963c0
 operand_variable: 
 small a -16
 right_assignment
-operand_literal: 0x55e6ac745dd0
+operand_literal: 0x559050a966f0
 operand_variable: 
 small a -16
 right_assignment
-operand_literal: 0x55e6ac7460d0
+operand_literal: 0x559050a96a00
 operand_variable: 
 small a 31
 right_assignment
-operand_literal: 0x55e6ac7463d0
+operand_literal: 0x559050a96d10
 operand_variable: 
 small a 31
+right_assignment
+operand_variable: 
+small a -16
+operand_literal: 0x559050a998d0
 right_assignment
 var apushed to init queue.
-operand_literal: 0x55e6ac746910
+operand_literal: 0x559050a99c50
 All vars from init queue were intialized
 var cpushed to init queue.
-operand_literal: 0x55e6ac746b40
+operand_literal: 0x559050a99e80
 All vars from init queue were intialized
 operand_variable: 
 small c -4
 operand_variable: 
 normal a 33
 right_assignment
-operand_literal: 0x55e6ac7498f0
+operand_literal: 0x559050a9a4d0
 operand_variable: 
 normal a -4
 right_assignment
@@ -99,28 +106,100 @@ normal a 88
 left_assignment
 operand_variable: 
 normal a 88
-operand_literal: 0x55e6ac74a020
+operand_literal: 0x559050aac110
 left_assignment
 operand_variable: 
 normal a -88
 operand_variable: 
 small c 31
 right_assignment
+operand_variable: 
+normal a -88
+right_assignment
+operand_variable: 
+normal a -88
+right_assignment
+operand_variable: 
+normal a -88
+left_assignment
+operand_variable: 
+normal a -88
+left_assignment
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
-operand_literal: 0x55e6ac75bce0
+operand_literal: 0x559050a98d50
 All vars from init queue were intialized
 operand_variable: 
 normal a 55
-operand_literal: 0x55e6ac75c0c0
+operand_literal: 0x559050a99140
 operand_variable: 
 normal b 55
 right_assignment
 left_assignment
+operand_literal: 0x559050a996a0
 operand_variable: 
 normal a 33
-operand_literal: 0x55e6ac75c530
+operand_variable: 
+normal b 33
+operand_variable: 
+normal c 55
+right_assignment
+right_assignment
+right_assignment
+operand_variable: 
+normal a 1023
+operand_literal: 0x559050aad4a0
+left_assignment
+operand_variable: 
+normal a 9
+operand_variable: 
+normal b 1023
+operand_literal: 0x559050aad880
+operand_variable: 
+normal c 1023
+right_assignment
+left_assignment
+right_assignment
+operand_variable: 
+normal a 9
+operand_variable: 
+normal b 44
+operand_literal: 0x559050ab08c0
+operand_variable: 
+normal c 44
+right_assignment
+right_assignment
+right_assignment
+operand_variable: 
+normal a 9
+operand_literal: 0x559050ab0e70
+operand_variable: 
+normal b 9
+left_assignment
+right_assignment
+operand_literal: 0x559050ab11c0
+operand_variable: 
+normal c 44
+operand_variable: 
+normal b 9
+operand_variable: 
+normal a 9
+left_assignment
+left_assignment
+left_assignment
+var cpushed to init queue.
+var bpushed to init queue.
+var apushed to init queue.
+operand_literal: 0x559050aaaba0
+All vars from init queue were intialized
+operand_variable: 
+normal a 55
+operand_literal: 0x559050aaaf40
+left_assignment
+operand_variable: 
+normal b 55
+operand_literal: 0x559050aab250
 left_assignment
 operand_variable: 
 normal a 18
@@ -132,7 +211,7 @@ left_assignment
 right_assignment
 operand_variable: 
 normal b 55
-operand_literal: 0x55e6ac75e400
+operand_literal: 0x559050ab1db0
 left_assignment
 operand_variable: 
 normal b 22

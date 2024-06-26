@@ -1,15 +1,15 @@
-small
+normal
 var_type parsed
 a
 var_name parsed
 <<
 left_assign parsed
-4
+5
 literal parsed
 ,
 , parsed
-1
-literal parsed
+b
+var_name parsed
 <<
 left_assign parsed
 a

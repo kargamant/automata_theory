@@ -1,5 +1,4 @@
 var apushed to init queue.
-operand_literal: 0x556476568890
+operand_literal: 0x555ead020890
 All vars from init queue were intialized
-operand_literal: 0x556476568930
 left_assignment
