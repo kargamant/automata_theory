@@ -55,6 +55,14 @@ void Node::applyScope(VarMap* nscope)
 	if(right!=nullptr) right->applyScope(nscope);
 }
 
+void Node::applyErrors(std::vector<Error>* err_vec)
+{
+	errors=err_vec;
+
+	if(left!=nullptr) left->applyErrors(err_vec);
+	if(right!=nullptr) right->applyErrors(err_vec);
+}
+
 void Node::applyProgramStack(std::stack<VarMap*>* prog_stack)
 {
 	program_stack=prog_stack;
@@ -232,6 +240,7 @@ void FunctionOperator::build()
 	}
 	else
 	{
+		//errors->push_back(Error(Err::undefined, "Error. Function \""+name+"\" was not defined.", this));
 		throw std::invalid_argument("Error. Function \""+name+"\" was not defined.");
 	}
 }
@@ -574,12 +583,14 @@ int AssigningOperator::execute()
 	{
 		if(left->type!=nodeType::operand)
 		{
+			errors->push_back(Error(Err::invalidAssign, "Error. You cant assign anything to not operand.", this));
 			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
 			std::cerr<<"Error. You cant assign anything to not operand."<<std::endl;
 			return 1;
 		}
 		else if(!dynamic_cast<OperandNode*>(left)->operand->isVar)
 		{
+			errors->push_back(Error(Err::invalidAssign, "Error. Cant assign anything to literal. It's not a memory.", this));
 			std::cerr<<"Syntax error at "<<params[0]<<" line"<<std::endl;
 			std::cerr<<"Error. Cant assign anything to literal. It's not a memory."<<std::endl;
 		}
@@ -654,6 +665,7 @@ int AssigningOperator::execute()
 						dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
 						if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+						right->execute();
 						return dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 					}
 				}
@@ -975,5 +987,12 @@ void SonarOperator::printNode(std::ostream& stream, int spaces)
 	stream<<std::endl;
 }
 
+void operator<<(std::ostream& stream, Error& err)
+{
+	stream<<"Run time error:"<<std::endl;
+	stream<<"Error text: "<<err.err_text<<std::endl;
+	stream<<"Node guilty:"<<std::endl;
+	err.guilty->printNode(stream);
+}
 
 

@@ -268,16 +268,31 @@ TEST_CASE("chained assignment")
 		REQUIRE(vm->getVar("a")->value==33);
 		REQUIRE(vm->getVar("b")->value==33);
 
-		parseStr("a<<18,.");
-		//a=18, b=33, c=55
-		//a>>b<<c
-		parseStr("a>>b<<c,.");
-		REQUIRE(vm->getVar("b")->value==vm->getVar("a")->value);
+		parseStr("10000>>a>>b>>c,.");
+		REQUIRE(vm->getVar("a")->value==1023);
+		REQUIRE(vm->getVar("b")->value==1023);
+		REQUIRE(vm->getVar("c")->value==1023);
 
+		parseStr("");
+		
+		cleanProgStack(program_stack);
+	}
+	SECTION("variables to variables")
+	{
+		parseStr("normal a b c<<55,.");
+
+		parseStr("a<<18,.");
+		parseStr("b<<33,.");
+		//a=18, b=33, c=55
+		parseStr("a>>b<<c,.");
+		REQUIRE(vm->getVar("b")->value==vm->getVar("c")->value);
+		
 		parseStr("b<<22,.");
 		parseStr("b>>a>>c,.");
-		REQUIRE(vm->getVar("c")->value==18);
+		REQUIRE(vm->getVar("c")->value==22);
 		REQUIRE(vm->getVar("a")->value==22);
+		
+		cleanProgStack(program_stack);
 	}
 }
 

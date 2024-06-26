@@ -1,12 +1,5 @@
-var cpushed to init queue.
-var bpushed to init queue.
 var apushed to init queue.
-operand_literal: 0x55889091b480
+operand_literal: 0x556476568890
 All vars from init queue were intialized
-operand_literal: 0x558890924820
+operand_literal: 0x556476568930
 left_assignment
-operand_literal: 0x558890924ad0
-left_assignment
-operand_literal: 0x558890925190
-right_assignment
-right_assignment

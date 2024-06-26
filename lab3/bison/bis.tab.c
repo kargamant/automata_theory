@@ -574,12 +574,12 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    83,    83,   111,   120,   133,   155,   174,   186,   196,
-     203,   210,   225,   229,   238,   243,   264,   268,   273,   278,
-     285,   293,   304,   314,   318,   336,   378,   400,   406,   410,
-     414,   419,   424,   443,   494,   520,   525,   533,   539,   546,
-     560,   567,   574,   581,   587,   593,   599,   605,   609,   615,
-     623,   630
+       0,    83,    83,   118,   127,   140,   162,   181,   193,   203,
+     210,   217,   232,   236,   245,   250,   271,   275,   280,   285,
+     292,   300,   311,   321,   325,   343,   385,   407,   413,   417,
+     421,   426,   431,   450,   501,   527,   532,   540,   546,   553,
+     567,   574,   581,   588,   594,   600,   606,   612,   616,   622,
+     630,   637
 };
 #endif
 
@@ -1553,7 +1553,7 @@ yyreduce:
 #line 83 "bison/lang.y"
                         {
     				//ast.root=main_func;
-				(yyval.st)->printAst();
+				//$$->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
 			//	for(auto& func: declared_funcs)
 			//	{
@@ -1563,7 +1563,14 @@ yyreduce:
 				program_stack.push(vm);
 				(yyval.st)->root->applyProgramStack(&program_stack);
 				(yyval.st)->root->applyScope(vm);
+				(yyval.st)->root->applyErrors(&err_vec);
 				(yyval.st)->execute();
+				std::cout<<"Errors: "<<err_vec.size()<<std::endl;
+				for(auto& err: err_vec)
+				{
+					std::cerr<<err;
+					std::cerr<<std::endl;
+				}
 			//	std::cout<<"Stack:"<<std::endl;
 				
 				//cleaning
@@ -1577,11 +1584,11 @@ yyreduce:
 				//$$->printAst();
 				//ast.printAst();
     			}
-#line 1581 "bison/bis.tab.c"
+#line 1588 "bison/bis.tab.c"
     break;
 
   case 3:
-#line 111 "bison/lang.y"
+#line 118 "bison/lang.y"
                                            {
 						Ast* nst=new Ast();
 						nst->root=new ConnectingNode(",", (yyvsp[-1].st)->root, (yyvsp[0].st)->root);
@@ -1591,11 +1598,11 @@ yyreduce:
 						//ast.printAst();
 						//ast.execute();
 						}
-#line 1595 "bison/bis.tab.c"
+#line 1602 "bison/bis.tab.c"
     break;
 
   case 4:
-#line 120 "bison/lang.y"
+#line 127 "bison/lang.y"
                                {
 					Ast* nst=new Ast();
 					nst->root=new ConnectingNode(".", (yyvsp[-1].st)->root, nullptr);
@@ -1607,11 +1614,11 @@ yyreduce:
 					//ast.printAst();
 					//ast.execute();
 				}
-#line 1611 "bison/bis.tab.c"
+#line 1618 "bison/bis.tab.c"
     break;
 
   case 5:
-#line 133 "bison/lang.y"
+#line 140 "bison/lang.y"
                                               {
 						vm->clearBuffers();
 						//vm->pushVarToInit(*$2);
@@ -1634,11 +1641,11 @@ yyreduce:
 						(yyval.st)=ost;	
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-#line 1638 "bison/bis.tab.c"
+#line 1645 "bison/bis.tab.c"
     break;
 
   case 6:
-#line 156 "bison/lang.y"
+#line 163 "bison/lang.y"
                                                 {
 							vm->clearBuffers();
 							//vm->pushVarToInit(*$4);
@@ -1657,11 +1664,11 @@ yyreduce:
 							//ost->execute();
 							(yyval.st)=ost;	
 						}
-#line 1661 "bison/bis.tab.c"
+#line 1668 "bison/bis.tab.c"
     break;
 
   case 7:
-#line 175 "bison/lang.y"
+#line 182 "bison/lang.y"
                                                 {
 							//std::vector<int> params;
 							//params.push_back(@1.first_line);
@@ -1673,22 +1680,22 @@ yyreduce:
 							(yyval.st)=(yyvsp[-1].st);
 							//$$->execute();
 	  					}
-#line 1677 "bison/bis.tab.c"
+#line 1684 "bison/bis.tab.c"
     break;
 
   case 8:
-#line 186 "bison/lang.y"
+#line 193 "bison/lang.y"
                                                 {
 							Ast* ost=new Ast(new PrintValueOperator((yyvsp[-1].st)->root), (yyvsp[-1].st));
 							(yyval.st)=ost;
 							//main_func->stmts.push_back(ost);
 							//std::cout<<$2<<std::endl;
 						}
-#line 1688 "bison/bis.tab.c"
+#line 1695 "bison/bis.tab.c"
     break;
 
   case 9:
-#line 196 "bison/lang.y"
+#line 203 "bison/lang.y"
                                                 {
 							//vm->clearBuffers();
 							OperatorNode* op=new UntilOperator(vm, (yyvsp[-2].st)->root, (yyvsp[0].st)->root);
@@ -1696,11 +1703,11 @@ yyreduce:
 							(yyval.st)=ost;
 							//ost->execute();
 						}
-#line 1700 "bison/bis.tab.c"
+#line 1707 "bison/bis.tab.c"
     break;
 
   case 10:
-#line 203 "bison/lang.y"
+#line 210 "bison/lang.y"
                                                 {
 							OperatorNode* op=new CheckOperator(vm, (yyvsp[-2].st)->root, (yyvsp[0].st)->root);
 							Ast* ost=new Ast(op);
@@ -1708,11 +1715,11 @@ yyreduce:
 
 							
 						}
-#line 1712 "bison/bis.tab.c"
+#line 1719 "bison/bis.tab.c"
     break;
 
   case 11:
-#line 210 "bison/lang.y"
+#line 217 "bison/lang.y"
                                                                            {
 								OperatorNode* func=new FunctionOperator((yyvsp[-6].var_type), *(yyvsp[-5].str), (yyvsp[-4].st), (yyvsp[-2].st)->root, vm);		
 								dynamic_cast<FunctionOperator*>(func)->declared_funcs=&declared_funcs;
@@ -1728,20 +1735,20 @@ yyreduce:
 								Ast* ost=new Ast();
 								(yyval.st)=ost;
 								}
-#line 1732 "bison/bis.tab.c"
+#line 1739 "bison/bis.tab.c"
     break;
 
   case 12:
-#line 225 "bison/lang.y"
+#line 232 "bison/lang.y"
                                                 {
 							OperatorNode* return_stmt=new ReturnOperator((yyvsp[-1].st)->root);
 							(yyval.st)=new Ast(return_stmt);
 						}
-#line 1741 "bison/bis.tab.c"
+#line 1748 "bison/bis.tab.c"
     break;
 
   case 13:
-#line 229 "bison/lang.y"
+#line 236 "bison/lang.y"
                                                 {
 						//	labirint.changeCellType(3, 4, CellType::obstacle);
 						//	labirint.changeCellType(2, 4, CellType::obstacle);
@@ -1751,68 +1758,68 @@ yyreduce:
 							op->execute();
 							(yyval.st)=new Ast(op);
 						}
-#line 1755 "bison/bis.tab.c"
+#line 1762 "bison/bis.tab.c"
     break;
 
   case 14:
-#line 238 "bison/lang.y"
+#line 245 "bison/lang.y"
                                                 {
 							OperatorNode* op=new RrOperator(labirint);
 							op->execute();
 							(yyval.st)=new Ast(op);
 						}
-#line 1765 "bison/bis.tab.c"
+#line 1772 "bison/bis.tab.c"
     break;
 
   case 15:
-#line 243 "bison/lang.y"
+#line 250 "bison/lang.y"
                                                 {
 							OperatorNode* op=new RlOperator(labirint);
 							op->execute();
 							(yyval.st)=new Ast(op);
 						}
-#line 1775 "bison/bis.tab.c"
+#line 1782 "bison/bis.tab.c"
     break;
 
   case 16:
-#line 264 "bison/lang.y"
+#line 271 "bison/lang.y"
                                  {
 					(yyval.st)=new Ast((yyvsp[-1].st)->root, (yyvsp[0].st));
 	    				
 	    			}
-#line 1784 "bison/bis.tab.c"
+#line 1791 "bison/bis.tab.c"
     break;
 
   case 17:
-#line 268 "bison/lang.y"
+#line 275 "bison/lang.y"
                                 {
 	    				(yyval.st)=(yyvsp[0].st);
 	    			}
-#line 1792 "bison/bis.tab.c"
+#line 1799 "bison/bis.tab.c"
     break;
 
   case 18:
-#line 273 "bison/lang.y"
+#line 280 "bison/lang.y"
                                {
 					OperandNode* op=new OperandNode(new Operand(new Var((yyvsp[-2].var_type), *(yyvsp[-1].str))));
 
 					(yyval.st)=new Ast(op, (yyvsp[0].st));
     				}
-#line 1802 "bison/bis.tab.c"
+#line 1809 "bison/bis.tab.c"
     break;
 
   case 19:
-#line 278 "bison/lang.y"
+#line 285 "bison/lang.y"
                                 {
 					OperandNode* op=new OperandNode(new Operand(new Var((yyvsp[-1].var_type), *(yyvsp[0].str))));
 					Ast* ost=new Ast(op);
 					(yyval.st)=ost;
 				}
-#line 1812 "bison/bis.tab.c"
+#line 1819 "bison/bis.tab.c"
     break;
 
   case 20:
-#line 286 "bison/lang.y"
+#line 293 "bison/lang.y"
                                         {
 						std::vector<int> params;
 						params.push_back((yylsp[-2]).first_line);
@@ -1820,11 +1827,11 @@ yyreduce:
 						vm->pushOperator({AssignType::Left});	
 						bison_logger<<"left_assignment"<<std::endl;
 					}
-#line 1824 "bison/bis.tab.c"
+#line 1831 "bison/bis.tab.c"
     break;
 
   case 21:
-#line 293 "bison/lang.y"
+#line 300 "bison/lang.y"
                                                 {
 						std::vector<int> params;
 						params.push_back((yylsp[-2]).first_line);
@@ -1836,11 +1843,11 @@ yyreduce:
 						vm->pushOperator({AssignType::Right});	
 						bison_logger<<"right_assignment"<<std::endl;
 					}
-#line 1840 "bison/bis.tab.c"
+#line 1847 "bison/bis.tab.c"
     break;
 
   case 22:
-#line 304 "bison/lang.y"
+#line 311 "bison/lang.y"
                                         {
 						(yyval.st)=(yyvsp[0].st);
 						//vm->pushOperand({$1});
@@ -1848,20 +1855,20 @@ yyreduce:
 						//vm->pushOperand(op);
 						//bison_logger<<"expr"<<std::endl;	
 					}
-#line 1852 "bison/bis.tab.c"
+#line 1859 "bison/bis.tab.c"
     break;
 
   case 23:
-#line 314 "bison/lang.y"
+#line 321 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[0].st);
 					bison_logger<<"operand_literal: "<<(yyvsp[0].st)<<std::endl;
 				}
-#line 1861 "bison/bis.tab.c"
+#line 1868 "bison/bis.tab.c"
     break;
 
   case 24:
-#line 318 "bison/lang.y"
+#line 325 "bison/lang.y"
                         {
 			
 				if(vm->checkIfDefined(*(yyvsp[0].str)))
@@ -1880,11 +1887,11 @@ yyreduce:
 					std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[0].str)+" was not defined."<<std::endl;
 				}
 			}
-#line 1884 "bison/bis.tab.c"
+#line 1891 "bison/bis.tab.c"
     break;
 
   case 25:
-#line 336 "bison/lang.y"
+#line 343 "bison/lang.y"
                                            {
 					bool exists=vm->checkIfDefined(*(yyvsp[-4].str));
 
@@ -1927,11 +1934,11 @@ yyreduce:
 					}
 					
 					}
-#line 1931 "bison/bis.tab.c"
+#line 1938 "bison/bis.tab.c"
     break;
 
   case 26:
-#line 378 "bison/lang.y"
+#line 385 "bison/lang.y"
                                         {
 							if(declared_funcs.contains(*(yyvsp[-3].str)))
 							{
@@ -1954,56 +1961,56 @@ yyreduce:
 								std::cerr<<"Error text: "<<"Error. Function "+*(yyvsp[-3].str)+" was not declared."<<std::endl;
 							}
 						}
-#line 1958 "bison/bis.tab.c"
+#line 1965 "bison/bis.tab.c"
     break;
 
   case 27:
-#line 400 "bison/lang.y"
+#line 407 "bison/lang.y"
                                                 {
 							OperatorNode* op=new SonarOperator(labirint);
 							(yyval.st)=new Ast(op);
 						}
-#line 1967 "bison/bis.tab.c"
+#line 1974 "bison/bis.tab.c"
     break;
 
   case 28:
-#line 406 "bison/lang.y"
+#line 413 "bison/lang.y"
                         {
 				Ast* ost=new Ast(new OperandNode(new Operand({(yyvsp[0].num)})));
 				(yyval.st)=ost;
 			}
-#line 1976 "bison/bis.tab.c"
+#line 1983 "bison/bis.tab.c"
     break;
 
   case 29:
-#line 410 "bison/lang.y"
+#line 417 "bison/lang.y"
                         {
 
 				(yyval.st)=(yyvsp[0].st);
 			}
-#line 1985 "bison/bis.tab.c"
+#line 1992 "bison/bis.tab.c"
     break;
 
   case 30:
-#line 414 "bison/lang.y"
+#line 421 "bison/lang.y"
                         {
 				(yyval.st)=(yyvsp[0].st);
 			}
-#line 1993 "bison/bis.tab.c"
+#line 2000 "bison/bis.tab.c"
     break;
 
   case 31:
-#line 419 "bison/lang.y"
+#line 426 "bison/lang.y"
                         {
 				Ast* ost=new Ast(new OperandNode(new Operand({(yyvsp[0].num)})));
 				(yyval.st)=ost;
 				bison_logger<<"operand_literal: "<<(yyvsp[0].num)<<std::endl;
 			}
-#line 2003 "bison/bis.tab.c"
+#line 2010 "bison/bis.tab.c"
     break;
 
   case 32:
-#line 424 "bison/lang.y"
+#line 431 "bison/lang.y"
                         {
 				if(vm->checkIfDefined(*(yyvsp[0].str)))
 				{
@@ -2023,11 +2030,11 @@ yyreduce:
 					std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[0].str)+" was not defined."<<std::endl;
 				}
 			}
-#line 2027 "bison/bis.tab.c"
+#line 2034 "bison/bis.tab.c"
     break;
 
   case 33:
-#line 443 "bison/lang.y"
+#line 450 "bison/lang.y"
                                            {
 					bool exists=vm->checkIfDefined(*(yyvsp[-4].str));
 
@@ -2079,11 +2086,11 @@ yyreduce:
 					}
 					
 					}
-#line 2083 "bison/bis.tab.c"
+#line 2090 "bison/bis.tab.c"
     break;
 
   case 34:
-#line 494 "bison/lang.y"
+#line 501 "bison/lang.y"
                                         {
 							if(declared_funcs.contains(*(yyvsp[-3].str)))
 							{
@@ -2108,21 +2115,21 @@ yyreduce:
 								std::cerr<<"Error text: "<<"Error. Function "+*(yyvsp[-3].str)+" was not declared."<<std::endl;
 							}
 						}
-#line 2112 "bison/bis.tab.c"
+#line 2119 "bison/bis.tab.c"
     break;
 
   case 35:
-#line 520 "bison/lang.y"
+#line 527 "bison/lang.y"
                                         {
 					(yyval.st)=(yyvsp[0].st);
 					//vm->popOperand();
 					bison_logger<<"operand with value "<<(yyvsp[0].st)<<std::endl;
 					}
-#line 2122 "bison/bis.tab.c"
+#line 2129 "bison/bis.tab.c"
     break;
 
   case 36:
-#line 525 "bison/lang.y"
+#line 532 "bison/lang.y"
                                         {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uplus, {(yyvsp[0].st)->root}), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2131,22 +2138,22 @@ yyreduce:
 					//vm->popOperand();
 					bison_logger<<"plused operand with value "<<(yyvsp[0].st)<<std::endl;
 					}
-#line 2135 "bison/bis.tab.c"
+#line 2142 "bison/bis.tab.c"
     break;
 
   case 37:
-#line 533 "bison/lang.y"
+#line 540 "bison/lang.y"
                                         {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uminus, {(yyvsp[0].st)->root}), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//vm->popOperand();
 					//bison_logger<<"minused operand with value "<<-$2<<std::endl;
 					}
-#line 2146 "bison/bis.tab.c"
+#line 2153 "bison/bis.tab.c"
     break;
 
   case 38:
-#line 539 "bison/lang.y"
+#line 546 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::mult, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2154,11 +2161,11 @@ yyreduce:
 					//vm->pushOperand($$);
 					bison_logger<<"product of two expressions with value "<<(yyval.st)<<std::endl;
 				}
-#line 2158 "bison/bis.tab.c"
+#line 2165 "bison/bis.tab.c"
     break;
 
   case 39:
-#line 546 "bison/lang.y"
+#line 553 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::div, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2173,11 +2180,11 @@ yyreduce:
 					bison_logger<<"division of two expressions with value "<<(yyval.st)<<std::endl;
 					//vm->pushOperand($$);
 				}
-#line 2177 "bison/bis.tab.c"
+#line 2184 "bison/bis.tab.c"
     break;
 
   case 40:
-#line 560 "bison/lang.y"
+#line 567 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::plus, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2185,11 +2192,11 @@ yyreduce:
 					//vm->pushOperand($$);
 					bison_logger<<"sum of two expressions with value "<<(yyval.st)<<std::endl;
 				}
-#line 2189 "bison/bis.tab.c"
+#line 2196 "bison/bis.tab.c"
     break;
 
   case 41:
-#line 567 "bison/lang.y"
+#line 574 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::minus, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2197,83 +2204,83 @@ yyreduce:
 					//vm->pushOperand($$);
 					bison_logger<<"difference between two expressions with value "<<(yyval.st)<<std::endl;
 				}
-#line 2201 "bison/bis.tab.c"
+#line 2208 "bison/bis.tab.c"
     break;
 
   case 42:
-#line 574 "bison/lang.y"
+#line 581 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[-1].st);
 					bison_logger<<"expression in brackets with value "<<(yyval.st)<<std::endl;
 					//vm->pushOperand($$);
 				}
-#line 2211 "bison/bis.tab.c"
+#line 2218 "bison/bis.tab.c"
     break;
 
   case 43:
-#line 581 "bison/lang.y"
+#line 588 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::le, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//$$=$1<=$3;
 					bison_logger<<(yyvsp[-2].st)<<"<="<<(yyvsp[0].st)<<": "<<(yyval.st)<<std::endl;
 				}
-#line 2222 "bison/bis.tab.c"
+#line 2229 "bison/bis.tab.c"
     break;
 
   case 44:
-#line 587 "bison/lang.y"
+#line 594 "bison/lang.y"
                                             {
 					Ast* ost=new Ast(new LogicOperator(LogicType::me, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//$$=$1>=$3;
 					bison_logger<<(yyvsp[-2].st)<<">="<<(yyvsp[0].st)<<": "<<(yyval.st)<<std::endl;
 				}
-#line 2233 "bison/bis.tab.c"
+#line 2240 "bison/bis.tab.c"
     break;
 
   case 45:
-#line 593 "bison/lang.y"
+#line 600 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::l, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//$$=$1<$3;
 					bison_logger<<(yyvsp[-2].st)<<"<"<<(yyvsp[0].st)<<": "<<(yyval.st)<<std::endl;
 				}
-#line 2244 "bison/bis.tab.c"
+#line 2251 "bison/bis.tab.c"
     break;
 
   case 46:
-#line 599 "bison/lang.y"
+#line 606 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::m, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//$$=$1>$3;
 					bison_logger<<(yyvsp[-2].st)<<">"<<(yyvsp[0].st)<<": "<<(yyval.st)<<std::endl;
 				}
-#line 2255 "bison/bis.tab.c"
+#line 2262 "bison/bis.tab.c"
     break;
 
   case 47:
-#line 605 "bison/lang.y"
+#line 612 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[-1].st);
 					bison_logger<<"("<<(yyvsp[-1].st)<<")"<<std::endl;
 				}
-#line 2264 "bison/bis.tab.c"
+#line 2271 "bison/bis.tab.c"
     break;
 
   case 48:
-#line 609 "bison/lang.y"
+#line 616 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[0].st);
 					bison_logger<<"expr from logic expr"<<std::endl;
 				}
-#line 2273 "bison/bis.tab.c"
+#line 2280 "bison/bis.tab.c"
     break;
 
   case 49:
-#line 615 "bison/lang.y"
+#line 622 "bison/lang.y"
                       {
 				
 				OperandNode* op=new OperandNode(new Operand(new Var(VarType::tiny, *(yyvsp[-1].str), 0)));
@@ -2282,11 +2289,11 @@ yyreduce:
 				//vm->pushVarToInit(*$1);
 				bison_logger<<"var "<<*(yyvsp[-1].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 2286 "bison/bis.tab.c"
+#line 2293 "bison/bis.tab.c"
     break;
 
   case 50:
-#line 623 "bison/lang.y"
+#line 630 "bison/lang.y"
                    {
 				OperandNode* op=new OperandNode(new Operand(new Var(VarType::tiny, *(yyvsp[0].str), 0)));		
 				(yyval.st)=new Ast(op);
@@ -2294,17 +2301,17 @@ yyreduce:
 				//vm->pushVarToInit(*$1);
 				bison_logger<<"var "<<*(yyvsp[0].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 2298 "bison/bis.tab.c"
+#line 2305 "bison/bis.tab.c"
     break;
 
   case 51:
-#line 630 "bison/lang.y"
+#line 637 "bison/lang.y"
                         {}
-#line 2304 "bison/bis.tab.c"
+#line 2311 "bison/bis.tab.c"
     break;
 
 
-#line 2308 "bison/bis.tab.c"
+#line 2315 "bison/bis.tab.c"
 
       default: break;
     }
@@ -2542,7 +2549,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 633 "bison/lang.y"
+#line 640 "bison/lang.y"
 
 
 

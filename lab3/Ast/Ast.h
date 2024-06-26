@@ -49,12 +49,15 @@ enum class LogicType
 	m
 };
 
+struct Error;
+
 struct Node
 {
 	nodeType type;
 	Node* left=nullptr;
 	Node* right=nullptr;
 	Var* to_return;
+	std::vector<Error>* errors;
 	VarMap* scope=nullptr;
 	std::stack<VarMap*>* program_stack=nullptr;
 	bool* returnFlag=nullptr;
@@ -68,10 +71,22 @@ struct Node
 	void applyToReturn(Var* nreturn);
 	void applyReturnFlag(bool* nretFlag);
 	void applyFinalExec(bool nFinalExec);
+	void applyErrors(std::vector<Error>* err_vec);
 	void applyProgramStack(std::stack<VarMap*>* prog_stack);
 	void updateFunctionCalls(std::unordered_map<std::string, Ast*>& declared_funcs);
 };
 
+struct Error
+{
+	Err error_code;
+	//int line_number;
+	std::string err_text;
+	Node* guilty;
+
+	Error(Err error_code, const std::string& err_text, Node* guilty) : error_code(error_code), err_text(err_text), guilty(guilty) {}
+};
+
+void operator<<(std::ostream& stream, Error& err);
 
 class Ast
 {

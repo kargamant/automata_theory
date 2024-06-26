@@ -1,84 +1,18 @@
-normal
+small
 var_type parsed
 a
 var_name parsed
-b
-var_name parsed
-c
-var_name parsed
 <<
 left_assign parsed
-55
+4
 literal parsed
 ,
 , parsed
-a
-var_name parsed
+1
+literal parsed
 <<
 left_assign parsed
-9
-literal parsed
-,
-, parsed
-b
-var_name parsed
-<<
-left_assign parsed
--13
-literal parsed
-,
-, parsed
-@
-@ parsed
 a
-var_name parsed
-,
-, parsed
-@
-@ parsed
-b
-var_name parsed
-,
-, parsed
-@
-@ parsed
-c
-var_name parsed
-,
-, parsed
-@
-@ parsed
--1000
-literal parsed
-,
-, parsed
-a
-var_name parsed
->>
-right_assign parsed
-b
-var_name parsed
->>
-right_assign parsed
-c
-var_name parsed
-,
-, parsed
-@
-@ parsed
-a
-var_name parsed
-,
-, parsed
-@
-@ parsed
-b
-var_name parsed
-,
-, parsed
-@
-@ parsed
-c
 var_name parsed
 ,
 , parsed

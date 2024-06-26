@@ -82,7 +82,7 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-				$$->printAst();
+				//$$->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
 			//	for(auto& func: declared_funcs)
 			//	{
@@ -92,7 +92,14 @@ main:
 				program_stack.push(vm);
 				$$->root->applyProgramStack(&program_stack);
 				$$->root->applyScope(vm);
+				$$->root->applyErrors(&err_vec);
 				$$->execute();
+				std::cout<<"Errors: "<<err_vec.size()<<std::endl;
+				for(auto& err: err_vec)
+				{
+					std::cerr<<err;
+					std::cerr<<std::endl;
+				}
 			//	std::cout<<"Stack:"<<std::endl;
 				
 				//cleaning
