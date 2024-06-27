@@ -629,4 +629,93 @@ TEST_CASE("chained assignment with logic and arifmetic expressions")
 	}
 }
 
+TEST_CASE("check operator")
+{
+	SECTION("standard tests")
+	{
+		loadStr("small a<<3,");
+		loadStr("check 2*a>a do a<<-a,..");
+		parseFile();
+		REQUIRE(vm->getVar("a")->value==-3);
+
+		parseStr("check 2*a>a do a<<-a,..");
+		REQUIRE(vm->getVar("a")->value==-3);
+
+		parseStr("normal b c d<<256,.");
+		parseStr("b<<255,.");
+		parseStr("c<<254,.");
+		parseStr("check b<d do check b>c do c<<0,...");
+		REQUIRE(vm->getVar("c")->value==0);
+
+		parseStr("check c do b<<228,..");
+		REQUIRE(vm->getVar("b")->value==255);
+
+		parseStr("check c*b+d do c<<1,..");
+		REQUIRE(vm->getVar("c")->value==1);
+		
+		parseStr("check c*b+d do check c-a do check c-1 do c<<0,....");
+		REQUIRE(vm->getVar("c")->value==1);
+		
+		parseStr("check c*b+d do a<<c, check c-a do a<<8, check c-1 do c<<0,....");
+		REQUIRE(vm->getVar("c")->value==1);
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("check c*b+d do a<<c, check c-a<=0 do a<<8, check c-1 do c<<0,....");
+		REQUIRE(vm->getVar("c")->value==1);
+		REQUIRE(vm->getVar("a")->value==8);
+
+		parseStr("check c*d+a-b+c<d=>m*4 do a<<1,..");
+		REQUIRE(err_vec.back().error_code==Err::undefined);
+
+		parseStr("check 0 do a<<1488,..");
+		REQUIRE(vm->getVar("a")->value==8);
+
+		parseStr("check -1 do a<<1488,..");
+		REQUIRE(vm->getVar("a")->value==(VarMap::size_table[VarType::small]-1));
+
+		cleanCompileVars();
+	}
+}
+
+TEST_CASE("until loops")
+{
+	SECTION("standard tests")
+	{
+		parseStr("normal a b c d<<256,.");
+		parseStr("normal k<<1,.");
+		parseStr("until a<2 do a<<a/2, k<<(1+k),..");
+		REQUIRE(vm->getVar("k")->value==9);
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("until k<=1 do a<<a*2, k<<(k-1),..");
+		REQUIRE(vm->getVar("a")->value==256);
+		REQUIRE(vm->getVar("k")->value==1);
+
+		parseStr("until 1 do a<<1,..");
+		REQUIRE(vm->getVar("a")->value==256);
+
+		parseStr("field small small ff<<-1,.");
+		parseStr("a<<32,.");
+		parseStr("b<<31,.");
+		parseStr("until a<0 do b<<31, a<<(a-1), until b<0 do ff[a b]<<2, b<<(b-1),...");
+		for(auto& v: dynamic_cast<Field*>(vm->getVar("ff"))->matr)
+		{
+			REQUIRE(v->value==2);
+		}
+
+		//to be debugged in a simplier version
+	//	parseStr("a<<32,.");
+	//	parseStr("b<<31,.");
+	//	parseStr("k<<3,.");
+	//	parseStr("until a<0 do b<<32, a<<(a-1), until b<0 do b<<(b-1), k<<4, until k<=0 do k<<(k-1), ff[a b]<<(ff[a b]*ff[a b]),....");
+	//	for(auto& v: dynamic_cast<Field*>(vm->getVar("ff"))->matr)
+	//	{
+	//		REQUIRE(v->value==8);
+	//	}
+
+	}
+}
+
+
+
 

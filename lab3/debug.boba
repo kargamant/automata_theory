@@ -1,10 +1,18 @@
-normal a b c d<<12,
-a<<3,
-b<<-100,
-c<<50,
-d<<140,
-@-1000,
-d>c<a>>c<<a>b<c=>d>>a,
-@a,
-@c,
+field big small ff<<0,
+normal a<<31,
+normal b<<31,
+small k<<3,
+until a<0 do 
+	b<<31, 
+	a<<(a-1), 
+	until b<0 do 
+		b<<(b-1), 
+		k<<3, 
+		until k<=0 do 
+			k<<(k-1), 
+			ff[a b]<<(ff[a b]-1),
+			.
+		.
+	.
+@ff[3 3],
 .

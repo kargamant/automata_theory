@@ -412,12 +412,26 @@ int OperandNode::execute()
 		}
 		if(!isSuccesful)
 		{
-			operand->updateValue(scope);
+			try
+			{
+				operand->updateValue(scope);
+			}
+			catch(std::invalid_argument error)
+			{
+				errors->push_back(Error(scope->getErrCode(), error.what(), this));
+			}
 		}
 	}
 	else
 	{
-		operand->updateValue(scope);
+		try
+		{
+			operand->updateValue(scope);
+		}
+		catch(std::invalid_argument error)
+		{
+			errors->push_back(Error(scope->getErrCode(), error.what(), this));
+		}
 	}
 	return operand->value;
 }
