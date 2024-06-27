@@ -56,6 +56,9 @@ void Field::updateItems()
 
 Var* Field::getVar(int ind1, int ind2)
 {
+//	std::cout<<"INDEXIS: "<<ind1<<" "<<ind2<<std::endl;
+//	std::cout<<"Matr size:"<<std::endl;
+	//std::cout<<matr.size()<<std::endl;
 	if((VarMap::size_table[size_type]*ind1+ind2)>=matr.size())
 	{
 		VarMap::err_code=Err::outOfRange;
@@ -73,7 +76,12 @@ void Operand::updateValue(VarMap* scope)
 	{
 		if(scope!=nullptr)
 		{
-			if(scope->checkIfDefined(var->name)) var->value=scope->getVar(var->name)->value;
+			//std::cout<<"VAR NAME: "<<var->name<<std::endl;
+			if(scope->checkIfDefined(var->name)) 
+			{
+				if(!isFieldItem) var->value=scope->getVar(var->name)->value;
+				else var->value=dynamic_cast<Field*>(scope->getVar(var->name))->getVar(i, j)->value;
+			}
 			else
 			{
 				//std::cout<<"AHTUNG"<<std::endl;
@@ -85,6 +93,19 @@ void Operand::updateValue(VarMap* scope)
 		if(value!=var->value) value=var->value;
 		//std::cout<<"updated operand: \""<<var->name<<"\" == "<<value<<std::endl;
 	}
+}
+
+void Operand::changeOperandValue(int nvalue)
+{
+	if(!isFieldItem)
+	{
+		var->changeValue(nvalue);	
+	}
+	else
+	{
+		dynamic_cast<Field*>(var)->getVar(i, j)->changeValue(nvalue);
+	}
+	value=nvalue;
 }
 
 void AssignOperator::perform()

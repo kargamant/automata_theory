@@ -441,6 +441,10 @@ int PrintValueOperator::execute()
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	if(args[0]->type==nodeType::operand) 
 	{
+		if(dynamic_cast<OperandNode*>(args[0])->operand->isVar && program_stack->top()->checkIfDefined(dynamic_cast<OperandNode*>(args[0])->operand->var->name)) dynamic_cast<OperandNode*>(args[0])->operand->var=program_stack->top()->getVar(dynamic_cast<OperandNode*>(args[0])->operand->var->name);
+
+		std::cout<<"I J: "<<dynamic_cast<OperandNode*>(args[0])->operand->i<<" "<<dynamic_cast<OperandNode*>(args[0])->operand->j<<std::endl;
+		std::cout<<"Value before update: "<<dynamic_cast<OperandNode*>(args[0])->operand->value<<std::endl;
 		dynamic_cast<OperandNode*>(args[0])->operand->updateValue(program_stack->top());
 		//dynamic_cast<OperandNode*>(args[0])->operand->updateValue(scope);
 		std::cout<<dynamic_cast<OperandNode*>(args[0])->operand->value<<std::endl;
@@ -546,7 +550,7 @@ int DefiningOperator::execute()
 				if(scope==nullptr)
 				{
 					//std::cout<<"operand value: "<<dynamic_cast<OperandNode*>(ptr)->operand->value<<std::endl;
-					if(!isExecuted) vm->addVar(new Var(vtype, vname, operand->execute()));
+					if(!isExecuted) program_stack->top()->addVar(new Var(vtype, vname, operand->execute()));
 				}
 				else
 				{
@@ -572,6 +576,7 @@ int DefiningOperator::execute()
 				
 				if(scope==nullptr)
 				{
+					//if(!isExecuted) vm->addVar(new Field(vtype, stype, vname, operand->execute()));
 					if(!isExecuted) program_stack->top()->addVar(new Field(vtype, stype, vname, operand->execute()));
 				}
 				else
@@ -626,9 +631,16 @@ int AssigningOperator::execute()
 			{
 				try
 				{
-					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());	
-					dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->execute();
-					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
+					//std::cout<<"stack_top:"<<std::endl;
+					//std::cout<<*program_stack->top();
+					if(program_stack->top()->checkIfDefined(dynamic_cast<OperandNode*>(left)->operand->var->name)) dynamic_cast<OperandNode*>(left)->operand->var=program_stack->top()->getVar(dynamic_cast<OperandNode*>(left)->operand->var->name);
+					std::cout<<"Operand value in assignment: "<<dynamic_cast<OperandNode*>(left)->operand->value<<std::endl;
+					//dynamic_cast<OperandNode*>(left)->operand->updateValue(program_stack->top());
+					dynamic_cast<OperandNode*>(left)->operand->changeOperandValue(dynamic_cast<OperandNode*>(right)->execute());	
+					//dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->execute();
+					if(program_stack!=nullptr && !dynamic_cast<OperandNode*>(left)->operand->isFieldItem) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
+					std::cout<<"stack_top after assignment:"<<std::endl;
+					std::cout<<*program_stack->top();
 					return dynamic_cast<OperandNode*>(left)->execute();
 				}catch(std::invalid_argument error)
 				{
@@ -640,9 +652,9 @@ int AssigningOperator::execute()
 			//	try
 			//	{
 					int execution=right->execute();
-					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(execution);	
-					dynamic_cast<OperandNode*>(left)->operand->value=execution;
-					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
+					dynamic_cast<OperandNode*>(left)->operand->changeOperandValue(execution);	
+					//dynamic_cast<OperandNode*>(left)->operand->value=execution;
+					if(program_stack!=nullptr && !dynamic_cast<OperandNode*>(left)->operand->isFieldItem) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
 			//	}
 			//	catch(std::invalid_argument error)
 			//	{
@@ -675,10 +687,10 @@ int AssigningOperator::execute()
 				{
 					try
 					{
-						dynamic_cast<OperandNode*>(right)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());	
-						dynamic_cast<OperandNode*>(right)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
+						dynamic_cast<OperandNode*>(right)->operand->changeOperandValue(dynamic_cast<OperandNode*>(left)->execute());	
+						//dynamic_cast<OperandNode*>(right)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
-						if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+						if(program_stack!=nullptr && !dynamic_cast<OperandNode*>(right)->operand->isFieldItem) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
 					}
 					catch(std::invalid_argument error)
 					{
@@ -714,10 +726,10 @@ int AssigningOperator::execute()
 					{
 					//	try
 					//	{
-							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->changeValue(dynamic_cast<OperandNode*>(left)->execute());
-							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
+							dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->changeOperandValue(dynamic_cast<OperandNode*>(left)->execute());
+							//dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value=dynamic_cast<OperandNode*>(left)->execute();
 
-							if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
+							if(program_stack!=nullptr && !dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->isFieldItem) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->var->name, dynamic_cast<OperandNode*>(left)->execute());
 							//int temp=dynamic_cast<OperandNode*>(dynamic_cast<AssigningOperator*>(right)->left)->operand->value;
 							right->execute();
 					//	}

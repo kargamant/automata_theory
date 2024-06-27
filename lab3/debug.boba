@@ -1,18 +1,5 @@
-field big small ff<<0,
-normal a<<31,
-normal b<<31,
-small k<<3,
-until a<0 do 
-	b<<31, 
-	a<<(a-1), 
-	until b<0 do 
-		b<<(b-1), 
-		k<<3, 
-		until k<=0 do 
-			k<<(k-1), 
-			ff[a b]<<(ff[a b]-1),
-			.
-		.
-	.
-@ff[3 3],
+field normal small ff<<3,
+ff[1 1]<<-1,
+@ff[1 1],
+@ff[31 31],
 .

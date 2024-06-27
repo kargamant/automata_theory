@@ -1,6 +1,6 @@
 field
 array_type parsed
-big
+normal
 var_type parsed
 small
 var_type parsed
@@ -8,181 +8,51 @@ ff
 var_name parsed
 <<
 left_assign parsed
-0
-literal parsed
-,
-, parsed
-normal
-var_type parsed
-a
-var_name parsed
-<<
-left_assign parsed
-31
-literal parsed
-,
-, parsed
-normal
-var_type parsed
-b
-var_name parsed
-<<
-left_assign parsed
-31
-literal parsed
-,
-, parsed
-small
-var_type parsed
-k
-var_name parsed
-<<
-left_assign parsed
 3
 literal parsed
-,
-, parsed
-until
-until parsed
-a
-var_name parsed
-<
-< parsed
-0
-literal parsed
-do
-do parsed
-b
-var_name parsed
-<<
-left_assign parsed
-31
-literal parsed
-,
-, parsed
-a
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
-a
-var_name parsed
--
-- parsed
-1
-literal parsed
-)
-) parsed
-,
-, parsed
-until
-until parsed
-b
-var_name parsed
-<
-< parsed
-0
-literal parsed
-do
-do parsed
-b
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
-b
-var_name parsed
--
-- parsed
-1
-literal parsed
-)
-) parsed
-,
-, parsed
-k
-var_name parsed
-<<
-left_assign parsed
-3
-literal parsed
-,
-, parsed
-until
-until parsed
-k
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
-k
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
-k
-var_name parsed
--
-- parsed
-1
-literal parsed
-)
-) parsed
 ,
 , parsed
 ff
 var_name parsed
 [
 [ parsed
-a
-var_name parsed
-b
-var_name parsed
+1
+literal parsed
+1
+literal parsed
 ]
 ] parsed
 <<
 left_assign parsed
-(
-( parsed
-ff
-var_name parsed
-[
-[ parsed
-a
-var_name parsed
-b
-var_name parsed
-]
-] parsed
 -
 - parsed
 1
 literal parsed
-)
-) parsed
 ,
 , parsed
-.
-. parsed
-.
-. parsed
-.
-. parsed
 @
 @ parsed
 ff
 var_name parsed
 [
 [ parsed
-3
+1
 literal parsed
-3
+1
+literal parsed
+]
+] parsed
+,
+, parsed
+@
+@ parsed
+ff
+var_name parsed
+[
+[ parsed
+31
+literal parsed
+31
 literal parsed
 ]
 ] parsed

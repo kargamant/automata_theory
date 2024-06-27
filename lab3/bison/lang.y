@@ -410,6 +410,8 @@ operand:
 						}
 						catch(std::invalid_argument error)
 						{
+							//Var* v=new Field(VarType::big, VarType::normal, *$1, 0);
+							//Ast* ost=new Ast(new OperandNode(new Operand(v, $3->execute(), $4->execute())));
 							Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
 							$$=ost;
 							err_vec.push_back(Error(vm->getErrCode(), error.what(), $$->root));
@@ -425,7 +427,9 @@ operand:
 					}
 					else
 					{
-						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						Var* v=new Field(VarType::big, VarType::normal, *$1, 0);
+						Ast* ost=new Ast(new OperandNode(new Operand(v, $3->execute(), $4->execute())));
+						//Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
 						$$=ost;
 						err_vec.push_back(Error(Err::undefined, "Error. Variable "+*$1+" was not defined.", $$->root));
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
@@ -470,7 +474,9 @@ operand:
 					}
 					else
 					{
-						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						Var* v=new Field(VarType::big, VarType::normal, *$1, 0);
+						Ast* ost=new Ast(new OperandNode(new Operand(v, $3, $4)));
+						//Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
 						$$=ost;
 						err_vec.push_back(Error(Err::undefined, "Error. Variable "+*$1+" was not defined.", $$->root));
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
@@ -584,7 +590,9 @@ expr_operand:
 					}
 					else
 					{
-						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						Var* v=new Field(VarType::big, VarType::normal, *$1, 0);
+						Ast* ost=new Ast(new OperandNode(new Operand(v, $3->execute(), $4->execute())));
+						//Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
 						$$=ost;
 						err_vec.push_back(Error(Err::undefined, "Error. Variable "+*$1+" was not defined.", $$->root));
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
@@ -636,7 +644,9 @@ expr_operand:
 					}
 					else
 					{
-						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						Var* v=new Field(VarType::big, VarType::normal, *$1, 0);
+						Ast* ost=new Ast(new OperandNode(new Operand(v, $3, $4)));
+						//Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
 						$$=ost;
 						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
