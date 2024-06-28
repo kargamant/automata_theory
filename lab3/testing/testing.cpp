@@ -904,6 +904,52 @@ TEST_CASE("Functions")
 		
 		cleanCompileVars();
 	}
+	SECTION("Tricky situations")
+	{
+		//trying to reach global vars from function
+		parseStr("big lastArg<<0,.");
+		parseStr("big addOne big a begin lastArg<<a, return (a+1),. end,.");
+
+		parseStr("big result<<addOne(3),.");
+		REQUIRE(vm->getVar("lastArg")->value==3);
+
+		//should work like in python. If global var was defined after definition of function than it is a whole different variable
+		parseStr("big addTwo big a begin lastArg2<<a, return (a+2),. end,.");
+		parseStr("big lastArg2<<0,.");
+		parseStr("result<<addTwo(5),.");
+		REQUIRE(vm->getVar("lastArg2")->value==0);
+
+		loadStr("big GG<<0,");
+		loadStr("normal dd<<0,");
+		loadStr("big foo big a begin normal dd<<a*2, normal res<<func(a), return dd,. end,");
+		loadStr("big func big a begin dd<<a, return dd,. end,");
+		loadStr("GG<<foo(2),");
+		loadStr("@dd,.");
+		parseFile();
+
+		REQUIRE(program_stack.top()->getVar("dd")->value==0);
+		REQUIRE(program_stack.top()->getVar("GG")->value==4);
+
+		parseStr("big fof normal a begin return (kk+a),. end,.");
+		parseStr("GG<<fof(3),.");
+		REQUIRE(err_vec.back().error_code==Err::undefined);
+
+		//2a if local, a-b if global
+		parseStr("normal summ<<0,.");
+		parseStr("big cool normal a normal b begin normal summ<<(a+b), big res<<cool2(a b), return res,. end,.");
+		parseStr("big cool2 normal a normal b begin normal result<<(a-b+summ), return result,. end,.");
+		parseStr("normal a b<<2,.");
+		parseStr("a<<1,.");
+		parseStr("b<<4,.");
+		parseStr("GG<<cool(a b),.");
+		REQUIRE(program_stack.top()->getVar("GG")->value==-3);
+
+		parseStr("big hype normal t begin t>>5,. end,.");
+		parseStr("GG<<hype(6),.");
+		REQUIRE(err_vec.back().error_code==Err::invalidAssign);
+		
+		cleanCompileVars();
+	}
 }
 
 

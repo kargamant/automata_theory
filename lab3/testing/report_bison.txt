@@ -1,24 +1,24 @@
 var apushed to init queue.
 operand_literal: 7
-operand with value 0x56525e2783b0
+operand with value 0x5566705153b0
 All vars from init queue were intialized
 var bpushed to init queue.
 operand_literal: 7
 All vars from init queue were intialized
 var cpushed to init queue.
 operand_literal: 5
-operand with value 0x56525e27b0a0
+operand with value 0x5566705180a0
 All vars from init queue were intialized
 var cpushed to init queue.
 operand_literal: 1
 All vars from init queue were intialized
 var cpushed to init queue.
 operand_literal: 1
-operand with value 0x56525e27a000
+operand with value 0x556670517000
 All vars from init queue were intialized
 var gpushed to init queue.
 operand_literal: 1024
-operand with value 0x56525e280f00
+operand with value 0x55667051df00
 All vars from init queue were intialized
 var mmpushed to init queue.
 operand_literal: 513
@@ -28,7 +28,7 @@ operand_literal: 512
 All vars from init queue were intialized
 var mmpushed to init queue.
 operand_literal: 3
-operand with value 0x56525e282cf0
+operand with value 0x55667051fcf0
 All vars from init queue were intialized
 var cpushed to init queue.
 var bpushed to init queue.
@@ -39,72 +39,72 @@ var mmpushed to init queue.
 var hhpushed to init queue.
 var ggpushed to init queue.
 operand_literal: 1024
-operand with value 0x56525e29efd0
+operand with value 0x55667053bfd0
 All vars from init queue were intialized
 var ffpushed to init queue.
-operand_literal: 0x56525e288cc0
+operand_literal: 0x556670525cc0
 operand_indexed_variable: 
-0x56525e288540
-operand_literal: 0x56525e283f60
+0x556670525540
+operand_literal: 0x556670520f60
 left_assignment
 operand_indexed_variable: 
-operand_literal: 0x56525e29ceb0
+operand_literal: 0x556670539eb0
 left_assignment
 var kkpushed to init queue.
 operand_literal: 55
-operand with value 0x56525e2babf0
+operand with value 0x556670557bf0
 All vars from init queue were intialized
-operand_literal: 0x56525e2bb030
+operand_literal: 0x556670558030
 left_assignment
 var ffpushed to init queue.
 var hhpushed to init queue.
 var ggpushed to init queue.
-operand_literal: 0x56525e283d50
+operand_literal: 0x556670520d50
 var apushed to init queue.
 operand_literal: 7
-operand with value 0x56525e288c30
+operand with value 0x556670525c30
 All vars from init queue were intialized
-operand_literal: 0x56525e2966a0
+operand_literal: 0x5566705336a0
 left_assignment
 operand_variable: 
 small a -3
-operand_literal: 0x56525e2969a0
+operand_literal: 0x5566705339a0
 left_assignment
 operand_variable: 
 small a -16
-operand_literal: 0x56525e296cd0
+operand_literal: 0x556670533cd0
 left_assignment
 operand_variable: 
 small a 31
-operand_literal: 0x56525e297000
+operand_literal: 0x556670534000
 left_assignment
 operand_variable: 
 small a 31
-operand_literal: 0x56525e297330
+operand_literal: 0x556670534330
 left_assignment
-operand_literal: 0x56526e2bae00
+operand_literal: 0x556680557e00
 operand_variable: 
 small a -16
 right_assignment
-operand_literal: 0x56526e2bb040
+operand_literal: 0x556680558040
 operand_variable: 
 small a -16
 right_assignment
-operand_literal: 0x56526e2bb370
+operand_literal: 0x556680558370
 operand_variable: 
 small a 31
 right_assignment
-operand_literal: 0x56526e2bb6a0
+operand_literal: 0x5566805586a0
 operand_variable: 
 small a 31
 right_assignment
 operand_variable: 
 small a -16
-operand_literal: 0x56526e2bbb70
+operand_literal: 0x556680558b70
 right_assignment
 var apushed to init queue.
 operand_literal: 33
-operand with value 0x56526e2bbd00
+operand with value 0x556680558d00
 All vars from init queue were intialized
 var cpushed to init queue.
 operand_literal: 4
@@ -114,7 +114,7 @@ small c -4
 operand_variable: 
 normal a 33
 right_assignment
-operand_literal: 0x56526e2ba780
+operand_literal: 0x556680557780
 operand_variable: 
 normal a -4
 right_assignment
@@ -125,7 +125,7 @@ normal a 88
 left_assignment
 operand_variable: 
 normal a 88
-operand_literal: 0x56526e2bd100
+operand_literal: 0x55668055a100
 left_assignment
 operand_variable: 
 normal a -88
@@ -148,16 +148,16 @@ var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 55
-operand with value 0x56526e2bbfa0
+operand with value 0x556680558fa0
 All vars from init queue were intialized
 operand_variable: 
 normal a 55
-operand_literal: 0x56526e2bc380
+operand_literal: 0x556680559380
 operand_variable: 
 normal b 55
 right_assignment
 left_assignment
-operand_literal: 0x56526e2bc730
+operand_literal: 0x556680559730
 operand_variable: 
 normal a 33
 operand_variable: 
@@ -169,13 +169,13 @@ right_assignment
 right_assignment
 operand_variable: 
 normal a 1023
-operand_literal: 0x56526e2bcd60
+operand_literal: 0x556680559d60
 left_assignment
 operand_variable: 
 normal a 9
 operand_variable: 
 normal b 1023
-operand_literal: 0x56526e2bfd90
+operand_literal: 0x55668055cd90
 operand_variable: 
 normal c 1023
 right_assignment
@@ -185,7 +185,7 @@ operand_variable:
 normal a 9
 operand_variable: 
 normal b 44
-operand_literal: 0x56526e2c0480
+operand_literal: 0x55668055d480
 operand_variable: 
 normal c 44
 right_assignment
@@ -193,12 +193,12 @@ right_assignment
 right_assignment
 operand_variable: 
 normal a 9
-operand_literal: 0x56526e2c0a90
+operand_literal: 0x55668055da90
 operand_variable: 
 normal b 9
 left_assignment
 right_assignment
-operand_literal: 0x56526e2c0e00
+operand_literal: 0x55668055de00
 operand_variable: 
 normal c 44
 operand_variable: 
@@ -212,15 +212,15 @@ var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 55
-operand with value 0x56526e2beb70
+operand with value 0x55668055bb70
 All vars from init queue were intialized
 operand_variable: 
 normal a 55
-operand_literal: 0x56526e2bef30
+operand_literal: 0x55668055bf30
 left_assignment
 operand_variable: 
 normal b 55
-operand_literal: 0x56526e2bf260
+operand_literal: 0x55668055c260
 left_assignment
 operand_variable: 
 normal a 18
@@ -232,7 +232,7 @@ left_assignment
 right_assignment
 operand_variable: 
 normal b 55
-operand_literal: 0x56526e2c2820
+operand_literal: 0x55668055f820
 left_assignment
 operand_variable: 
 normal b 22
@@ -244,7 +244,7 @@ right_assignment
 right_assignment
 operand_variable: 
 normal c 22
-operand_literal: 0x56526e2c3090
+operand_literal: 0x556680560090
 left_assignment
 operand_variable: 
 normal a 22
@@ -256,15 +256,15 @@ right_assignment
 left_assignment
 operand_variable: 
 normal c 8
-operand_literal: 0x56526e2c3900
+operand_literal: 0x556680560900
 left_assignment
 operand_variable: 
 normal a 8
-operand_literal: 0x56526e2c3c30
+operand_literal: 0x556680560c30
 left_assignment
 operand_variable: 
 normal b 8
-operand_literal: 0x56526e2c3f60
+operand_literal: 0x556680560f60
 left_assignment
 operand_variable: 
 normal c 9
@@ -279,15 +279,15 @@ left_assignment
 left_assignment
 operand_variable: 
 normal c -100
-operand_literal: 0x56526e2c49b0
+operand_literal: 0x5566805619b0
 left_assignment
 operand_variable: 
 normal a -100
-operand_literal: 0x56526e2c4ce0
+operand_literal: 0x556680561ce0
 left_assignment
 operand_variable: 
 normal b -100
-operand_literal: 0x56526e2c5010
+operand_literal: 0x556680562010
 left_assignment
 operand_variable: 
 normal a -100
@@ -302,15 +302,15 @@ left_assignment
 right_assignment
 operand_variable: 
 normal c -100
-operand_literal: 0x56526e2c5a60
+operand_literal: 0x556680562a60
 left_assignment
 operand_variable: 
 normal a -100
-operand_literal: 0x56526e2c5d90
+operand_literal: 0x556680562d90
 left_assignment
 operand_variable: 
 normal b -100
-operand_literal: 0x56526e2c62c0
+operand_literal: 0x5566805632c0
 left_assignment
 operand_variable: 
 normal a -100
@@ -334,41 +334,41 @@ var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 3
-operand with value 0x56526e2c72e0
+operand with value 0x5566805642e0
 operand_literal: 5
-operand with value 0x56526e2c7390
-sum of two expressions with value 0x56526e2c7440
+operand with value 0x556680564390
+sum of two expressions with value 0x556680564440
 All vars from init queue were intialized
 operand_variable: 
 normal a 8
 operand_variable: 
 normal b 8
-operand with value 0x56526e2c7900
+operand with value 0x556680564900
 operand_variable: 
 normal c 8
-operand with value 0x56526e2c79e0
-sum of two expressions with value 0x56526e2c7a90
-expression in brackets with value 0x56526e2c7a90
+operand with value 0x5566805649e0
+sum of two expressions with value 0x556680564a90
+expression in brackets with value 0x556680564a90
 operand_literal: 0
-operand with value 0x56526e2c7b30
-sum of two expressions with value 0x56526e2c7b50
+operand with value 0x556680564b30
+sum of two expressions with value 0x556680564b50
 left_assignment
 operand_variable: 
 normal a 16
-operand with value 0x56526e2c7eb0
+operand with value 0x556680564eb0
 operand_variable: 
 normal c 8
-operand with value 0x56526e2c7f90
-sum of two expressions with value 0x56526e2c8040
+operand with value 0x556680564f90
+sum of two expressions with value 0x556680565040
 operand_variable: 
 normal d 8
-operand with value 0x56526e2c80e0
-sum of two expressions with value 0x56526e2c8100
-expression in brackets with value 0x56526e2c8100
+operand with value 0x5566805650e0
+sum of two expressions with value 0x556680565100
+expression in brackets with value 0x556680565100
 operand_literal: 3
-expression in brackets with value 0x56526e2c82a0
-sum of two expressions with value 0x56526e2c83f0
-operand_literal: 0x56526e2c83f0
+expression in brackets with value 0x5566805652a0
+sum of two expressions with value 0x5566805653f0
+operand_literal: 0x5566805653f0
 operand_variable: 
 normal b 8
 right_assignment
@@ -376,68 +376,68 @@ operand_variable:
 normal b 29
 operand_variable: 
 normal a 16
-operand with value 0x56526e2c8690
+operand with value 0x556680565690
 operand_variable: 
 normal c 8
-operand with value 0x56526e2c8920
-sum of two expressions with value 0x56526e2c89d0
-expression in brackets with value 0x56526e2c89d0
+operand with value 0x556680565920
+sum of two expressions with value 0x5566805659d0
+expression in brackets with value 0x5566805659d0
 right_assignment
 var dpushed to init queue.
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 3
-operand with value 0x56526e2c1840
+operand with value 0x55668055e840
 operand_literal: 5
-operand with value 0x56526e2c18f0
-difference between two expressions with value 0x56526e2c19a0
+operand with value 0x55668055e8f0
+difference between two expressions with value 0x55668055e9a0
 All vars from init queue were intialized
 operand_variable: 
 normal a -2
 operand_variable: 
 normal b -2
-operand with value 0x56526e2c1e20
+operand with value 0x55668055ee20
 operand_variable: 
 normal c -2
-operand with value 0x56526e2c1f00
-difference between two expressions with value 0x56526e2c1fb0
-expression in brackets with value 0x56526e2c1fb0
+operand with value 0x55668055ef00
+difference between two expressions with value 0x55668055efb0
+expression in brackets with value 0x55668055efb0
 operand_literal: 34
-operand with value 0x56526e2c2050
-sum of two expressions with value 0x56526e2c2070
+operand with value 0x55668055f050
+sum of two expressions with value 0x55668055f070
 left_assignment
 operand_variable: 
 normal a 34
-operand with value 0x56526e2c22c0
+operand with value 0x55668055f2c0
 operand_variable: 
 normal c -2
-operand with value 0x56526e2c2490
-sum of two expressions with value 0x56526e2c2540
+operand with value 0x55668055f490
+sum of two expressions with value 0x55668055f540
 operand_variable: 
 normal d -2
-operand with value 0x56526e2c9d20
-difference between two expressions with value 0x56526e2c9d40
-expression in brackets with value 0x56526e2c9d40
+operand with value 0x556680566d20
+difference between two expressions with value 0x556680566d40
+expression in brackets with value 0x556680566d40
 operand_literal: 10
-operand with value 0x56526e2c9ec0
-difference between two expressions with value 0x56526e2c9ee0
-operand_literal: 0x56526e2c9ee0
+operand with value 0x556680566ec0
+difference between two expressions with value 0x556680566ee0
+operand_literal: 0x556680566ee0
 operand_variable: 
 normal b -2
 right_assignment
 operand_literal: 9
-expression in brackets with value 0x56526e2ca3a0
+expression in brackets with value 0x5566805673a0
 operand_literal: 3
 operand_literal: 1
-operand with value 0x56526e2ca5b0
-difference between two expressions with value 0x56526e2ca5d0
-expression in brackets with value 0x56526e2ca5d0
-sum of two expressions with value 0x56526e2ca720
+operand with value 0x5566805675b0
+difference between two expressions with value 0x5566805675d0
+expression in brackets with value 0x5566805675d0
+sum of two expressions with value 0x556680567720
 operand_literal: 13
-operand with value 0x56526e2ca740
-difference between two expressions with value 0x56526e2ca800
-operand_literal: 0x56526e2ca800
+operand with value 0x556680567740
+difference between two expressions with value 0x556680567800
+operand_literal: 0x556680567800
 operand_variable: 
 normal b 24
 right_assignment
@@ -445,82 +445,82 @@ operand_variable:
 normal b -26
 operand_variable: 
 normal a 34
-operand with value 0x56526e2cab30
+operand with value 0x556680567b30
 operand_variable: 
 normal c -2
-operand with value 0x56526e2cadc0
-difference between two expressions with value 0x56526e2cae70
-expression in brackets with value 0x56526e2cae70
+operand with value 0x556680567dc0
+difference between two expressions with value 0x556680567e70
+expression in brackets with value 0x556680567e70
 right_assignment
 var dpushed to init queue.
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 3
-operand with value 0x56526e2cb440
+operand with value 0x556680568440
 operand_literal: 5
-operand with value 0x56526e2cb4f0
-product of two expressions with value 0x56526e2cb5a0
+operand with value 0x5566805684f0
+product of two expressions with value 0x5566805685a0
 operand_literal: 8
-operand with value 0x56526e2cb640
-product of two expressions with value 0x56526e2cb660
+operand with value 0x556680568640
+product of two expressions with value 0x556680568660
 All vars from init queue were intialized
 operand_variable: 
 normal a 120
 operand_variable: 
 normal b 120
-operand with value 0x56526e2cbb90
+operand with value 0x556680568b90
 operand_variable: 
 normal c 120
-operand with value 0x56526e2cbc70
-product of two expressions with value 0x56526e2cbd20
+operand with value 0x556680568c70
+product of two expressions with value 0x556680568d20
 operand_variable: 
 normal d 120
-operand with value 0x56526e2cbdc0
+operand with value 0x556680568dc0
 operand_variable: 
 normal c 120
-operand with value 0x56526e2cbde0
-product of two expressions with value 0x56526e2cbfa0
-difference between two expressions with value 0x56526e2cc040
+operand with value 0x556680568de0
+product of two expressions with value 0x556680568fa0
+difference between two expressions with value 0x556680569040
 left_assignment
 operand_variable: 
 normal d 120
-operand with value 0x56526e2cc200
+operand with value 0x556680569200
 operand_literal: 10
-operand with value 0x56526e2cc3a0
-product of two expressions with value 0x56526e2cc450
-operand_literal: 0x56526e2cc450
+operand with value 0x5566805693a0
+product of two expressions with value 0x556680569450
+operand_literal: 0x556680569450
 operand_variable: 
 normal b 120
 right_assignment
 operand_variable: 
 normal b 1023
-operand_literal: 0x56526e2cc870
+operand_literal: 0x556680569870
 left_assignment
 operand_variable: 
 normal a 0
-operand_literal: 0x56526e2ccba0
+operand_literal: 0x556680569ba0
 left_assignment
 operand_variable: 
 normal c 120
-operand_literal: 0x56526e2cced0
+operand_literal: 0x556680569ed0
 left_assignment
 operand_variable: 
 normal a 3
-operand with value 0x56526e2cd170
+operand with value 0x55668056a170
 operand_variable: 
 normal b 1
-operand with value 0x56526e2cd250
-sum of two expressions with value 0x56526e2cd300
-expression in brackets with value 0x56526e2cd300
+operand with value 0x55668056a250
+sum of two expressions with value 0x55668056a300
+expression in brackets with value 0x55668056a300
 operand_variable: 
 normal c -2
-expression in brackets with value 0x56526e2cd3c0
-product of two expressions with value 0x56526e2cd540
+expression in brackets with value 0x55668056a3c0
+product of two expressions with value 0x55668056a540
 operand_literal: 1
-expression in brackets with value 0x56526e2cd620
-product of two expressions with value 0x56526e2cd770
-operand_literal: 0x56526e2cd770
+expression in brackets with value 0x55668056a620
+product of two expressions with value 0x55668056a770
+operand_literal: 0x55668056a770
 operand_variable: 
 normal d 120
 right_assignment
@@ -529,50 +529,50 @@ var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 3
-operand with value 0x56526e2cde20
+operand with value 0x55668056ae20
 operand_literal: 5
-operand with value 0x56526e2cded0
-product of two expressions with value 0x56526e2cdf80
+operand with value 0x55668056aed0
+product of two expressions with value 0x55668056af80
 operand_literal: 5
-operand with value 0x56526e2ce020
-division of two expressions with value 0x56526e2ce040
+operand with value 0x55668056b020
+division of two expressions with value 0x55668056b040
 All vars from init queue were intialized
 operand_variable: 
 normal b 3
 operand_variable: 
 normal b 3
-operand with value 0x56526e2ce570
+operand with value 0x55668056b570
 operand_literal: 2
-operand with value 0x56526e2ce620
-product of two expressions with value 0x56526e2ce6d0
+operand with value 0x55668056b620
+product of two expressions with value 0x55668056b6d0
 left_assignment
 operand_variable: 
 normal a 3
-operand with value 0x56526e2ce870
+operand with value 0x55668056b870
 operand_variable: 
 normal b 6
-operand with value 0x56526e2cea40
+operand with value 0x55668056ba40
 operand_variable: 
 normal c 3
-operand with value 0x56526e2ceb20
-division of two expressions with value 0x56526e2cebd0
-expression in brackets with value 0x56526e2cebd0
-product of two expressions with value 0x56526e2cec70
-operand_literal: 0x56526e2cec70
+operand with value 0x55668056bb20
+division of two expressions with value 0x55668056bbd0
+expression in brackets with value 0x55668056bbd0
+product of two expressions with value 0x55668056bc70
+operand_literal: 0x55668056bc70
 operand_variable: 
 normal d 3
 right_assignment
 operand_variable: 
 normal a 3
-operand with value 0x56526e2cef10
+operand with value 0x55668056bf10
 operand_variable: 
 normal b 6
-operand with value 0x56526e2cf0e0
-product of two expressions with value 0x56526e2cf190
+operand with value 0x55668056c0e0
+product of two expressions with value 0x55668056c190
 operand_literal: 2
-operand with value 0x56526e2cf230
-division of two expressions with value 0x56526e2cf250
-operand_literal: 0x56526e2cf250
+operand with value 0x55668056c230
+division of two expressions with value 0x55668056c250
+operand_literal: 0x55668056c250
 operand_variable: 
 normal d 6
 right_assignment
@@ -580,574 +580,574 @@ operand_variable:
 normal d 9
 operand_variable: 
 normal b 6
-operand with value 0x56526e2cf750
+operand with value 0x55668056c750
 operand_literal: 0
-operand with value 0x56526e2cf800
-division of two expressions with value 0x56526e2cf8b0
+operand with value 0x55668056c800
+division of two expressions with value 0x55668056c8b0
 left_assignment
 operand_variable: 
 normal b 6
-operand_literal: 0x56526e2cfbf0
+operand_literal: 0x55668056cbf0
 left_assignment
 operand_variable: 
 normal a 3
-operand_literal: 0x56526e2cff20
+operand_literal: 0x55668056cf20
 left_assignment
 operand_variable: 
 normal d 1023
-operand_literal: 0x56526e2d0250
+operand_literal: 0x55668056d250
 left_assignment
 operand_variable: 
 normal c 3
-operand_literal: 0x56526e2d0580
+operand_literal: 0x55668056d580
 left_assignment
 operand_variable: 
 normal b 2
 operand_variable: 
 normal c 20
-operand with value 0x56526e2d0900
+operand with value 0x55668056d900
 operand_variable: 
 normal d 12
-operand with value 0x56526e2d09e0
+operand with value 0x55668056d9e0
 operand_variable: 
 normal a 6
-operand with value 0x56526e2d0ac0
+operand with value 0x55668056dac0
 operand_variable: 
 normal b 2
-operand with value 0x56526e2d0ba0
-division of two expressions with value 0x56526e2d0c50
-expression in brackets with value 0x56526e2d0c50
-division of two expressions with value 0x56526e2d0cf0
-expression in brackets with value 0x56526e2d0cf0
-division of two expressions with value 0x56526e2d0d10
+operand with value 0x55668056dba0
+division of two expressions with value 0x55668056dc50
+expression in brackets with value 0x55668056dc50
+division of two expressions with value 0x55668056dcf0
+expression in brackets with value 0x55668056dcf0
+division of two expressions with value 0x55668056dd10
 left_assignment
 operand_variable: 
 normal b 5
 operand_variable: 
 normal c 20
-operand with value 0x56526e2d0f70
+operand with value 0x55668056df70
 operand_variable: 
 normal d 12
-operand with value 0x56526e2d1200
-division of two expressions with value 0x56526e2d12b0
+operand with value 0x55668056e200
+division of two expressions with value 0x55668056e2b0
 operand_variable: 
 normal a 6
-operand with value 0x56526e2d1350
-division of two expressions with value 0x56526e2d1370
+operand with value 0x55668056e350
+division of two expressions with value 0x55668056e370
 operand_variable: 
 normal b 5
-operand with value 0x56526e2d14f0
-division of two expressions with value 0x56526e2d1510
+operand with value 0x55668056e4f0
+division of two expressions with value 0x55668056e510
 left_assignment
 var apushed to init queue.
 operand_literal: 33
-operand with value 0x56526e2d1920
+operand with value 0x55668056e920
 All vars from init queue were intialized
 operand_variable: 
 normal a 33
 operand_literal: 1
-operand with value 0x56526e2d1c40
+operand with value 0x55668056ec40
 expr from logic expr
 operand_literal: 5
-operand with value 0x56526e2d1cf0
+operand with value 0x55668056ecf0
 expr from logic expr
-0x56526e2d1c40<0x56526e2d1cf0: 0x56526e2d1da0
-operand_literal: 0x56526e2d1da0
+0x55668056ec40<0x55668056ecf0: 0x55668056eda0
+operand_literal: 0x55668056eda0
 left_assignment
 operand_variable: 
 normal a 1
 operand_literal: 1
-operand with value 0x56526e2d20e0
+operand with value 0x55668056f0e0
 expr from logic expr
 operand_literal: 5
-operand with value 0x56526e2d2190
+operand with value 0x55668056f190
 expr from logic expr
-0x56526e2d20e0>0x56526e2d2190: 0x56526e2d2240
-operand_literal: 0x56526e2d2240
+0x55668056f0e0>0x55668056f190: 0x55668056f240
+operand_literal: 0x55668056f240
 left_assignment
 operand_variable: 
 normal a 0
 operand_literal: 1
-operand with value 0x56526e2d2580
+operand with value 0x55668056f580
 expr from logic expr
 operand_literal: 5
-operand with value 0x56526e2d2630
+operand with value 0x55668056f630
 expr from logic expr
-0x56526e2d2580>=0x56526e2d2630: 0x56526e2d26e0
-operand_literal: 0x56526e2d26e0
+0x55668056f580>=0x55668056f630: 0x55668056f6e0
+operand_literal: 0x55668056f6e0
 left_assignment
 operand_variable: 
 normal a 0
 operand_literal: 1
-operand with value 0x56526e2d2a20
+operand with value 0x55668056fa20
 expr from logic expr
 operand_literal: 5
-operand with value 0x56526e2d2ad0
+operand with value 0x55668056fad0
 expr from logic expr
-0x56526e2d2a20<=0x56526e2d2ad0: 0x56526e2d2b80
-operand_literal: 0x56526e2d2b80
+0x55668056fa20<=0x55668056fad0: 0x55668056fb80
+operand_literal: 0x55668056fb80
 left_assignment
 operand_variable: 
 normal a 1
 operand_literal: 1
 expr from logic expr
 operand_literal: 5
-operand with value 0x56526e2d3010
+operand with value 0x556680570010
 expr from logic expr
-0x56526e2d2f70<=0x56526e2d3010: 0x56526e2d3030
+0x55668056ff70<=0x556680570010: 0x556680570030
 operand_literal: 0
-operand with value 0x56526e2d3180
+operand with value 0x556680570180
 expr from logic expr
-0x56526e2d3030<=0x56526e2d3180: 0x56526e2d31a0
-operand_literal: 0x56526e2d31a0
+0x556680570030<=0x556680570180: 0x5566805701a0
+operand_literal: 0x5566805701a0
 left_assignment
 operand_variable: 
 normal a 0
 operand_literal: 1
 expr from logic expr
 operand_literal: 5
-operand with value 0x56526e2d36e0
+operand with value 0x5566805706e0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2d3700
+operand with value 0x556680570700
 expr from logic expr
-0x56526e2d36e0<=0x56526e2d3700: 0x56526e2d3860
-(0x56526e2d3860)
-0x56526e2d3640<=0x56526e2d3860: 0x56526e2d3900
-operand_literal: 0x56526e2d3900
+0x5566805706e0<=0x556680570700: 0x556680570860
+(0x556680570860)
+0x556680570640<=0x556680570860: 0x556680570900
+operand_literal: 0x556680570900
 left_assignment
 var cpushed to init queue.
 var dpushed to init queue.
 operand_literal: 4
-operand with value 0x56526e2d3d40
+operand with value 0x556680570d40
 All vars from init queue were intialized
 operand_variable: 
 normal a 1
 operand_variable: 
 normal d 4
-operand with value 0x56526e2d4110
+operand with value 0x556680571110
 expr from logic expr
 operand_variable: 
 normal c 4
-operand with value 0x56526e2d41f0
+operand with value 0x5566805711f0
 expr from logic expr
-0x56526e2d4110<=0x56526e2d41f0: 0x56526e2d42a0
-operand_literal: 0x56526e2d42a0
+0x556680571110<=0x5566805711f0: 0x5566805712a0
+operand_literal: 0x5566805712a0
 left_assignment
 operand_variable: 
 normal a 1
 operand_variable: 
 normal d 4
-operand with value 0x56526e2d4610
+operand with value 0x556680571610
 expr from logic expr
 operand_variable: 
 normal c 4
-operand with value 0x56526e2d46f0
+operand with value 0x5566805716f0
 expr from logic expr
-0x56526e2d4610<0x56526e2d46f0: 0x56526e2d47a0
-operand_literal: 0x56526e2d47a0
+0x556680571610<0x5566805716f0: 0x5566805717a0
+operand_literal: 0x5566805717a0
 left_assignment
 operand_variable: 
 normal c 4
 operand_variable: 
 normal c 4
-operand with value 0x56526e2d4b10
+operand with value 0x556680571b10
 operand_literal: 1
-operand with value 0x56526e2d4bc0
-sum of two expressions with value 0x56526e2d4c70
-expression in brackets with value 0x56526e2d4c70
+operand with value 0x556680571bc0
+sum of two expressions with value 0x556680571c70
+expression in brackets with value 0x556680571c70
 left_assignment
 operand_variable: 
 normal a 0
 operand_variable: 
 normal d 4
-operand with value 0x56526e2d4fe0
+operand with value 0x556680571fe0
 expr from logic expr
 operand_variable: 
 normal c 5
-operand with value 0x56526e2d50c0
+operand with value 0x5566805720c0
 expr from logic expr
-0x56526e2d4fe0<0x56526e2d50c0: 0x56526e2d5170
-operand_literal: 0x56526e2d5170
+0x556680571fe0<0x5566805720c0: 0x556680572170
+operand_literal: 0x556680572170
 left_assignment
 operand_variable: 
 normal a 1
 operand_variable: 
 normal d 4
-operand with value 0x56526e2d54e0
+operand with value 0x5566805724e0
 expr from logic expr
 operand_variable: 
 normal c 5
-operand with value 0x56526e2d55c0
+operand with value 0x5566805725c0
 expr from logic expr
 operand_variable: 
 normal a 1
-operand with value 0x56526e2d56a0
+operand with value 0x5566805726a0
 expr from logic expr
-0x56526e2d55c0<0x56526e2d56a0: 0x56526e2d5750
-0x56526e2d54e0>0x56526e2d5750: 0x56526e2d57f0
-operand_literal: 0x56526e2d57f0
+0x5566805725c0<0x5566805726a0: 0x556680572750
+0x5566805724e0>0x556680572750: 0x5566805727f0
+operand_literal: 0x5566805727f0
 left_assignment
 var resultpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e2d5bb0
+operand with value 0x556680572bb0
 All vars from init queue were intialized
 operand_variable: 
 normal a 1
-operand_literal: 0x56526e2d5f30
+operand_literal: 0x556680572f30
 left_assignment
 operand_variable: 
 normal c 5
-operand_literal: 0x56526e2d6260
+operand_literal: 0x556680573260
 left_assignment
 operand_variable: 
 normal d 4
-operand_literal: 0x56526e2d6590
+operand_literal: 0x556680573590
 left_assignment
 operand_variable: 
 tiny result 0
 operand_variable: 
 normal a -9
-operand with value 0x56526e2c8e30
+operand with value 0x556680565e30
 expr from logic expr
 operand_variable: 
 normal d 1
-operand with value 0x56526e2c8f10
+operand with value 0x556680565f10
 expr from logic expr
 operand_variable: 
 normal c 5
-operand with value 0x56526e2c8ff0
+operand with value 0x556680565ff0
 expr from logic expr
 operand_variable: 
 normal d 1
-operand with value 0x56526e2c90d0
+operand with value 0x5566805660d0
 expr from logic expr
-0x56526e2c8ff0>=0x56526e2c90d0: 0x56526e2c9180
-(0x56526e2c9180)
-0x56526e2c8f10<=0x56526e2c9180: 0x56526e2c9220
-(0x56526e2c9220)
-0x56526e2c8e30<0x56526e2c9220: 0x56526e2c9240
-(0x56526e2c9240)
+0x556680565ff0>=0x5566805660d0: 0x556680566180
+(0x556680566180)
+0x556680565f10<=0x556680566180: 0x556680566220
+(0x556680566220)
+0x556680565e30<0x556680566220: 0x556680566240
+(0x556680566240)
 operand_variable: 
 normal a -9
-operand with value 0x56526e2c9300
+operand with value 0x556680566300
 expr from logic expr
-0x56526e2c9240<0x56526e2c9300: 0x56526e2c93c0
-operand_literal: 0x56526e2c93c0
+0x556680566240<0x556680566300: 0x5566805663c0
+operand_literal: 0x5566805663c0
 left_assignment
 operand_variable: 
 tiny result 0
 operand_variable: 
 normal a -9
-operand with value 0x56526e2c9810
+operand with value 0x556680566810
 expr from logic expr
 operand_variable: 
 normal d 1
-operand with value 0x56526e2c98f0
+operand with value 0x5566805668f0
 expr from logic expr
 operand_variable: 
 normal c 5
-operand with value 0x56526e2c99d0
+operand with value 0x5566805669d0
 expr from logic expr
 operand_variable: 
 normal d 1
-operand with value 0x56526e2c9ab0
+operand with value 0x556680566ab0
 expr from logic expr
-0x56526e2c99d0>=0x56526e2c9ab0: 0x56526e2c9b60
-(0x56526e2c9b60)
-0x56526e2c98f0<=0x56526e2c9b60: 0x56526e2c9c00
-(0x56526e2c9c00)
+0x5566805669d0>=0x556680566ab0: 0x556680566b60
+(0x556680566b60)
+0x5566805668f0<=0x556680566b60: 0x556680566c00
+(0x556680566c00)
 operand_variable: 
 normal a -9
-operand with value 0x56526e2c9c20
+operand with value 0x556680566c20
 expr from logic expr
-0x56526e2c9c00<0x56526e2c9c20: 0x56526e2c9ce0
-0x56526e2c9810<0x56526e2c9ce0: 0x56526e2d7950
-operand_literal: 0x56526e2d7950
+0x556680566c00<0x556680566c20: 0x556680566ce0
+0x556680566810<0x556680566ce0: 0x556680574950
+operand_literal: 0x556680574950
 left_assignment
 operand_variable: 
 tiny result 1
 operand_literal: 1
-operand with value 0x56526e2d7ca0
+operand with value 0x556680574ca0
 expr from logic expr
 operand_literal: 2
-operand with value 0x56526e2d7d50
+operand with value 0x556680574d50
 expr from logic expr
 operand_literal: 1
-expression in brackets with value 0x56526e2d7eb0
+expression in brackets with value 0x556680574eb0
 expr from logic expr
-0x56526e2d7d50<=0x56526e2d7eb0: 0x56526e2d7f50
-0x56526e2d7ca0>0x56526e2d7f50: 0x56526e2d7f70
-operand_literal: 0x56526e2d7f70
+0x556680574d50<=0x556680574eb0: 0x556680574f50
+0x556680574ca0>0x556680574f50: 0x556680574f70
+operand_literal: 0x556680574f70
 left_assignment
 var resultpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e2d81d0
+operand with value 0x5566805751d0
 All vars from init queue were intialized
 operand_variable: 
 tiny result 0
 operand_literal: 1
-operand with value 0x56526e2d6bc0
+operand with value 0x556680573bc0
 operand_literal: 1
-operand with value 0x56526e2d6c70
-sum of two expressions with value 0x56526e2d6d20
-expression in brackets with value 0x56526e2d6d20
+operand with value 0x556680573c70
+sum of two expressions with value 0x556680573d20
+expression in brackets with value 0x556680573d20
 expr from logic expr
 operand_literal: 1
-operand with value 0x56526e2d6dc0
+operand with value 0x556680573dc0
 expr from logic expr
-0x56526e2d6d20>=0x56526e2d6dc0: 0x56526e2d6de0
-operand_literal: 0x56526e2d6de0
+0x556680573d20>=0x556680573dc0: 0x556680573de0
+operand_literal: 0x556680573de0
 left_assignment
 operand_variable: 
 tiny result 1
 operand_literal: 5
-operand with value 0x56526e2d7030
+operand with value 0x556680574030
 expr from logic expr
 operand_literal: 30
-expression in brackets with value 0x56526e2d7340
+expression in brackets with value 0x556680574340
 expr from logic expr
-0x56526e2d7030<0x56526e2d7340: 0x56526e2d73e0
-(0x56526e2d73e0)
+0x556680574030<0x556680574340: 0x5566805743e0
+(0x5566805743e0)
 operand_literal: 1
 operand_literal: 1
-operand with value 0x56526e2d7610
-sum of two expressions with value 0x56526e2d7630
-expression in brackets with value 0x56526e2d7630
+operand with value 0x556680574610
+sum of two expressions with value 0x556680574630
+expression in brackets with value 0x556680574630
 expr from logic expr
-0x56526e2d73e0>=0x56526e2d7630: 0x56526e2d7780
-operand_literal: 0x56526e2d7780
+0x5566805743e0>=0x556680574630: 0x556680574780
+operand_literal: 0x556680574780
 left_assignment
 operand_variable: 
 tiny result 1
 operand_literal: 6
-operand with value 0x56526e2d9590
+operand with value 0x556680576590
 operand_literal: 7
-operand with value 0x56526e2d9640
-sum of two expressions with value 0x56526e2d96f0
-expression in brackets with value 0x56526e2d96f0
+operand with value 0x556680576640
+sum of two expressions with value 0x5566805766f0
+expression in brackets with value 0x5566805766f0
 expr from logic expr
 operand_literal: 8
-operand with value 0x56526e2d9790
+operand with value 0x556680576790
 operand_literal: 9
-operand with value 0x56526e2d97b0
-product of two expressions with value 0x56526e2d9910
-expression in brackets with value 0x56526e2d9910
+operand with value 0x5566805767b0
+product of two expressions with value 0x556680576910
+expression in brackets with value 0x556680576910
 expr from logic expr
-0x56526e2d96f0<0x56526e2d9910: 0x56526e2d99b0
-(0x56526e2d99b0)
-(0x56526e2d99b0)
-operand_literal: 0x56526e2d99b0
+0x5566805766f0<0x556680576910: 0x5566805769b0
+(0x5566805769b0)
+(0x5566805769b0)
+operand_literal: 0x5566805769b0
 left_assignment
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 1023
-operand with value 0x56526e2d9ec0
+operand with value 0x556680576ec0
 All vars from init queue were intialized
 operand_variable: 
 normal b 1023
-operand_literal: 0x56526e2da300
+operand_literal: 0x556680577300
 left_assignment
 operand_variable: 
 normal c 1023
-operand_literal: 0x56526e2da630
+operand_literal: 0x556680577630
 left_assignment
 operand_variable: 
 tiny result 1
 operand_variable: 
 normal a 1023
-operand with value 0x56526e2d83d0
+operand with value 0x5566805753d0
 operand_variable: 
 normal c -390
-operand with value 0x56526e2d84b0
-sum of two expressions with value 0x56526e2d8560
-expression in brackets with value 0x56526e2d8560
+operand with value 0x5566805754b0
+sum of two expressions with value 0x556680575560
+expression in brackets with value 0x556680575560
 operand_variable: 
 normal b 130
-operand with value 0x56526e2d8600
-product of two expressions with value 0x56526e2d8620
+operand with value 0x556680575600
+product of two expressions with value 0x556680575620
 expr from logic expr
 operand_variable: 
 normal a 1023
-operand with value 0x56526e2d87a0
+operand with value 0x5566805757a0
 operand_variable: 
 normal c -390
-operand with value 0x56526e2d87c0
-product of two expressions with value 0x56526e2d8980
+operand with value 0x5566805757c0
+product of two expressions with value 0x556680575980
 operand_variable: 
 normal b 130
-operand with value 0x56526e2d8a20
-sum of two expressions with value 0x56526e2d8a40
-expression in brackets with value 0x56526e2d8a40
+operand with value 0x556680575a20
+sum of two expressions with value 0x556680575a40
+expression in brackets with value 0x556680575a40
 expr from logic expr
 operand_variable: 
 normal b 130
-operand with value 0x56526e2d8bc0
+operand with value 0x556680575bc0
 operand_variable: 
 normal a 1023
-operand with value 0x56526e2d8be0
-sum of two expressions with value 0x56526e2d8da0
+operand with value 0x556680575be0
+sum of two expressions with value 0x556680575da0
 operand_variable: 
 normal c -390
-operand with value 0x56526e2d8e40
-difference between two expressions with value 0x56526e2d8e60
+operand with value 0x556680575e40
+difference between two expressions with value 0x556680575e60
 expr from logic expr
-0x56526e2d8a40<0x56526e2d8e60: 0x56526e2d8fe0
-0x56526e2d8620>=0x56526e2d8fe0: 0x56526e2d9000
-operand_literal: 0x56526e2d9000
+0x556680575a40<0x556680575e60: 0x556680575fe0
+0x556680575620>=0x556680575fe0: 0x556680576000
+operand_literal: 0x556680576000
 left_assignment
 var kkpushed to init queue.
 operand_literal: 7
-operand with value 0x56526e2dba00
+operand with value 0x556680578a00
 All vars from init queue were intialized
 operand_variable: 
 normal b 130
-operand_literal: 0x56526e2dbda0
+operand_literal: 0x556680578da0
 left_assignment
 operand_variable: 
 normal a 1023
-operand_literal: 0x56526e2dc0d0
+operand_literal: 0x5566805790d0
 left_assignment
 operand_variable: 
 tiny result 1
 operand_variable: 
 normal a 343
-operand with value 0x56526e2da9c0
+operand with value 0x5566805779c0
 operand_variable: 
 normal b 49
-operand with value 0x56526e2daaa0
-division of two expressions with value 0x56526e2dab50
+operand with value 0x556680577aa0
+division of two expressions with value 0x556680577b50
 expr from logic expr
 operand_variable: 
 normal kk 7
-operand with value 0x56526e2dabf0
+operand with value 0x556680577bf0
 operand_literal: 7
-operand with value 0x56526e2dac10
-product of two expressions with value 0x56526e2dada0
+operand with value 0x556680577c10
+product of two expressions with value 0x556680577da0
 expr from logic expr
-0x56526e2dab50>=0x56526e2dada0: 0x56526e2dae40
+0x556680577b50>=0x556680577da0: 0x556680577e40
 operand_variable: 
 normal a 343
-operand with value 0x56526e2dae60
+operand with value 0x556680577e60
 operand_variable: 
 normal kk 7
-operand with value 0x56526e2daf20
-product of two expressions with value 0x56526e2db0e0
+operand with value 0x556680577f20
+product of two expressions with value 0x5566805780e0
 operand_variable: 
 normal b 49
-operand with value 0x56526e2db180
-division of two expressions with value 0x56526e2db1a0
+operand with value 0x556680578180
+division of two expressions with value 0x5566805781a0
 expr from logic expr
-0x56526e2dae40<=0x56526e2db1a0: 0x56526e2db320
-operand_literal: 0x56526e2db320
+0x556680577e40<=0x5566805781a0: 0x556680578320
+operand_literal: 0x556680578320
 left_assignment
 var dpushed to init queue.
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 12
-operand with value 0x56525e298a90
+operand with value 0x556670535a90
 All vars from init queue were intialized
 operand_variable: 
 normal a 12
-operand_literal: 0x56526e2dd740
+operand_literal: 0x55668057a740
 left_assignment
 operand_variable: 
 normal b 12
-operand_literal: 0x56526e2dda70
+operand_literal: 0x55668057aa70
 left_assignment
 operand_variable: 
 normal c 12
-operand_literal: 0x56526e2ddda0
+operand_literal: 0x55668057ada0
 left_assignment
 operand_variable: 
 normal d 12
-operand_literal: 0x56526e2de0d0
+operand_literal: 0x55668057b0d0
 left_assignment
 operand_variable: 
 normal a 3
-operand with value 0x56526e2de260
+operand with value 0x55668057b260
 expr from logic expr
 operand_variable: 
 normal c 50
-operand with value 0x56526e2de430
+operand with value 0x55668057b430
 expr from logic expr
-0x56526e2de260<0x56526e2de430: 0x56526e2de4e0
-operand_literal: 0x56526e2de4e0
+0x55668057b260<0x55668057b430: 0x55668057b4e0
+operand_literal: 0x55668057b4e0
 operand_variable: 
 normal b -100
 operand_variable: 
 normal a 3
-operand with value 0x56526e2de5a0
+operand with value 0x55668057b5a0
 expr from logic expr
 operand_variable: 
 normal c 50
-operand with value 0x56526e2de790
+operand with value 0x55668057b790
 expr from logic expr
-0x56526e2de5a0>0x56526e2de790: 0x56526e2de840
-operand_literal: 0x56526e2de840
+0x55668057b5a0>0x55668057b790: 0x55668057b840
+operand_literal: 0x55668057b840
 left_assignment
 right_assignment
 operand_variable: 
 normal b 0
-operand_literal: 0x56526e2dec80
+operand_literal: 0x55668057bc80
 left_assignment
 operand_variable: 
 normal c 50
 operand_variable: 
 normal a 3
-operand with value 0x56526e2df000
+operand with value 0x55668057c000
 expr from logic expr
 operand_variable: 
 normal c 50
-operand with value 0x56526e2df0e0
+operand with value 0x55668057c0e0
 expr from logic expr
 operand_variable: 
 normal b -100
-operand with value 0x56526e2df1c0
+operand with value 0x55668057c1c0
 expr from logic expr
-0x56526e2df0e0>0x56526e2df1c0: 0x56526e2df270
-0x56526e2df000>=0x56526e2df270: 0x56526e2df310
-operand_literal: 0x56526e2df310
+0x55668057c0e0>0x55668057c1c0: 0x55668057c270
+0x55668057c000>=0x55668057c270: 0x55668057c310
+operand_literal: 0x55668057c310
 operand_variable: 
 normal d 140
 operand_literal: 3
-operand with value 0x56526e2df3f0
+operand with value 0x55668057c3f0
 operand_variable: 
 normal d 140
-operand with value 0x56526e2df5b0
-product of two expressions with value 0x56526e2df660
+operand with value 0x55668057c5b0
+product of two expressions with value 0x55668057c660
 expr from logic expr
 operand_variable: 
 normal a 3
-operand with value 0x56526e2df700
+operand with value 0x55668057c700
 expr from logic expr
-0x56526e2df660<0x56526e2df700: 0x56526e2df720
-operand_literal: 0x56526e2df720
+0x55668057c660<0x55668057c700: 0x55668057c720
+operand_literal: 0x55668057c720
 left_assignment
 right_assignment
 left_assignment
 operand_variable: 
 normal c 1
-operand_literal: 0x56526e2dfba0
+operand_literal: 0x55668057cba0
 left_assignment
 operand_variable: 
 normal d 0
-operand_literal: 0x56526e2e0050
+operand_literal: 0x55668057d050
 left_assignment
 operand_variable: 
 normal a 3
 operand_variable: 
 normal c 50
-operand with value 0x56526e2e03b0
+operand with value 0x55668057d3b0
 expr from logic expr
 operand_variable: 
 normal d 140
-operand with value 0x56526e2e0490
+operand with value 0x55668057d490
 expr from logic expr
-0x56526e2e03b0<0x56526e2e0490: 0x56526e2e0540
-operand_literal: 0x56526e2e0540
+0x55668057d3b0<0x55668057d490: 0x55668057d540
+operand_literal: 0x55668057d540
 operand_variable: 
 normal b -100
 left_assignment
@@ -1157,131 +1157,131 @@ var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 12
-operand with value 0x56526e2dc610
+operand with value 0x556680579610
 All vars from init queue were intialized
 operand_variable: 
 normal a 12
-operand_literal: 0x56526e2dca90
+operand_literal: 0x556680579a90
 left_assignment
 operand_variable: 
 normal b 12
-operand_literal: 0x56526e2dcdc0
+operand_literal: 0x556680579dc0
 left_assignment
 operand_variable: 
 normal c 12
-operand_literal: 0x56526e2dd0f0
+operand_literal: 0x55668057a0f0
 left_assignment
 operand_variable: 
 normal d 12
-operand_literal: 0x56526e2e1b10
+operand_literal: 0x55668057eb10
 left_assignment
 operand_variable: 
 normal a 3
-operand with value 0x56526e2e1db0
+operand with value 0x55668057edb0
 operand_variable: 
 normal b -10
-operand with value 0x56526e2e1e90
-sum of two expressions with value 0x56526e2e1f40
-expression in brackets with value 0x56526e2e1f40
+operand with value 0x55668057ee90
+sum of two expressions with value 0x55668057ef40
+expression in brackets with value 0x55668057ef40
 operand_variable: 
 normal c 5
-operand with value 0x56526e2e1fe0
-product of two expressions with value 0x56526e2e2000
-operand_literal: 0x56526e2e2000
+operand with value 0x55668057efe0
+product of two expressions with value 0x55668057f000
+operand_literal: 0x55668057f000
 operand_variable: 
 normal d 14
 operand_variable: 
 normal d 14
-operand with value 0x56526e2e21a0
+operand with value 0x55668057f1a0
 operand_variable: 
 normal a 3
-operand with value 0x56526e2e2390
-product of two expressions with value 0x56526e2e2440
+operand with value 0x55668057f390
+product of two expressions with value 0x55668057f440
 operand_variable: 
 normal b -10
-operand with value 0x56526e2e24e0
-sum of two expressions with value 0x56526e2e2500
+operand with value 0x55668057f4e0
+sum of two expressions with value 0x55668057f500
 left_assignment
 right_assignment
 operand_variable: 
 normal d -115
-operand_literal: 0x56526e2e2880
+operand_literal: 0x55668057f880
 left_assignment
 operand_variable: 
 normal d 14
 operand_variable: 
 normal b -10
-operand with value 0x56526e2e0b40
+operand with value 0x55668057db40
 operand_variable: 
 normal d 14
-operand with value 0x56526e2e0c20
+operand with value 0x55668057dc20
 operand_variable: 
 normal a 3
-operand with value 0x56526e2e0d00
+operand with value 0x55668057dd00
 operand_literal: 4
-operand with value 0x56526e2e0db0
-sum of two expressions with value 0x56526e2e0e60
-expression in brackets with value 0x56526e2e0e60
-division of two expressions with value 0x56526e2e0f00
-expression in brackets with value 0x56526e2e0f00
-division of two expressions with value 0x56526e2e0f20
+operand with value 0x55668057ddb0
+sum of two expressions with value 0x55668057de60
+expression in brackets with value 0x55668057de60
+division of two expressions with value 0x55668057df00
+expression in brackets with value 0x55668057df00
+division of two expressions with value 0x55668057df20
 operand_variable: 
 normal c 5
-operand with value 0x56526e2e0fe0
-sum of two expressions with value 0x56526e2e10a0
-operand_literal: 0x56526e2e10a0
+operand with value 0x55668057dfe0
+sum of two expressions with value 0x55668057e0a0
+operand_literal: 0x55668057e0a0
 operand_variable: 
 normal a 3
 operand_variable: 
 normal d 14
-operand with value 0x56526e2e1240
+operand with value 0x55668057e240
 operand_variable: 
 normal a 3
-operand with value 0x56526e2e1430
-division of two expressions with value 0x56526e2e14e0
+operand with value 0x55668057e430
+division of two expressions with value 0x55668057e4e0
 left_assignment
 right_assignment
 left_assignment
 operand_variable: 
 normal a 1023
-operand_literal: 0x56526e2e19f0
+operand_literal: 0x55668057e9f0
 left_assignment
 operand_variable: 
 normal d 0
-operand_literal: 0x56526e2e3f70
+operand_literal: 0x556680580f70
 left_assignment
 operand_variable: 
 normal a 3
-operand with value 0x56526e2e4100
+operand with value 0x556680581100
 operand_variable: 
 normal b -10
-operand with value 0x56526e2e2d90
-sum of two expressions with value 0x56526e2e2e40
+operand with value 0x55668057fd90
+sum of two expressions with value 0x55668057fe40
 operand_variable: 
 normal a 3
-operand with value 0x56526e2e2ee0
+operand with value 0x55668057fee0
 operand_variable: 
 normal d 14
-operand with value 0x56526e2e2f00
+operand with value 0x55668057ff00
 operand_variable: 
 normal c 5
-operand with value 0x56526e2e30f0
-division of two expressions with value 0x56526e2e31a0
-expression in brackets with value 0x56526e2e31a0
-product of two expressions with value 0x56526e2e3240
-difference between two expressions with value 0x56526e2e3260
-expression in brackets with value 0x56526e2e3260
-operand_literal: 0x56526e2e3260
+operand with value 0x5566805800f0
+division of two expressions with value 0x5566805801a0
+expression in brackets with value 0x5566805801a0
+product of two expressions with value 0x556680580240
+difference between two expressions with value 0x556680580260
+expression in brackets with value 0x556680580260
+operand_literal: 0x556680580260
 operand_variable: 
 normal c 5
 operand_variable: 
 normal d 14
-operand with value 0x56526e2e33e0
+operand with value 0x5566805803e0
 operand_variable: 
 normal b -10
-operand with value 0x56526e2e35d0
-product of two expressions with value 0x56526e2e3680
-operand_literal: 0x56526e2e3680
+operand with value 0x5566805805d0
+product of two expressions with value 0x556680580680
+operand_literal: 0x556680580680
 operand_variable: 
 normal a 3
 operand_variable: 
@@ -1292,29 +1292,29 @@ left_assignment
 right_assignment
 var apushed to init queue.
 operand_literal: 3
-operand with value 0x56526e2d3fe0
+operand with value 0x556680570fe0
 All vars from init queue were intialized
 operand_literal: 2
-operand with value 0x56526e2dd480
-operand with value 0x56526e2da160
-product of two expressions with value 0x56526e2e5680
+operand with value 0x55668057a480
+operand with value 0x556680577160
+product of two expressions with value 0x556680582680
 expr from logic expr
-operand with value 0x56526e2e5720
+operand with value 0x556680582720
 expr from logic expr
-0x56526e2e5680>0x56526e2e5720: 0x56526e2e5740
+0x556680582680>0x556680582720: 0x556680582740
 left_assignment
 operand_literal: 2
-operand with value 0x56526e2e4200
+operand with value 0x556680581200
 operand_variable: 
 small a -3
-operand with value 0x56526e2e42b0
-product of two expressions with value 0x56526e2e4360
+operand with value 0x5566805812b0
+product of two expressions with value 0x556680581360
 expr from logic expr
 operand_variable: 
 small a -3
-operand with value 0x56526e2e4400
+operand with value 0x556680581400
 expr from logic expr
-0x56526e2e4360>0x56526e2e4400: 0x56526e2e4420
+0x556680581360>0x556680581400: 0x556680581420
 operand_variable: 
 small a -3
 operand_variable: 
@@ -1324,104 +1324,104 @@ var dpushed to init queue.
 var cpushed to init queue.
 var bpushed to init queue.
 operand_literal: 256
-operand with value 0x56526e2e4eb0
+operand with value 0x556680581eb0
 All vars from init queue were intialized
 operand_variable: 
 normal b 256
-operand_literal: 0x56526e2e6fd0
+operand_literal: 0x556680583fd0
 left_assignment
 operand_variable: 
 normal c 256
-operand_literal: 0x56526e2e7300
+operand_literal: 0x556680584300
 left_assignment
 operand_variable: 
 normal b 255
-operand with value 0x56526e2e7490
+operand with value 0x556680584490
 expr from logic expr
 operand_variable: 
 normal d 256
-operand with value 0x56526e2e5fa0
+operand with value 0x556680582fa0
 expr from logic expr
-0x56526e2e7490<0x56526e2e5fa0: 0x56526e2e6050
+0x556680584490<0x556680582fa0: 0x556680583050
 operand_variable: 
 normal b 255
-operand with value 0x56526e2e60f0
+operand with value 0x5566805830f0
 expr from logic expr
 operand_variable: 
 normal c 254
-operand with value 0x56526e2e6110
+operand with value 0x556680583110
 expr from logic expr
-0x56526e2e60f0>0x56526e2e6110: 0x56526e2e62d0
+0x5566805830f0>0x556680583110: 0x5566805832d0
 operand_variable: 
 normal c 254
-operand_literal: 0x56526e2e6390
+operand_literal: 0x556680583390
 left_assignment
 operand_variable: 
 normal c 0
-operand with value 0x56526e2e69c0
+operand with value 0x5566805839c0
 expr from logic expr
 operand_variable: 
 normal b 255
-operand_literal: 0x56526e2e6b50
+operand_literal: 0x556680583b50
 left_assignment
 operand_variable: 
 normal c 0
-operand with value 0x56526e2e8630
+operand with value 0x556680585630
 operand_variable: 
 normal b 255
-operand with value 0x56526e2e8710
-product of two expressions with value 0x56526e2e87c0
+operand with value 0x556680585710
+product of two expressions with value 0x5566805857c0
 operand_variable: 
 normal d 256
-operand with value 0x56526e2e8860
-sum of two expressions with value 0x56526e2e8880
+operand with value 0x556680585860
+sum of two expressions with value 0x556680585880
 expr from logic expr
 operand_variable: 
 normal c 0
-operand_literal: 0x56526e2e8a20
+operand_literal: 0x556680585a20
 left_assignment
 operand_variable: 
 normal c 1
-operand with value 0x56526e2e69a0
+operand with value 0x5566805839a0
 operand_variable: 
 normal b 255
-operand with value 0x56526e2e76a0
-product of two expressions with value 0x56526e2e7750
+operand with value 0x5566805846a0
+product of two expressions with value 0x556680584750
 operand_variable: 
 normal d 256
-operand with value 0x56526e2e77f0
-sum of two expressions with value 0x56526e2e7810
+operand with value 0x5566805847f0
+sum of two expressions with value 0x556680584810
 expr from logic expr
 operand_variable: 
 normal c 1
-operand with value 0x56526e2e7990
+operand with value 0x556680584990
 operand_variable: 
 small a -3
-operand with value 0x56526e2e79b0
-difference between two expressions with value 0x56526e2e7b70
+operand with value 0x5566805849b0
+difference between two expressions with value 0x556680584b70
 expr from logic expr
 operand_variable: 
 normal c 1
-operand with value 0x56526e2e7c10
+operand with value 0x556680584c10
 operand_literal: 1
-operand with value 0x56526e2e7c30
-difference between two expressions with value 0x56526e2e7dc0
+operand with value 0x556680584c30
+difference between two expressions with value 0x556680584dc0
 expr from logic expr
 operand_variable: 
 normal c 1
-operand_literal: 0x56526e2e7e80
+operand_literal: 0x556680584e80
 left_assignment
 operand_variable: 
 normal c 1
-operand with value 0x56526e2e9f80
+operand with value 0x556680586f80
 operand_variable: 
 normal b 255
-operand with value 0x56526e2ea060
-product of two expressions with value 0x56526e2ea110
+operand with value 0x556680587060
+product of two expressions with value 0x556680587110
 operand_variable: 
 normal d 256
-operand with value 0x56526e2ea1b0
-sum of two expressions with value 0x56526e2ea1d0
+operand with value 0x5566805871b0
+sum of two expressions with value 0x5566805871d0
 expr from logic expr
 operand_variable: 
 small a -3
@@ -1430,38 +1430,38 @@ normal c 1
 left_assignment
 operand_variable: 
 normal c 1
-operand with value 0x56526e2ea530
+operand with value 0x556680587530
 operand_variable: 
 small a -3
-operand with value 0x56526e2ea610
-difference between two expressions with value 0x56526e2ea7f0
+operand with value 0x556680587610
+difference between two expressions with value 0x5566805877f0
 expr from logic expr
 operand_variable: 
 small a -3
-operand_literal: 0x56526e2ea8b0
+operand_literal: 0x5566805878b0
 left_assignment
 operand_variable: 
 normal c 1
-operand with value 0x56526e2eaa40
+operand with value 0x556680587a40
 operand_literal: 1
-operand with value 0x56526e2eab20
-difference between two expressions with value 0x56526e2eacd0
+operand with value 0x556680587b20
+difference between two expressions with value 0x556680587cd0
 expr from logic expr
 operand_variable: 
 normal c 1
-operand_literal: 0x56526e2ead90
+operand_literal: 0x556680587d90
 left_assignment
 operand_variable: 
 normal c 1
-operand with value 0x56526e2eb680
+operand with value 0x556680588680
 operand_variable: 
 normal b 255
-operand with value 0x56526e2eb760
-product of two expressions with value 0x56526e2eb810
+operand with value 0x556680588760
+product of two expressions with value 0x556680588810
 operand_variable: 
 normal d 256
-operand with value 0x56526e2eb8b0
-sum of two expressions with value 0x56526e2eb8d0
+operand with value 0x5566805888b0
+sum of two expressions with value 0x5566805888d0
 expr from logic expr
 operand_variable: 
 small a 1
@@ -1470,369 +1470,369 @@ normal c 1
 left_assignment
 operand_variable: 
 normal c 1
-operand with value 0x56526e2ebc30
+operand with value 0x556680588c30
 operand_variable: 
 small a 1
-operand with value 0x56526e2ebd10
-difference between two expressions with value 0x56526e2ebef0
+operand with value 0x556680588d10
+difference between two expressions with value 0x556680588ef0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2ebf90
+operand with value 0x556680588f90
 expr from logic expr
-0x56526e2ebef0<=0x56526e2ebf90: 0x56526e2ebfb0
+0x556680588ef0<=0x556680588f90: 0x556680588fb0
 operand_variable: 
 small a 1
-operand_literal: 0x56526e2ec120
+operand_literal: 0x556680589120
 left_assignment
 operand_variable: 
 normal c 1
-operand with value 0x56526e2ec2b0
+operand with value 0x5566805892b0
 operand_literal: 1
-operand with value 0x56526e2ec390
-difference between two expressions with value 0x56526e2ec540
+operand with value 0x556680589390
+difference between two expressions with value 0x556680589540
 expr from logic expr
 operand_variable: 
 normal c 1
-operand_literal: 0x56526e2ec600
+operand_literal: 0x556680589600
 left_assignment
 operand_variable: 
 normal c 1
-operand with value 0x56526e2e8f20
+operand with value 0x556680585f20
 operand_variable: 
 normal d 256
-operand with value 0x56526e2e9000
-product of two expressions with value 0x56526e2e90b0
+operand with value 0x556680586000
+product of two expressions with value 0x5566805860b0
 operand_variable: 
 small a 8
-operand with value 0x56526e2e9150
-sum of two expressions with value 0x56526e2e9170
+operand with value 0x556680586150
+sum of two expressions with value 0x556680586170
 operand_variable: 
 normal b 255
-operand with value 0x56526e2e92f0
-difference between two expressions with value 0x56526e2e9310
+operand with value 0x5566805862f0
+difference between two expressions with value 0x556680586310
 operand_variable: 
 normal c 1
-operand with value 0x56526e2e9490
-sum of two expressions with value 0x56526e2e94b0
+operand with value 0x556680586490
+sum of two expressions with value 0x5566805864b0
 expr from logic expr
 operand_variable: 
 normal d 256
-operand with value 0x56526e2e9630
+operand with value 0x556680586630
 expr from logic expr
-operand with value 0x56526e2e9650
+operand with value 0x556680586650
 operand_literal: 4
-operand with value 0x56526e2e9840
-product of two expressions with value 0x56526e2e98c0
+operand with value 0x556680586840
+product of two expressions with value 0x5566805868c0
 expr from logic expr
-0x56526e2e9630>=0x56526e2e98c0: 0x56526e2e9960
-0x56526e2e94b0<0x56526e2e9960: 0x56526e2e9980
+0x556680586630>=0x5566805868c0: 0x556680586960
+0x5566805864b0<0x556680586960: 0x556680586980
 operand_variable: 
 small a 8
-operand_literal: 0x56526e2e9b00
+operand_literal: 0x556680586b00
 left_assignment
 operand_literal: 0
-operand with value 0x56526e2ecee0
+operand with value 0x556680589ee0
 expr from logic expr
 operand_variable: 
 small a 8
-operand_literal: 0x56526e2ed010
+operand_literal: 0x55668058a010
 left_assignment
 operand_literal: 1
 expr from logic expr
 operand_variable: 
 small a 8
-operand_literal: 0x56526e2ed4a0
+operand_literal: 0x55668058a4a0
 left_assignment
 var dpushed to init queue.
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 256
-operand with value 0x56526e2edc60
+operand with value 0x55668058ac60
 All vars from init queue were intialized
 var kpushed to init queue.
 operand_literal: 1
-operand with value 0x56526e2ef2d0
+operand with value 0x55668058c2d0
 All vars from init queue were intialized
 operand_variable: 
 normal a 256
-operand with value 0x56526e2ee110
+operand with value 0x55668058b110
 expr from logic expr
 operand_literal: 2
-operand with value 0x56526e2ee1c0
+operand with value 0x55668058b1c0
 expr from logic expr
-0x56526e2ee110<0x56526e2ee1c0: 0x56526e2ee270
+0x55668058b110<0x55668058b1c0: 0x55668058b270
 operand_variable: 
 normal a 256
 operand_variable: 
 normal a 256
-operand with value 0x56526e2ee330
+operand with value 0x55668058b330
 operand_literal: 2
-operand with value 0x56526e2ee4f0
-division of two expressions with value 0x56526e2ee5a0
+operand with value 0x55668058b4f0
+division of two expressions with value 0x55668058b5a0
 left_assignment
 operand_variable: 
 normal k 1
 operand_literal: 1
-operand with value 0x56526e2ee740
+operand with value 0x55668058b740
 operand_variable: 
 normal k 1
-operand with value 0x56526e2ee920
-sum of two expressions with value 0x56526e2ee9d0
-expression in brackets with value 0x56526e2ee9d0
+operand with value 0x55668058b920
+sum of two expressions with value 0x55668058b9d0
+expression in brackets with value 0x55668058b9d0
 left_assignment
 operand_variable: 
 normal k 9
-operand with value 0x56526e2eee70
+operand with value 0x55668058be70
 expr from logic expr
 operand_literal: 1
-operand with value 0x56526e2eef20
+operand with value 0x55668058bf20
 expr from logic expr
-0x56526e2eee70<=0x56526e2eef20: 0x56526e2eefd0
+0x55668058be70<=0x55668058bf20: 0x55668058bfd0
 operand_variable: 
 normal a 1
 operand_variable: 
 normal a 1
-operand with value 0x56526e2f0680
+operand with value 0x55668058d680
 operand_literal: 2
-operand with value 0x56526e2f0730
-product of two expressions with value 0x56526e2f07e0
+operand with value 0x55668058d730
+product of two expressions with value 0x55668058d7e0
 left_assignment
 operand_variable: 
 normal k 9
 operand_variable: 
 normal k 9
-operand with value 0x56526e2f0980
+operand with value 0x55668058d980
 operand_literal: 1
-operand with value 0x56526e2f0b60
-difference between two expressions with value 0x56526e2f0c10
-expression in brackets with value 0x56526e2f0c10
+operand with value 0x55668058db60
+difference between two expressions with value 0x55668058dc10
+expression in brackets with value 0x55668058dc10
 left_assignment
 operand_literal: 1
-operand with value 0x56526e2ef5b0
+operand with value 0x55668058c5b0
 expr from logic expr
 operand_variable: 
 normal a 256
-operand_literal: 0x56526e2ef710
+operand_literal: 0x55668058c710
 left_assignment
 operand_variable: 
 normal b 256
-operand_literal: 0x56526e2efb90
+operand_literal: 0x55668058cb90
 left_assignment
 operand_variable: 
 normal c 256
-operand_literal: 0x56526e2efec0
+operand_literal: 0x55668058cec0
 left_assignment
 operand_variable: 
 normal d 256
-operand_literal: 0x56526e2f01f0
+operand_literal: 0x55668058d1f0
 left_assignment
 operand_variable: 
 normal a 256
-operand_literal: 0x56526e2f0520
+operand_literal: 0x55668058d520
 left_assignment
 operand_variable: 
 normal a 0
-operand with value 0x56526e2f21a0
+operand with value 0x55668058f1a0
 operand_variable: 
 normal b 3
-operand with value 0x56526e2f11a0
+operand with value 0x55668058e1a0
 operand_variable: 
 normal c 5
-operand with value 0x56526e2f1280
+operand with value 0x55668058e280
 operand_variable: 
 normal d 10
-operand with value 0x56526e2f1360
-division of two expressions with value 0x56526e2f1410
-expression in brackets with value 0x56526e2f1410
-product of two expressions with value 0x56526e2f14b0
-sum of two expressions with value 0x56526e2f14d0
+operand with value 0x55668058e360
+division of two expressions with value 0x55668058e410
+expression in brackets with value 0x55668058e410
+product of two expressions with value 0x55668058e4b0
+sum of two expressions with value 0x55668058e4d0
 expr from logic expr
 operand_variable: 
 normal a 0
 operand_variable: 
 normal b 3
-operand with value 0x56526e2f1650
+operand with value 0x55668058e650
 operand_variable: 
 normal c 5
-operand with value 0x56526e2f1840
-product of two expressions with value 0x56526e2f18f0
-expression in brackets with value 0x56526e2f18f0
+operand with value 0x55668058e840
+product of two expressions with value 0x55668058e8f0
+expression in brackets with value 0x55668058e8f0
 operand_variable: 
 normal d 10
-operand with value 0x56526e2f1990
-division of two expressions with value 0x56526e2f19b0
+operand with value 0x55668058e990
+division of two expressions with value 0x55668058e9b0
 left_assignment
 operand_variable: 
 normal a 1
-operand_literal: 0x56526e2f1f10
+operand_literal: 0x55668058ef10
 left_assignment
 operand_variable: 
 normal b 3
-operand_literal: 0x56526e2f3440
+operand_literal: 0x556680590440
 left_assignment
 operand_variable: 
 normal k 1
-operand_literal: 0x56526e2f3770
+operand_literal: 0x556680590770
 left_assignment
 operand_variable: 
 normal a 0
-operand with value 0x56526e2f3900
+operand with value 0x556680590900
 operand_variable: 
 normal b 1023
-operand with value 0x56526e2f23a0
-division of two expressions with value 0x56526e2f2450
+operand with value 0x55668058f3a0
+division of two expressions with value 0x55668058f450
 expr from logic expr
 operand_variable: 
 normal k 0
 operand_variable: 
 normal k 0
-operand with value 0x56526e2f2510
+operand with value 0x55668058f510
 operand_literal: 1
-operand with value 0x56526e2f26d0
-sum of two expressions with value 0x56526e2f2780
-expression in brackets with value 0x56526e2f2780
+operand with value 0x55668058f6d0
+sum of two expressions with value 0x55668058f780
+expression in brackets with value 0x55668058f780
 left_assignment
 operand_variable: 
 normal b 1023
 operand_variable: 
 normal b 1023
-operand with value 0x56526e2f2920
+operand with value 0x55668058f920
 operand_literal: 1
-operand with value 0x56526e2f2b00
-difference between two expressions with value 0x56526e2f2bb0
-expression in brackets with value 0x56526e2f2bb0
+operand with value 0x55668058fb00
+difference between two expressions with value 0x55668058fbb0
+expression in brackets with value 0x55668058fbb0
 left_assignment
 operand_variable: 
 normal a 0
-operand with value 0x56526e2f3040
+operand with value 0x556680590040
 expr from logic expr
 operand_variable: 
 normal a 0
-operand_literal: 0x56526e2f31d0
+operand_literal: 0x5566805901d0
 left_assignment
-operand with value 0x56526e2f4d30
+operand with value 0x556680591d30
 expr from logic expr
 operand_variable: 
 normal a 1
-operand_literal: 0x56526e2f4f00
+operand_literal: 0x556680591f00
 left_assignment
 operand_variable: 
 normal a 1
-operand_literal: 0x56526e2f5420
+operand_literal: 0x556680592420
 left_assignment
 operand_variable: 
 normal b 0
-operand_literal: 0x56526e2f56b0
+operand_literal: 0x5566805926b0
 left_assignment
 operand_variable: 
 normal c 5
-operand_literal: 0x56526e2f59e0
+operand_literal: 0x5566805929e0
 left_assignment
 operand_variable: 
 normal k 1023
-operand_literal: 0x56526e2f5d10
+operand_literal: 0x556680592d10
 left_assignment
 operand_variable: 
 normal a 5
-operand with value 0x56526e2f5ea0
+operand with value 0x556680592ea0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2f6040
+operand with value 0x556680593040
 expr from logic expr
-0x56526e2f5ea0<=0x56526e2f6040: 0x56526e2f60f0
+0x556680592ea0<=0x556680593040: 0x5566805930f0
 operand_variable: 
 normal b 5
-operand_literal: 0x56526e2f61b0
+operand_literal: 0x5566805931b0
 left_assignment
 operand_variable: 
 normal b 5
-operand with value 0x56526e2f6340
+operand with value 0x556680593340
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2f6420
+operand with value 0x556680593420
 expr from logic expr
-0x56526e2f6340<=0x56526e2f6420: 0x56526e2f65d0
+0x556680593340<=0x556680593420: 0x5566805935d0
 operand_variable: 
 normal c 5
-operand_literal: 0x56526e2f6690
+operand_literal: 0x556680593690
 left_assignment
 operand_variable: 
 normal c 5
-operand with value 0x56526e2f6820
+operand with value 0x556680593820
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2f6900
+operand with value 0x556680593900
 expr from logic expr
-0x56526e2f6820<=0x56526e2f6900: 0x56526e2f6ab0
+0x556680593820<=0x556680593900: 0x556680593ab0
 operand_variable: 
 normal k 0
 operand_variable: 
 normal k 0
-operand with value 0x56526e2f6b70
+operand with value 0x556680593b70
 operand_literal: 1
-operand with value 0x56526e2f6d30
-sum of two expressions with value 0x56526e2f6de0
-expression in brackets with value 0x56526e2f6de0
+operand with value 0x556680593d30
+sum of two expressions with value 0x556680593de0
+expression in brackets with value 0x556680593de0
 left_assignment
 operand_variable: 
 normal c 5
 operand_variable: 
 normal c 5
-operand with value 0x56526e2f6f80
+operand with value 0x556680593f80
 operand_literal: 1
-operand with value 0x56526e2f7160
-difference between two expressions with value 0x56526e2f7210
-expression in brackets with value 0x56526e2f7210
+operand with value 0x556680594160
+difference between two expressions with value 0x556680594210
+expression in brackets with value 0x556680594210
 left_assignment
 operand_variable: 
 normal b 5
 operand_variable: 
 normal b 5
-operand with value 0x56526e2f76f0
+operand with value 0x5566805946f0
 operand_literal: 1
-operand with value 0x56526e2f77a0
-difference between two expressions with value 0x56526e2f7850
-expression in brackets with value 0x56526e2f7850
+operand with value 0x5566805947a0
+difference between two expressions with value 0x556680594850
+expression in brackets with value 0x556680594850
 left_assignment
 operand_variable: 
 normal a 5
 operand_variable: 
 normal a 5
-operand with value 0x56526e2f7dd0
+operand with value 0x556680594dd0
 operand_literal: 1
-operand with value 0x56526e2f7e80
-difference between two expressions with value 0x56526e2f7f30
-expression in brackets with value 0x56526e2f7f30
+operand with value 0x556680594e80
+difference between two expressions with value 0x556680594f30
+expression in brackets with value 0x556680594f30
 left_assignment
 var resultpushed to init queue.
 var k2pushed to init queue.
 var k1pushed to init queue.
 operand_literal: 1
-operand with value 0x56526e2f3d70
+operand with value 0x556680590d70
 All vars from init queue were intialized
 operand_variable: 
 normal a 0
-operand_literal: 0x56526e2f41e0
+operand_literal: 0x5566805911e0
 left_assignment
 operand_variable: 
 normal a 5
-operand with value 0x56526e2f4370
+operand with value 0x556680591370
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2f4510
+operand with value 0x556680591510
 expr from logic expr
-0x56526e2f4370<=0x56526e2f4510: 0x56526e2f45c0
+0x556680591370<=0x556680591510: 0x5566805915c0
 operand_variable: 
 normal result 1
 operand_variable: 
 normal k1 1
-operand with value 0x56526e2f4680
+operand with value 0x556680591680
 operand_variable: 
 normal k2 1
-operand with value 0x56526e2f4870
-sum of two expressions with value 0x56526e2f4920
-expression in brackets with value 0x56526e2f4920
+operand with value 0x556680591870
+sum of two expressions with value 0x556680591920
+expression in brackets with value 0x556680591920
 left_assignment
 operand_variable: 
 normal k1 1
@@ -1848,453 +1848,453 @@ operand_variable:
 normal a 5
 operand_variable: 
 normal a 5
-operand with value 0x56526e2f9aa0
+operand with value 0x556680596aa0
 operand_literal: 1
-operand with value 0x56526e2f9c80
-difference between two expressions with value 0x56526e2f9d30
-expression in brackets with value 0x56526e2f9d30
+operand with value 0x556680596c80
+difference between two expressions with value 0x556680596d30
+expression in brackets with value 0x556680596d30
 left_assignment
 var dpushed to init queue.
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 625
-operand with value 0x56526e2f8890
+operand with value 0x556680595890
 All vars from init queue were intialized
 var conditionpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e2f8bf0
+operand with value 0x556680595bf0
 All vars from init queue were intialized
 operand_variable: 
 tiny condition 0
-operand with value 0x56526e2e3c60
+operand with value 0x556680580c60
 expr from logic expr
 operand_variable: 
 normal a 625
 operand_variable: 
 normal a 625
-operand with value 0x56526e2f9080
+operand with value 0x556680596080
 operand_literal: 5
-operand with value 0x56526e2f9130
-division of two expressions with value 0x56526e2f91e0
+operand with value 0x556680596130
+division of two expressions with value 0x5566805961e0
 left_assignment
 operand_variable: 
 normal a 625
-operand with value 0x56526e2f9280
+operand with value 0x556680596280
 expr from logic expr
 operand_literal: 5
-operand with value 0x56526e2f9380
+operand with value 0x556680596380
 expr from logic expr
-0x56526e2f9280<=0x56526e2f9380: 0x56526e2fb3e0
+0x556680596280<=0x556680596380: 0x5566805983e0
 operand_variable: 
 tiny condition 0
-operand_literal: 0x56526e2fb4a0
+operand_literal: 0x5566805984a0
 left_assignment
 operand_variable: 
 tiny condition 1
-operand_literal: 0x56526e2fbc30
+operand_literal: 0x556680598c30
 left_assignment
 var conpushed to init queue.
 operand_literal: 4
-operand with value 0x56526e2fbfa0
+operand with value 0x556680598fa0
 All vars from init queue were intialized
 operand_variable: 
 tiny condition 0
-operand with value 0x56526e2fa390
+operand with value 0x556680597390
 expr from logic expr
 operand_variable: 
 small con 4
-operand with value 0x56526e2fa470
+operand with value 0x556680597470
 expr from logic expr
 operand_variable: 
 small con 4
 operand_variable: 
 small con 4
-operand with value 0x56526e2fa630
+operand with value 0x556680597630
 operand_literal: 1
-operand with value 0x56526e2fa6e0
-difference between two expressions with value 0x56526e2fa790
-expression in brackets with value 0x56526e2fa790
+operand with value 0x5566805976e0
+difference between two expressions with value 0x556680597790
+expression in brackets with value 0x556680597790
 left_assignment
 operand_variable: 
 small con 4
-operand with value 0x56526e2faaf0
+operand with value 0x556680597af0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2faba0
+operand with value 0x556680597ba0
 expr from logic expr
-0x56526e2faaf0<=0x56526e2faba0: 0x56526e2fac50
+0x556680597af0<=0x556680597ba0: 0x556680597c50
 operand_variable: 
 tiny condition 0
-operand_literal: 0x56526e2fad10
+operand_literal: 0x556680597d10
 left_assignment
-operand_literal: 0x56526e2fb110
+operand_literal: 0x556680598110
 operand_variable: 
 small con 4
 operand_variable: 
 tiny condition 0
-operand_literal: 0x56526e2fd520
+operand_literal: 0x55668059a520
 operand_variable: 
 normal a 5
-operand_literal: 0x56526e2fdcc0
+operand_literal: 0x55668059acc0
 left_assignment
 operand_variable: 
 normal b 625
-operand_literal: 0x56526e2fdf70
+operand_literal: 0x55668059af70
 left_assignment
 var kpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e2fe2e0
+operand with value 0x55668059b2e0
 All vars from init queue were intialized
 operand_variable: 
 normal a 20
-operand with value 0x56526e2fe5d0
+operand with value 0x55668059b5d0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2fe680
+operand with value 0x55668059b680
 expr from logic expr
-0x56526e2fe5d0<0x56526e2fe680: 0x56526e2fe730
+0x55668059b5d0<0x55668059b680: 0x55668059b730
 operand_variable: 
 normal b 20
-operand_literal: 0x56526e2fe7f0
+operand_literal: 0x55668059b7f0
 left_assignment
 operand_variable: 
 normal b 20
-operand with value 0x56526e2fe980
+operand with value 0x55668059b980
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2fea60
+operand with value 0x55668059ba60
 expr from logic expr
-0x56526e2fe980<0x56526e2fea60: 0x56526e2fec10
+0x55668059b980<0x55668059ba60: 0x55668059bc10
 operand_variable: 
 normal a 20
-operand with value 0x56526e2fecb0
+operand with value 0x55668059bcb0
 expr from logic expr
 operand_variable: 
 normal b 20
-operand with value 0x56526e2fecd0
+operand with value 0x55668059bcd0
 expr from logic expr
-0x56526e2fecb0<=0x56526e2fecd0: 0x56526e2fee90
+0x55668059bcb0<=0x55668059bcd0: 0x55668059be90
 operand_variable: 
 normal a 20
-operand with value 0x56526e2fef30
+operand with value 0x55668059bf30
 expr from logic expr
 operand_variable: 
 normal b 20
-operand with value 0x56526e2fef50
+operand with value 0x55668059bf50
 expr from logic expr
-0x56526e2fef30>=0x56526e2fef50: 0x56526e2ff110
+0x55668059bf30>=0x55668059bf50: 0x55668059c110
 operand_variable: 
 normal k 0
 operand_variable: 
 normal k 0
-operand with value 0x56526e2ff1d0
+operand with value 0x55668059c1d0
 operand_literal: 1
-operand with value 0x56526e2ff390
-sum of two expressions with value 0x56526e2ff440
-expression in brackets with value 0x56526e2ff440
+operand with value 0x55668059c390
+sum of two expressions with value 0x55668059c440
+expression in brackets with value 0x55668059c440
 left_assignment
 operand_variable: 
 normal b 20
 operand_variable: 
 normal b 20
-operand with value 0x56526e2ff9f0
+operand with value 0x55668059c9f0
 operand_literal: 1
-operand with value 0x56526e2ffaa0
-difference between two expressions with value 0x56526e2ffb50
-expression in brackets with value 0x56526e2ffb50
+operand with value 0x55668059caa0
+difference between two expressions with value 0x55668059cb50
+expression in brackets with value 0x55668059cb50
 left_assignment
 operand_variable: 
 normal a 20
 operand_variable: 
 normal a 20
-operand with value 0x56526e300030
+operand with value 0x55668059d030
 operand_literal: 1
-operand with value 0x56526e3000e0
-difference between two expressions with value 0x56526e300190
-expression in brackets with value 0x56526e300190
+operand with value 0x55668059d0e0
+difference between two expressions with value 0x55668059d190
+expression in brackets with value 0x55668059d190
 left_assignment
 operand_variable: 
 normal a -1
-operand_literal: 0x56526e300780
+operand_literal: 0x55668059d780
 left_assignment
 operand_variable: 
 normal b -1
-operand_literal: 0x56526e300ab0
+operand_literal: 0x55668059dab0
 left_assignment
 operand_variable: 
 tiny condition 1
-operand_literal: 0x56526e300de0
+operand_literal: 0x55668059dde0
 left_assignment
 operand_variable: 
 normal k 21
-operand_literal: 0x56526e301110
+operand_literal: 0x55668059e110
 left_assignment
 operand_variable: 
 tiny condition 0
-operand with value 0x56526e3012a0
+operand with value 0x55668059e2a0
 expr from logic expr
 operand_variable: 
 normal b 20
-operand_literal: 0x56526e2fc4b0
+operand_literal: 0x5566805994b0
 left_assignment
 operand_variable: 
 normal b 20
-operand with value 0x56526e2fc560
+operand with value 0x556680599560
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e2fc640
+operand with value 0x556680599640
 expr from logic expr
-0x56526e2fc560<0x56526e2fc640: 0x56526e2fc7f0
+0x556680599560<0x556680599640: 0x5566805997f0
 operand_variable: 
 normal a 20
-operand with value 0x56526e2fc890
+operand with value 0x556680599890
 expr from logic expr
 operand_variable: 
 normal b 20
-operand with value 0x56526e2fc8b0
+operand with value 0x5566805998b0
 expr from logic expr
-0x56526e2fc890<=0x56526e2fc8b0: 0x56526e2fca70
+0x556680599890<=0x5566805998b0: 0x556680599a70
 operand_variable: 
 normal a 20
-operand with value 0x56526e2fcb10
+operand with value 0x556680599b10
 expr from logic expr
 operand_variable: 
 normal b 20
-operand with value 0x56526e2fcb30
+operand with value 0x556680599b30
 expr from logic expr
-0x56526e2fcb10>=0x56526e2fcb30: 0x56526e2fccf0
-operand_literal: 0x56526e2fcd90
+0x556680599b10>=0x556680599b30: 0x556680599cf0
+operand_literal: 0x556680599d90
 operand_variable: 
 normal a 20
 operand_variable: 
 normal b 20
-operand_literal: 0x56526e3023b0
+operand_literal: 0x55668059f3b0
 operand_variable: 
 normal k 0
 operand_variable: 
 normal k 0
-operand with value 0x56526e302600
+operand with value 0x55668059f600
 operand_literal: 1
-operand with value 0x56526e3026b0
-sum of two expressions with value 0x56526e302760
-expression in brackets with value 0x56526e302760
+operand with value 0x55668059f6b0
+sum of two expressions with value 0x55668059f760
+expression in brackets with value 0x55668059f760
 left_assignment
 operand_variable: 
 normal b 20
 operand_variable: 
 normal b 20
-operand with value 0x56526e302f90
+operand with value 0x55668059ff90
 operand_literal: 1
-operand with value 0x56526e303040
-difference between two expressions with value 0x56526e3030f0
-expression in brackets with value 0x56526e3030f0
+operand with value 0x5566805a0040
+difference between two expressions with value 0x5566805a00f0
+expression in brackets with value 0x5566805a00f0
 left_assignment
 operand_variable: 
 normal a 20
 operand_variable: 
 normal a 20
-operand with value 0x56526e3035d0
+operand with value 0x5566805a05d0
 operand_literal: 1
-operand with value 0x56526e303680
-difference between two expressions with value 0x56526e303730
-expression in brackets with value 0x56526e303730
+operand with value 0x5566805a0680
+difference between two expressions with value 0x5566805a0730
+expression in brackets with value 0x5566805a0730
 left_assignment
 operand_variable: 
 normal a 20
-operand with value 0x56526e3037d0
+operand with value 0x5566805a07d0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e3038d0
+operand with value 0x5566805a08d0
 expr from logic expr
-0x56526e3037d0<0x56526e3038d0: 0x56526e303a80
+0x5566805a07d0<0x5566805a08d0: 0x5566805a0a80
 operand_variable: 
 tiny condition 0
-operand_literal: 0x56526e303b40
+operand_literal: 0x5566805a0b40
 left_assignment
 var dpushed to init queue.
 var cpushed to init queue.
 var bpushed to init queue.
 var apushed to init queue.
 operand_literal: 25
-operand with value 0x56526e301630
+operand with value 0x55668059e630
 All vars from init queue were intialized
 var conditionpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e3019e0
+operand with value 0x55668059e9e0
 All vars from init queue were intialized
 operand_variable: 
 normal c 25
-operand_literal: 0x56526e301d60
+operand_literal: 0x55668059ed60
 left_assignment
 operand_variable: 
 normal a 25
-operand_literal: 0x56526e302090
+operand_literal: 0x55668059f090
 left_assignment
 operand_variable: 
 normal a 5
-operand with value 0x56526e302220
+operand with value 0x55668059f220
 expr from logic expr
 operand_literal: 1
-operand with value 0x56526e302370
+operand with value 0x55668059f370
 expr from logic expr
-0x56526e302220>0x56526e302370: 0x56526e305460
+0x55668059f220>0x55668059f370: 0x5566805a2460
 operand_variable: 
 normal a 5
-operand with value 0x56526e305500
+operand with value 0x5566805a2500
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e305520
+operand with value 0x5566805a2520
 expr from logic expr
-0x56526e305500<=0x56526e305520: 0x56526e3056b0
+0x5566805a2500<=0x5566805a2520: 0x5566805a26b0
 operand_variable: 
 normal c 1
 operand_variable: 
 normal c 1
-operand with value 0x56526e305770
+operand with value 0x5566805a2770
 operand_variable: 
 normal a 5
-operand with value 0x56526e305960
-product of two expressions with value 0x56526e305a10
+operand with value 0x5566805a2960
+product of two expressions with value 0x5566805a2a10
 left_assignment
 operand_variable: 
 normal a 5
 operand_variable: 
 normal a 5
-operand with value 0x56526e305bb0
+operand with value 0x5566805a2bb0
 operand_literal: 1
-operand with value 0x56526e305d90
-difference between two expressions with value 0x56526e305e40
-expression in brackets with value 0x56526e305e40
+operand with value 0x5566805a2d90
+difference between two expressions with value 0x5566805a2e40
+expression in brackets with value 0x5566805a2e40
 left_assignment
 var powerpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e304430
+operand with value 0x5566805a1430
 All vars from init queue were intialized
 var divpushed to init queue.
 operand_variable: 
 normal b 25
-operand with value 0x56526e304840
+operand with value 0x5566805a1840
 operand_literal: 2
-operand with value 0x56526e3048f0
-division of two expressions with value 0x56526e3049a0
+operand with value 0x5566805a18f0
+division of two expressions with value 0x5566805a19a0
 All vars from init queue were intialized
 var digitpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e304d70
+operand with value 0x5566805a1d70
 All vars from init queue were intialized
 var respushed to init queue.
 operand_literal: 0
-operand with value 0x56526e305150
+operand with value 0x5566805a2150
 All vars from init queue were intialized
 operand_variable: 
 normal b 25
-operand_literal: 0x56526e3075e0
+operand_literal: 0x5566805a45e0
 left_assignment
 var powpushed to init queue.
 operand_literal: 1
-operand with value 0x56526e307950
+operand with value 0x5566805a4950
 All vars from init queue were intialized
 var orderpushed to init queue.
 operand_literal: 1
-operand with value 0x56526e306560
+operand with value 0x5566805a3560
 All vars from init queue were intialized
 operand_variable: 
 normal b 10
-operand with value 0x56526e306420
+operand with value 0x5566805a3420
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e306a20
+operand with value 0x5566805a3a20
 expr from logic expr
-0x56526e306420<=0x56526e306a20: 0x56526e306ad0
+0x5566805a3420<=0x5566805a3a20: 0x5566805a3ad0
 operand_variable: 
 normal div 12
 operand_variable: 
 normal b 10
-operand with value 0x56526e306b90
+operand with value 0x5566805a3b90
 operand_literal: 2
-operand with value 0x56526e306d50
-division of two expressions with value 0x56526e306e00
+operand with value 0x5566805a3d50
+division of two expressions with value 0x5566805a3e00
 left_assignment
 operand_variable: 
 tiny digit 0
 operand_variable: 
 normal b 10
-operand with value 0x56526e306fa0
+operand with value 0x5566805a3fa0
 operand_literal: 2
-operand with value 0x56526e307180
+operand with value 0x5566805a4180
 operand_variable: 
 normal div 12
-operand with value 0x56526e307260
-product of two expressions with value 0x56526e307310
-difference between two expressions with value 0x56526e3073b0
-expression in brackets with value 0x56526e3073b0
+operand with value 0x5566805a4260
+product of two expressions with value 0x5566805a4310
+difference between two expressions with value 0x5566805a43b0
+expression in brackets with value 0x5566805a43b0
 left_assignment
 operand_variable: 
 normal power 0
-operand with value 0x56526e3073d0
+operand with value 0x5566805a43d0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e308d60
+operand with value 0x5566805a5d60
 expr from logic expr
-0x56526e3073d0<=0x56526e308d60: 0x56526e308f10
+0x5566805a43d0<=0x5566805a5d60: 0x5566805a5f10
 operand_variable: 
 normal power 0
-operand with value 0x56526e308fb0
+operand with value 0x5566805a5fb0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e308fd0
+operand with value 0x5566805a5fd0
 expr from logic expr
-0x56526e308fb0>=0x56526e308fd0: 0x56526e309160
+0x5566805a5fb0>=0x5566805a5fd0: 0x5566805a6160
 operand_variable: 
 normal res 0
 operand_variable: 
 normal res 0
-operand with value 0x56526e309220
+operand with value 0x5566805a6220
 operand_variable: 
 tiny digit 0
-operand with value 0x56526e309410
-sum of two expressions with value 0x56526e3094c0
-expression in brackets with value 0x56526e3094c0
+operand with value 0x5566805a6410
+sum of two expressions with value 0x5566805a64c0
+expression in brackets with value 0x5566805a64c0
 left_assignment
 operand_variable: 
 normal power 0
-operand with value 0x56526e309990
+operand with value 0x5566805a6990
 expr from logic expr
 operand_literal: 1
-operand with value 0x56526e309a40
+operand with value 0x5566805a6a40
 expr from logic expr
-0x56526e309990<=0x56526e309a40: 0x56526e309af0
+0x5566805a6990<=0x5566805a6a40: 0x5566805a6af0
 operand_variable: 
 normal power 0
-operand with value 0x56526e309b90
+operand with value 0x5566805a6b90
 expr from logic expr
 operand_literal: 1
-operand with value 0x56526e309bb0
+operand with value 0x5566805a6bb0
 expr from logic expr
-0x56526e309b90>=0x56526e309bb0: 0x56526e309d40
+0x5566805a6b90>=0x5566805a6bb0: 0x5566805a6d40
 operand_variable: 
 normal res 0
 operand_variable: 
 normal res 0
-operand with value 0x56526e309e00
+operand with value 0x5566805a6e00
 operand_variable: 
 tiny digit 0
-operand with value 0x56526e309ff0
+operand with value 0x5566805a6ff0
 operand_literal: 10
-operand with value 0x56526e30a0a0
-product of two expressions with value 0x56526e30a150
-sum of two expressions with value 0x56526e30a1f0
-expression in brackets with value 0x56526e30a1f0
+operand with value 0x5566805a70a0
+product of two expressions with value 0x5566805a7150
+sum of two expressions with value 0x5566805a71f0
+expression in brackets with value 0x5566805a71f0
 left_assignment
 operand_variable: 
 normal power 0
-operand with value 0x56526e30a6e0
+operand with value 0x5566805a76e0
 expr from logic expr
 operand_literal: 1
-operand with value 0x56526e30a790
+operand with value 0x5566805a7790
 expr from logic expr
-0x56526e30a6e0>0x56526e30a790: 0x56526e30a840
+0x5566805a76e0>0x5566805a7790: 0x5566805a7840
 operand_variable: 
 small order 1
 operand_variable: 
@@ -2302,108 +2302,108 @@ normal power 0
 left_assignment
 operand_variable: 
 small order 1
-operand with value 0x56526e30aac0
+operand with value 0x5566805a7ac0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e30aba0
+operand with value 0x5566805a7ba0
 expr from logic expr
-0x56526e30aac0<=0x56526e30aba0: 0x56526e30ad50
+0x5566805a7ac0<=0x5566805a7ba0: 0x5566805a7d50
 operand_variable: 
 big pow 1
 operand_variable: 
 big pow 1
-operand with value 0x56526e30ae10
+operand with value 0x5566805a7e10
 operand_literal: 10
-operand with value 0x56526e30afd0
-product of two expressions with value 0x56526e30b080
-expression in brackets with value 0x56526e30b080
+operand with value 0x5566805a7fd0
+product of two expressions with value 0x5566805a8080
+expression in brackets with value 0x5566805a8080
 left_assignment
 operand_variable: 
 small order 1
 operand_variable: 
 small order 1
-operand with value 0x56526e30b220
+operand with value 0x5566805a8220
 operand_literal: 1
-operand with value 0x56526e30b400
-difference between two expressions with value 0x56526e30b4b0
-expression in brackets with value 0x56526e30b4b0
+operand with value 0x5566805a8400
+difference between two expressions with value 0x5566805a84b0
+expression in brackets with value 0x5566805a84b0
 left_assignment
 operand_variable: 
 normal res 0
 operand_variable: 
 normal res 0
-operand with value 0x56526e30b990
+operand with value 0x5566805a8990
 operand_variable: 
 tiny digit 0
-operand with value 0x56526e30ba70
+operand with value 0x5566805a8a70
 operand_variable: 
 big pow 1
-operand with value 0x56526e30bb50
-product of two expressions with value 0x56526e30bc00
-sum of two expressions with value 0x56526e30bca0
-expression in brackets with value 0x56526e30bca0
+operand with value 0x5566805a8b50
+product of two expressions with value 0x5566805a8c00
+sum of two expressions with value 0x5566805a8ca0
+expression in brackets with value 0x5566805a8ca0
 left_assignment
 operand_variable: 
 big pow 1
-operand_literal: 0x56526e30c210
+operand_literal: 0x5566805a9210
 left_assignment
 operand_variable: 
 normal power 0
 operand_variable: 
 normal power 0
-operand with value 0x56526e30c3a0
+operand with value 0x5566805a93a0
 operand_literal: 1
-operand with value 0x56526e30c580
-sum of two expressions with value 0x56526e30c630
-expression in brackets with value 0x56526e30c630
+operand with value 0x5566805a9580
+sum of two expressions with value 0x5566805a9630
+expression in brackets with value 0x5566805a9630
 left_assignment
 operand_variable: 
 normal b 10
 operand_variable: 
 normal b 10
-operand with value 0x56526e30c7d0
+operand with value 0x5566805a97d0
 operand_literal: 2
-operand with value 0x56526e30c9b0
-division of two expressions with value 0x56526e30ca60
-expression in brackets with value 0x56526e30ca60
+operand with value 0x5566805a99b0
+division of two expressions with value 0x5566805a9a60
+expression in brackets with value 0x5566805a9a60
 left_assignment
-operand with value 0x56526e2f8550
+operand with value 0x556680595550
 operand_literal: 1
-operand with value 0x56526e307c10
-sum of two expressions with value 0x56526e307c30
-expression in brackets with value 0x56526e307c30
-operand_literal: 0x56526e307c30
+operand with value 0x5566805a4c10
+sum of two expressions with value 0x5566805a4c30
+expression in brackets with value 0x5566805a4c30
+operand_literal: 0x5566805a4c30
 var bpushed to init queue.
-operand_literal: 0x56526e3081b0
-operand with value 0x56526e3088b0
+operand_literal: 0x5566805a51b0
+operand with value 0x5566805a58b0
 All vars from init queue were intialized
 operand_variable: 
 normal b 2
 operand_variable: 
 normal b 2
 left_assignment
-operand with value 0x56526e30d450
+operand with value 0x5566805aa450
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e30d570
+operand with value 0x5566805aa570
 expr from logic expr
-0x56526e30d450<=0x56526e30d570: 0x56526e30d5f0
-operand_literal: 0x56526e30d690
-operand with value 0x56526e30d9a0
+0x5566805aa450<=0x5566805aa570: 0x5566805aa5f0
+operand_literal: 0x5566805aa690
+operand with value 0x5566805aa9a0
 expr from logic expr
 operand_literal: 1
-operand with value 0x56526e30dac0
+operand with value 0x5566805aaac0
 expr from logic expr
-0x56526e30d9a0>=0x56526e30dac0: 0x56526e30db40
-operand_literal: 0x56526e30dbe0
+0x5566805aa9a0>=0x5566805aaac0: 0x5566805aab40
+operand_literal: 0x5566805aabe0
 operand_variable: 
 normal b 3
-operand_literal: 0x56526e3110e0
+operand_literal: 0x5566805ae0e0
 left_assignment
 var respushed to init queue.
 operand_variable: 
 normal b 0
-operand with value 0x56526e311d60
+operand with value 0x5566805aed60
 All vars from init queue were intialized
 operand_variable: 
 normal b 0
@@ -2417,7 +2417,7 @@ normal b 1
 left_assignment
 var GGpushed to init queue.
 operand_literal: 256
-operand with value 0x56526e313b00
+operand with value 0x5566805b0b00
 All vars from init queue were intialized
 operand_variable: 
 tiny res 0
@@ -2426,7 +2426,7 @@ big GG 256
 left_assignment
 operand_variable: 
 big GG 256
-operand_literal: 0x56526e3104d0
+operand_literal: 0x5566805ad4d0
 left_assignment
 operand_variable: 
 tiny res 0
@@ -2435,7 +2435,7 @@ big GG -30
 left_assignment
 operand_variable: 
 big GG -30
-operand_literal: 0x56526e316670
+operand_literal: 0x5566805b3670
 left_assignment
 operand_variable: 
 big GG 32767
@@ -2444,63 +2444,63 @@ big GG 32767
 left_assignment
 operand_variable: 
 big GG 32767
-operand_literal: 0x56526e318900
-operand_literal: 0x56526e3189b0
-operand_literal: 0x56526e318a60
-operand_literal: 0x56526e318b10
-operand_literal: 0x56526e318bc0
+operand_literal: 0x5566805b5900
+operand_literal: 0x5566805b59b0
+operand_literal: 0x5566805b5a60
+operand_literal: 0x5566805b5b10
+operand_literal: 0x5566805b5bc0
 left_assignment
-operand with value 0x56526e3196c0
+operand with value 0x5566805b66c0
 operand_variable: 
 normal b 1
-operand with value 0x56526e3197e0
-sum of two expressions with value 0x56526e319890
-operand with value 0x56526e319930
-sum of two expressions with value 0x56526e319950
-expression in brackets with value 0x56526e319950
-operand_literal: 0x56526e319950
+operand with value 0x5566805b67e0
+sum of two expressions with value 0x5566805b6890
+operand with value 0x5566805b6930
+sum of two expressions with value 0x5566805b6950
+expression in brackets with value 0x5566805b6950
+operand_literal: 0x5566805b6950
 operand_variable: 
 big GG 0
-operand_literal: 0x56526e314be0
-operand_literal: 0x56526e314c90
-operand_literal: 0x56526e314d40
+operand_literal: 0x5566805b1be0
+operand_literal: 0x5566805b1c90
+operand_literal: 0x5566805b1d40
 left_assignment
-operand with value 0x56526e307bf0
+operand with value 0x556680595590
 operand_literal: 1
-operand with value 0x56526e319f50
-sum of two expressions with value 0x56526e314ae0
-expression in brackets with value 0x56526e314ae0
-operand_literal: 0x56526e314ae0
+operand with value 0x5566805a4bf0
+sum of two expressions with value 0x5566805b1ae0
+expression in brackets with value 0x5566805b1ae0
+operand_literal: 0x5566805b1ae0
 var apushed to init queue.
 operand_literal: 0
-operand with value 0x56526e31a7c0
+operand with value 0x5566805b7820
 All vars from init queue were intialized
 var bpushed to init queue.
 operand_literal: 1
-operand with value 0x56526e31adc0
+operand with value 0x5566805b7e20
 All vars from init queue were intialized
 var kpushed to init queue.
 operand_literal: 10
-operand with value 0x56526e31cbb0
+operand with value 0x5566805b9c10
 All vars from init queue were intialized
 operand_variable: 
 normal k 10
-operand with value 0x56526e31baf0
+operand with value 0x5566805b8af0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e31bba0
+operand with value 0x5566805b8ba0
 expr from logic expr
-0x56526e31baf0<=0x56526e31bba0: 0x56526e31bc50
+0x5566805b8af0<=0x5566805b8ba0: 0x5566805b8c50
 operand_variable: 
 normal a 0
 operand_variable: 
 normal a 0
-operand with value 0x56526e31bd10
+operand with value 0x5566805b8d10
 operand_variable: 
 normal b 1
-operand with value 0x56526e31bf00
-sum of two expressions with value 0x56526e31bfb0
-expression in brackets with value 0x56526e31bfb0
+operand with value 0x5566805b8f00
+sum of two expressions with value 0x5566805b8fb0
+expression in brackets with value 0x5566805b8fb0
 left_assignment
 operand_variable: 
 normal b 1
@@ -2511,230 +2511,230 @@ operand_variable:
 normal k 10
 operand_variable: 
 normal k 10
-operand with value 0x56526e31c9e0
+operand with value 0x5566805b99e0
 operand_literal: 1
-operand with value 0x56526e31ca70
-difference between two expressions with value 0x56526e31e060
-expression in brackets with value 0x56526e31e060
+operand with value 0x5566805b9a70
+difference between two expressions with value 0x5566805bb0c0
+expression in brackets with value 0x5566805bb0c0
 left_assignment
-operand with value 0x56526e31d160
+operand with value 0x5566805ba1c0
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e31d280
+operand with value 0x5566805ba2e0
 expr from logic expr
-0x56526e31d160<=0x56526e31d280: 0x56526e31d300
-operand_literal: 0x56526e31d3a0
-operand with value 0x56526e31d6b0
+0x5566805ba1c0<=0x5566805ba2e0: 0x5566805ba360
+operand_literal: 0x5566805ba400
+operand with value 0x5566805ba710
 expr from logic expr
 operand_literal: 1
-operand with value 0x56526e31d7d0
+operand with value 0x5566805ba830
 expr from logic expr
-0x56526e31d6b0<=0x56526e31d7d0: 0x56526e31d850
+0x5566805ba710<=0x5566805ba830: 0x5566805ba8b0
 operand_variable: 
 normal a 55
 var respushed to init queue.
 operand_literal: 1
-operand with value 0x56526e31dd20
+operand with value 0x5566805bad80
 All vars from init queue were intialized
-operand with value 0x56526e31ddd0
+operand with value 0x5566805bae30
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e31de60
+operand with value 0x5566805baec0
 expr from logic expr
-0x56526e31ddd0<=0x56526e31de60: 0x56526e323eb0
-operand with value 0x56526e323f70
+0x5566805bae30<=0x5566805baec0: 0x5566805c0f10
+operand with value 0x5566805c0fd0
 operand_variable: 
 normal a 55
-operand with value 0x56526e3241e0
-product of two expressions with value 0x56526e324290
-expression in brackets with value 0x56526e324290
+operand with value 0x5566805c1240
+product of two expressions with value 0x5566805c12f0
+expression in brackets with value 0x5566805c12f0
 left_assignment
-operand with value 0x56526e324430
+operand with value 0x5566805c1490
 operand_literal: 1
-operand with value 0x56526e3246c0
-difference between two expressions with value 0x56526e324740
-expression in brackets with value 0x56526e324740
+operand with value 0x5566805c1720
+difference between two expressions with value 0x5566805c17a0
+expression in brackets with value 0x5566805c17a0
 left_assignment
 var powerpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e322da0
+operand with value 0x5566805bfe00
 All vars from init queue were intialized
 var divpushed to init queue.
 operand_variable: 
 normal b 11
-operand with value 0x56526e323360
+operand with value 0x5566805c03c0
 operand_literal: 2
-operand with value 0x56526e323410
-division of two expressions with value 0x56526e3234c0
+operand with value 0x5566805c0470
+division of two expressions with value 0x5566805c0520
 All vars from init queue were intialized
 var digitpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e323890
+operand with value 0x5566805c08f0
 All vars from init queue were intialized
 var respushed to init queue.
 operand_literal: 0
-operand with value 0x56526e323c70
+operand with value 0x5566805c0cd0
 All vars from init queue were intialized
 operand_variable: 
 normal b 11
-operand_literal: 0x56526e326890
+operand_literal: 0x5566805c38f0
 left_assignment
 operand_variable: 
 normal b 10
-operand with value 0x56526e326a20
+operand with value 0x5566805c3a80
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e325640
+operand with value 0x5566805c26a0
 expr from logic expr
-0x56526e326a20<=0x56526e325640: 0x56526e3256f0
+0x5566805c3a80<=0x5566805c26a0: 0x5566805c2750
 operand_variable: 
 normal div 5
 operand_variable: 
 normal b 10
-operand with value 0x56526e3257b0
+operand with value 0x5566805c2810
 operand_literal: 2
-operand with value 0x56526e325970
-division of two expressions with value 0x56526e325a20
+operand with value 0x5566805c29d0
+division of two expressions with value 0x5566805c2a80
 left_assignment
 operand_variable: 
 tiny digit 0
 operand_variable: 
 normal b 10
-operand with value 0x56526e325bc0
+operand with value 0x5566805c2c20
 operand_literal: 2
-operand with value 0x56526e325da0
+operand with value 0x5566805c2e00
 operand_variable: 
 normal div 5
-operand with value 0x56526e325e80
-product of two expressions with value 0x56526e325f30
-difference between two expressions with value 0x56526e325fd0
-expression in brackets with value 0x56526e325fd0
+operand with value 0x5566805c2ee0
+product of two expressions with value 0x5566805c2f90
+difference between two expressions with value 0x5566805c3030
+expression in brackets with value 0x5566805c3030
 left_assignment
 operand_variable: 
 normal res 0
 operand_variable: 
 normal res 0
-operand with value 0x56526e326190
+operand with value 0x5566805c31f0
 operand_variable: 
 tiny digit 0
-operand with value 0x56526e327ba0
-operand_literal: 0x56526e327cb0
+operand with value 0x5566805c4c00
+operand_literal: 0x5566805c4d10
 operand_variable: 
 normal power 0
-operand with value 0x56526e328480
-product of two expressions with value 0x56526e3284a0
-sum of two expressions with value 0x56526e328540
-expression in brackets with value 0x56526e328540
+operand with value 0x5566805c54e0
+product of two expressions with value 0x5566805c5500
+sum of two expressions with value 0x5566805c55a0
+expression in brackets with value 0x5566805c55a0
 left_assignment
 operand_variable: 
 normal power 0
 operand_variable: 
 normal power 0
-operand with value 0x56526e328700
+operand with value 0x5566805c5760
 operand_literal: 1
-operand with value 0x56526e3288b0
-sum of two expressions with value 0x56526e328960
-expression in brackets with value 0x56526e328960
+operand with value 0x5566805c5910
+sum of two expressions with value 0x5566805c59c0
+expression in brackets with value 0x5566805c59c0
 left_assignment
 operand_variable: 
 normal b 10
 operand_variable: 
 normal b 10
-operand with value 0x56526e328b00
+operand with value 0x5566805c5b60
 operand_literal: 2
-operand with value 0x56526e328ce0
-division of two expressions with value 0x56526e328d90
-expression in brackets with value 0x56526e328d90
+operand with value 0x5566805c5d40
+division of two expressions with value 0x5566805c5df0
+expression in brackets with value 0x5566805c5df0
 left_assignment
 var divpushed to init queue.
 operand_variable: 
 normal b 0
-operand with value 0x56526e32b8c0
+operand with value 0x5566805c8920
 operand_literal: 2
-operand with value 0x56526e32b970
-division of two expressions with value 0x56526e32ba20
+operand with value 0x5566805c89d0
+division of two expressions with value 0x5566805c8a80
 All vars from init queue were intialized
 var digitpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e32bc70
+operand with value 0x5566805c8cd0
 All vars from init queue were intialized
 var powerpushed to init queue.
 var respushed to init queue.
 operand_literal: 0
-operand with value 0x56526e32c050
+operand with value 0x5566805c90b0
 All vars from init queue were intialized
 operand_variable: 
 normal b 0
-operand with value 0x56526e32c100
+operand with value 0x5566805c9160
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e32c2d0
+operand with value 0x5566805c9330
 expr from logic expr
-0x56526e32c100<=0x56526e32c2d0: 0x56526e32c380
+0x5566805c9160<=0x5566805c9330: 0x5566805c93e0
 operand_variable: 
 normal div 0
 operand_variable: 
 normal b 0
-operand with value 0x56526e32c440
+operand with value 0x5566805c94a0
 operand_literal: 2
-operand with value 0x56526e32c600
-division of two expressions with value 0x56526e32c6b0
+operand with value 0x5566805c9660
+division of two expressions with value 0x5566805c9710
 left_assignment
 operand_variable: 
 tiny digit 1
 operand_variable: 
 normal b 0
-operand with value 0x56526e32c850
+operand with value 0x5566805c98b0
 operand_literal: 2
-operand with value 0x56526e32ca30
+operand with value 0x5566805c9a90
 operand_variable: 
 normal div 0
-operand with value 0x56526e32cb10
-product of two expressions with value 0x56526e32cbc0
-difference between two expressions with value 0x56526e32cc60
-expression in brackets with value 0x56526e32cc60
+operand with value 0x5566805c9b70
+product of two expressions with value 0x5566805c9c20
+difference between two expressions with value 0x5566805c9cc0
+expression in brackets with value 0x5566805c9cc0
 left_assignment
 operand_variable: 
 normal res 1010
 operand_variable: 
 normal res 1010
-operand with value 0x56526e32ce20
+operand with value 0x5566805c9e80
 operand_variable: 
 tiny digit 1
-operand with value 0x56526e32d030
-operand_literal: 0x56526e32d140
+operand with value 0x5566805ca090
+operand_literal: 0x5566805ca1a0
 operand_variable: 
 normal power 4
-operand with value 0x56526e32d4b0
-product of two expressions with value 0x56526e32d4d0
-sum of two expressions with value 0x56526e32d570
-expression in brackets with value 0x56526e32d570
+operand with value 0x5566805ca510
+product of two expressions with value 0x5566805ca530
+sum of two expressions with value 0x5566805ca5d0
+expression in brackets with value 0x5566805ca5d0
 left_assignment
 operand_variable: 
 normal power 4
 operand_variable: 
 normal power 4
-operand with value 0x56526e32d730
+operand with value 0x5566805ca790
 operand_literal: 1
-operand with value 0x56526e32d8e0
-sum of two expressions with value 0x56526e32d990
-expression in brackets with value 0x56526e32d990
+operand with value 0x5566805ca940
+sum of two expressions with value 0x5566805ca9f0
+expression in brackets with value 0x5566805ca9f0
 left_assignment
 operand_variable: 
 normal b 0
 operand_variable: 
 normal b 0
-operand with value 0x56526e32db30
+operand with value 0x5566805cab90
 operand_literal: 2
-operand with value 0x56526e32dd10
-division of two expressions with value 0x56526e32ddc0
-expression in brackets with value 0x56526e32ddc0
+operand with value 0x5566805cad70
+division of two expressions with value 0x5566805cae20
+expression in brackets with value 0x5566805cae20
 left_assignment
 operand_variable: 
 normal res 1010
 operand_variable: 
 normal b 0
-operand_literal: 0x56526e32f1f0
+operand_literal: 0x5566805cc250
 left_assignment
 operand_variable: 
 normal res 1010
@@ -2744,43 +2744,43 @@ left_assignment
 var remainderpushed to init queue.
 operand_variable: 
 normal a 10
-operand with value 0x56526e326f20
+operand with value 0x5566805c3f80
 operand_variable: 
 normal a 10
-operand with value 0x56526e327000
+operand with value 0x5566805c4060
 operand_variable: 
 normal div 0
-operand with value 0x56526e3270e0
-division of two expressions with value 0x56526e327190
-expression in brackets with value 0x56526e327190
+operand with value 0x5566805c4140
+division of two expressions with value 0x5566805c41f0
+expression in brackets with value 0x5566805c41f0
 operand_variable: 
 normal div 0
-operand with value 0x56526e327230
-product of two expressions with value 0x56526e327250
-difference between two expressions with value 0x56526e3273d0
-expression in brackets with value 0x56526e3273d0
+operand with value 0x5566805c4290
+product of two expressions with value 0x5566805c42b0
+difference between two expressions with value 0x5566805c4430
+expression in brackets with value 0x5566805c4430
 All vars from init queue were intialized
-operand with value 0x56526e3273f0
+operand with value 0x5566805c4450
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e3276f0
+operand with value 0x5566805c4750
 expr from logic expr
-0x56526e3273f0<=0x56526e3276f0: 0x56526e327770
-operand with value 0x56526e327810
+0x5566805c4450<=0x5566805c4750: 0x5566805c47d0
+operand with value 0x5566805c4870
 expr from logic expr
 operand_literal: 0
-operand with value 0x56526e327830
+operand with value 0x5566805c4890
 expr from logic expr
-0x56526e327810>=0x56526e327830: 0x56526e327a00
-operand_literal: 0x56526e327aa0
-operand_literal: 0x56526e3339b0
+0x5566805c4870>=0x5566805c4890: 0x5566805c4a60
+operand_literal: 0x5566805c4b00
+operand_literal: 0x5566805d0a10
 operand_variable: 
 normal a 10
-operand_literal: 0x56526e334250
+operand_literal: 0x5566805d12b0
 left_assignment
 var ggpushed to init queue.
 operand_literal: 0
-operand with value 0x56526e334570
+operand with value 0x5566805d15d0
 All vars from init queue were intialized
 operand_variable: 
 normal b 0
@@ -2789,57 +2789,169 @@ normal a 10
 left_assignment
 operand_variable: 
 normal a 10
-operand_literal: 0x56526e335ee0
-operand with value 0x56526e332b30
+operand_literal: 0x5566805d2f40
+operand with value 0x5566805cfb90
 expr from logic expr
 operand_variable: 
 tiny gg 0
 operand_variable: 
 normal b 1010
-operand_literal: 0x56526e332d10
+operand_literal: 0x5566805cfd70
 left_assignment
 operand_variable: 
 tiny gg 1
-operand_literal: 0x56526e339360
+operand_literal: 0x5566805d63c0
 left_assignment
 operand_variable: 
 normal a 1010
-operand_literal: 0x56526e33a8c0
+operand_literal: 0x5566805d7920
 left_assignment
 operand_variable: 
 normal a 2
 operand_variable: 
 normal a 2
-operand_literal: 0x56526e33ad00
-operand with value 0x56526e33b1c0
+operand_literal: 0x5566805d7d60
+operand with value 0x5566805d8220
 operand_variable: 
 normal a 2
-operand_literal: 0x56526e33b2c0
-operand with value 0x56526e33bc40
-product of two expressions with value 0x56526e33bc60
+operand_literal: 0x5566805d8320
+operand with value 0x5566805d8ca0
+product of two expressions with value 0x5566805d8cc0
 operand_variable: 
 normal a 2
-operand_literal: 0x56526e33bd20
-operand with value 0x56526e33c780
-product of two expressions with value 0x56526e33c7a0
+operand_literal: 0x5566805d8d80
+operand with value 0x5566805d97e0
+product of two expressions with value 0x5566805d9800
 left_assignment
 operand_variable: 
 normal a 512
-operand with value 0x56526e33cc80
+operand with value 0x5566805d9ce0
 expr from logic expr
 operand_literal: 512
-operand with value 0x56526e33c940
+operand with value 0x5566805d99a0
 expr from logic expr
-0x56526e33cc80<=0x56526e33c940: 0x56526e33e700
+0x5566805d9ce0<=0x5566805d99a0: 0x5566805db760
 operand_variable: 
 normal a 512
-operand with value 0x56526e33e7a0
+operand with value 0x5566805db800
 expr from logic expr
 operand_literal: 512
-operand with value 0x56526e33e7c0
+operand with value 0x5566805db820
 expr from logic expr
-0x56526e33e7a0>=0x56526e33e7c0: 0x56526e33e950
+0x5566805db800>=0x5566805db820: 0x5566805db9b0
 operand_variable: 
 tiny gg 0
-operand_literal: 0x56526e33ea10
+operand_literal: 0x5566805dba70
+left_assignment
+var lastArgpushed to init queue.
+operand_literal: 0
+operand with value 0x5566805b9af0
+All vars from init queue were intialized
+operand_variable: 
+big lastArg 0
+left_assignment
+operand with value 0x5566805d5410
+operand_literal: 1
+operand with value 0x5566805d54f0
+sum of two expressions with value 0x5566805d5670
+expression in brackets with value 0x5566805d5670
+operand_literal: 0x5566805d5670
+var resultpushed to init queue.
+operand_literal: 0x5566805d5d90
+operand with value 0x5566805b1a60
+All vars from init queue were intialized
+left_assignment
+operand with value 0x5566805deef0
+operand_literal: 2
+operand with value 0x5566805def30
+sum of two expressions with value 0x5566805df0f0
+expression in brackets with value 0x5566805df0f0
+operand_literal: 0x5566805df0f0
+var lastArg2pushed to init queue.
+operand_literal: 0
+operand with value 0x5566805dc1c0
+All vars from init queue were intialized
+operand_variable: 
+big result 4
+operand_literal: 0x5566805dc7a0
+left_assignment
+var GGpushed to init queue.
+operand_literal: 0
+operand with value 0x5566805dced0
+All vars from init queue were intialized
+var ddpushed to init queue.
+operand_literal: 0
+operand with value 0x5566805dfb00
+All vars from init queue were intialized
+var ddpushed to init queue.
+operand with value 0x5566805dff40
+operand_literal: 2
+operand with value 0x5566805e0060
+product of two expressions with value 0x5566805e00e0
+All vars from init queue were intialized
+var respushed to init queue.
+operand with value 0x5566805e0530
+All vars from init queue were intialized
+left_assignment
+operand_literal: 0x5566805e43f0
+left_assignment
+operand with value 0x5566805e1570
+operand with value 0x5566805e1690
+sum of two expressions with value 0x5566805e17b0
+expression in brackets with value 0x5566805e17b0
+operand_literal: 0x5566805e17b0
+operand_variable: 
+big GG 4
+operand_literal: 0x5566805e1ed0
+left_assignment
+var summpushed to init queue.
+operand_literal: 0
+operand with value 0x5566805e9050
+All vars from init queue were intialized
+var summpushed to init queue.
+operand with value 0x5566805e7590
+operand with value 0x5566805e76b0
+sum of two expressions with value 0x5566805e77d0
+expression in brackets with value 0x5566805e77d0
+All vars from init queue were intialized
+var respushed to init queue.
+operand with value 0x5566805e7d30
+All vars from init queue were intialized
+var resultpushed to init queue.
+operand with value 0x5566805e9700
+operand with value 0x5566805e9870
+difference between two expressions with value 0x5566805e9990
+operand_variable: 
+normal summ 0
+operand with value 0x5566805e9a30
+sum of two expressions with value 0x5566805e9a50
+expression in brackets with value 0x5566805e9a50
+All vars from init queue were intialized
+operand_variable: 
+big result 7
+var bpushed to init queue.
+var apushed to init queue.
+operand_literal: 2
+operand with value 0x5566805ec5f0
+All vars from init queue were intialized
+operand_variable: 
+normal a 2
+operand_literal: 0x5566805ecc70
+left_assignment
+operand_variable: 
+normal b 2
+operand_literal: 0x5566805ecf00
+left_assignment
+operand_variable: 
+big GG 3
+operand_variable: 
+normal a 1
+operand_variable: 
+normal b 4
+left_assignment
+operand_literal: 0x5566805f0120
+right_assignment
+operand_variable: 
+big GG -3
+operand_literal: 0x5566805f07c0
 left_assignment

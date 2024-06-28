@@ -5572,3 +5572,533 @@ literal parsed
 . parsed
 .
 . parsed
+big
+var_type parsed
+lastArg
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+addOne
+var_name parsed
+big
+var_type parsed
+a
+var_name parsed
+begin
+begin parsed
+lastArg
+var_name parsed
+<<
+left_assign parsed
+a
+var_name parsed
+,
+, parsed
+return
+return parsed
+(
+( parsed
+a
+var_name parsed
++
++ parsed
+1
+literal parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+result
+var_name parsed
+<<
+left_assign parsed
+addOne
+var_name parsed
+(
+( parsed
+3
+literal parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+addTwo
+var_name parsed
+big
+var_type parsed
+a
+var_name parsed
+begin
+begin parsed
+lastArg2
+var_name parsed
+<<
+left_assign parsed
+a
+var_name parsed
+,
+, parsed
+return
+return parsed
+(
+( parsed
+a
+var_name parsed
++
++ parsed
+2
+literal parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+lastArg2
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+.
+. parsed
+result
+var_name parsed
+<<
+left_assign parsed
+addTwo
+var_name parsed
+(
+( parsed
+5
+literal parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+GG
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+normal
+var_type parsed
+dd
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+big
+var_type parsed
+foo
+var_name parsed
+big
+var_type parsed
+a
+var_name parsed
+begin
+begin parsed
+normal
+var_type parsed
+dd
+var_name parsed
+<<
+left_assign parsed
+a
+var_name parsed
+*
+* parsed
+2
+literal parsed
+,
+, parsed
+normal
+var_type parsed
+res
+var_name parsed
+<<
+left_assign parsed
+func
+var_name parsed
+(
+( parsed
+a
+var_name parsed
+)
+) parsed
+,
+, parsed
+return
+return parsed
+dd
+var_name parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+big
+var_type parsed
+func
+var_name parsed
+big
+var_type parsed
+a
+var_name parsed
+begin
+begin parsed
+dd
+var_name parsed
+<<
+left_assign parsed
+a
+var_name parsed
+,
+, parsed
+return
+return parsed
+dd
+var_name parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+GG
+var_name parsed
+<<
+left_assign parsed
+foo
+var_name parsed
+(
+( parsed
+2
+literal parsed
+)
+) parsed
+,
+, parsed
+@
+@ parsed
+dd
+var_name parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+fof
+var_name parsed
+normal
+var_type parsed
+a
+var_name parsed
+begin
+begin parsed
+return
+return parsed
+(
+( parsed
+kk
+var_name parsed
++
++ parsed
+a
+var_name parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+.
+. parsed
+GG
+var_name parsed
+<<
+left_assign parsed
+fof
+var_name parsed
+(
+( parsed
+3
+literal parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+summ
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+cool
+var_name parsed
+normal
+var_type parsed
+a
+var_name parsed
+normal
+var_type parsed
+b
+var_name parsed
+begin
+begin parsed
+normal
+var_type parsed
+summ
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+a
+var_name parsed
++
++ parsed
+b
+var_name parsed
+)
+) parsed
+,
+, parsed
+big
+var_type parsed
+res
+var_name parsed
+<<
+left_assign parsed
+cool2
+var_name parsed
+(
+( parsed
+a
+var_name parsed
+b
+var_name parsed
+)
+) parsed
+,
+, parsed
+return
+return parsed
+res
+var_name parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+cool2
+var_name parsed
+normal
+var_type parsed
+a
+var_name parsed
+normal
+var_type parsed
+b
+var_name parsed
+begin
+begin parsed
+normal
+var_type parsed
+result
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+a
+var_name parsed
+-
+- parsed
+b
+var_name parsed
++
++ parsed
+summ
+var_name parsed
+)
+) parsed
+,
+, parsed
+return
+return parsed
+result
+var_name parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+.
+. parsed
+normal
+var_type parsed
+a
+var_name parsed
+b
+var_name parsed
+<<
+left_assign parsed
+2
+literal parsed
+,
+, parsed
+.
+. parsed
+a
+var_name parsed
+<<
+left_assign parsed
+1
+literal parsed
+,
+, parsed
+.
+. parsed
+b
+var_name parsed
+<<
+left_assign parsed
+4
+literal parsed
+,
+, parsed
+.
+. parsed
+GG
+var_name parsed
+<<
+left_assign parsed
+cool
+var_name parsed
+(
+( parsed
+a
+var_name parsed
+b
+var_name parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed
+big
+var_type parsed
+hype
+var_name parsed
+normal
+var_type parsed
+t
+var_name parsed
+begin
+begin parsed
+t
+var_name parsed
+>>
+right_assign parsed
+5
+literal parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+.
+. parsed
+GG
+var_name parsed
+<<
+left_assign parsed
+hype
+var_name parsed
+(
+( parsed
+6
+literal parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed

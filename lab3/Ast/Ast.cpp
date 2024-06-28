@@ -326,6 +326,7 @@ int FunctionOperator::execute()
 	stmts->applyProgramStack(program_stack);
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
+	stmts->applyErrors(errors);
 	stmts->applyReturnFlag(&returnMet);
 	int actual_res=stmts->execute();
 	//std::cout<<"f("<<local_scope.getVar("n")->value<<")=="<<actual_res<<std::endl;
@@ -428,10 +429,12 @@ int OperandNode::execute()
 			catch(std::invalid_argument)
 			{
 				error=true;
+				//some interesting edit
 				if(copy_stack.empty()) break;
 				copy_stack.pop();
 			}
 			if(!error) isSuccesful=true;
+			else break;
 		}
 		if(!isSuccesful)
 		{
@@ -670,6 +673,7 @@ int AssigningOperator::execute()
 				}catch(std::invalid_argument error)
 				{
 					errors->push_back(Error(vm->getErrCode(), error.what(), this));
+					//errors->push_back(Error(Err::undefined, error.what(), this));
 				}
 			}
 			else
