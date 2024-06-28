@@ -815,7 +815,52 @@ TEST_CASE("loops and conditions combined")
 	}
 }
 
+TEST_CASE("Functions")
+{
+	SECTION("Definition and simple calls")
+	{
+		parseStr("big addOne big a begin return (a+1),. end,.");
+		REQUIRE(declared_funcs.contains("addOne"));
 
+		parseStr("normal b<<addOne(1),.");
+		REQUIRE(vm->getVar("b")->value==2);
+
+		parseStr("b<<addOne(b),.");
+		REQUIRE(vm->getVar("b")->value==3);
+
+		parseStr("tiny invert tiny a begin check a<=0 do return 1,. check a=>1 do return 0,.. end,.");
+		REQUIRE(declared_funcs.contains("invert"));
+
+		parseStr("b<<0,.");
+		parseStr("tiny res<<invert(b),.");
+		REQUIRE(vm->getVar("res")->value==1);
+
+		parseStr("b<<res,.");
+		parseStr("res<<invert(b),.");
+		REQUIRE(vm->getVar("res")->value==0);
+
+		parseStr("big GG<<256,.");
+		parseStr("res<<invert(GG),.");
+		REQUIRE(vm->getVar("res")->value==0);
+
+		parseStr("GG<<-30,.");
+		parseStr("res<<invert(GG),.");
+		REQUIRE(vm->getVar("res")->value==1);
+
+		parseStr("GG<<100000,.");
+		parseStr("GG<<addOne(GG),.");
+		REQUIRE(vm->getVar("GG")->value==(VarMap::size_table[VarType::big]-1));
+
+		parseStr("GG<<func(1 2 3 4 5),.");
+		REQUIRE(err_vec.back().error_code==Err::undefined);
+
+		parseStr("normal sum5 normal a normal b normal c begin return (a+b+c),. end,.");
+		REQUIRE(declared_funcs.contains("sum5"));
+
+		parseStr("GG<<sum5(512 256 256),.");
+		REQUIRE(vm->getVar("GG")->value==(VarMap::size_table[VarType::normal]-1));
+	}
+}
 
 
 

@@ -494,11 +494,21 @@ operand:
 							}
 							else
 							{
+								err_vec.push_back(Error(Err::undefined, "Error. Function "+*$1+" was not declared.", $$->root));
 								std::cout<<"predeclaring "<<*$1<<std::endl;
-								Ast* ost=new Ast(new FunctionOperator(VarType::tiny, *$1, $3, nullptr, vm));
-								declared_funcs.insert({*$1, ost});
-								dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->declared_funcs=&declared_funcs;
-								$$=declared_funcs[*$1];
+								try
+								{	
+									Ast* ost=new Ast(new FunctionOperator(VarType::tiny, *$1, $3, nullptr, vm));
+									declared_funcs.insert({*$1, ost});
+									dynamic_cast<FunctionOperator*>(declared_funcs[*$1]->root)->declared_funcs=&declared_funcs;
+									$$=declared_funcs[*$1];
+								}
+								catch(std::invalid_argument error)
+								{
+									Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::big, *$1, 0))));
+									$$=ost;
+									err_vec.push_back(Error(Err::undefined, error.what(), ost->root));
+								}
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
 							}

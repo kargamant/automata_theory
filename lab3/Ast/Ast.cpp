@@ -113,8 +113,20 @@ void FunctionOperator::unparseArguments()
 	while(ptr!=nullptr)
 	{
 		Var* v=dynamic_cast<OperandNode*>(ptr)->operand->var;
+		if(v==nullptr)
+		{
+			throw std::invalid_argument("Error. Function "+name+" was not defined and was tried to be called with literals.");
+		}
 		args_order.push_back(v->name);
-		local_scope.addVar(new Var(v->type, v->name, v->value));
+		try
+		{
+			local_scope.addVar(new Var(v->type, v->name, v->value));
+		}
+		catch(std::invalid_argument)
+		{
+			local_scope.addVar(new Var(v->type, v->name, VarMap::size_table[v->type]-1));
+			local_scope.changeVar(v->name, v->value);
+		}
 		ptr=ptr->left;
 	}
 }
@@ -214,7 +226,16 @@ void FunctionOperator::build()
 			//dynamic_cast<OperandNode*>(ptr)->operand->value=passed_values[k];
 			//dynamic_cast<OperandNode*>(ptr)->operand->var->changeValue(passed_values[k]);
 			Var* v=dynamic_cast<OperandNode*>(ptr)->operand->var;
-			local_scope.addVar(new Var(v->type, v->name, passed_values[k]));
+			try
+			{
+				local_scope.addVar(new Var(v->type, v->name, passed_values[k]));
+			}
+			catch(std::invalid_argument)
+			{
+				local_scope.addVar(new Var(v->type, v->name, VarMap::size_table[v->type]-1));
+				local_scope.changeVar(v->name, passed_values[k]);
+
+			}
 			std::cout<<"passed value: "<<passed_values[k]<<std::endl;
 
 			ptr=ptr->left;
@@ -318,8 +339,10 @@ int FunctionOperator::execute()
 					std::cout<<std::endl;
 					copy_stack.pop();
 				}
+	Var v=Var(return_type, "", 0);
+	v.changeValue(actual_res);
 	//return return_value.value;
-	return actual_res;
+	return v.value;
 }
 
 int ReturnOperator::execute()
@@ -1088,7 +1111,7 @@ void operator<<(std::ostream& stream, Error& err)
 	stream<<"Run time error:"<<std::endl;
 	stream<<"Error text: "<<err.err_text<<std::endl;
 	stream<<"Node guilty:"<<std::endl;
-	err.guilty->printNode(stream);
+	//if(err.guilty!=nullptr) err.guilty->printNode(stream);
 }
 
 
