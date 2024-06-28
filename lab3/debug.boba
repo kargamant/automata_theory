@@ -1,3 +1,9 @@
-big GG<<0,
-GG<<func(1 2 3 4 5),
+big calcPow normal a normal n begin check n<=0 do return 1,. check n<=1 do return a,. normal res<<1, until n<=0 do res<<(res*a), n<<(n-1),. return res,. end,
+big bin normal b begin normal div<<b/2, tiny digit<<0, normal res power<<0, until b<=0 do div<<b/2, digit<<(b-2*div), res<<(res+digit*calcPow(10 power)), power<<(power+1), b<<(b/2),. return res,. end,
+tiny isDivBy normal a normal div begin normal remainder<<(a-(a/div)*div), check remainder<=0 do check remainder=>0 do return 1,.. return 0,. end,
+
+normal a<<10,
+tiny gg<<0,
+check isDivBy(a 2) do gg<<isDivBy(bin(a) 2),.
+@gg,
 .

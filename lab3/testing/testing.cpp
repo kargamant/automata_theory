@@ -859,6 +859,50 @@ TEST_CASE("Functions")
 
 		parseStr("GG<<sum5(512 256 256),.");
 		REQUIRE(vm->getVar("GG")->value==(VarMap::size_table[VarType::normal]-1));
+		
+		cleanCompileVars();
+	}
+	SECTION("usage in loops and conditions")
+	{
+		parseStr("big addOne big a begin return (a+1),. end,.");
+
+		parseStr("normal a<<0,.");
+		parseStr("normal b<<1,.");
+		parseStr("normal k<<10,.");
+		parseStr("until k<=0 do a<<(a+b), b<<addOne(b), k<<(k-1),..");
+		REQUIRE(vm->getVar("a")->value==55);
+
+		//also example of how local variable res is prioritized above global one in function
+		parseStr("big calcPow normal a normal n begin check n<=0 do return 1,. check n<=1 do return a,. normal res<<1, until n<=0 do res<<(res*a), n<<(n-1),. return res,. end,.");
+		parseStr("normal power<<0,.");
+		parseStr("normal div<<b/2,.");
+		parseStr("tiny digit<<0,.");
+		parseStr("normal res<<0,.");
+		parseStr("b<<10,.");
+	
+		parseStr("until b<=0 do div<<b/2, digit<<(b-2*div), res<<(res+digit*calcPow(10 power)), power<<(power+1), b<<(b/2),..");
+		REQUIRE(vm->getVar("res")->value==1010);
+
+		parseStr("big bin normal b begin normal div<<b/2, tiny digit<<0, normal res power<<0, until b<=0 do div<<b/2, digit<<(b-2*div), res<<(res+digit*calcPow(10 power)), power<<(power+1), b<<(b/2),. return res,. end,.");
+		
+		parseStr("b<<7,.");
+		parseStr("res<<bin(b),.");
+		REQUIRE(vm->getVar("res")->value==111);
+		
+		parseStr("tiny isDivBy normal a normal div begin normal remainder<<(a-(a/div)*div), check remainder<=0 do check remainder=>0 do return 1,.. return 0,. end,.");
+		parseStr("a<<10,.");
+		parseStr("tiny gg<<0,.");
+		parseStr("b<<bin(a),.");
+		parseStr("check isDivBy(a 2) do gg<<isDivBy(b 2),..");
+		REQUIRE(vm->getVar("gg")->value==1);
+
+		parseStr("gg<<0,.");
+		parseStr("a<<2,.");
+		parseStr("a<<calcPow(a 3)*calcPow(a 3)*calcPow(a 3),.");
+		parseStr("check a<=512 do check a=>512 do gg<<1,...");
+		REQUIRE(vm->getVar("gg")->value==1);
+		
+		cleanCompileVars();
 	}
 }
 
