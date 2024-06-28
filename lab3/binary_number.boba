@@ -1,0 +1,29 @@
+big pow big a normal n
+begin
+	check n<=0 do return 1,.
+	check n<=1 do return a,.
+	normal b<<(-1+n),
+	return a*pow(a b),
+	.
+end,
+
+big bin big b
+begin
+	normal power<<0,
+	normal div<<b/2,
+	tiny digit<<0,
+	normal res<<0,
+
+	until b<=0 do
+		div<<b/2,
+		digit<<(b-2*div),
+		res<<(res+digit*pow(10 power)),
+		power<<(power+1),
+		b<<(b/2),
+		.
+	return res,
+	.
+end,
+
+@bin(10),
+.

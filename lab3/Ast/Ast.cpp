@@ -628,11 +628,11 @@ int AssigningOperator::execute()
 			{
 				try
 				{
-					std::cout<<"scopchik: "<<std::endl;
-					std::cout<<*program_stack->top();
+				//	std::cout<<"scopchik: "<<std::endl;
+				//	std::cout<<*program_stack->top();
 					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());
-					std::cout<<"scopchik: "<<std::endl;
-					std::cout<<*program_stack->top();
+				//	std::cout<<"scopchik: "<<std::endl;
+				//	std::cout<<*program_stack->top();
 					dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->execute();
 					
 					//else dynamic_cast<Field*>(dynamic_cast<OperandNode*>(left)->operand->var)->getVar(dynamic_cast<OperandNode*>(left)->operand->i, dynamic_cast<OperandNode*>(left)->operand->j)->value=dynamic_cast<OperandNode*>(right)->execute();

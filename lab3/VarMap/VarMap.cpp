@@ -99,6 +99,14 @@ void Operand::updateValue(VarMap* scope)
 	}
 }
 
+/*void Operand::exec()
+{
+	i=i_exe->execute();
+	j=j_exe->execute();
+	var=dynamic_cast<Field*>(var)->getVar(i, j);
+	value=var->value;
+}*/
+
 void AssignOperator::perform()
 {
 	if(type==AssignType::Left) //a<<b

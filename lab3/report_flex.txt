@@ -1,6 +1,10 @@
 big
 var_type parsed
-fibonachi
+pow
+var_name parsed
+big
+var_type parsed
+a
 var_name parsed
 normal
 var_type parsed
@@ -20,7 +24,7 @@ do
 do parsed
 return
 return parsed
-0
+1
 literal parsed
 ,
 , parsed
@@ -38,8 +42,8 @@ do
 do parsed
 return
 return parsed
-1
-literal parsed
+a
+var_name parsed
 ,
 , parsed
 .
@@ -54,26 +58,6 @@ left_assign parsed
 ( parsed
 -
 - parsed
-2
-literal parsed
-+
-+ parsed
-n
-var_name parsed
-)
-) parsed
-,
-, parsed
-normal
-var_type parsed
-a
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
--
-- parsed
 1
 literal parsed
 +
@@ -84,56 +68,20 @@ var_name parsed
 ) parsed
 ,
 , parsed
-@
-@ parsed
--
-- parsed
-1000
-literal parsed
-,
-, parsed
-@
-@ parsed
-b
-var_name parsed
-,
-, parsed
-@
-@ parsed
-a
-var_name parsed
-,
-, parsed
-@
-@ parsed
--
-- parsed
-1000
-literal parsed
-,
-, parsed
 return
 return parsed
-(
-( parsed
-fibonachi
+a
 var_name parsed
-(
-( parsed
-b
-var_name parsed
-)
-) parsed
-+
-+ parsed
-fibonachi
+*
+* parsed
+pow
 var_name parsed
 (
 ( parsed
 a
 var_name parsed
-)
-) parsed
+b
+var_name parsed
 )
 ) parsed
 ,
@@ -144,13 +92,183 @@ end
 end parsed
 ,
 , parsed
-@
-@ parsed
-fibonachi
+big
+var_type parsed
+bin
+var_name parsed
+big
+var_type parsed
+b
+var_name parsed
+begin
+begin parsed
+normal
+var_type parsed
+power
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+normal
+var_type parsed
+div
+var_name parsed
+<<
+left_assign parsed
+b
+var_name parsed
+/
+/ parsed
+2
+literal parsed
+,
+, parsed
+tiny
+var_type parsed
+digit
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+normal
+var_type parsed
+res
+var_name parsed
+<<
+left_assign parsed
+0
+literal parsed
+,
+, parsed
+until
+until parsed
+b
+var_name parsed
+<=
+less_equal parsed
+0
+literal parsed
+do
+do parsed
+div
+var_name parsed
+<<
+left_assign parsed
+b
+var_name parsed
+/
+/ parsed
+2
+literal parsed
+,
+, parsed
+digit
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+b
+var_name parsed
+-
+- parsed
+2
+literal parsed
+*
+* parsed
+div
+var_name parsed
+)
+) parsed
+,
+, parsed
+res
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+res
+var_name parsed
++
++ parsed
+digit
+var_name parsed
+*
+* parsed
+pow
 var_name parsed
 (
 ( parsed
-11
+10
+literal parsed
+power
+var_name parsed
+)
+) parsed
+)
+) parsed
+,
+, parsed
+power
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+power
+var_name parsed
++
++ parsed
+1
+literal parsed
+)
+) parsed
+,
+, parsed
+b
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+b
+var_name parsed
+/
+/ parsed
+2
+literal parsed
+)
+) parsed
+,
+, parsed
+.
+. parsed
+return
+return parsed
+res
+var_name parsed
+,
+, parsed
+.
+. parsed
+end
+end parsed
+,
+, parsed
+@
+@ parsed
+bin
+var_name parsed
+(
+( parsed
+10
 literal parsed
 )
 ) parsed
