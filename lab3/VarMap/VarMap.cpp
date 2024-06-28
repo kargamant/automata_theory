@@ -79,6 +79,7 @@ void Operand::updateValue(VarMap* scope)
 				//std::cout<<"AHTUNG"<<std::endl;
 				//std::cout<<*scope;
 				//std::cout<<std::endl<<var->name<<" was not defined"<<std::endl;
+				scope->err_code=Err::undefined;	
 				throw std::invalid_argument("Error. Dolbaeb.");
 			}
 		}

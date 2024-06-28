@@ -1,24 +1,12 @@
-field
-array_type parsed
-big
-var_type parsed
-small
-var_type parsed
-ff
-var_name parsed
-<<
-left_assign parsed
-0
-literal parsed
-,
-, parsed
 normal
 var_type parsed
 a
 var_name parsed
 <<
 left_assign parsed
-31
+-
+- parsed
+1
 literal parsed
 ,
 , parsed
@@ -28,165 +16,115 @@ b
 var_name parsed
 <<
 left_assign parsed
-31
+3
 literal parsed
 ,
 , parsed
-small
+normal
 var_type parsed
-k
+c
 var_name parsed
 <<
 left_assign parsed
-3
+10
 literal parsed
 ,
 , parsed
-until
-until parsed
-a
-var_name parsed
-<
-< parsed
-0
-literal parsed
-do
-do parsed
-b
+normal
+var_type parsed
+d
 var_name parsed
 <<
 left_assign parsed
-31
+5
 literal parsed
 ,
 , parsed
-a
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
-a
-var_name parsed
--
-- parsed
-1
-literal parsed
-)
-) parsed
-,
-, parsed
-until
-until parsed
-b
-var_name parsed
-<
-< parsed
-0
-literal parsed
-do
-do parsed
-b
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
-b
-var_name parsed
--
-- parsed
-1
-literal parsed
-)
-) parsed
-,
-, parsed
-k
-var_name parsed
-<<
-left_assign parsed
-3
-literal parsed
-,
-, parsed
-until
-until parsed
-k
-var_name parsed
-<=
-less_equal parsed
-0
-literal parsed
-do
-do parsed
-k
-var_name parsed
-<<
-left_assign parsed
-(
-( parsed
-k
-var_name parsed
--
-- parsed
-1
-literal parsed
-)
-) parsed
-,
-, parsed
-ff
-var_name parsed
-[
-[ parsed
-a
-var_name parsed
-b
-var_name parsed
-]
-] parsed
-<<
-left_assign parsed
-(
-( parsed
-ff
-var_name parsed
-[
-[ parsed
-a
-var_name parsed
-b
-var_name parsed
-]
-] parsed
--
-- parsed
-1
-literal parsed
-)
-) parsed
-,
-, parsed
-.
-. parsed
-.
-. parsed
-.
-. parsed
 @
 @ parsed
-ff
+(
+( parsed
+a
 var_name parsed
-[
-[ parsed
-3
-literal parsed
-3
-literal parsed
-]
-] parsed
++
++ parsed
+(
+( parsed
+b
+var_name parsed
+*
+* parsed
+c
+var_name parsed
+)
+) parsed
+/
+/ parsed
+d
+var_name parsed
+)
+) parsed
 ,
 , parsed
+until
+until parsed
+(
+( parsed
+a
+var_name parsed
++
++ parsed
+(
+( parsed
+b
+var_name parsed
+*
+* parsed
+c
+var_name parsed
+)
+) parsed
+/
+/ parsed
+d
+var_name parsed
+)
+) parsed
+do
+do parsed
+@
+@ parsed
+a
+var_name parsed
+,
+, parsed
+a
+var_name parsed
+<<
+left_assign parsed
+(
+( parsed
+(
+( parsed
+-
+- parsed
+b
+var_name parsed
+)
+) parsed
+*
+* parsed
+c
+var_name parsed
+)
+) parsed
+/
+/ parsed
+d
+var_name parsed
+,
+, parsed
+.
+. parsed
 .
 . parsed

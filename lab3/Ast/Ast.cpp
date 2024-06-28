@@ -795,9 +795,13 @@ int AssigningOperator::execute()
 int UntilOperator::execute()
 {
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	int old_err_size=errors->size();
 	while(!expr->execute())
-	{
-		
+	{		
+		if(old_err_size!=errors->size())
+		{
+			break;
+		}
 		stmts->execute();
 		
 	//	if(expr->type==nodeType::oper) dynamic_cast<OperatorNode*>(expr)->isExecuted=false;

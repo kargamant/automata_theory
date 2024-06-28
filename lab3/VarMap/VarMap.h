@@ -159,6 +159,6 @@ class VarMap
 		friend Field;
 		friend AssignOperator;
 		friend void operator<<(std::ostream& stream, VarMap& vm);
-
+		friend Operand;
 };
 

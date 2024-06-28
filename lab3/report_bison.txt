@@ -1,64 +1,42 @@
-var ffpushed to init queue.
-operand_literal: 0x55b909b94260
 var apushed to init queue.
-operand_literal: 31
-operand with value 0x55b909b9d580
+operand_literal: 1
 All vars from init queue were intialized
 var bpushed to init queue.
-operand_literal: 31
-operand with value 0x55b909b9d820
-All vars from init queue were intialized
-var kpushed to init queue.
 operand_literal: 3
-operand with value 0x55b909b9dac0
+operand with value 0x5555555d4650
 All vars from init queue were intialized
-operand with value 0x55b909b9db60
+var cpushed to init queue.
+operand_literal: 10
+operand with value 0x5555555d48f0
+All vars from init queue were intialized
+var dpushed to init queue.
+operand_literal: 5
+operand with value 0x5555555d4b90
+All vars from init queue were intialized
+operand with value 0x5555555d4c30
+operand with value 0x5555555d4eb0
+operand with value 0x5555555d4fc0
+product of two expressions with value 0x5555555d50d0
+expression in brackets with value 0x5555555d50d0
+operand with value 0x5555555d5170
+division of two expressions with value 0x5555555d52a0
+sum of two expressions with value 0x5555555d5340
+expression in brackets with value 0x5555555d5340
+operand_literal: 0x5555555d5340
+operand with value 0x5555555d5420
+operand with value 0x5555555d55f0
+operand with value 0x5555555d5700
+product of two expressions with value 0x5555555d5810
+expression in brackets with value 0x5555555d5810
+operand with value 0x5555555d58b0
+division of two expressions with value 0x5555555d59e0
+sum of two expressions with value 0x5555555d5a80
+expression in brackets with value 0x5555555d5a80
 expr from logic expr
-operand_literal: 0
-operand with value 0x55b909b9dde0
-expr from logic expr
-0x55b909b9db60<0x55b909b9dde0: 0x55b909b9de80
-operand_literal: 0x55b909b9e050
-left_assignment
-operand with value 0x55b909b9e300
-operand_literal: 1
-operand with value 0x55b909b9e410
-difference between two expressions with value 0x55b909b9e4b0
-expression in brackets with value 0x55b909b9e4b0
-left_assignment
-operand with value 0x55b909b9e550
-expr from logic expr
-operand_literal: 0
-operand with value 0x55b909b9e780
-expr from logic expr
-0x55b909b9e550<0x55b909b9e780: 0x55b909b9e820
-operand with value 0x55b909b9e9f0
-operand_literal: 1
-operand with value 0x55b909b9eb00
-difference between two expressions with value 0x55b909b9eba0
-expression in brackets with value 0x55b909b9eba0
-left_assignment
-operand_literal: 0x55b909b9ee70
-left_assignment
-operand with value 0x55b909b9ef10
-expr from logic expr
-operand_literal: 0
-operand with value 0x55b909b9f120
-expr from logic expr
-0x55b909b9ef10<=0x55b909b9f120: 0x55b909b9f1c0
-operand with value 0x55b909b9f390
-operand_literal: 1
-operand with value 0x55b909b9f4a0
-difference between two expressions with value 0x55b909b9f540
-expression in brackets with value 0x55b909b9f540
-left_assignment
-operand with value 0x55b909b9f5e0
-operand with value 0x55b909b9f870
-operand with value 0x55b909b9fb00
-operand with value 0x55b909b9fc10
-operand with value 0x55b909b9fcf0
-operand_literal: 1
-operand with value 0x55b909b9fe70
-difference between two expressions with value 0x55b909b9ff10
-expression in brackets with value 0x55b909b9ff10
+expression in brackets with value 0x5555555d5f50
+operand with value 0x5555555d5ff0
+product of two expressions with value 0x5555555d6120
+expression in brackets with value 0x5555555d6120
+operand with value 0x5555555d61c0
+division of two expressions with value 0x5555555d62f0
 left_assignment

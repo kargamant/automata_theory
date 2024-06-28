@@ -703,6 +703,35 @@ TEST_CASE("until loops")
 			REQUIRE(v->value==2);
 		}
 
+		parseStr("b<<3,.");
+		parseStr("c<<5,.");
+		parseStr("d<<10,.");
+		parseStr("a<<0,.");
+		parseStr("until a+b*(c/d) do a<<(b*c)/d,..");
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("a<<0,.");
+		parseStr("b<<1023,.");
+		parseStr("k<<0,.");
+		parseStr("until a/b do k<<(k+1), b<<(b-1),..");
+		REQUIRE(vm->getVar("b")->value==0);
+		REQUIRE(vm->getVar("k")->value==1023);
+
+		parseStr("until a do a<<1,..");
+		REQUIRE(vm->getVar("a")->value==1);
+
+		parseStr("until GG do a<<228,..");
+		REQUIRE(err_vec.back().error_code==Err::undefined);
+
+		parseStr("a<<5,.");
+		parseStr("b<<5,.");
+		parseStr("c<<5,.");
+		parseStr("k<<0,.");
+		parseStr("until a<=0 do b<<5, until b<=0 do c<<5, until c<=0 do k<<(k+1), c<<(c-1),. b<<(b-1),. a<<(a-1),..");
+		REQUIRE(vm->getVar("k")->value==125);
+
+
+
 		//to be debugged in a simplier version
 	//	parseStr("a<<32,.");
 	//	parseStr("b<<31,.");
