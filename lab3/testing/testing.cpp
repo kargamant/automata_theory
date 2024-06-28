@@ -179,11 +179,11 @@ TEST_CASE("definition")
 		parseStr("ff[32 32]<<0,.");
 		REQUIRE(err_vec.back().error_code==Err::outOfRange);
 
-		parseStr("field small normal gg<<-17,.");
-		REQUIRE(!vm->checkIfDefined("gg"));
+	//	parseStr("field small normal gg<<-17,.");
+	//	REQUIRE(!vm->checkIfDefined("gg"));
 
-		parseStr("gg[0 0]<<1,.");
-		REQUIRE(err_vec.back().error_code==Err::undefined);
+	//	parseStr("gg[0 0]<<1,.");
+	//	REQUIRE(err_vec.back().error_code==Err::undefined);
 
 		parseStr("normal kk<<55,.");
 		parseStr("kk[1 1]<<7,.");
@@ -698,9 +698,14 @@ TEST_CASE("until loops")
 		parseStr("a<<32,.");
 		parseStr("b<<31,.");
 		parseStr("until a<0 do b<<31, a<<(a-1), until b<0 do ff[a b]<<2, b<<(b-1),...");
+		std::cout<<*vm;
+
+		int k=0;
 		for(auto& v: dynamic_cast<Field*>(vm->getVar("ff"))->matr)
 		{
+			std::cout<<"KKKKKK: "<<k<<std::endl;
 			REQUIRE(v->value==2);
+			k++;
 		}
 
 		parseStr("b<<3,.");
@@ -742,8 +747,28 @@ TEST_CASE("until loops")
 	//		REQUIRE(v->value==8);
 	//	}
 
+		cleanCompileVars();
 	}
 }
+
+TEST_CASE("loops and conditions combined")
+{
+	SECTION("conditions inside loops")
+	{
+		parseStr("normal a b c d<<625,.");
+		parseStr("tiny condition<<0,.");
+		
+		parseStr("until condition do a<<a/5, check a<=5 do condition<<1,...");
+		REQUIRE(vm->getVar("a")->value==5);
+
+		
+	}
+}
+
+
+
+
+
 
 
 

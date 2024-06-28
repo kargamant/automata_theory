@@ -1,10 +1,10 @@
-normal a<<-1,
-normal b<<3,
-normal c<<10,
-normal d<<5,
-@(a+(b*c)/d),
-until (a+(b*c)/d) do 
-	@a, 
-	a<<((-b)*c)/d,
-	.
+field normal small ff<<2,
+normal a b<<1,
+a<<2,
+b<<2,
+ff[a b]<<-3,
+@-1000,
+@ff[2 2],
+@-1000,
+@ff[5 4],
 .

@@ -438,6 +438,8 @@ int OperandNode::execute()
 
 int PrintValueOperator::execute()
 {
+//	std::cout<<"JUST TO CHECK: "<<std::endl;
+//	std::cout<<dynamic_cast<Field*>(program_stack->top()->getVar("ff"))->getVar(0, 0)->value<<std::endl;
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 	if(args[0]->type==nodeType::operand) 
 	{
@@ -585,7 +587,7 @@ int DefiningOperator::execute()
 	}
 	catch(std::invalid_argument error)
 	{
-		errors->push_back(Error(vm->getErrCode(), error.what(), this));
+		errors->push_back(Error(program_stack->top()->getErrCode(), error.what(), this));
 		//to uncomment
 		/*if(vm->getErrCode()==Err::typeMisMatch)
 		{
@@ -626,9 +628,21 @@ int AssigningOperator::execute()
 			{
 				try
 				{
-					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());	
+					std::cout<<"scopchik: "<<std::endl;
+					std::cout<<*program_stack->top();
+					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());
+					std::cout<<"scopchik: "<<std::endl;
+					std::cout<<*program_stack->top();
 					dynamic_cast<OperandNode*>(left)->operand->value=dynamic_cast<OperandNode*>(right)->execute();
-					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
+					
+					//else dynamic_cast<Field*>(dynamic_cast<OperandNode*>(left)->operand->var)->getVar(dynamic_cast<OperandNode*>(left)->operand->i, dynamic_cast<OperandNode*>(left)->operand->j)->value=dynamic_cast<OperandNode*>(right)->execute();
+					
+					if(program_stack!=nullptr && !dynamic_cast<OperandNode*>(left)->operand->isFieldItem) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
+					else if(program_stack!=nullptr) dynamic_cast<Field*>(program_stack->top()->getVar(dynamic_cast<OperandNode*>(left)->operand->var->name))->getVar(dynamic_cast<OperandNode*>(left)->operand->i, dynamic_cast<OperandNode*>(left)->operand->j)->value=dynamic_cast<OperandNode*>(right)->execute();
+
+				//	std::cout<<"scopchik: "<<std::endl;
+				//	std::cout<<*program_stack->top();
+
 					return dynamic_cast<OperandNode*>(left)->execute();
 				}catch(std::invalid_argument error)
 				{

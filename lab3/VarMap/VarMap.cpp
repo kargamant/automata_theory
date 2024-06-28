@@ -35,14 +35,20 @@ void Var::changeValue(int nvalue)
 	else if(nvalue<-VarMap::size_table[type]/2) value=-VarMap::size_table[type]/2;
 	else value=nvalue;
 
-	if(isField)
-	{
-		dynamic_cast<Field*>(this)->updateItems();
-	}
+//	if(isField)
+//	{
+//		dynamic_cast<Field*>(this)->updateItems();
+//	}
 }
+//Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : Var(item_type, name, value), size_type(size_type), matr(VarMap::size_table[size_type]*VarMap::size_table[size_type], new Var(item_type, "", value))
 
-Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : Var(item_type, name, value), size_type(size_type), matr(VarMap::size_table[size_type]*VarMap::size_table[size_type], new Var(item_type, "", value))
+Field::Field(VarType item_type, VarType size_type, const std::string& name, int value) : Var(item_type, name, value), size_type(size_type), matr(std::vector<Var*>())
 {
+	for(int i=0; i<VarMap::size_table[size_type]*VarMap::size_table[size_type]; i++)
+	{
+		Var* v=new Var(item_type, "", value);
+		matr.push_back(v);
+	}
 	isField=true;
 }
 
@@ -73,7 +79,12 @@ void Operand::updateValue(VarMap* scope)
 	{
 		if(scope!=nullptr)
 		{
-			if(scope->checkIfDefined(var->name)) var->value=scope->getVar(var->name)->value;
+			std::cout<<"Var name: "<<var->name<<std::endl;
+			if(scope->checkIfDefined(var->name)) 
+			{
+				if(!isFieldItem) var->value=scope->getVar(var->name)->value;
+				else var->value=dynamic_cast<Field*>(scope->getVar(var->name))->getVar(i, j)->value;
+			}
 			else
 			{
 				//std::cout<<"AHTUNG"<<std::endl;
@@ -226,7 +237,8 @@ void operator<<(std::ostream& stream, VarMap& vm)
 	for(auto& var: vm.map)
 	{
 		stream<<var.first<<" | ";
-		stream<<*var.second;
+		if(var.second->isField) stream<<*dynamic_cast<Field*>(var.second);
+		else stream<<*var.second;
 		//stream<<" actual value: "<<var.second->value;
 		stream<<std::endl;
 	}
@@ -239,7 +251,7 @@ void operator<<(std::ostream& stream, Field& arr)
 	{
 		for(int j=0; j<VarMap::size_table[arr.size_type]; j++)
 		{
-			stream<<arr.matr[i*VarMap::size_table[arr.size_type]+j];
+			stream<<*arr.matr[i*VarMap::size_table[arr.size_type]+j];
 			stream<<" ";
 		}
 		stream<<std::endl;
@@ -303,10 +315,10 @@ void VarMap::changeVar(const std::string& name, int val)
 		else if(val<-size_table[map[name]->type]/2) map[name]->value=-size_table[map[name]->type]/2;
 		else map[name]->value=val;
 
-		if(map[name]->isField)
-		{
-			dynamic_cast<Field*>(map[name])->updateItems();
-		}
+	//	if(map[name]->isField)
+	//	{
+	//		dynamic_cast<Field*>(map[name])->updateItems();
+	//	}
 	}
 	else
 	{

@@ -68,12 +68,15 @@ struct Field : public Var
 struct Operand
 {
 	//bool isExpr;
+	bool isFieldItem=false;
+	int i=-1;
+	int j=-1;
 	bool isVar;
 	Var* var;
 	int value;
 	Operand(int value=0) : isVar(false), var(nullptr), value(value) {}
 	Operand(Var* var) : isVar(true), var(var), value(var->value) {}
-	Operand(Var* var, int i, int j) : isVar(true), var(dynamic_cast<Field*>(var)->getVar(i, j)), value(var->value) {}
+	Operand(Var* var, int i, int j) : isFieldItem(true), i(i), j(j), isVar(true), var(dynamic_cast<Field*>(var)->getVar(i, j)), value(var->value) {this->var->name=var->name;}
 	void updateValue(VarMap* scope=nullptr);
 };
 

@@ -82,7 +82,7 @@
 main:
     complex_statement	{
     				//ast.root=main_func;
-				$$->printAst();
+				//$$->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
 			//	for(auto& func: declared_funcs)
 			//	{
@@ -197,7 +197,9 @@ simple_statement:
 							Ast* ost=new Ast(on);
 
 							//main_func->stmts.push_back(ost);
-							//ost->execute();
+							program_stack.push(vm);
+							ost->root->applyProgramStack(&program_stack);
+							ost->execute();
 							$$=ost;	
 						}
 	| assign_expr 	','			
@@ -464,6 +466,7 @@ operand:
 						}
 						if(!isError)
 						{
+							std::cout<<"HAHAHAHAHAH"<<std::endl;
 							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1), $3, $4)));
 							$$=ost;
 						}
