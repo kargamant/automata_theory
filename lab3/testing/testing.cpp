@@ -952,7 +952,137 @@ TEST_CASE("Functions")
 	}
 }
 
+TEST_CASE("robot")
+{
+	SECTION("basic operations")
+	{
+		labirint=Map(8, 8);
+		std::cout<<labirint;
 
+		parseStr("go,.");
+		REQUIRE(labirint.getRobo().getX()==0);
+		REQUIRE(labirint.getRobo().getY()==1);
+		REQUIRE(labirint.getRobo().getAngle()==30);
+
+		parseStr("go,.");
+		REQUIRE(err_vec.back().error_code==Err::roboError);
+
+		parseStr("rl,.");
+		REQUIRE(labirint.getRobo().getAngle()==90);
+
+		parseStr("rl,.");
+		REQUIRE(labirint.getRobo().getAngle()==150);
+
+		parseStr("rl,.");
+		REQUIRE(labirint.getRobo().getAngle()==210);
+
+		parseStr("rl,.");
+		REQUIRE(labirint.getRobo().getAngle()==270);
+
+		parseStr("rl,.");
+		REQUIRE(labirint.getRobo().getAngle()==330);
+
+		parseStr("rl,.");
+		REQUIRE(labirint.getRobo().getAngle()==30);
+
+		parseStr("rr,.");
+		REQUIRE(labirint.getRobo().getAngle()==330);
+
+		parseStr("rr,.");
+		REQUIRE(labirint.getRobo().getAngle()==270);
+
+		parseStr("rr,.");
+		REQUIRE(labirint.getRobo().getAngle()==210);
+
+		parseStr("rr,.");
+		REQUIRE(labirint.getRobo().getAngle()==150);
+
+		parseStr("rr,.");
+		REQUIRE(labirint.getRobo().getAngle()==90);
+
+		parseStr("rr,.");
+		REQUIRE(labirint.getRobo().getAngle()==30);
+
+		bool flip=false;
+		for(int i=0; i<6; i++)
+		{
+			if(!flip)
+			{
+				parseStr("rr,.");
+			}
+			else
+			{
+				parseStr("rl,.");
+			}
+			parseStr("go,.");
+			flip=!flip;
+		}
+		REQUIRE(labirint.getRobo().getX()==0);
+		REQUIRE(labirint.getRobo().getY()==7);
+		
+		parseStr("rr,.");
+		parseStr("rr,.");
+		for(int i=0; i<7; i++)
+		{
+			parseStr("go,.");
+		}
+		REQUIRE(labirint.getRobo().getX()==7);
+		REQUIRE(labirint.getRobo().getY()==7);
+
+		labirint.transportRobo(3, 3);		
+		//10101
+		labirint.changeCellType(4, 3, CellType::obstacle);
+		labirint.changeCellType(2, 4, CellType::obstacle);
+		labirint.changeCellType(3, 2, CellType::obstacle);
+		parseStr("small report<<sonar,.");
+		REQUIRE(vm->getVar("report")->value==21);
+
+		labirint.transportRobo(0, 0);
+		parseStr("rr,.");
+		labirint.changeCellType(1, 0, CellType::obstacle);
+		//11011
+		parseStr("report<<sonar,.");
+		REQUIRE(vm->getVar("report")->value==27);
+	}
+	SECTION("usage with other constructions")
+	{
+		labirint.transportRobo(0, 1);
+		parseStr("rl,.");		
+		parseStr("rl,.");		
+		parseStr("rl,.");		
+		
+		//flip loop but completely in interpreted langugage
+		parseStr("tiny flip<<0,.");
+		parseStr("small k<<6,.");
+		parseStr("tiny invert tiny a begin check a<=0 do return 1,. check a=>1 do return 0,.. end,.");
+		parseStr("until k<=0 do check flip<=0 do rr,. check flip=>1 do rl,. go, flip<<invert(flip), k<<(k-1),..");
+		REQUIRE(labirint.getRobo().getX()==0);
+		REQUIRE(labirint.getRobo().getY()==7);
+
+		parseStr("rr,.");
+		parseStr("rr,.");
+		parseStr("k<<7,.");
+		parseStr("until k<=0 do go, k<<(k-1),..");
+		REQUIRE(labirint.getRobo().getX()==7);
+		REQUIRE(labirint.getRobo().getY()==7);
+		
+		labirint.transportRobo(3, 3);		
+		parseStr("big calcPow normal a normal n begin check n<=0 do return 1,. check n<=1 do return a,. big res<<1, until n<=0 do res<<(res*a), n<<(n-1),. return res,. end,.");
+		parseStr("big bin normal b begin normal div<<b/2, tiny digit<<0, big res power<<0, until b<=0 do div<<b/2, digit<<(b-2*div), res<<(res+digit*calcPow(10 power)), power<<(power+1), b<<(b/2),. return res,. end,.");
+		parseStr("big GG<<bin(sonar),.");
+		REQUIRE(vm->getVar("GG")->value==10101);
+
+		labirint=Map(8, 8);
+		labirint.transportRobo(0, 1);
+		std::cout<<labirint;
+		parseStr("big traverseBorder normal b begin tiny flip<<0, small k<<6, until k<=0 do check flip<=0 do rr,. check flip=>1 do rl,. go, flip<<invert(flip), k<<(k-1),..end,.");
+		//parseStr("big traverseBorder normal b begin tiny flip<<1, small k<<7, until k<=0 do check flip<=0 do rr,. check flip=>1 do rl,. go, flip<<invert(flip), k<<(k-1),. rr, k<<7, until k<=0 do go, k<<(k-1),. flip<<0, k<<7, until k<=0 do check flip<=0 do rr,. check flip=>1 do rl,. go, flip<<invert(flip), k<<(k-1),.. end,.");
+		parseStr("GG<<traverseBorder(3),.");
+		REQUIRE(labirint.getRobo().getX()==0);
+		REQUIRE(labirint.getRobo().getY()==7);
+	}
+
+}
 
 
 

@@ -6,6 +6,6 @@ begin
 	.
 end,
 
-big GG<<factorial(5),
+big GG<<factorial(6),
 @GG,
 .

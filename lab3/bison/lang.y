@@ -263,17 +263,17 @@ simple_statement:
 						//	labirint.changeCellType(3, 3, CellType::obstacle);
 							//labirint.changeCellType(1, 2, CellType::obstacle);
 							OperatorNode* op=new GoOperator(labirint);
-							op->execute();
+							//op->execute();
 							$$=new Ast(op);
 						}
 	| RR ','				{
 							OperatorNode* op=new RrOperator(labirint);
-							op->execute();
+							//op->execute();
 							$$=new Ast(op);
 						}
 	| RL ','				{
 							OperatorNode* op=new RlOperator(labirint);
-							op->execute();
+							//op->execute();
 							$$=new Ast(op);
 						}
 	/*| VAR_NAME '(' args_to_call ')' ','	{
@@ -679,6 +679,10 @@ expr_operand:
 								std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
 								std::cerr<<"Error text: "<<"Error. Function "+*$1+" was not declared."<<std::endl;
 							}
+						}
+	| SONAR					{
+							OperatorNode* op=new SonarOperator(labirint);
+							$$=new Ast(op);
 						}
 	;
 expr:

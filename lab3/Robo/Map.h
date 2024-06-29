@@ -68,6 +68,7 @@ class Map
 		void rlRobo() {robo.rl();}
 		void rrRobo() {robo.rr();}
 		int sonarRobo();
+		void transportRobo(int x, int y); //cheating command lol
 		friend Cell;
 		friend void operator<<(std::ostream& stream, Map& map);
 };

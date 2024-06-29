@@ -111,7 +111,7 @@ void Map::moveRobo()
 	}
 	else
 	{
-		std::cerr<<"Error. Obstacle is onthe way"<<std::endl;
+		throw std::invalid_argument("Error. Obstacle is onthe way");
 	}
 }
 
@@ -123,7 +123,7 @@ int Map::sonarRobo()
 	for(auto& cell: cells)
 	{
 		bit_res*=2;
-		if(map.contains(cell) && map[cell].type==CellType::obstacle)
+		if((map.contains(cell) && map[cell].type==CellType::obstacle) || !map.contains(cell))
 		{
 			bit_res++;
 		}
@@ -131,6 +131,10 @@ int Map::sonarRobo()
 	return bit_res;
 }
 
+void Map::transportRobo(int x, int y)
+{
+	robo.setCoordinates({x, y});
+}
 
 
 

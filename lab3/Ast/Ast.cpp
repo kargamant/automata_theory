@@ -213,8 +213,8 @@ void FunctionOperator::build()
 		Node* ptr=arguments->root;
 		while(ptr!=nullptr)
 		{
-			passed_values.push_back(dynamic_cast<OperandNode*>(ptr)->operand->value);
-			//passed_values.push_back(ptr->execute());
+			//passed_values.push_back(dynamic_cast<OperandNode*>(ptr)->operand->value);
+			passed_values.push_back(ptr->execute());
 			ptr=ptr->left;
 		}
 		//arguments=dynamic_cast<FunctionOperator*>((*declared_funcs)[name]->root)->arguments;
@@ -873,9 +873,16 @@ int GoOperator::execute()
 	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
 //	if(isFinalExec)
 //	{
+	try
+	{
 		labirint.moveRobo();
 		std::cout<<labirint;
 		std::cout<<std::endl;
+	}
+	catch(std::invalid_argument error)
+	{
+		errors->push_back(Error(Err::roboError, error.what(), this));
+	}
 //	}
 	return 0;
 }

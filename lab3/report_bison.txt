@@ -1,81 +1,81 @@
-operand with value 0x55db626fe400
+operand with value 0x55947f78d400
 expr from logic expr
 operand_literal: 0
-operand with value 0x55db626fe480
+operand with value 0x55947f78d480
 expr from logic expr
-0x55db626fe400<=0x55db626fe480: 0x55db62707670
-operand_literal: 0x55db62707710
-operand with value 0x55db62707a20
+0x55947f78d400<=0x55947f78d480: 0x55947f796670
+operand_literal: 0x55947f796710
+operand with value 0x55947f796a20
 expr from logic expr
 operand_literal: 1
-operand with value 0x55db62707b40
+operand with value 0x55947f796b40
 expr from logic expr
-0x55db62707a20<=0x55db62707b40: 0x55db62707bc0
+0x55947f796a20<=0x55947f796b40: 0x55947f796bc0
 var bpushed to init queue.
 operand_literal: 1
-operand with value 0x55db62708220
-sum of two expressions with value 0x55db62708240
-expression in brackets with value 0x55db62708240
+operand with value 0x55947f797220
+sum of two expressions with value 0x55947f797240
+expression in brackets with value 0x55947f797240
 All vars from init queue were intialized
-operand with value 0x55db62708430
-operand with value 0x55db627088f0
-product of two expressions with value 0x55db62709240
-operand_literal: 0x55db62709240
+operand with value 0x55947f797430
+operand with value 0x55947f7978f0
+product of two expressions with value 0x55947f798240
+operand_literal: 0x55947f798240
 var powerpushed to init queue.
 operand_literal: 0
-operand with value 0x55db6270a0b0
+operand with value 0x55947f7990b0
 All vars from init queue were intialized
 var divpushed to init queue.
-operand with value 0x55db6270a3a0
+operand with value 0x55947f7993a0
 operand_literal: 2
-operand with value 0x55db6270a510
-division of two expressions with value 0x55db6270a590
+operand with value 0x55947f799510
+division of two expressions with value 0x55947f799590
 All vars from init queue were intialized
 var digitpushed to init queue.
 operand_literal: 0
-operand with value 0x55db6270a860
+operand with value 0x55947f799860
 All vars from init queue were intialized
 var respushed to init queue.
 operand_literal: 0
-operand with value 0x55db6270ab20
+operand with value 0x55947f799b20
 All vars from init queue were intialized
-operand with value 0x55db6270abd0
+operand with value 0x55947f799bd0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55db6270ae10
+operand with value 0x55947f799e10
 expr from logic expr
-0x55db6270abd0<=0x55db6270ae10: 0x55db6270ae90
-operand with value 0x55db6270af50
+0x55947f799bd0<=0x55947f799e10: 0x55947f799e90
+operand with value 0x55947f799f50
 operand_literal: 2
-operand with value 0x55db6270b1c0
-division of two expressions with value 0x55db6270b240
+operand with value 0x55947f79a1c0
+division of two expressions with value 0x55947f79a240
 left_assignment
-operand with value 0x55db6270b3e0
+operand with value 0x55947f79a3e0
 operand_literal: 2
-operand with value 0x55db6270b670
-operand with value 0x55db6270b720
-product of two expressions with value 0x55db6270b840
-difference between two expressions with value 0x55db6270b8e0
-expression in brackets with value 0x55db6270b8e0
+operand with value 0x55947f79a670
+operand with value 0x55947f79a720
+product of two expressions with value 0x55947f79a840
+difference between two expressions with value 0x55947f79a8e0
+expression in brackets with value 0x55947f79a8e0
 left_assignment
-operand with value 0x55db6270baa0
-operand with value 0x55db6270bd00
-operand_literal: 0x55db6270be50
-operand with value 0x55db6270c870
-product of two expressions with value 0x55db6270c890
-sum of two expressions with value 0x55db6270c930
-expression in brackets with value 0x55db6270c930
+operand with value 0x55947f79aaa0
+operand with value 0x55947f79ad00
+operand_literal: 0x55947f79ae50
+operand with value 0x55947f79b870
+product of two expressions with value 0x55947f79b890
+sum of two expressions with value 0x55947f79b930
+expression in brackets with value 0x55947f79b930
 left_assignment
-operand with value 0x55db6270caf0
+operand with value 0x55947f79baf0
 operand_literal: 1
-operand with value 0x55db6270cda0
-sum of two expressions with value 0x55db6270ce20
-expression in brackets with value 0x55db6270ce20
+operand with value 0x55947f79bda0
+sum of two expressions with value 0x55947f79be20
+expression in brackets with value 0x55947f79be20
 left_assignment
-operand with value 0x55db6270cfc0
+operand with value 0x55947f79bfc0
 operand_literal: 2
-operand with value 0x55db6270d250
-division of two expressions with value 0x55db6270d2d0
-expression in brackets with value 0x55db6270d2d0
+operand with value 0x55947f79c250
+division of two expressions with value 0x55947f79c2d0
+expression in brackets with value 0x55947f79c2d0
 left_assignment
-operand_literal: 0x55db6270e640
+operand_literal: 0x55947f79d640

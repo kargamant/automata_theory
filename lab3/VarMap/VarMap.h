@@ -33,7 +33,8 @@ enum class Err
 	undefined,
 	outOfRange,
 	invalidAssign,
-	bruh
+	bruh,
+	roboError
 };
 
 

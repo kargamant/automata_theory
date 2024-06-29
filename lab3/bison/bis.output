@@ -6,23 +6,24 @@ Terminals unused in grammar
 
 State 1 conflicts: 1 shift/reduce, 10 reduce/reduce
 State 3 conflicts: 11 reduce/reduce
+State 11 conflicts: 10 reduce/reduce
 State 19 conflicts: 4 reduce/reduce
 State 27 conflicts: 1 reduce/reduce
 State 30 conflicts: 1 shift/reduce
-State 33 conflicts: 2 shift/reduce
-State 36 conflicts: 2 shift/reduce, 9 reduce/reduce
-State 42 conflicts: 11 reduce/reduce
-State 45 conflicts: 1 shift/reduce
-State 61 conflicts: 1 shift/reduce, 5 reduce/reduce
-State 65 conflicts: 1 reduce/reduce
-State 86 conflicts: 2 shift/reduce
+State 34 conflicts: 2 shift/reduce
+State 37 conflicts: 2 shift/reduce, 9 reduce/reduce
+State 43 conflicts: 11 reduce/reduce
+State 46 conflicts: 1 shift/reduce
+State 62 conflicts: 1 shift/reduce, 6 reduce/reduce
+State 66 conflicts: 1 reduce/reduce
 State 87 conflicts: 2 shift/reduce
-State 88 conflicts: 4 shift/reduce
+State 88 conflicts: 2 shift/reduce
 State 89 conflicts: 4 shift/reduce
-State 93 conflicts: 10 reduce/reduce
-State 98 conflicts: 1 shift/reduce, 5 reduce/reduce
-State 104 conflicts: 10 reduce/reduce
+State 90 conflicts: 4 shift/reduce
+State 94 conflicts: 10 reduce/reduce
+State 99 conflicts: 1 shift/reduce, 6 reduce/reduce
 State 105 conflicts: 10 reduce/reduce
+State 106 conflicts: 10 reduce/reduce
 
 
 Grammar
@@ -74,46 +75,47 @@ Grammar
    35             | VAR_NAME '[' numeric_operand numeric_operand ']'
    36             | VAR_NAME '[' LITERAL LITERAL ']'
    37             | VAR_NAME '(' args_to_call ')'
+   38             | SONAR
 
-   38 expr: expr_operand
-   39     | '+' expr_operand
-   40     | '-' expr_operand
-   41     | expr '*' expr
-   42     | expr '/' expr
-   43     | expr '+' expr
-   44     | expr '-' expr
-   45     | '(' expr ')'
+   39 expr: expr_operand
+   40     | '+' expr_operand
+   41     | '-' expr_operand
+   42     | expr '*' expr
+   43     | expr '/' expr
+   44     | expr '+' expr
+   45     | expr '-' expr
+   46     | '(' expr ')'
 
-   46 logic_expr: logic_expr LESS_EQUAL logic_expr
-   47           | logic_expr MORE_EQUAL logic_expr
-   48           | logic_expr '<' logic_expr
-   49           | logic_expr '>' logic_expr
-   50           | '(' logic_expr ')'
-   51           | expr
+   47 logic_expr: logic_expr LESS_EQUAL logic_expr
+   48           | logic_expr MORE_EQUAL logic_expr
+   49           | logic_expr '<' logic_expr
+   50           | logic_expr '>' logic_expr
+   51           | '(' logic_expr ')'
+   52           | expr
 
-   52 vars: VAR_NAME vars
-   53     | VAR_NAME
-   54     | %empty
+   53 vars: VAR_NAME vars
+   54     | VAR_NAME
+   55     | %empty
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
-    '(' (40) 27 37 45 50
-    ')' (41) 27 37 45 50
-    '*' (42) 41
-    '+' (43) 39 43
+    '(' (40) 27 37 46 51
+    ')' (41) 27 37 46 51
+    '*' (42) 42
+    '+' (43) 40 44
     ',' (44) 4 5 6 7 10 11 12 13 14
-    '-' (45) 30 40 44
+    '-' (45) 30 41 45
     '.' (46) 3
-    '/' (47) 42
-    '<' (60) 48
-    '>' (62) 49
+    '/' (47) 43
+    '<' (60) 49
+    '>' (62) 50
     '@' (64) 7
     '[' (91) 25 26 35 36
     ']' (93) 25 26 35 36
     error (256)
-    VAR_NAME <str> (258) 10 17 18 24 25 26 27 34 35 36 37 52 53
+    VAR_NAME <str> (258) 10 17 18 24 25 26 27 34 35 36 37 53 54
     VAR_TYPE <var_type> (259) 4 5 10 17 18
     LITERAL <num> (260) 26 29 30 33 36
     ARRAY (261) 5
@@ -126,9 +128,9 @@ Terminals, with rules where they appear
     GO (268) 12
     RL (269) 14
     RR (270) 13
-    SONAR (271) 28
-    LESS_EQUAL (272) 46
-    MORE_EQUAL (273) 47
+    SONAR (271) 28 38
+    LESS_EQUAL (272) 47
+    MORE_EQUAL (273) 48
     "<" (274)
     ">" (275)
     LEFT_ASSIGN (276) 4 5 19
@@ -152,8 +154,8 @@ Nonterminals, with rules where they appear
         on left: 17 18
         on right: 10 17
     expr <st> (41)
-        on left: 38 39 40 41 42 43 44 45
-        on right: 4 21 31 41 42 43 44 45 51
+        on left: 39 40 41 42 43 44 45 46
+        on right: 4 21 31 42 43 44 45 46 52
     operand <st> (42)
         on left: 23 24 25 26 27 28
         on right: 5 7 11 15 16 19 20 22
@@ -161,11 +163,11 @@ Nonterminals, with rules where they appear
         on left: 29 30 31 32
         on right: 23 25 35
     logic_expr <st> (44)
-        on left: 46 47 48 49 50 51
-        on right: 8 9 32 46 47 48 49 50
+        on left: 47 48 49 50 51 52
+        on right: 8 9 32 47 48 49 50 51
     expr_operand <st> (45)
-        on left: 33 34 35 36 37
-        on right: 38 39 40
+        on left: 33 34 35 36 37 38
+        on right: 39 40 41
     assign_expr <st> (46)
         on left: 19 20 21 22
         on right: 6 19 20
@@ -173,8 +175,8 @@ Nonterminals, with rules where they appear
         on left: 15 16
         on right: 15 27 37
     vars <st> (48)
-        on left: 52 53 54
-        on right: 4 5 52
+        on left: 53 54 55
+        on right: 4 5 53
 
 
 State 0
@@ -258,7 +260,7 @@ State 2
 
     VAR_NAME  shift, and go to state 27
 
-    $default  reduce using rule 54 (vars)
+    $default  reduce using rule 55 (vars)
 
     vars  go to state 28
 
@@ -312,12 +314,13 @@ State 5
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
+    '-'       shift, and go to state 33
     '('       shift, and go to state 15
 
-    expr          go to state 33
-    logic_expr    go to state 34
+    expr          go to state 34
+    logic_expr    go to state 35
     expr_operand  go to state 23
 
 
@@ -327,12 +330,13 @@ State 6
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
+    '-'       shift, and go to state 33
     '('       shift, and go to state 15
 
-    expr          go to state 33
-    logic_expr    go to state 35
+    expr          go to state 34
+    logic_expr    go to state 36
     expr_operand  go to state 23
 
 
@@ -347,8 +351,8 @@ State 7
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    operand          go to state 37
+    expr             go to state 37
+    operand          go to state 38
     numeric_operand  go to state 21
     logic_expr       go to state 22
     expr_operand     go to state 23
@@ -358,49 +362,78 @@ State 8
 
    12 simple_statement: GO . ','
 
-    ','  shift, and go to state 38
+    ','  shift, and go to state 39
 
 
 State 9
 
    14 simple_statement: RL . ','
 
-    ','  shift, and go to state 39
+    ','  shift, and go to state 40
 
 
 State 10
 
    13 simple_statement: RR . ','
 
-    ','  shift, and go to state 40
+    ','  shift, and go to state 41
 
 
 State 11
 
    28 operand: SONAR .
+   38 expr_operand: SONAR .
 
-    $default  reduce using rule 28 (operand)
+    VAR_NAME      reduce using rule 28 (operand)
+    VAR_NAME      [reduce using rule 38 (expr_operand)]
+    LITERAL       reduce using rule 28 (operand)
+    LITERAL       [reduce using rule 38 (expr_operand)]
+    SONAR         reduce using rule 28 (operand)
+    SONAR         [reduce using rule 38 (expr_operand)]
+    '+'           reduce using rule 28 (operand)
+    '+'           [reduce using rule 38 (expr_operand)]
+    '-'           reduce using rule 28 (operand)
+    '-'           [reduce using rule 38 (expr_operand)]
+    '*'           reduce using rule 38 (expr_operand)
+    '/'           reduce using rule 38 (expr_operand)
+    LESS_EQUAL    reduce using rule 38 (expr_operand)
+    MORE_EQUAL    reduce using rule 38 (expr_operand)
+    LEFT_ASSIGN   reduce using rule 28 (operand)
+    LEFT_ASSIGN   [reduce using rule 38 (expr_operand)]
+    RIGHT_ASSIGN  reduce using rule 28 (operand)
+    RIGHT_ASSIGN  [reduce using rule 38 (expr_operand)]
+    ','           reduce using rule 28 (operand)
+    ','           [reduce using rule 38 (expr_operand)]
+    '('           reduce using rule 28 (operand)
+    '('           [reduce using rule 38 (expr_operand)]
+    ')'           reduce using rule 28 (operand)
+    ')'           [reduce using rule 38 (expr_operand)]
+    '<'           reduce using rule 38 (expr_operand)
+    '>'           reduce using rule 38 (expr_operand)
+    $default      reduce using rule 28 (operand)
 
 
 State 12
 
-   39 expr: '+' . expr_operand
+   40 expr: '+' . expr_operand
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
 
-    expr_operand  go to state 41
+    expr_operand  go to state 42
 
 
 State 13
 
    30 numeric_operand: '-' . LITERAL
-   40 expr: '-' . expr_operand
+   41 expr: '-' . expr_operand
 
     VAR_NAME  shift, and go to state 30
-    LITERAL   shift, and go to state 42
+    LITERAL   shift, and go to state 43
+    SONAR     shift, and go to state 32
 
-    expr_operand  go to state 43
+    expr_operand  go to state 44
 
 
 State 14
@@ -414,8 +447,8 @@ State 14
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    operand          go to state 44
+    expr             go to state 37
+    operand          go to state 45
     numeric_operand  go to state 21
     logic_expr       go to state 22
     expr_operand     go to state 23
@@ -423,17 +456,18 @@ State 14
 
 State 15
 
-   45 expr: '(' . expr ')'
-   50 logic_expr: '(' . logic_expr ')'
+   46 expr: '(' . expr ')'
+   51 logic_expr: '(' . logic_expr ')'
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
+    '-'       shift, and go to state 33
     '('       shift, and go to state 15
 
-    expr          go to state 45
-    logic_expr    go to state 46
+    expr          go to state 46
+    logic_expr    go to state 47
     expr_operand  go to state 23
 
 
@@ -441,7 +475,7 @@ State 16
 
     0 $accept: main . $end
 
-    $end  shift, and go to state 47
+    $end  shift, and go to state 48
 
 
 State 17
@@ -469,11 +503,11 @@ State 18
     SONAR     shift, and go to state 11
     '+'       shift, and go to state 12
     '-'       shift, and go to state 13
-    '.'       shift, and go to state 48
+    '.'       shift, and go to state 49
     '@'       shift, and go to state 14
     '('       shift, and go to state 15
 
-    complex_statement  go to state 49
+    complex_statement  go to state 50
     simple_statement   go to state 18
     expr               go to state 19
     operand            go to state 20
@@ -487,25 +521,25 @@ State 19
 
    21 assign_expr: expr .
    31 numeric_operand: expr .
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   44     | expr . '-' expr
-   51 logic_expr: expr .
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   45     | expr . '-' expr
+   52 logic_expr: expr .
 
-    '+'  shift, and go to state 50
-    '-'  shift, and go to state 51
-    '*'  shift, and go to state 52
-    '/'  shift, and go to state 53
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
 
     LEFT_ASSIGN   reduce using rule 31 (numeric_operand)
-    LEFT_ASSIGN   [reduce using rule 51 (logic_expr)]
+    LEFT_ASSIGN   [reduce using rule 52 (logic_expr)]
     RIGHT_ASSIGN  reduce using rule 31 (numeric_operand)
-    RIGHT_ASSIGN  [reduce using rule 51 (logic_expr)]
+    RIGHT_ASSIGN  [reduce using rule 52 (logic_expr)]
     ','           reduce using rule 21 (assign_expr)
     ','           [reduce using rule 31 (numeric_operand)]
-    ','           [reduce using rule 51 (logic_expr)]
-    $default      reduce using rule 51 (logic_expr)
+    ','           [reduce using rule 52 (logic_expr)]
+    $default      reduce using rule 52 (logic_expr)
 
 
 State 20
@@ -514,8 +548,8 @@ State 20
    20            | operand . RIGHT_ASSIGN assign_expr
    22            | operand .
 
-    LEFT_ASSIGN   shift, and go to state 54
-    RIGHT_ASSIGN  shift, and go to state 55
+    LEFT_ASSIGN   shift, and go to state 55
+    RIGHT_ASSIGN  shift, and go to state 56
 
     $default  reduce using rule 22 (assign_expr)
 
@@ -530,31 +564,31 @@ State 21
 State 22
 
    32 numeric_operand: logic_expr .
-   46 logic_expr: logic_expr . LESS_EQUAL logic_expr
-   47           | logic_expr . MORE_EQUAL logic_expr
-   48           | logic_expr . '<' logic_expr
-   49           | logic_expr . '>' logic_expr
+   47 logic_expr: logic_expr . LESS_EQUAL logic_expr
+   48           | logic_expr . MORE_EQUAL logic_expr
+   49           | logic_expr . '<' logic_expr
+   50           | logic_expr . '>' logic_expr
 
-    LESS_EQUAL  shift, and go to state 56
-    MORE_EQUAL  shift, and go to state 57
-    '<'         shift, and go to state 58
-    '>'         shift, and go to state 59
+    LESS_EQUAL  shift, and go to state 57
+    MORE_EQUAL  shift, and go to state 58
+    '<'         shift, and go to state 59
+    '>'         shift, and go to state 60
 
     $default  reduce using rule 32 (numeric_operand)
 
 
 State 23
 
-   38 expr: expr_operand .
+   39 expr: expr_operand .
 
-    $default  reduce using rule 38 (expr)
+    $default  reduce using rule 39 (expr)
 
 
 State 24
 
     6 simple_statement: assign_expr . ','
 
-    ','  shift, and go to state 60
+    ','  shift, and go to state 61
 
 
 State 25
@@ -565,13 +599,14 @@ State 25
    36             | VAR_NAME '[' . LITERAL LITERAL ']'
 
     VAR_NAME  shift, and go to state 30
-    LITERAL   shift, and go to state 61
+    LITERAL   shift, and go to state 62
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    numeric_operand  go to state 62
+    expr             go to state 37
+    numeric_operand  go to state 63
     logic_expr       go to state 22
     expr_operand     go to state 23
 
@@ -588,43 +623,43 @@ State 26
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    operand          go to state 63
+    expr             go to state 37
+    operand          go to state 64
     numeric_operand  go to state 21
     logic_expr       go to state 22
     expr_operand     go to state 23
-    args_to_call     go to state 64
+    args_to_call     go to state 65
 
 
 State 27
 
    10 simple_statement: VAR_TYPE VAR_NAME . args BEGIN_FUNC complex_statement END_FUNC ','
-   52 vars: VAR_NAME . vars
-   53     | VAR_NAME .
+   53 vars: VAR_NAME . vars
+   54     | VAR_NAME .
 
-    VAR_NAME  shift, and go to state 65
-    VAR_TYPE  shift, and go to state 66
+    VAR_NAME  shift, and go to state 66
+    VAR_TYPE  shift, and go to state 67
 
-    LEFT_ASSIGN  reduce using rule 53 (vars)
-    LEFT_ASSIGN  [reduce using rule 54 (vars)]
-    $default     reduce using rule 53 (vars)
+    LEFT_ASSIGN  reduce using rule 54 (vars)
+    LEFT_ASSIGN  [reduce using rule 55 (vars)]
+    $default     reduce using rule 54 (vars)
 
-    args  go to state 67
-    vars  go to state 68
+    args  go to state 68
+    vars  go to state 69
 
 
 State 28
 
     4 simple_statement: VAR_TYPE vars . LEFT_ASSIGN expr ','
 
-    LEFT_ASSIGN  shift, and go to state 69
+    LEFT_ASSIGN  shift, and go to state 70
 
 
 State 29
 
     5 simple_statement: ARRAY VAR_TYPE . VAR_TYPE vars LEFT_ASSIGN operand ','
 
-    VAR_TYPE  shift, and go to state 70
+    VAR_TYPE  shift, and go to state 71
 
 
 State 30
@@ -634,8 +669,8 @@ State 30
    36             | VAR_NAME . '[' LITERAL LITERAL ']'
    37             | VAR_NAME . '(' args_to_call ')'
 
-    '['  shift, and go to state 71
-    '('  shift, and go to state 72
+    '['  shift, and go to state 72
+    '('  shift, and go to state 73
 
     '('       [reduce using rule 34 (expr_operand)]
     $default  reduce using rule 34 (expr_operand)
@@ -650,137 +685,145 @@ State 31
 
 State 32
 
-   40 expr: '-' . expr_operand
+   38 expr_operand: SONAR .
 
-    VAR_NAME  shift, and go to state 30
-    LITERAL   shift, and go to state 31
-
-    expr_operand  go to state 43
+    $default  reduce using rule 38 (expr_operand)
 
 
 State 33
 
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   44     | expr . '-' expr
-   51 logic_expr: expr .
+   41 expr: '-' . expr_operand
 
-    '+'  shift, and go to state 50
-    '-'  shift, and go to state 51
-    '*'  shift, and go to state 52
-    '/'  shift, and go to state 53
+    VAR_NAME  shift, and go to state 30
+    LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
 
-    '+'       [reduce using rule 51 (logic_expr)]
-    '-'       [reduce using rule 51 (logic_expr)]
-    $default  reduce using rule 51 (logic_expr)
+    expr_operand  go to state 44
 
 
 State 34
 
-    8 simple_statement: UNTIL logic_expr . DO complex_statement
-   46 logic_expr: logic_expr . LESS_EQUAL logic_expr
-   47           | logic_expr . MORE_EQUAL logic_expr
-   48           | logic_expr . '<' logic_expr
-   49           | logic_expr . '>' logic_expr
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   45     | expr . '-' expr
+   52 logic_expr: expr .
 
-    DO          shift, and go to state 73
-    LESS_EQUAL  shift, and go to state 56
-    MORE_EQUAL  shift, and go to state 57
-    '<'         shift, and go to state 58
-    '>'         shift, and go to state 59
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+
+    '+'       [reduce using rule 52 (logic_expr)]
+    '-'       [reduce using rule 52 (logic_expr)]
+    $default  reduce using rule 52 (logic_expr)
 
 
 State 35
 
-    9 simple_statement: CHECK logic_expr . DO complex_statement
-   46 logic_expr: logic_expr . LESS_EQUAL logic_expr
-   47           | logic_expr . MORE_EQUAL logic_expr
-   48           | logic_expr . '<' logic_expr
-   49           | logic_expr . '>' logic_expr
+    8 simple_statement: UNTIL logic_expr . DO complex_statement
+   47 logic_expr: logic_expr . LESS_EQUAL logic_expr
+   48           | logic_expr . MORE_EQUAL logic_expr
+   49           | logic_expr . '<' logic_expr
+   50           | logic_expr . '>' logic_expr
 
     DO          shift, and go to state 74
-    LESS_EQUAL  shift, and go to state 56
-    MORE_EQUAL  shift, and go to state 57
-    '<'         shift, and go to state 58
-    '>'         shift, and go to state 59
+    LESS_EQUAL  shift, and go to state 57
+    MORE_EQUAL  shift, and go to state 58
+    '<'         shift, and go to state 59
+    '>'         shift, and go to state 60
 
 
 State 36
 
-   31 numeric_operand: expr .
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   44     | expr . '-' expr
-   51 logic_expr: expr .
+    9 simple_statement: CHECK logic_expr . DO complex_statement
+   47 logic_expr: logic_expr . LESS_EQUAL logic_expr
+   48           | logic_expr . MORE_EQUAL logic_expr
+   49           | logic_expr . '<' logic_expr
+   50           | logic_expr . '>' logic_expr
 
-    '+'  shift, and go to state 50
-    '-'  shift, and go to state 51
-    '*'  shift, and go to state 52
-    '/'  shift, and go to state 53
-
-    VAR_NAME    reduce using rule 31 (numeric_operand)
-    VAR_NAME    [reduce using rule 51 (logic_expr)]
-    LITERAL     reduce using rule 31 (numeric_operand)
-    LITERAL     [reduce using rule 51 (logic_expr)]
-    SONAR       reduce using rule 31 (numeric_operand)
-    SONAR       [reduce using rule 51 (logic_expr)]
-    '+'         [reduce using rule 31 (numeric_operand)]
-    '+'         [reduce using rule 51 (logic_expr)]
-    '-'         [reduce using rule 31 (numeric_operand)]
-    '-'         [reduce using rule 51 (logic_expr)]
-    LESS_EQUAL  reduce using rule 51 (logic_expr)
-    MORE_EQUAL  reduce using rule 51 (logic_expr)
-    ','         reduce using rule 31 (numeric_operand)
-    ','         [reduce using rule 51 (logic_expr)]
-    ']'         reduce using rule 31 (numeric_operand)
-    ']'         [reduce using rule 51 (logic_expr)]
-    '('         reduce using rule 31 (numeric_operand)
-    '('         [reduce using rule 51 (logic_expr)]
-    ')'         reduce using rule 31 (numeric_operand)
-    ')'         [reduce using rule 51 (logic_expr)]
-    '<'         reduce using rule 51 (logic_expr)
-    '>'         reduce using rule 51 (logic_expr)
-    $default    reduce using rule 31 (numeric_operand)
+    DO          shift, and go to state 75
+    LESS_EQUAL  shift, and go to state 57
+    MORE_EQUAL  shift, and go to state 58
+    '<'         shift, and go to state 59
+    '>'         shift, and go to state 60
 
 
 State 37
 
-   11 simple_statement: RETURN operand . ','
+   31 numeric_operand: expr .
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   45     | expr . '-' expr
+   52 logic_expr: expr .
 
-    ','  shift, and go to state 75
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+
+    VAR_NAME    reduce using rule 31 (numeric_operand)
+    VAR_NAME    [reduce using rule 52 (logic_expr)]
+    LITERAL     reduce using rule 31 (numeric_operand)
+    LITERAL     [reduce using rule 52 (logic_expr)]
+    SONAR       reduce using rule 31 (numeric_operand)
+    SONAR       [reduce using rule 52 (logic_expr)]
+    '+'         [reduce using rule 31 (numeric_operand)]
+    '+'         [reduce using rule 52 (logic_expr)]
+    '-'         [reduce using rule 31 (numeric_operand)]
+    '-'         [reduce using rule 52 (logic_expr)]
+    LESS_EQUAL  reduce using rule 52 (logic_expr)
+    MORE_EQUAL  reduce using rule 52 (logic_expr)
+    ','         reduce using rule 31 (numeric_operand)
+    ','         [reduce using rule 52 (logic_expr)]
+    ']'         reduce using rule 31 (numeric_operand)
+    ']'         [reduce using rule 52 (logic_expr)]
+    '('         reduce using rule 31 (numeric_operand)
+    '('         [reduce using rule 52 (logic_expr)]
+    ')'         reduce using rule 31 (numeric_operand)
+    ')'         [reduce using rule 52 (logic_expr)]
+    '<'         reduce using rule 52 (logic_expr)
+    '>'         reduce using rule 52 (logic_expr)
+    $default    reduce using rule 31 (numeric_operand)
 
 
 State 38
+
+   11 simple_statement: RETURN operand . ','
+
+    ','  shift, and go to state 76
+
+
+State 39
 
    12 simple_statement: GO ',' .
 
     $default  reduce using rule 12 (simple_statement)
 
 
-State 39
+State 40
 
    14 simple_statement: RL ',' .
 
     $default  reduce using rule 14 (simple_statement)
 
 
-State 40
+State 41
 
    13 simple_statement: RR ',' .
 
     $default  reduce using rule 13 (simple_statement)
 
 
-State 41
-
-   39 expr: '+' expr_operand .
-
-    $default  reduce using rule 39 (expr)
-
-
 State 42
+
+   40 expr: '+' expr_operand .
+
+    $default  reduce using rule 40 (expr)
+
+
+State 43
 
    30 numeric_operand: '-' LITERAL .
    33 expr_operand: LITERAL .
@@ -816,98 +859,85 @@ State 42
     $default      reduce using rule 30 (numeric_operand)
 
 
-State 43
-
-   40 expr: '-' expr_operand .
-
-    $default  reduce using rule 40 (expr)
-
-
 State 44
 
-    7 simple_statement: '@' operand . ','
+   41 expr: '-' expr_operand .
 
-    ','  shift, and go to state 76
+    $default  reduce using rule 41 (expr)
 
 
 State 45
 
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   44     | expr . '-' expr
-   45     | '(' expr . ')'
-   51 logic_expr: expr .
+    7 simple_statement: '@' operand . ','
 
-    '+'  shift, and go to state 50
-    '-'  shift, and go to state 51
-    '*'  shift, and go to state 52
-    '/'  shift, and go to state 53
-    ')'  shift, and go to state 77
-
-    ')'       [reduce using rule 51 (logic_expr)]
-    $default  reduce using rule 51 (logic_expr)
+    ','  shift, and go to state 77
 
 
 State 46
 
-   46 logic_expr: logic_expr . LESS_EQUAL logic_expr
-   47           | logic_expr . MORE_EQUAL logic_expr
-   48           | logic_expr . '<' logic_expr
-   49           | logic_expr . '>' logic_expr
-   50           | '(' logic_expr . ')'
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   45     | expr . '-' expr
+   46     | '(' expr . ')'
+   52 logic_expr: expr .
 
-    LESS_EQUAL  shift, and go to state 56
-    MORE_EQUAL  shift, and go to state 57
-    ')'         shift, and go to state 78
-    '<'         shift, and go to state 58
-    '>'         shift, and go to state 59
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+    ')'  shift, and go to state 78
+
+    ')'       [reduce using rule 52 (logic_expr)]
+    $default  reduce using rule 52 (logic_expr)
 
 
 State 47
+
+   47 logic_expr: logic_expr . LESS_EQUAL logic_expr
+   48           | logic_expr . MORE_EQUAL logic_expr
+   49           | logic_expr . '<' logic_expr
+   50           | logic_expr . '>' logic_expr
+   51           | '(' logic_expr . ')'
+
+    LESS_EQUAL  shift, and go to state 57
+    MORE_EQUAL  shift, and go to state 58
+    ')'         shift, and go to state 79
+    '<'         shift, and go to state 59
+    '>'         shift, and go to state 60
+
+
+State 48
 
     0 $accept: main $end .
 
     $default  accept
 
 
-State 48
+State 49
 
     3 complex_statement: simple_statement '.' .
 
     $default  reduce using rule 3 (complex_statement)
 
 
-State 49
+State 50
 
     2 complex_statement: simple_statement complex_statement .
 
     $default  reduce using rule 2 (complex_statement)
 
 
-State 50
-
-   43 expr: expr '+' . expr
-
-    VAR_NAME  shift, and go to state 30
-    LITERAL   shift, and go to state 31
-    '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
-    '('       shift, and go to state 79
-
-    expr          go to state 80
-    expr_operand  go to state 23
-
-
 State 51
 
-   44 expr: expr '-' . expr
+   44 expr: expr '+' . expr
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
-    '('       shift, and go to state 79
+    '-'       shift, and go to state 33
+    '('       shift, and go to state 80
 
     expr          go to state 81
     expr_operand  go to state 23
@@ -915,13 +945,14 @@ State 51
 
 State 52
 
-   41 expr: expr '*' . expr
+   45 expr: expr '-' . expr
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
-    '('       shift, and go to state 79
+    '-'       shift, and go to state 33
+    '('       shift, and go to state 80
 
     expr          go to state 82
     expr_operand  go to state 23
@@ -929,13 +960,14 @@ State 52
 
 State 53
 
-   42 expr: expr '/' . expr
+   42 expr: expr '*' . expr
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
-    '('       shift, and go to state 79
+    '-'       shift, and go to state 33
+    '('       shift, and go to state 80
 
     expr          go to state 83
     expr_operand  go to state 23
@@ -943,26 +975,22 @@ State 53
 
 State 54
 
-   19 assign_expr: operand LEFT_ASSIGN . assign_expr
+   43 expr: expr '/' . expr
 
-    VAR_NAME  shift, and go to state 1
-    LITERAL   shift, and go to state 3
-    SONAR     shift, and go to state 11
+    VAR_NAME  shift, and go to state 30
+    LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 13
-    '('       shift, and go to state 15
+    '-'       shift, and go to state 33
+    '('       shift, and go to state 80
 
-    expr             go to state 19
-    operand          go to state 20
-    numeric_operand  go to state 21
-    logic_expr       go to state 22
-    expr_operand     go to state 23
-    assign_expr      go to state 84
+    expr          go to state 84
+    expr_operand  go to state 23
 
 
 State 55
 
-   20 assign_expr: operand RIGHT_ASSIGN . assign_expr
+   19 assign_expr: operand LEFT_ASSIGN . assign_expr
 
     VAR_NAME  shift, and go to state 1
     LITERAL   shift, and go to state 3
@@ -981,84 +1009,109 @@ State 55
 
 State 56
 
-   46 logic_expr: logic_expr LESS_EQUAL . logic_expr
+   20 assign_expr: operand RIGHT_ASSIGN . assign_expr
 
-    VAR_NAME  shift, and go to state 30
-    LITERAL   shift, and go to state 31
+    VAR_NAME  shift, and go to state 1
+    LITERAL   shift, and go to state 3
+    SONAR     shift, and go to state 11
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
+    '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr          go to state 33
-    logic_expr    go to state 86
-    expr_operand  go to state 23
+    expr             go to state 19
+    operand          go to state 20
+    numeric_operand  go to state 21
+    logic_expr       go to state 22
+    expr_operand     go to state 23
+    assign_expr      go to state 86
 
 
 State 57
 
-   47 logic_expr: logic_expr MORE_EQUAL . logic_expr
+   47 logic_expr: logic_expr LESS_EQUAL . logic_expr
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
+    '-'       shift, and go to state 33
     '('       shift, and go to state 15
 
-    expr          go to state 33
+    expr          go to state 34
     logic_expr    go to state 87
     expr_operand  go to state 23
 
 
 State 58
 
-   48 logic_expr: logic_expr '<' . logic_expr
+   48 logic_expr: logic_expr MORE_EQUAL . logic_expr
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
+    '-'       shift, and go to state 33
     '('       shift, and go to state 15
 
-    expr          go to state 33
+    expr          go to state 34
     logic_expr    go to state 88
     expr_operand  go to state 23
 
 
 State 59
 
-   49 logic_expr: logic_expr '>' . logic_expr
+   49 logic_expr: logic_expr '<' . logic_expr
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
+    '-'       shift, and go to state 33
     '('       shift, and go to state 15
 
-    expr          go to state 33
+    expr          go to state 34
     logic_expr    go to state 89
     expr_operand  go to state 23
 
 
 State 60
 
+   50 logic_expr: logic_expr '>' . logic_expr
+
+    VAR_NAME  shift, and go to state 30
+    LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
+    '+'       shift, and go to state 12
+    '-'       shift, and go to state 33
+    '('       shift, and go to state 15
+
+    expr          go to state 34
+    logic_expr    go to state 90
+    expr_operand  go to state 23
+
+
+State 61
+
     6 simple_statement: assign_expr ',' .
 
     $default  reduce using rule 6 (simple_statement)
 
 
-State 61
+State 62
 
    26 operand: VAR_NAME '[' LITERAL . LITERAL ']'
    29 numeric_operand: LITERAL .
    33 expr_operand: LITERAL .
    36             | VAR_NAME '[' LITERAL . LITERAL ']'
 
-    LITERAL  shift, and go to state 90
+    LITERAL  shift, and go to state 91
 
     VAR_NAME  reduce using rule 29 (numeric_operand)
     VAR_NAME  [reduce using rule 33 (expr_operand)]
     LITERAL   [reduce using rule 29 (numeric_operand)]
     LITERAL   [reduce using rule 33 (expr_operand)]
+    SONAR     reduce using rule 29 (numeric_operand)
+    SONAR     [reduce using rule 33 (expr_operand)]
     '+'       reduce using rule 29 (numeric_operand)
     '+'       [reduce using rule 33 (expr_operand)]
     '-'       reduce using rule 29 (numeric_operand)
@@ -1068,24 +1121,25 @@ State 61
     $default  reduce using rule 33 (expr_operand)
 
 
-State 62
+State 63
 
    25 operand: VAR_NAME '[' numeric_operand . numeric_operand ']'
    35 expr_operand: VAR_NAME '[' numeric_operand . numeric_operand ']'
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 3
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    numeric_operand  go to state 91
+    expr             go to state 37
+    numeric_operand  go to state 92
     logic_expr       go to state 22
     expr_operand     go to state 23
 
 
-State 63
+State 64
 
    15 args_to_call: operand . args_to_call
    16             | operand .
@@ -1099,101 +1153,103 @@ State 63
 
     $default  reduce using rule 16 (args_to_call)
 
-    expr             go to state 36
-    operand          go to state 63
+    expr             go to state 37
+    operand          go to state 64
     numeric_operand  go to state 21
     logic_expr       go to state 22
     expr_operand     go to state 23
-    args_to_call     go to state 92
-
-
-State 64
-
-   27 operand: VAR_NAME '(' args_to_call . ')'
-   37 expr_operand: VAR_NAME '(' args_to_call . ')'
-
-    ')'  shift, and go to state 93
+    args_to_call     go to state 93
 
 
 State 65
 
-   52 vars: VAR_NAME . vars
-   53     | VAR_NAME .
+   27 operand: VAR_NAME '(' args_to_call . ')'
+   37 expr_operand: VAR_NAME '(' args_to_call . ')'
 
-    VAR_NAME  shift, and go to state 65
-
-    LEFT_ASSIGN  reduce using rule 53 (vars)
-    LEFT_ASSIGN  [reduce using rule 54 (vars)]
-    $default     reduce using rule 53 (vars)
-
-    vars  go to state 68
+    ')'  shift, and go to state 94
 
 
 State 66
 
-   17 args: VAR_TYPE . VAR_NAME args
-   18     | VAR_TYPE . VAR_NAME
+   53 vars: VAR_NAME . vars
+   54     | VAR_NAME .
 
-    VAR_NAME  shift, and go to state 94
+    VAR_NAME  shift, and go to state 66
+
+    LEFT_ASSIGN  reduce using rule 54 (vars)
+    LEFT_ASSIGN  [reduce using rule 55 (vars)]
+    $default     reduce using rule 54 (vars)
+
+    vars  go to state 69
 
 
 State 67
 
-   10 simple_statement: VAR_TYPE VAR_NAME args . BEGIN_FUNC complex_statement END_FUNC ','
+   17 args: VAR_TYPE . VAR_NAME args
+   18     | VAR_TYPE . VAR_NAME
 
-    BEGIN_FUNC  shift, and go to state 95
+    VAR_NAME  shift, and go to state 95
 
 
 State 68
 
-   52 vars: VAR_NAME vars .
+   10 simple_statement: VAR_TYPE VAR_NAME args . BEGIN_FUNC complex_statement END_FUNC ','
 
-    $default  reduce using rule 52 (vars)
+    BEGIN_FUNC  shift, and go to state 96
 
 
 State 69
+
+   53 vars: VAR_NAME vars .
+
+    $default  reduce using rule 53 (vars)
+
+
+State 70
 
     4 simple_statement: VAR_TYPE vars LEFT_ASSIGN . expr ','
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
-    '('       shift, and go to state 79
+    '-'       shift, and go to state 33
+    '('       shift, and go to state 80
 
-    expr          go to state 96
+    expr          go to state 97
     expr_operand  go to state 23
 
 
-State 70
+State 71
 
     5 simple_statement: ARRAY VAR_TYPE VAR_TYPE . vars LEFT_ASSIGN operand ','
 
-    VAR_NAME  shift, and go to state 65
+    VAR_NAME  shift, and go to state 66
 
-    $default  reduce using rule 54 (vars)
+    $default  reduce using rule 55 (vars)
 
-    vars  go to state 97
+    vars  go to state 98
 
 
-State 71
+State 72
 
    35 expr_operand: VAR_NAME '[' . numeric_operand numeric_operand ']'
    36             | VAR_NAME '[' . LITERAL LITERAL ']'
 
     VAR_NAME  shift, and go to state 30
-    LITERAL   shift, and go to state 98
+    LITERAL   shift, and go to state 99
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    numeric_operand  go to state 99
+    expr             go to state 37
+    numeric_operand  go to state 100
     logic_expr       go to state 22
     expr_operand     go to state 23
 
 
-State 72
+State 73
 
    37 expr_operand: VAR_NAME '(' . args_to_call ')'
 
@@ -1204,47 +1260,17 @@ State 72
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    operand          go to state 63
+    expr             go to state 37
+    operand          go to state 64
     numeric_operand  go to state 21
     logic_expr       go to state 22
     expr_operand     go to state 23
-    args_to_call     go to state 100
-
-
-State 73
-
-    8 simple_statement: UNTIL logic_expr DO . complex_statement
-
-    VAR_NAME  shift, and go to state 1
-    VAR_TYPE  shift, and go to state 2
-    LITERAL   shift, and go to state 3
-    ARRAY     shift, and go to state 4
-    UNTIL     shift, and go to state 5
-    CHECK     shift, and go to state 6
-    RETURN    shift, and go to state 7
-    GO        shift, and go to state 8
-    RL        shift, and go to state 9
-    RR        shift, and go to state 10
-    SONAR     shift, and go to state 11
-    '+'       shift, and go to state 12
-    '-'       shift, and go to state 13
-    '@'       shift, and go to state 14
-    '('       shift, and go to state 15
-
-    complex_statement  go to state 101
-    simple_statement   go to state 18
-    expr               go to state 19
-    operand            go to state 20
-    numeric_operand    go to state 21
-    logic_expr         go to state 22
-    expr_operand       go to state 23
-    assign_expr        go to state 24
+    args_to_call     go to state 101
 
 
 State 74
 
-    9 simple_statement: CHECK logic_expr DO . complex_statement
+    8 simple_statement: UNTIL logic_expr DO . complex_statement
 
     VAR_NAME  shift, and go to state 1
     VAR_TYPE  shift, and go to state 2
@@ -1274,136 +1300,151 @@ State 74
 
 State 75
 
+    9 simple_statement: CHECK logic_expr DO . complex_statement
+
+    VAR_NAME  shift, and go to state 1
+    VAR_TYPE  shift, and go to state 2
+    LITERAL   shift, and go to state 3
+    ARRAY     shift, and go to state 4
+    UNTIL     shift, and go to state 5
+    CHECK     shift, and go to state 6
+    RETURN    shift, and go to state 7
+    GO        shift, and go to state 8
+    RL        shift, and go to state 9
+    RR        shift, and go to state 10
+    SONAR     shift, and go to state 11
+    '+'       shift, and go to state 12
+    '-'       shift, and go to state 13
+    '@'       shift, and go to state 14
+    '('       shift, and go to state 15
+
+    complex_statement  go to state 103
+    simple_statement   go to state 18
+    expr               go to state 19
+    operand            go to state 20
+    numeric_operand    go to state 21
+    logic_expr         go to state 22
+    expr_operand       go to state 23
+    assign_expr        go to state 24
+
+
+State 76
+
    11 simple_statement: RETURN operand ',' .
 
     $default  reduce using rule 11 (simple_statement)
 
 
-State 76
+State 77
 
     7 simple_statement: '@' operand ',' .
 
     $default  reduce using rule 7 (simple_statement)
 
 
-State 77
-
-   45 expr: '(' expr ')' .
-
-    $default  reduce using rule 45 (expr)
-
-
 State 78
 
-   50 logic_expr: '(' logic_expr ')' .
+   46 expr: '(' expr ')' .
 
-    $default  reduce using rule 50 (logic_expr)
+    $default  reduce using rule 46 (expr)
 
 
 State 79
 
-   45 expr: '(' . expr ')'
+   51 logic_expr: '(' logic_expr ')' .
 
-    VAR_NAME  shift, and go to state 30
-    LITERAL   shift, and go to state 31
-    '+'       shift, and go to state 12
-    '-'       shift, and go to state 32
-    '('       shift, and go to state 79
-
-    expr          go to state 103
-    expr_operand  go to state 23
+    $default  reduce using rule 51 (logic_expr)
 
 
 State 80
 
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   43     | expr '+' expr .
-   44     | expr . '-' expr
+   46 expr: '(' . expr ')'
 
-    '*'  shift, and go to state 52
-    '/'  shift, and go to state 53
+    VAR_NAME  shift, and go to state 30
+    LITERAL   shift, and go to state 31
+    SONAR     shift, and go to state 32
+    '+'       shift, and go to state 12
+    '-'       shift, and go to state 33
+    '('       shift, and go to state 80
 
-    $default  reduce using rule 43 (expr)
+    expr          go to state 104
+    expr_operand  go to state 23
 
 
 State 81
 
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   44     | expr . '-' expr
-   44     | expr '-' expr .
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   44     | expr '+' expr .
+   45     | expr . '-' expr
 
-    '*'  shift, and go to state 52
-    '/'  shift, and go to state 53
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
 
     $default  reduce using rule 44 (expr)
 
 
 State 82
 
-   41 expr: expr . '*' expr
-   41     | expr '*' expr .
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   44     | expr . '-' expr
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   45     | expr . '-' expr
+   45     | expr '-' expr .
 
-    $default  reduce using rule 41 (expr)
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+
+    $default  reduce using rule 45 (expr)
 
 
 State 83
 
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   42     | expr '/' expr .
-   43     | expr . '+' expr
-   44     | expr . '-' expr
+   42 expr: expr . '*' expr
+   42     | expr '*' expr .
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   45     | expr . '-' expr
 
     $default  reduce using rule 42 (expr)
 
 
 State 84
 
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   43     | expr '/' expr .
+   44     | expr . '+' expr
+   45     | expr . '-' expr
+
+    $default  reduce using rule 43 (expr)
+
+
+State 85
+
    19 assign_expr: operand LEFT_ASSIGN assign_expr .
 
     $default  reduce using rule 19 (assign_expr)
 
 
-State 85
+State 86
 
    20 assign_expr: operand RIGHT_ASSIGN assign_expr .
 
     $default  reduce using rule 20 (assign_expr)
 
 
-State 86
-
-   46 logic_expr: logic_expr . LESS_EQUAL logic_expr
-   46           | logic_expr LESS_EQUAL logic_expr .
-   47           | logic_expr . MORE_EQUAL logic_expr
-   48           | logic_expr . '<' logic_expr
-   49           | logic_expr . '>' logic_expr
-
-    '<'  shift, and go to state 58
-    '>'  shift, and go to state 59
-
-    '<'       [reduce using rule 46 (logic_expr)]
-    '>'       [reduce using rule 46 (logic_expr)]
-    $default  reduce using rule 46 (logic_expr)
-
-
 State 87
 
-   46 logic_expr: logic_expr . LESS_EQUAL logic_expr
-   47           | logic_expr . MORE_EQUAL logic_expr
-   47           | logic_expr MORE_EQUAL logic_expr .
-   48           | logic_expr . '<' logic_expr
-   49           | logic_expr . '>' logic_expr
+   47 logic_expr: logic_expr . LESS_EQUAL logic_expr
+   47           | logic_expr LESS_EQUAL logic_expr .
+   48           | logic_expr . MORE_EQUAL logic_expr
+   49           | logic_expr . '<' logic_expr
+   50           | logic_expr . '>' logic_expr
 
-    '<'  shift, and go to state 58
-    '>'  shift, and go to state 59
+    '<'  shift, and go to state 59
+    '>'  shift, and go to state 60
 
     '<'       [reduce using rule 47 (logic_expr)]
     '>'       [reduce using rule 47 (logic_expr)]
@@ -1412,36 +1453,32 @@ State 87
 
 State 88
 
-   46 logic_expr: logic_expr . LESS_EQUAL logic_expr
-   47           | logic_expr . MORE_EQUAL logic_expr
-   48           | logic_expr . '<' logic_expr
-   48           | logic_expr '<' logic_expr .
-   49           | logic_expr . '>' logic_expr
+   47 logic_expr: logic_expr . LESS_EQUAL logic_expr
+   48           | logic_expr . MORE_EQUAL logic_expr
+   48           | logic_expr MORE_EQUAL logic_expr .
+   49           | logic_expr . '<' logic_expr
+   50           | logic_expr . '>' logic_expr
 
-    LESS_EQUAL  shift, and go to state 56
-    MORE_EQUAL  shift, and go to state 57
-    '<'         shift, and go to state 58
-    '>'         shift, and go to state 59
+    '<'  shift, and go to state 59
+    '>'  shift, and go to state 60
 
-    LESS_EQUAL  [reduce using rule 48 (logic_expr)]
-    MORE_EQUAL  [reduce using rule 48 (logic_expr)]
-    '<'         [reduce using rule 48 (logic_expr)]
-    '>'         [reduce using rule 48 (logic_expr)]
-    $default    reduce using rule 48 (logic_expr)
+    '<'       [reduce using rule 48 (logic_expr)]
+    '>'       [reduce using rule 48 (logic_expr)]
+    $default  reduce using rule 48 (logic_expr)
 
 
 State 89
 
-   46 logic_expr: logic_expr . LESS_EQUAL logic_expr
-   47           | logic_expr . MORE_EQUAL logic_expr
-   48           | logic_expr . '<' logic_expr
-   49           | logic_expr . '>' logic_expr
-   49           | logic_expr '>' logic_expr .
+   47 logic_expr: logic_expr . LESS_EQUAL logic_expr
+   48           | logic_expr . MORE_EQUAL logic_expr
+   49           | logic_expr . '<' logic_expr
+   49           | logic_expr '<' logic_expr .
+   50           | logic_expr . '>' logic_expr
 
-    LESS_EQUAL  shift, and go to state 56
-    MORE_EQUAL  shift, and go to state 57
-    '<'         shift, and go to state 58
-    '>'         shift, and go to state 59
+    LESS_EQUAL  shift, and go to state 57
+    MORE_EQUAL  shift, and go to state 58
+    '<'         shift, and go to state 59
+    '>'         shift, and go to state 60
 
     LESS_EQUAL  [reduce using rule 49 (logic_expr)]
     MORE_EQUAL  [reduce using rule 49 (logic_expr)]
@@ -1452,28 +1489,48 @@ State 89
 
 State 90
 
-   26 operand: VAR_NAME '[' LITERAL LITERAL . ']'
-   36 expr_operand: VAR_NAME '[' LITERAL LITERAL . ']'
+   47 logic_expr: logic_expr . LESS_EQUAL logic_expr
+   48           | logic_expr . MORE_EQUAL logic_expr
+   49           | logic_expr . '<' logic_expr
+   50           | logic_expr . '>' logic_expr
+   50           | logic_expr '>' logic_expr .
 
-    ']'  shift, and go to state 104
+    LESS_EQUAL  shift, and go to state 57
+    MORE_EQUAL  shift, and go to state 58
+    '<'         shift, and go to state 59
+    '>'         shift, and go to state 60
+
+    LESS_EQUAL  [reduce using rule 50 (logic_expr)]
+    MORE_EQUAL  [reduce using rule 50 (logic_expr)]
+    '<'         [reduce using rule 50 (logic_expr)]
+    '>'         [reduce using rule 50 (logic_expr)]
+    $default    reduce using rule 50 (logic_expr)
 
 
 State 91
 
-   25 operand: VAR_NAME '[' numeric_operand numeric_operand . ']'
-   35 expr_operand: VAR_NAME '[' numeric_operand numeric_operand . ']'
+   26 operand: VAR_NAME '[' LITERAL LITERAL . ']'
+   36 expr_operand: VAR_NAME '[' LITERAL LITERAL . ']'
 
     ']'  shift, and go to state 105
 
 
 State 92
 
+   25 operand: VAR_NAME '[' numeric_operand numeric_operand . ']'
+   35 expr_operand: VAR_NAME '[' numeric_operand numeric_operand . ']'
+
+    ']'  shift, and go to state 106
+
+
+State 93
+
    15 args_to_call: operand args_to_call .
 
     $default  reduce using rule 15 (args_to_call)
 
 
-State 93
+State 94
 
    27 operand: VAR_NAME '(' args_to_call ')' .
    37 expr_operand: VAR_NAME '(' args_to_call ')' .
@@ -1507,19 +1564,19 @@ State 93
     $default      reduce using rule 27 (operand)
 
 
-State 94
+State 95
 
    17 args: VAR_TYPE VAR_NAME . args
    18     | VAR_TYPE VAR_NAME .
 
-    VAR_TYPE  shift, and go to state 66
+    VAR_TYPE  shift, and go to state 67
 
     $default  reduce using rule 18 (args)
 
-    args  go to state 106
+    args  go to state 107
 
 
-State 95
+State 96
 
    10 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC . complex_statement END_FUNC ','
 
@@ -1539,7 +1596,7 @@ State 95
     '@'       shift, and go to state 14
     '('       shift, and go to state 15
 
-    complex_statement  go to state 107
+    complex_statement  go to state 108
     simple_statement   go to state 18
     expr               go to state 19
     operand            go to state 20
@@ -1549,40 +1606,42 @@ State 95
     assign_expr        go to state 24
 
 
-State 96
-
-    4 simple_statement: VAR_TYPE vars LEFT_ASSIGN expr . ','
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   44     | expr . '-' expr
-
-    '+'  shift, and go to state 50
-    '-'  shift, and go to state 51
-    '*'  shift, and go to state 52
-    '/'  shift, and go to state 53
-    ','  shift, and go to state 108
-
-
 State 97
 
-    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE vars . LEFT_ASSIGN operand ','
+    4 simple_statement: VAR_TYPE vars LEFT_ASSIGN expr . ','
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   45     | expr . '-' expr
 
-    LEFT_ASSIGN  shift, and go to state 109
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+    ','  shift, and go to state 109
 
 
 State 98
+
+    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE vars . LEFT_ASSIGN operand ','
+
+    LEFT_ASSIGN  shift, and go to state 110
+
+
+State 99
 
    29 numeric_operand: LITERAL .
    33 expr_operand: LITERAL .
    36             | VAR_NAME '[' LITERAL . LITERAL ']'
 
-    LITERAL  shift, and go to state 110
+    LITERAL  shift, and go to state 111
 
     VAR_NAME  reduce using rule 29 (numeric_operand)
     VAR_NAME  [reduce using rule 33 (expr_operand)]
     LITERAL   [reduce using rule 29 (numeric_operand)]
     LITERAL   [reduce using rule 33 (expr_operand)]
+    SONAR     reduce using rule 29 (numeric_operand)
+    SONAR     [reduce using rule 33 (expr_operand)]
     '+'       reduce using rule 29 (numeric_operand)
     '+'       [reduce using rule 33 (expr_operand)]
     '-'       reduce using rule 29 (numeric_operand)
@@ -1592,59 +1651,60 @@ State 98
     $default  reduce using rule 33 (expr_operand)
 
 
-State 99
+State 100
 
    35 expr_operand: VAR_NAME '[' numeric_operand . numeric_operand ']'
 
     VAR_NAME  shift, and go to state 30
     LITERAL   shift, and go to state 3
+    SONAR     shift, and go to state 32
     '+'       shift, and go to state 12
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    numeric_operand  go to state 111
+    expr             go to state 37
+    numeric_operand  go to state 112
     logic_expr       go to state 22
     expr_operand     go to state 23
 
 
-State 100
+State 101
 
    37 expr_operand: VAR_NAME '(' args_to_call . ')'
 
-    ')'  shift, and go to state 112
+    ')'  shift, and go to state 113
 
 
-State 101
+State 102
 
     8 simple_statement: UNTIL logic_expr DO complex_statement .
 
     $default  reduce using rule 8 (simple_statement)
 
 
-State 102
+State 103
 
     9 simple_statement: CHECK logic_expr DO complex_statement .
 
     $default  reduce using rule 9 (simple_statement)
 
 
-State 103
-
-   41 expr: expr . '*' expr
-   42     | expr . '/' expr
-   43     | expr . '+' expr
-   44     | expr . '-' expr
-   45     | '(' expr . ')'
-
-    '+'  shift, and go to state 50
-    '-'  shift, and go to state 51
-    '*'  shift, and go to state 52
-    '/'  shift, and go to state 53
-    ')'  shift, and go to state 77
-
-
 State 104
+
+   42 expr: expr . '*' expr
+   43     | expr . '/' expr
+   44     | expr . '+' expr
+   45     | expr . '-' expr
+   46     | '(' expr . ')'
+
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+    ')'  shift, and go to state 78
+
+
+State 105
 
    26 operand: VAR_NAME '[' LITERAL LITERAL ']' .
    36 expr_operand: VAR_NAME '[' LITERAL LITERAL ']' .
@@ -1678,7 +1738,7 @@ State 104
     $default      reduce using rule 26 (operand)
 
 
-State 105
+State 106
 
    25 operand: VAR_NAME '[' numeric_operand numeric_operand ']' .
    35 expr_operand: VAR_NAME '[' numeric_operand numeric_operand ']' .
@@ -1712,28 +1772,28 @@ State 105
     $default      reduce using rule 25 (operand)
 
 
-State 106
+State 107
 
    17 args: VAR_TYPE VAR_NAME args .
 
     $default  reduce using rule 17 (args)
 
 
-State 107
+State 108
 
    10 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement . END_FUNC ','
 
-    END_FUNC  shift, and go to state 113
+    END_FUNC  shift, and go to state 114
 
 
-State 108
+State 109
 
     4 simple_statement: VAR_TYPE vars LEFT_ASSIGN expr ',' .
 
     $default  reduce using rule 4 (simple_statement)
 
 
-State 109
+State 110
 
     5 simple_statement: ARRAY VAR_TYPE VAR_TYPE vars LEFT_ASSIGN . operand ','
 
@@ -1744,70 +1804,70 @@ State 109
     '-'       shift, and go to state 13
     '('       shift, and go to state 15
 
-    expr             go to state 36
-    operand          go to state 114
+    expr             go to state 37
+    operand          go to state 115
     numeric_operand  go to state 21
     logic_expr       go to state 22
     expr_operand     go to state 23
 
 
-State 110
-
-   36 expr_operand: VAR_NAME '[' LITERAL LITERAL . ']'
-
-    ']'  shift, and go to state 115
-
-
 State 111
 
-   35 expr_operand: VAR_NAME '[' numeric_operand numeric_operand . ']'
+   36 expr_operand: VAR_NAME '[' LITERAL LITERAL . ']'
 
     ']'  shift, and go to state 116
 
 
 State 112
 
+   35 expr_operand: VAR_NAME '[' numeric_operand numeric_operand . ']'
+
+    ']'  shift, and go to state 117
+
+
+State 113
+
    37 expr_operand: VAR_NAME '(' args_to_call ')' .
 
     $default  reduce using rule 37 (expr_operand)
 
 
-State 113
-
-   10 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC . ','
-
-    ','  shift, and go to state 117
-
-
 State 114
 
-    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE vars LEFT_ASSIGN operand . ','
+   10 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC . ','
 
     ','  shift, and go to state 118
 
 
 State 115
 
+    5 simple_statement: ARRAY VAR_TYPE VAR_TYPE vars LEFT_ASSIGN operand . ','
+
+    ','  shift, and go to state 119
+
+
+State 116
+
    36 expr_operand: VAR_NAME '[' LITERAL LITERAL ']' .
 
     $default  reduce using rule 36 (expr_operand)
 
 
-State 116
+State 117
 
    35 expr_operand: VAR_NAME '[' numeric_operand numeric_operand ']' .
 
     $default  reduce using rule 35 (expr_operand)
 
 
-State 117
+State 118
 
    10 simple_statement: VAR_TYPE VAR_NAME args BEGIN_FUNC complex_statement END_FUNC ',' .
 
     $default  reduce using rule 10 (simple_statement)
 
 
-State 118
+State 119
 
     5 simple_statement: ARRAY VAR_TYPE VAR_TYPE vars LEFT_ASSIGN operand ',' .
 
