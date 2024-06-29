@@ -915,6 +915,13 @@ int SonarOperator::execute()
 	std::cout<<std::endl;
 	return labirint.sonarRobo();
 }
+int CompassOperator::execute()
+{
+	if(returnFlag!=nullptr && *returnFlag) return to_return->value;
+	std::cout<<labirint;
+	std::cout<<std::endl;
+	return labirint.compass();
+}
 
 void OperandNode::printNode(std::ostream& stream, int spaces)
 {
@@ -1113,6 +1120,14 @@ void SonarOperator::printNode(std::ostream& stream, int spaces)
 {
 	stream<<std::string(spaces, ' ');
 	stream<<"sonar operation in labirint:"<<std::endl;
+	stream<<labirint;
+	stream<<std::endl;
+}
+
+void CompassOperator::printNode(std::ostream& stream, int spaces)
+{
+	stream<<std::string(spaces, ' ');
+	stream<<"compass operation in labirint:"<<std::endl;
 	stream<<labirint;
 	stream<<std::endl;
 }

@@ -26,6 +26,7 @@ go go
 rl rl
 rr rr
 sonar sonar
+compass compass
 
 
 %option noyywrap
@@ -89,6 +90,14 @@ sonar sonar
 			flex_logger<<yytext<<std::endl;
 			flex_logger<<"sonar parsed"<<std::endl;
 			return SONAR;
+		}
+{compass}		{
+			yylloc.first_column=yylloc.last_column+1;
+			yylloc.last_column+=strlen(yytext);
+
+			flex_logger<<yytext<<std::endl;
+			flex_logger<<"compass parsed"<<std::endl;
+			return COMPASS;
 		}
 {return}	{
 			yylloc.first_column=yylloc.last_column+1;

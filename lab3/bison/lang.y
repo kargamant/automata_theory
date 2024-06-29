@@ -17,6 +17,7 @@
 %token RL
 %token RR
 %token SONAR
+%token COMPASS
 
 //%nterm statement_group
 //%nterm <num> signed_operand
@@ -81,6 +82,7 @@
 %%
 main:
     complex_statement	{
+    				//labirint.transportRobo(0, 5);
     				//ast.root=main_func;
 				//$$->printAst();
 			//	std::cout<<"funcs:"<<std::endl;
@@ -517,6 +519,10 @@ operand:
 							OperatorNode* op=new SonarOperator(labirint);
 							$$=new Ast(op);
 						}
+	| COMPASS				{
+							OperatorNode* op=new CompassOperator(labirint);
+							$$=new Ast(op);
+						}
 	;
 numeric_operand:
 	LITERAL		{
@@ -682,6 +688,10 @@ expr_operand:
 						}
 	| SONAR					{
 							OperatorNode* op=new SonarOperator(labirint);
+							$$=new Ast(op);
+						}
+	| COMPASS				{
+							OperatorNode* op=new CompassOperator(labirint);
 							$$=new Ast(op);
 						}
 	;

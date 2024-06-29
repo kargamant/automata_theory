@@ -56,6 +56,7 @@ class Map
 		int m, n;
 		std::unordered_map<std::pair<int, int>, Cell, CoordHash, CoordEqual> map;
 		Robo robo;
+		std::pair<int, int> escape;
 	public:
 		Map() : m(0), n(0), map() {}
 		Map(int m, int n);
@@ -68,6 +69,7 @@ class Map
 		void rlRobo() {robo.rl();}
 		void rrRobo() {robo.rr();}
 		int sonarRobo();
+		int compass();
 		void transportRobo(int x, int y); //cheating command lol
 		friend Cell;
 		friend void operator<<(std::ostream& stream, Map& map);

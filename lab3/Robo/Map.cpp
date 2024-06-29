@@ -1,6 +1,7 @@
 #include "Map.h"
 #include <vector>
 #include <fstream>
+#include <cmath>
 
 
 /*Cell::Cell(CellType type, Cell* tBorder, Cell* bBorder, Cell* rtBorder, Cell* rbBorder, Cell* ltBorder,Cell* lbBorder) : type(type), tBorder(tBorder), bBorder(bBorder), rtBorder(rtBorder), rbBorder(rbBorder), ltBorder(ltBorder), lbBorder(lbBorder)
@@ -57,6 +58,8 @@ Map::Map(const std::string& filename)
 			else if(line[j]=='2')
 			{
 				map.insert({{i, j}, {CellType::escape, i, j}});
+				escape.first=i;
+				escape.second=j;
 			}
 			else if(line[j]=='r')
 			{
@@ -129,6 +132,45 @@ int Map::sonarRobo()
 		}
 	}
 	return bit_res;
+}
+
+int Map::compass()
+{
+	//std::cout<<"ESCAPE: "<<escape.first<<" "<<escape.second<<std::endl;
+	double tg=(double)(escape.first-robo.getX())/(double)(escape.second-robo.getY());
+	int angle=std::atan(tg)*180/M_PI;
+
+	if(robo.getX()<escape.first && robo.getY()>escape.second)
+	{
+		return 180-angle;
+	}
+	else if(robo.getX()<escape.first && robo.getY()<escape.second)
+	{
+		return 360-angle;
+	}
+	else if(robo.getX()>escape.first && robo.getY()<escape.second)
+	{
+		return -angle;
+	}
+	else if(robo.getX()>escape.first && robo.getY()>escape.second)
+	{
+		return 180-angle;
+	}
+	else
+	{
+		if(robo.getX()==escape.first && robo.getY()==escape.second) return 0;
+		else if(robo.getX()==escape.first)
+		{
+			if(robo.getY()>escape.second) return 180;
+			else return 0;
+		}
+		else
+		{
+			if(robo.getX()<escape.first) return 270;
+			else return 90;
+		}
+	}
+	//std::cout<<"TANGENS: "<<tg<<std::endl;
 }
 
 void Map::transportRobo(int x, int y)

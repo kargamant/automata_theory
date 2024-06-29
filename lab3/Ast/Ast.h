@@ -28,7 +28,8 @@ enum class operatorType
 	go,
 	rl,
 	rr,
-	sonar
+	sonar,
+	compass
 };
 
 enum class ArifmeticType
@@ -273,6 +274,14 @@ struct SonarOperator : public OperatorNode
 
 };
 
+struct CompassOperator : public OperatorNode
+{
+	Map& labirint;
+	CompassOperator(Map& labirint) : OperatorNode(operatorType::compass), labirint(labirint) {}
+	int execute() override;
+	void printNode(std::ostream& stream=std::cout, int spaces=0) override;
+
+};
 
 
 

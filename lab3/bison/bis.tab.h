@@ -44,7 +44,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 39 "bison/lang.y"
+#line 40 "bison/lang.y"
 
 	#include <iostream>
 	#include <string>
@@ -74,10 +74,11 @@ extern int yydebug;
     RL = 269,
     RR = 270,
     SONAR = 271,
-    LESS_EQUAL = 272,
-    MORE_EQUAL = 273,
-    LEFT_ASSIGN = 276,
-    RIGHT_ASSIGN = 277
+    COMPASS = 272,
+    LESS_EQUAL = 273,
+    MORE_EQUAL = 274,
+    LEFT_ASSIGN = 277,
+    RIGHT_ASSIGN = 278
   };
 #endif
 
@@ -85,7 +86,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 71 "bison/lang.y"
+#line 72 "bison/lang.y"
 
 	VarType var_type;
 	std::string* str;
@@ -94,7 +95,7 @@ union YYSTYPE
 	Ast* st;
 	//st->setRoot(main);
 
-#line 98 "bison/bis.tab.h"
+#line 99 "bison/bis.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
