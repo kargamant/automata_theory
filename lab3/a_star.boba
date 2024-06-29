@@ -1,0 +1,106 @@
+big remainder normal a normal div
+begin
+	return (a-(a/div)*div),
+	.
+end,
+
+big abs big a
+begin
+	check a<0 do return -a,.
+	return a,
+	.
+end,
+
+big dist big a big b
+begin
+	big dist<<(a-b),
+	return abs(dist),
+	.
+end,
+
+big temp<<0,
+
+small scan<<sonar,
+big heuristic<<compass,
+
+small r32<<0,
+small r16<<0,
+small r8<<0,
+small r4<<0,
+small r2<<0,
+
+small bit0<<0,
+small bit1<<0,
+small bit2<<0,
+small bit3<<0,
+small bit4<<0,
+
+big angle<<30,
+big angle1 angle2 angle3 angle4 angle5<<-1,
+big minAngle mindist<<32767,
+
+until scan<=-1 do
+	r32<<remainder(scan 32),
+	r16<<remainder(scan 16),
+	r8<<remainder(scan 8),
+	r4<<remainder(scan 4),
+	r2<<remainder(scan 2),
+	@r32,
+	@r16,
+	@r8,
+	@r4,
+	@r2,
+
+	temp<<r2,	
+	bit0<<remainder(temp 2),
+	temp<<r4/2,
+	bit1<<remainder(temp 2),
+	temp<<r8/4,
+	bit2<<remainder(temp 2),
+	temp<<r16/8,
+	bit3<<remainder(temp 2),
+	temp<<r32/16,
+	bit4<<remainder(temp 2),
+	@bit0,
+	@bit1,
+	@bit2,
+	@bit3,
+	@bit4,
+			
+	angle1<<angle2<<angle3<<angle4<<angle5<<-1,
+	check bit4<=0 do angle1<<angle,.
+	check bit3<=0 do temp<<(angle+60), angle2<<remainder(temp 360),.
+	check bit2<=0 do temp<<(angle+120), angle3<<remainder(temp 360),.
+	check bit1<=0 do temp<<(angle+240), angle4<<remainder(temp 360),.
+	check bit0<=0 do temp<<(angle+300), angle5<<remainder(temp 360),.
+	@-2000,
+	@angle1,
+	@angle2,
+	@angle3,
+	@angle4,
+	@angle5,
+	@-2000,
+	
+	minAngle<<mindist<<32767,
+	check angle1>0 do check dist(angle1 heuristic)<mindist do mindist<<dist(angle1 heuristic), minAngle<<angle1,..
+	check angle2>0 do check dist(angle2 heuristic)<mindist do mindist<<dist(angle2 heuristic), minAngle<<angle2,..
+	check angle3>0 do check dist(angle3 heuristic)<mindist do mindist<<dist(angle3 heuristic), minAngle<<angle3,..
+	check angle4>0 do check dist(angle4 heuristic)<mindist do mindist<<dist(angle4 heuristic), minAngle<<angle4,..
+	check angle5>0 do check dist(angle5 heuristic)<mindist do mindist<<dist(angle5 heuristic), minAngle<<angle5,..
+	@-3000,
+	@heuristic,
+	@mindist,
+	@minAngle,
+	@-3000,
+	
+	check angle<minAngle do until angle=>minAngle do rl, angle<<(angle+60),..
+	check angle>minAngle do until angle<=minAngle do rr, angle<<(angle-60),..
+	@-4000,
+	@angle,
+	@-4000,
+	go,
+
+	scan<<sonar,
+	heuristic<<compass,
+	.
+.

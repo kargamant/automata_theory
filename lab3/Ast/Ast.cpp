@@ -236,7 +236,7 @@ void FunctionOperator::build()
 				local_scope.changeVar(v->name, passed_values[k]);
 
 			}
-			std::cout<<"passed value: "<<passed_values[k]<<std::endl;
+			//std::cout<<"passed value: "<<passed_values[k]<<std::endl;
 
 			ptr=ptr->left;
 			k++;
@@ -280,15 +280,15 @@ int FunctionOperator::execute()
 					copy_stack.pop();
 				}*/
 	//arguments->root->applyScope(&local_scope);
-	std::cout<<"local scope before anything:"<<std::endl;
-	std::cout<<local_scope;
+//	std::cout<<"local scope before anything:"<<std::endl;
+//	std::cout<<local_scope;
 	arguments->root->applyProgramStack(program_stack);
 	loadArgs(arguments);
 	//std::cout<<"local scope lol:"<<std::endl;
 	//std::cout<<local_scope;
 	build();
-	std::cout<<"local scope after build:"<<std::endl;
-	std::cout<<local_scope;
+//	std::cout<<"local scope after build:"<<std::endl;
+//	std::cout<<local_scope;
 	//if(declared_funcs!=nullptr) stmts->updateFunctionCalls(*declared_funcs);
 
 
@@ -315,14 +315,14 @@ int FunctionOperator::execute()
 	VarMap* copy_scope=new VarMap;
 	*copy_scope=local_scope;
 	program_stack->push(copy_scope);
-	std::stack<VarMap*> copy_stack=*program_stack;
-				std::cout<<"Stack after push:"<<std::endl;
-				while(!copy_stack.empty())
-				{
-					std::cout<<*copy_stack.top();
-					std::cout<<std::endl;
-					copy_stack.pop();
-				}
+//	std::stack<VarMap*> copy_stack=*program_stack;
+//				std::cout<<"Stack after push:"<<std::endl;
+//				while(!copy_stack.empty())
+//				{
+//					std::cout<<*copy_stack.top();
+//					std::cout<<std::endl;
+//					copy_stack.pop();
+//				}
 	stmts->applyProgramStack(program_stack);
 	stmts->applyToReturn(&return_value);
 	returnMet=false;
@@ -332,14 +332,14 @@ int FunctionOperator::execute()
 	//std::cout<<"f("<<local_scope.getVar("n")->value<<")=="<<actual_res<<std::endl;
 	//std::cout<<"actual res: "<<actual_res<<std::endl;
 	program_stack->pop();
-	copy_stack=*program_stack;
-				std::cout<<"Stack after exec and pop:"<<std::endl;
-				while(!copy_stack.empty())
-				{
-					std::cout<<*copy_stack.top();
-					std::cout<<std::endl;
-					copy_stack.pop();
-				}
+//	copy_stack=*program_stack;
+//				std::cout<<"Stack after exec and pop:"<<std::endl;
+//				while(!copy_stack.empty())
+//				{
+//					std::cout<<*copy_stack.top();
+//					std::cout<<std::endl;
+//					copy_stack.pop();
+//				}
 	Var v=Var(return_type, "", 0);
 	v.changeValue(actual_res);
 	//return return_value.value;
@@ -495,7 +495,7 @@ int ArifmeticOperator::execute()
 			bnode=args[1];
 			a=anode->execute();
 			b=bnode->execute();
-			std::cout<<"f(n-1) f(n-2): "<<a<<" "<<b<<std::endl;
+			//std::cout<<"f(n-1) f(n-2): "<<a<<" "<<b<<std::endl;
 			return a+b;	
 		case ArifmeticType::minus:
 			return args[0]->execute()-args[1]->execute();

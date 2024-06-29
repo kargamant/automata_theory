@@ -79,7 +79,7 @@ void Operand::updateValue(VarMap* scope)
 	{
 		if(scope!=nullptr)
 		{
-			std::cout<<"Var name: "<<var->name<<std::endl;
+			//std::cout<<"Var name: "<<var->name<<std::endl;
 			if(scope->checkIfDefined(var->name)) 
 			{
 				if(!isFieldItem) var->value=scope->getVar(var->name)->value;
