@@ -14,7 +14,12 @@ end,
 big dist big a big b
 begin
 	big dist<<(a-b),
-	return abs(dist),
+	dist<<abs(dist),
+	big ddist<<32767,
+	check b<=0 do ddist<<(a-360),.
+	ddist<<abs(ddist),
+	check dist<ddist do return dist,.
+	check ddist<dist do return ddist,.
 	.
 end,
 
@@ -87,6 +92,7 @@ until scan<=-1 do
 	check angle3>0 do check dist(angle3 heuristic)<mindist do mindist<<dist(angle3 heuristic), minAngle<<angle3,..
 	check angle4>0 do check dist(angle4 heuristic)<mindist do mindist<<dist(angle4 heuristic), minAngle<<angle4,..
 	check angle5>0 do check dist(angle5 heuristic)<mindist do mindist<<dist(angle5 heuristic), minAngle<<angle5,..
+	check minAngle=>32767 do temp<<(angle+180), minAngle<<remainder(temp 360),.
 	@-3000,
 	@heuristic,
 	@mindist,
