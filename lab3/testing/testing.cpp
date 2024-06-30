@@ -133,6 +133,16 @@ TEST_CASE("definition")
 		REQUIRE(vm->checkIfDefined("mm"));
 		REQUIRE(vm->getVar("mm")->value==-512);
 		
+		parseStr("big calcPow normal a normal n begin check n<=0 do return 1,. check n<=1 do return a,. big res<<1, until n<=0 do res<<(res*a), n<<(n-1),. return res,. end,.");
+		parseStr("normal OO<<calcPow(2 4),.");
+		REQUIRE(vm->getVar("OO")->value==16);
+
+		parseStr("big LL<<(1+3)*OO+calcPow(2 6),.");
+		REQUIRE(vm->getVar("LL")->value==128);
+
+		parseStr("big HH<<HH,.");
+		REQUIRE(err_vec.back().error_code==Err::undefined);
+
 		cleanCompileVars();
 	}
 	SECTION("multiple variable definition")
@@ -320,6 +330,26 @@ TEST_CASE("one to one assignment")
 		
 		cleanCompileVars();
 	}
+	SECTION("different expressions to variable")
+	{
+		parseStr("normal a b c d<<25,.");
+
+		parseStr("tiny invert tiny a begin check a<=0 do return 1,. check a=>1 do return 0,.. end,.");
+		parseStr("a<<c*invert(c),.");
+		REQUIRE(vm->getVar("a")->value==0);
+		
+		parseStr("c<<3,.");
+		parseStr("b<<(a+c*(d/b)),.");
+		REQUIRE(vm->getVar("b")->value==3);
+		
+		parseStr("b<<(a+(c*d)/b),.");
+		REQUIRE(vm->getVar("b")->value==25);
+
+		parseStr("invert(0)>>c,.");
+		REQUIRE(vm->getVar("c")->value==1);
+
+		cleanCompileVars();
+	}
 }
 TEST_CASE("chained assignment")
 {
@@ -359,7 +389,7 @@ TEST_CASE("chained assignment")
 	SECTION("variables to variables")
 	{
 		parseStr("normal a b c<<55,.");
-		std::cout<<program_stack.top();
+		//std::cout<<program_stack.top();
 
 		parseStr("a<<18,.");
 		parseStr("b<<33,.");
@@ -404,6 +434,31 @@ TEST_CASE("chained assignment")
 
 		cleanCompileVars();
 	}
+	SECTION("different expressions to variable")
+	{
+		loadStr("normal a b c<<55,");
+		loadStr("big calcPow normal a normal n begin check n<=0 do return 1,. check n<=1 do return a,. big res<<1, until n<=0 do res<<(res*a), n<<(n-1),. return res,. end,");
+		
+		loadStr("calcPow(3 4)>>a<<calcPow(4 3),.");
+		parseFile();
+		REQUIRE(vm->getVar("a")->value==64);
+		cleanProgStack();
+
+		//parseStr("@-7000, @a, @b, @c, @(a*calcPow(2 2)-c), @-7000,.");
+		loadStr("normal a b c<<55,");
+		loadStr("a<<64,");
+		loadStr("c<<(a*calcPow(2 2)-c)>>b<<(a*calcPow(2 2)+c),.");
+		parseFile();
+		REQUIRE(vm->getVar("b")->value==311);
+		REQUIRE(vm->getVar("c")->value==201);
+		
+		parseStr("b<<c<<55,.");
+		parseStr("c<<(a*calcPow(2 2)-b)>>b<<(a*calcPow(2 2)+b),.");
+		REQUIRE(vm->getVar("b")->value==457);
+		REQUIRE(vm->getVar("c")->value==201);
+
+		cleanCompileVars();
+	}
 }
 TEST_CASE("arifmetic operations")
 {
@@ -420,6 +475,12 @@ TEST_CASE("arifmetic operations")
 
 		parseStr("b>>(a+c),.");
 		REQUIRE(err_vec.back().error_code==Err::invalidAssign);
+
+		parseStr("8>>a>>b,.");
+		parseStr("3>>c>>d,.");
+		parseStr("small remainder big a normal div begin return (-a/div)*div+a,.end,.");
+		parseStr("((a+b/2)+(b/2+c/2)+(c/2+d/2)+d/2+remainder(c 2)+remainder(d 2))>>d,.");
+		REQUIRE(vm->getVar("d")->value==22);
 
 		cleanCompileVars();
 	}
@@ -440,6 +501,18 @@ TEST_CASE("arifmetic operations")
 		parseStr("b>>(a-c),.");
 		REQUIRE(err_vec.back().error_code==Err::invalidAssign);
 
+		parseStr("8>>a>>b,.");
+		parseStr("3>>c>>d,.");
+		parseStr("(-a)*(-b)-a*b+c*(-d)>>d,.");
+		REQUIRE(vm->getVar("d")->value==-9);
+
+		parseStr("d<<(-3-(-3)),.");
+		REQUIRE(vm->getVar("d")->value==0);
+		
+		parseStr("small remainder big a normal div begin return (-a/div)*div+a,.end,.");
+		parseStr("d<<(a-remainder(a 3)),.");
+		REQUIRE(vm->getVar("d")->value==6);
+
 		cleanCompileVars();
 	}
 	SECTION("product")
@@ -458,6 +531,18 @@ TEST_CASE("arifmetic operations")
 		parseStr("c<<-2,.");
 		parseStr("(a+b)*(-c)*(-1)>>d,.");
 		REQUIRE(vm->getVar("d")->value==-8);
+
+		parseStr("((-d)*d/(-c)+a)>>b,.");
+		REQUIRE(vm->getVar("b")->value==-29);
+
+		parseStr("((-d)*d/((-c)+a))>>b,.");
+		REQUIRE(vm->getVar("b")->value==-12);
+		
+		parseStr("small remainder big a normal div begin return (-a/div)*div+a,.end,.");
+		parseStr("b<<-b,.");
+		parseStr("a<<remainder(b 5),.");
+		parseStr("d<<(b-(b/5)*5),.");
+		REQUIRE(vm->getVar("a")->value==vm->getVar("d")->value);
 
 		cleanCompileVars();
 	}
@@ -569,6 +654,12 @@ TEST_CASE("logic operations")
 		parseStr("result<<a/b=>kk*7<=a*kk/b");
 		REQUIRE(vm->getVar("result")->value==1);
 
+		parseStr("a<<1,.");
+		parseStr("b<<0,.");
+		parseStr("a<<a>b>>b,.");
+		REQUIRE(vm->getVar("a")->value==0);
+		REQUIRE(vm->getVar("b")->value==1);
+
 		cleanCompileVars();
 	}
 }
@@ -597,6 +688,10 @@ TEST_CASE("chained assignment with logic and arifmetic expressions")
 		REQUIRE(err_vec.back().error_code==Err::invalidAssign);
 
 		//to be debugged
+	//	parseStr("a<<3,.");
+	//	parseStr("b<<-100,.");
+	//	parseStr("c<<50,.");
+	//	parseStr("d<<140,.");
 	//	parseStr("d>c<a>>c<<a>b<c=>d>>a,.");
 	//	REQUIRE(vm->getVar("a")->value==0);
 	//	REQUIRE(vm->getVar("c")->value==0);

@@ -715,6 +715,12 @@ expr:
 					//vm->popOperand();
 					//bison_logger<<"minused operand with value "<<-$2<<std::endl;
 					}
+	/*| '-' '(' expr_operand ')'	{
+					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uminus, {$3->root}), $3);
+					$$=ost;
+					//vm->popOperand();
+					//bison_logger<<"minused operand with value "<<-$2<<std::endl;
+					}*/
 	| expr '*' expr		{
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::mult, {$1->root, $3->root}), $1, $3);
 					$$=ost;
@@ -755,6 +761,13 @@ expr:
 					bison_logger<<"expression in brackets with value "<<$$<<std::endl;
 					//vm->pushOperand($$);
 				}
+	/*| '-' '(' expr ')'		{
+					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uminus, {$3->root}), $3);
+					$$=ost;
+					//$$=$2;
+					bison_logger<<"expression in brackets with value "<<$$<<std::endl;
+					//vm->pushOperand($$);
+				}*/
 	;
 logic_expr:
 	logic_expr LESS_EQUAL logic_expr	{

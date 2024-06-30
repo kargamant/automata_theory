@@ -784,7 +784,10 @@ int AssigningOperator::execute()
 				{
 					dynamic_cast<OperandNode*>(right)->operand->var->changeValue(execution);	
 					dynamic_cast<OperandNode*>(right)->operand->value=execution;
-					return dynamic_cast<OperandNode*>(right)->operand->value;
+					
+					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(right)->operand->var->name, execution);
+					//return dynamic_cast<OperandNode*>(right)->operand->value;
+					return left->execute();
 				}
 				else
 				{

@@ -579,8 +579,8 @@ static const yytype_int16 yyrline[] =
      236,   243,   258,   262,   271,   276,   297,   301,   306,   311,
      318,   326,   338,   345,   373,   377,   395,   440,   486,   518,
      522,   528,   532,   536,   540,   545,   550,   569,   614,   665,
-     689,   693,   699,   704,   712,   718,   725,   739,   746,   753,
-     760,   766,   772,   778,   784,   788,   794,   802,   809
+     689,   693,   699,   704,   712,   724,   731,   745,   752,   759,
+     773,   779,   785,   791,   797,   801,   807,   815,   822
 };
 #endif
 
@@ -2347,7 +2347,7 @@ yyreduce:
     break;
 
   case 45:
-#line 718 "bison/lang.y"
+#line 724 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::mult, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2359,7 +2359,7 @@ yyreduce:
     break;
 
   case 46:
-#line 725 "bison/lang.y"
+#line 731 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::div, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2378,7 +2378,7 @@ yyreduce:
     break;
 
   case 47:
-#line 739 "bison/lang.y"
+#line 745 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::plus, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2390,7 +2390,7 @@ yyreduce:
     break;
 
   case 48:
-#line 746 "bison/lang.y"
+#line 752 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::minus, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2402,7 +2402,7 @@ yyreduce:
     break;
 
   case 49:
-#line 753 "bison/lang.y"
+#line 759 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[-1].st);
 					bison_logger<<"expression in brackets with value "<<(yyval.st)<<std::endl;
@@ -2412,7 +2412,7 @@ yyreduce:
     break;
 
   case 50:
-#line 760 "bison/lang.y"
+#line 773 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::le, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2423,7 +2423,7 @@ yyreduce:
     break;
 
   case 51:
-#line 766 "bison/lang.y"
+#line 779 "bison/lang.y"
                                             {
 					Ast* ost=new Ast(new LogicOperator(LogicType::me, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2434,7 +2434,7 @@ yyreduce:
     break;
 
   case 52:
-#line 772 "bison/lang.y"
+#line 785 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::l, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2445,7 +2445,7 @@ yyreduce:
     break;
 
   case 53:
-#line 778 "bison/lang.y"
+#line 791 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::m, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2456,7 +2456,7 @@ yyreduce:
     break;
 
   case 54:
-#line 784 "bison/lang.y"
+#line 797 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[-1].st);
 					bison_logger<<"("<<(yyvsp[-1].st)<<")"<<std::endl;
@@ -2465,7 +2465,7 @@ yyreduce:
     break;
 
   case 55:
-#line 788 "bison/lang.y"
+#line 801 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[0].st);
 					bison_logger<<"expr from logic expr"<<std::endl;
@@ -2474,7 +2474,7 @@ yyreduce:
     break;
 
   case 56:
-#line 794 "bison/lang.y"
+#line 807 "bison/lang.y"
                       {
 				
 				OperandNode* op=new OperandNode(new Operand(new Var(VarType::tiny, *(yyvsp[-1].str), 0)));
@@ -2487,7 +2487,7 @@ yyreduce:
     break;
 
   case 57:
-#line 802 "bison/lang.y"
+#line 815 "bison/lang.y"
                    {
 				OperandNode* op=new OperandNode(new Operand(new Var(VarType::tiny, *(yyvsp[0].str), 0)));		
 				(yyval.st)=new Ast(op);
@@ -2499,7 +2499,7 @@ yyreduce:
     break;
 
   case 58:
-#line 809 "bison/lang.y"
+#line 822 "bison/lang.y"
                         {}
 #line 2505 "bison/bis.tab.c"
     break;
@@ -2743,7 +2743,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 812 "bison/lang.y"
+#line 825 "bison/lang.y"
 
 
 
