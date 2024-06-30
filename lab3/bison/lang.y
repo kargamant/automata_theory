@@ -392,7 +392,57 @@ operand:
 					std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 				}
 			}
-	| VAR_NAME '[' numeric_operand numeric_operand ']' {
+	| VAR_NAME '[' VAR_NAME VAR_NAME ']' {
+					bool exists=vm->checkIfDefined(*$1);
+
+					if(exists && !vm->getVar(*$1)->isField)
+					{
+						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						$$=ost;
+						err_vec.push_back(Error(Err::typeMisMatch, "Error. Variable "+*$1+" is not an array.", $$->root));
+						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+						std::cerr<<"Error. Variable "+*$1+" is not an array."<<std::endl;
+					}
+					else if(exists)
+					{
+						bool isError=false;
+						try
+						{
+							bison_logger<<"operand_indexed_variable: "<<std::endl;
+							if(!vm->checkIfDefined(*$3) || !vm->checkIfDefined(*$4))
+							{
+								vm->setErrCode(Err::undefined);
+								throw std::invalid_argument("Error. Indecies are undefined.");
+							}
+							bison_logger<<dynamic_cast<Field*>(vm->getVar(*$1))->getVar(vm->getVar(*$3)->value, vm->getVar(*$4)->value);
+							bison_logger<<std::endl;
+						}
+						catch(std::invalid_argument error)
+						{
+							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1), *$3, *$4)));
+							$$=ost;
+							err_vec.push_back(Error(vm->getErrCode(), error.what(), $$->root));
+							isError=true;
+							std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+							std::cerr<<"Error text: "<<error.what()<<std::endl;
+						}
+						if(!isError)
+						{
+							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1), *$3, *$4)));
+							$$=ost;
+						}
+					}
+					else
+					{
+						Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *$1, 0))));
+						$$=ost;
+						err_vec.push_back(Error(Err::undefined, "Error. Variable "+*$1+" was not defined.", $$->root));
+						std::cerr<<"Syntax error at line "<<@1.first_line<<std::endl;
+						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
+					}
+					
+					}
+	/*| VAR_NAME '[' numeric_operand numeric_operand ']' {
 					bool exists=vm->checkIfDefined(*$1);
 
 					if(exists && !vm->getVar(*$1)->isField)
@@ -436,7 +486,7 @@ operand:
 						std::cerr<<"Error text: "<<"Error. Variable "+*$1+" was not defined."<<std::endl;
 					}
 					
-					}
+					}*/
 	| VAR_NAME '[' LITERAL LITERAL ']' {
 					bool exists=vm->checkIfDefined(*$1);
 
@@ -468,7 +518,7 @@ operand:
 						}
 						if(!isError)
 						{
-							std::cout<<"HAHAHAHAHAH"<<std::endl;
+							//std::cout<<"HAHAHAHAHAH"<<std::endl;
 							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*$1), $3, $4)));
 							$$=ost;
 						}

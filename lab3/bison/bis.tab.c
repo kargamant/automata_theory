@@ -517,7 +517,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  50
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   310
+#define YYLAST   300
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  37
@@ -577,10 +577,10 @@ static const yytype_int16 yyrline[] =
 {
        0,    84,    84,   120,   129,   164,   186,   207,   219,   229,
      236,   243,   258,   262,   271,   276,   297,   301,   306,   311,
-     318,   326,   338,   345,   373,   377,   395,   440,   486,   518,
-     522,   528,   532,   536,   540,   545,   550,   569,   614,   665,
-     689,   693,   699,   704,   712,   724,   731,   745,   752,   759,
-     773,   779,   785,   791,   797,   801,   807,   815,   822
+     318,   326,   338,   345,   373,   377,   395,   490,   536,   568,
+     572,   578,   582,   586,   590,   595,   600,   619,   664,   715,
+     739,   743,   749,   754,   762,   774,   781,   795,   802,   809,
+     823,   829,   835,   841,   847,   851,   857,   865,   872
 };
 #endif
 
@@ -612,7 +612,7 @@ static const yytype_int16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF (-53)
+#define YYPACT_NINF (-63)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -626,19 +626,19 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     134,   212,     3,   195,    30,    12,    12,   139,     9,    15,
-      33,   216,   233,     2,   108,   139,    12,    79,   -53,   103,
-     269,    10,   -53,   248,   -53,    62,   157,   139,    38,    41,
-      96,   -20,   -53,   -53,   -53,     2,    76,   185,   187,   206,
-      75,   -53,   -53,   -53,   -53,   195,   -53,    94,    65,    67,
-     -53,   -53,   -53,   163,   163,   163,   163,   139,   139,    12,
-      12,    12,    12,   -53,     4,   181,   139,    95,   125,   127,
-     122,   -53,   163,   125,   186,   139,   134,   134,   -53,   -53,
-     -53,   -53,   163,    26,    26,   -53,   -53,   -53,   -53,    18,
-      18,   248,   248,   102,   113,   -53,   237,   131,   134,   281,
-     128,    28,   181,   129,   -53,   -53,    65,   241,   258,   -53,
-     148,   -53,   139,   133,   137,   -53,   132,   141,   -53,   -53,
-     -53,   -53
+     137,   215,     3,   198,    11,    13,    13,   142,   -10,    -8,
+      -5,   219,   236,    86,   111,   142,    13,    45,   -63,   106,
+     267,    12,   -63,    70,   -63,    25,   160,   142,    39,    33,
+      59,   -20,   -63,   -63,   -63,    86,   112,   188,   190,   209,
+      51,   -63,   -63,   -63,   -63,   198,   -63,    58,   263,    63,
+     -63,   -63,   -63,   166,   166,   166,   166,   142,   142,    13,
+      13,    13,    13,   -63,     4,     5,   184,   142,    34,    93,
+      98,    94,   -63,   166,    93,   189,   142,   137,   137,   -63,
+     -63,   -63,   -63,   166,    27,    27,   -63,   -63,   -63,   -63,
+      47,    47,    70,    70,    76,    97,   103,   -63,   240,   122,
+     137,   271,   131,    29,   114,   -63,   -63,   263,   -63,   244,
+     -63,   -63,   151,   -63,   142,   132,   -63,   139,   143,   -63,
+     -63,   -63
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -652,27 +652,27 @@ static const yytype_int8 yydefact[] =
        0,    36,    35,    40,    41,     0,    55,     0,     0,    33,
        0,    13,    15,    14,    43,    32,    44,     0,    55,     0,
        1,     4,     3,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     7,    31,     0,    17,     0,    57,     0,
-       0,    56,     0,    58,     0,     0,     0,     0,    12,     8,
-      49,    54,     0,    47,    48,    45,    46,    20,    21,    50,
-      51,    52,    53,     0,     0,    16,    28,    19,     0,     0,
-       0,    31,     0,     0,     9,    10,     0,    27,    26,    18,
-       0,     5,     0,     0,     0,    39,     0,     0,    38,    37,
+       0,     0,     0,     7,    36,    31,     0,    17,     0,    57,
+       0,     0,    56,     0,    58,     0,     0,     0,     0,    12,
+       8,    49,    54,     0,    47,    48,    45,    46,    20,    21,
+      50,    51,    52,    53,     0,     0,     0,    16,    28,    19,
+       0,     0,     0,    31,     0,     9,    10,     0,    26,    27,
+      37,    18,     0,     5,     0,     0,    39,     0,     0,    38,
       11,     6
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -53,   -53,   -16,   -53,    74,    16,    -7,   -22,    -4,    52,
-      69,   -52,     8
+     -63,   -63,   -16,   -63,    67,    17,    -7,   -22,    -4,    53,
+      80,   -62,     7
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,    17,    18,    19,    70,    39,    21,    22,    23,    24,
-      25,    67,    71
+      -1,    17,    18,    19,    71,    39,    21,    22,    23,    24,
+      25,    68,    72
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -680,73 +680,71 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      40,    37,    38,    52,    65,    31,    28,    32,    47,    93,
-      29,    74,    49,    75,    95,    31,    20,    32,    33,    34,
-      66,    36,    36,   103,   -35,   -35,   -35,   -35,    33,    34,
-      13,    35,    48,   113,    30,    20,    57,    58,    41,   -35,
-     -35,    68,    69,    94,    42,    16,    55,    56,   -35,   -35,
-     -35,   -35,   102,    61,    62,    89,    90,    91,    92,    66,
-     104,   105,    43,   -35,   -35,    44,    46,    72,    66,    83,
-      84,    85,    86,    20,    20,    36,    36,    36,    36,    50,
-     114,   100,   110,    53,    54,    55,    56,    46,    99,    59,
-      60,    63,    20,    20,    53,    54,    55,    56,   106,    80,
-      73,    81,    61,    62,    78,   117,     1,     2,     3,     4,
-       5,    31,     6,    45,    20,     7,     8,     9,    10,    11,
-      12,    13,    14,    79,    33,    34,    87,    88,    68,    96,
-      97,    51,    98,    15,   107,    69,    16,     1,     2,     3,
-       4,     5,     1,     6,     3,   108,     7,     8,     9,    10,
-      11,    12,    13,    14,   112,    11,    12,    13,    14,   116,
-      31,   120,    64,   115,    15,   118,    31,    16,    32,   119,
-     121,   109,    16,    33,    34,    13,    14,     0,     0,    33,
-      34,    13,    35,     0,    31,     0,     3,     0,     0,    31,
-      16,   101,     0,    76,     0,    77,    82,    33,    34,    13,
-      14,     0,    33,    34,    13,    14,     0,    59,    60,    59,
-      60,     0,     0,     0,    16,   -35,   -35,   -35,   -35,    16,
-      61,    62,    61,    62,    53,    54,    55,    56,   -55,   -55,
-     -35,   -35,   -36,   -36,   -36,   -36,   -40,   -40,   -40,   -40,
-       0,   -55,   -55,    26,     0,    27,     0,   -36,   -36,     0,
-       0,   -40,   -40,   -41,   -41,   -41,   -41,   -39,   -39,   -39,
-     -39,   -38,   -38,   -38,   -38,     0,     0,     0,   -41,   -41,
-      59,    60,   -39,   -39,     0,     0,   -38,   -38,   -37,   -37,
-     -37,   -37,     0,    61,    62,     0,     0,    53,    54,    55,
-      56,     0,     0,   -37,   -37,   -33,   -33,     0,   -22,    53,
-      54,    55,    56,     0,     0,     0,     0,     0,     0,     0,
-     111
+      40,    37,    38,    52,    66,    97,    28,    94,    47,    29,
+      95,    75,    49,    76,   104,    30,    31,    20,    32,    41,
+      67,    42,    36,    36,    43,   -35,   -35,   -35,   -35,    33,
+      34,    13,    35,    48,   115,    75,    20,    76,    57,    58,
+     -35,   -35,    69,    70,    96,    50,    16,    55,    56,   -35,
+     -35,   -35,   -35,    66,    63,    90,    91,    92,    93,    73,
+      67,   105,   106,    74,   -35,   -35,    44,    46,    98,    67,
+      84,    85,    86,    87,    20,    20,    36,    36,    36,    36,
+      79,   102,    61,    62,   112,    59,    60,    80,    46,    31,
+     101,    32,    59,    60,    20,    20,    69,    82,    61,    62,
+     107,    99,    33,    34,   100,    61,    62,   118,   108,     1,
+       2,     3,     4,     5,    31,     6,    45,    20,     7,     8,
+       9,    10,    11,    12,    13,    14,    70,    33,    34,   109,
+      53,    54,    55,    56,    51,   110,    15,    88,    89,    16,
+       1,     2,     3,     4,     5,     1,     6,     3,   116,     7,
+       8,     9,    10,    11,    12,    13,    14,   114,    11,    12,
+      13,    14,   117,    64,   119,    65,   111,    15,   120,    31,
+      16,    32,   121,     0,     0,    16,    33,    34,    13,    14,
+       0,     0,    33,    34,    13,    35,     0,    31,     0,     3,
+       0,     0,    31,    16,   103,     0,    77,     0,    78,    83,
+      33,    34,    13,    14,     0,    33,    34,    13,    14,     0,
+      59,    60,    59,    60,     0,     0,     0,    16,   -35,   -35,
+     -35,   -35,    16,    61,    62,    61,    62,    53,    54,    55,
+      56,   -55,   -55,   -35,   -35,   -36,   -36,   -36,   -36,   -40,
+     -40,   -40,   -40,     0,   -55,   -55,    26,     0,    27,     0,
+     -36,   -36,     0,     0,   -40,   -40,   -41,   -41,   -41,   -41,
+     -39,   -39,   -39,   -39,   -38,   -38,   -38,   -38,     0,     0,
+       0,   -41,   -41,     0,     0,   -39,   -39,     0,     0,   -38,
+     -38,    53,    54,    55,    56,    53,    54,    55,    56,    53,
+      54,    55,    56,   -33,   -33,     0,   -22,    81,     0,     0,
+     113
 };
 
 static const yytype_int8 yycheck[] =
 {
-       7,     5,     6,    19,    26,     3,     3,     5,    15,     5,
-       2,    31,    16,    33,    66,     3,     0,     5,    16,    17,
-      27,     5,     6,    75,    20,    21,    22,    23,    16,    17,
-      18,    19,    16,     5,     4,    19,    26,    27,    29,    35,
-      36,     3,     4,    65,    29,    33,    20,    21,    20,    21,
-      22,    23,    74,    35,    36,    59,    60,    61,    62,    66,
-      76,    77,    29,    35,    36,    13,    14,    26,    75,    53,
-      54,    55,    56,    57,    58,    59,    60,    61,    62,     0,
-     102,    73,    98,    18,    19,    20,    21,    35,    72,    22,
-      23,    29,    76,    77,    18,    19,    20,    21,    82,    34,
-       4,    34,    35,    36,    29,   112,     3,     4,     5,     6,
-       7,     3,     9,     5,    98,    12,    13,    14,    15,    16,
-      17,    18,    19,    29,    16,    17,    57,    58,     3,    34,
-       3,    28,    10,    30,    32,     4,    33,     3,     4,     5,
-       6,     7,     3,     9,     5,    32,    12,    13,    14,    15,
-      16,    17,    18,    19,    26,    16,    17,    18,    19,    11,
-       3,    29,     5,    34,    30,    32,     3,    33,     5,    32,
-      29,    97,    33,    16,    17,    18,    19,    -1,    -1,    16,
-      17,    18,    19,    -1,     3,    -1,     5,    -1,    -1,     3,
-      33,     5,    -1,     8,    -1,     8,    33,    16,    17,    18,
-      19,    -1,    16,    17,    18,    19,    -1,    22,    23,    22,
-      23,    -1,    -1,    -1,    33,    20,    21,    22,    23,    33,
-      35,    36,    35,    36,    18,    19,    20,    21,    22,    23,
-      35,    36,    20,    21,    22,    23,    20,    21,    22,    23,
-      -1,    35,    36,    31,    -1,    33,    -1,    35,    36,    -1,
-      -1,    35,    36,    20,    21,    22,    23,    20,    21,    22,
-      23,    20,    21,    22,    23,    -1,    -1,    -1,    35,    36,
-      22,    23,    35,    36,    -1,    -1,    35,    36,    20,    21,
-      22,    23,    -1,    35,    36,    -1,    -1,    18,    19,    20,
-      21,    -1,    -1,    35,    36,    26,    27,    -1,    29,    18,
-      19,    20,    21,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+       7,     5,     6,    19,    26,    67,     3,     3,    15,     2,
+       5,    31,    16,    33,    76,     4,     3,     0,     5,    29,
+      27,    29,     5,     6,    29,    20,    21,    22,    23,    16,
+      17,    18,    19,    16,     5,    31,    19,    33,    26,    27,
+      35,    36,     3,     4,    66,     0,    33,    20,    21,    20,
+      21,    22,    23,    75,    29,    59,    60,    61,    62,    26,
+      67,    77,    78,     4,    35,    36,    13,    14,    34,    76,
+      53,    54,    55,    56,    57,    58,    59,    60,    61,    62,
+      29,    74,    35,    36,   100,    22,    23,    29,    35,     3,
+      73,     5,    22,    23,    77,    78,     3,    34,    35,    36,
+      83,     3,    16,    17,    10,    35,    36,   114,    32,     3,
+       4,     5,     6,     7,     3,     9,     5,   100,    12,    13,
+      14,    15,    16,    17,    18,    19,     4,    16,    17,    32,
+      18,    19,    20,    21,    28,    32,    30,    57,    58,    33,
+       3,     4,     5,     6,     7,     3,     9,     5,    34,    12,
+      13,    14,    15,    16,    17,    18,    19,    26,    16,    17,
+      18,    19,    11,     3,    32,     5,    99,    30,    29,     3,
+      33,     5,    29,    -1,    -1,    33,    16,    17,    18,    19,
+      -1,    -1,    16,    17,    18,    19,    -1,     3,    -1,     5,
+      -1,    -1,     3,    33,     5,    -1,     8,    -1,     8,    33,
+      16,    17,    18,    19,    -1,    16,    17,    18,    19,    -1,
+      22,    23,    22,    23,    -1,    -1,    -1,    33,    20,    21,
+      22,    23,    33,    35,    36,    35,    36,    18,    19,    20,
+      21,    22,    23,    35,    36,    20,    21,    22,    23,    20,
+      21,    22,    23,    -1,    35,    36,    31,    -1,    33,    -1,
+      35,    36,    -1,    -1,    35,    36,    20,    21,    22,    23,
+      20,    21,    22,    23,    20,    21,    22,    23,    -1,    -1,
+      -1,    35,    36,    -1,    -1,    35,    36,    -1,    -1,    35,
+      36,    18,    19,    20,    21,    18,    19,    20,    21,    18,
+      19,    20,    21,    26,    27,    -1,    29,    34,    -1,    -1,
       29
 };
 
@@ -760,12 +758,12 @@ static const yytype_int8 yystos[] =
        4,     3,     5,    16,    17,    19,    42,    45,    45,    42,
       43,    29,    29,    29,    46,     5,    46,    43,    42,    45,
        0,    28,    39,    18,    19,    20,    21,    26,    27,    22,
-      23,    35,    36,    29,     5,    44,    43,    48,     3,     4,
-      41,    49,    26,     4,    31,    33,     8,     8,    29,    29,
-      34,    34,    33,    42,    42,    42,    42,    47,    47,    45,
-      45,    45,    45,     5,    44,    48,    34,     3,    10,    42,
-      49,     5,    44,    48,    39,    39,    42,    32,    32,    41,
-      39,    29,    26,     5,    44,    34,    11,    43,    32,    32,
+      23,    35,    36,    29,     3,     5,    44,    43,    48,     3,
+       4,    41,    49,    26,     4,    31,    33,     8,     8,    29,
+      29,    34,    34,    33,    42,    42,    42,    42,    47,    47,
+      45,    45,    45,    45,     3,     5,    44,    48,    34,     3,
+      10,    42,    49,     5,    48,    39,    39,    42,    32,    32,
+      32,    41,    39,    29,    26,     5,    34,    11,    43,    32,
       29,    29
 };
 
@@ -1614,7 +1612,7 @@ yyreduce:
 				//$$->printAst();
 				//ast.printAst();
     			}
-#line 1618 "bison/bis.tab.c"
+#line 1616 "bison/bis.tab.c"
     break;
 
   case 3:
@@ -1628,7 +1626,7 @@ yyreduce:
 						//ast.printAst();
 						//ast.execute();
 						}
-#line 1632 "bison/bis.tab.c"
+#line 1630 "bison/bis.tab.c"
     break;
 
   case 4:
@@ -1644,7 +1642,7 @@ yyreduce:
 					//ast.printAst();
 					//ast.execute();
 				}
-#line 1648 "bison/bis.tab.c"
+#line 1646 "bison/bis.tab.c"
     break;
 
   case 5:
@@ -1671,7 +1669,7 @@ yyreduce:
 						(yyval.st)=ost;	
 						bison_logger<<"All vars from init queue were intialized"<<std::endl;
 						}
-#line 1675 "bison/bis.tab.c"
+#line 1673 "bison/bis.tab.c"
     break;
 
   case 6:
@@ -1696,7 +1694,7 @@ yyreduce:
 							ost->execute();
 							(yyval.st)=ost;	
 						}
-#line 1700 "bison/bis.tab.c"
+#line 1698 "bison/bis.tab.c"
     break;
 
   case 7:
@@ -1712,7 +1710,7 @@ yyreduce:
 							(yyval.st)=(yyvsp[-1].st);
 							//$$->execute();
 	  					}
-#line 1716 "bison/bis.tab.c"
+#line 1714 "bison/bis.tab.c"
     break;
 
   case 8:
@@ -1723,7 +1721,7 @@ yyreduce:
 							//main_func->stmts.push_back(ost);
 							//std::cout<<$2<<std::endl;
 						}
-#line 1727 "bison/bis.tab.c"
+#line 1725 "bison/bis.tab.c"
     break;
 
   case 9:
@@ -1735,7 +1733,7 @@ yyreduce:
 							(yyval.st)=ost;
 							//ost->execute();
 						}
-#line 1739 "bison/bis.tab.c"
+#line 1737 "bison/bis.tab.c"
     break;
 
   case 10:
@@ -1747,7 +1745,7 @@ yyreduce:
 
 							
 						}
-#line 1751 "bison/bis.tab.c"
+#line 1749 "bison/bis.tab.c"
     break;
 
   case 11:
@@ -1767,7 +1765,7 @@ yyreduce:
 								Ast* ost=new Ast();
 								(yyval.st)=ost;
 								}
-#line 1771 "bison/bis.tab.c"
+#line 1769 "bison/bis.tab.c"
     break;
 
   case 12:
@@ -1776,7 +1774,7 @@ yyreduce:
 							OperatorNode* return_stmt=new ReturnOperator((yyvsp[-1].st)->root);
 							(yyval.st)=new Ast(return_stmt);
 						}
-#line 1780 "bison/bis.tab.c"
+#line 1778 "bison/bis.tab.c"
     break;
 
   case 13:
@@ -1790,7 +1788,7 @@ yyreduce:
 							//op->execute();
 							(yyval.st)=new Ast(op);
 						}
-#line 1794 "bison/bis.tab.c"
+#line 1792 "bison/bis.tab.c"
     break;
 
   case 14:
@@ -1800,7 +1798,7 @@ yyreduce:
 							//op->execute();
 							(yyval.st)=new Ast(op);
 						}
-#line 1804 "bison/bis.tab.c"
+#line 1802 "bison/bis.tab.c"
     break;
 
   case 15:
@@ -1810,7 +1808,7 @@ yyreduce:
 							//op->execute();
 							(yyval.st)=new Ast(op);
 						}
-#line 1814 "bison/bis.tab.c"
+#line 1812 "bison/bis.tab.c"
     break;
 
   case 16:
@@ -1819,7 +1817,7 @@ yyreduce:
 					(yyval.st)=new Ast((yyvsp[-1].st)->root, (yyvsp[0].st));
 	    				
 	    			}
-#line 1823 "bison/bis.tab.c"
+#line 1821 "bison/bis.tab.c"
     break;
 
   case 17:
@@ -1827,7 +1825,7 @@ yyreduce:
                                 {
 	    				(yyval.st)=(yyvsp[0].st);
 	    			}
-#line 1831 "bison/bis.tab.c"
+#line 1829 "bison/bis.tab.c"
     break;
 
   case 18:
@@ -1837,7 +1835,7 @@ yyreduce:
 
 					(yyval.st)=new Ast(op, (yyvsp[0].st));
     				}
-#line 1841 "bison/bis.tab.c"
+#line 1839 "bison/bis.tab.c"
     break;
 
   case 19:
@@ -1847,7 +1845,7 @@ yyreduce:
 					Ast* ost=new Ast(op);
 					(yyval.st)=ost;
 				}
-#line 1851 "bison/bis.tab.c"
+#line 1849 "bison/bis.tab.c"
     break;
 
   case 20:
@@ -1859,7 +1857,7 @@ yyreduce:
 						vm->pushOperator({AssignType::Left});	
 						bison_logger<<"left_assignment"<<std::endl;
 					}
-#line 1863 "bison/bis.tab.c"
+#line 1861 "bison/bis.tab.c"
     break;
 
   case 21:
@@ -1875,7 +1873,7 @@ yyreduce:
 						vm->pushOperator({AssignType::Right});	
 						bison_logger<<"right_assignment"<<std::endl;
 					}
-#line 1879 "bison/bis.tab.c"
+#line 1877 "bison/bis.tab.c"
     break;
 
   case 22:
@@ -1887,7 +1885,7 @@ yyreduce:
 						//vm->pushOperand(op);
 						//bison_logger<<"expr"<<std::endl;	
 					}
-#line 1891 "bison/bis.tab.c"
+#line 1889 "bison/bis.tab.c"
     break;
 
   case 23:
@@ -1899,7 +1897,7 @@ yyreduce:
 						//vm->pushOperand(op);
 						//bison_logger<<"expr"<<std::endl;	
 					}
-#line 1903 "bison/bis.tab.c"
+#line 1901 "bison/bis.tab.c"
     break;
 
   case 24:
@@ -1908,7 +1906,7 @@ yyreduce:
 					(yyval.st)=(yyvsp[0].st);
 					bison_logger<<"operand_literal: "<<(yyvsp[0].st)<<std::endl;
 				}
-#line 1912 "bison/bis.tab.c"
+#line 1910 "bison/bis.tab.c"
     break;
 
   case 25:
@@ -1931,12 +1929,12 @@ yyreduce:
 					std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[0].str)+" was not defined."<<std::endl;
 				}
 			}
-#line 1935 "bison/bis.tab.c"
+#line 1933 "bison/bis.tab.c"
     break;
 
   case 26:
 #line 395 "bison/lang.y"
-                                                           {
+                                             {
 					bool exists=vm->checkIfDefined(*(yyvsp[-4].str));
 
 					if(exists && !vm->getVar(*(yyvsp[-4].str))->isField)
@@ -1953,12 +1951,17 @@ yyreduce:
 						try
 						{
 							bison_logger<<"operand_indexed_variable: "<<std::endl;
-							bison_logger<<dynamic_cast<Field*>(vm->getVar(*(yyvsp[-4].str)))->getVar((yyvsp[-2].st)->execute(), (yyvsp[-1].st)->execute());
+							if(!vm->checkIfDefined(*(yyvsp[-2].str)) || !vm->checkIfDefined(*(yyvsp[-1].str)))
+							{
+								vm->setErrCode(Err::undefined);
+								throw std::invalid_argument("Error. Indecies are undefined.");
+							}
+							bison_logger<<dynamic_cast<Field*>(vm->getVar(*(yyvsp[-4].str)))->getVar(vm->getVar(*(yyvsp[-2].str))->value, vm->getVar(*(yyvsp[-1].str))->value);
 							bison_logger<<std::endl;
 						}
 						catch(std::invalid_argument error)
 						{
-							Ast* ost=new Ast(new OperandNode(new Operand(new Var(VarType::tiny, *(yyvsp[-4].str), 0))));
+							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*(yyvsp[-4].str)), *(yyvsp[-2].str), *(yyvsp[-1].str))));
 							(yyval.st)=ost;
 							err_vec.push_back(Error(vm->getErrCode(), error.what(), (yyval.st)->root));
 							isError=true;
@@ -1967,7 +1970,7 @@ yyreduce:
 						}
 						if(!isError)
 						{
-							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*(yyvsp[-4].str)), (yyvsp[-2].st)->execute(), (yyvsp[-1].st)->execute())));
+							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*(yyvsp[-4].str)), *(yyvsp[-2].str), *(yyvsp[-1].str))));
 							(yyval.st)=ost;
 						}
 					}
@@ -1981,11 +1984,11 @@ yyreduce:
 					}
 					
 					}
-#line 1985 "bison/bis.tab.c"
+#line 1988 "bison/bis.tab.c"
     break;
 
   case 27:
-#line 440 "bison/lang.y"
+#line 490 "bison/lang.y"
                                            {
 					bool exists=vm->checkIfDefined(*(yyvsp[-4].str));
 
@@ -2017,7 +2020,7 @@ yyreduce:
 						}
 						if(!isError)
 						{
-							std::cout<<"HAHAHAHAHAH"<<std::endl;
+							//std::cout<<"HAHAHAHAHAH"<<std::endl;
 							Ast* ost=new Ast(new OperandNode(new Operand(vm->getVar(*(yyvsp[-4].str)), (yyvsp[-2].num), (yyvsp[-1].num))));
 							(yyval.st)=ost;
 						}
@@ -2032,11 +2035,11 @@ yyreduce:
 					}
 					
 					}
-#line 2036 "bison/bis.tab.c"
+#line 2039 "bison/bis.tab.c"
     break;
 
   case 28:
-#line 486 "bison/lang.y"
+#line 536 "bison/lang.y"
                                         {
 							if(declared_funcs.contains(*(yyvsp[-3].str)))
 							{
@@ -2069,74 +2072,74 @@ yyreduce:
 								std::cerr<<"Error text: "<<"Error. Function "+*(yyvsp[-3].str)+" was not declared."<<std::endl;
 							}
 						}
-#line 2073 "bison/bis.tab.c"
+#line 2076 "bison/bis.tab.c"
     break;
 
   case 29:
-#line 518 "bison/lang.y"
+#line 568 "bison/lang.y"
                                                 {
 							OperatorNode* op=new SonarOperator(labirint);
 							(yyval.st)=new Ast(op);
 						}
-#line 2082 "bison/bis.tab.c"
+#line 2085 "bison/bis.tab.c"
     break;
 
   case 30:
-#line 522 "bison/lang.y"
+#line 572 "bison/lang.y"
                                                 {
 							OperatorNode* op=new CompassOperator(labirint);
 							(yyval.st)=new Ast(op);
 						}
-#line 2091 "bison/bis.tab.c"
+#line 2094 "bison/bis.tab.c"
     break;
 
   case 31:
-#line 528 "bison/lang.y"
+#line 578 "bison/lang.y"
                         {
 				Ast* ost=new Ast(new OperandNode(new Operand({(yyvsp[0].num)})));
 				(yyval.st)=ost;
 			}
-#line 2100 "bison/bis.tab.c"
+#line 2103 "bison/bis.tab.c"
     break;
 
   case 32:
-#line 532 "bison/lang.y"
+#line 582 "bison/lang.y"
                                 {
 				Ast* ost=new Ast(new OperandNode(new Operand({-(yyvsp[0].num)})));
 				(yyval.st)=ost;
 			}
-#line 2109 "bison/bis.tab.c"
+#line 2112 "bison/bis.tab.c"
     break;
 
   case 33:
-#line 536 "bison/lang.y"
+#line 586 "bison/lang.y"
                         {
 
 				(yyval.st)=(yyvsp[0].st);
 			}
-#line 2118 "bison/bis.tab.c"
+#line 2121 "bison/bis.tab.c"
     break;
 
   case 34:
-#line 540 "bison/lang.y"
+#line 590 "bison/lang.y"
                         {
 				(yyval.st)=(yyvsp[0].st);
 			}
-#line 2126 "bison/bis.tab.c"
+#line 2129 "bison/bis.tab.c"
     break;
 
   case 35:
-#line 545 "bison/lang.y"
+#line 595 "bison/lang.y"
                         {
 				Ast* ost=new Ast(new OperandNode(new Operand({(yyvsp[0].num)})));
 				(yyval.st)=ost;
 				bison_logger<<"operand_literal: "<<(yyvsp[0].num)<<std::endl;
 			}
-#line 2136 "bison/bis.tab.c"
+#line 2139 "bison/bis.tab.c"
     break;
 
   case 36:
-#line 550 "bison/lang.y"
+#line 600 "bison/lang.y"
                         {
 				if(vm->checkIfDefined(*(yyvsp[0].str)))
 				{
@@ -2156,11 +2159,11 @@ yyreduce:
 					std::cerr<<"Error text: "<<"Error. Variable "+*(yyvsp[0].str)+" was not defined."<<std::endl;
 				}
 			}
-#line 2160 "bison/bis.tab.c"
+#line 2163 "bison/bis.tab.c"
     break;
 
   case 37:
-#line 569 "bison/lang.y"
+#line 619 "bison/lang.y"
                                                            {
 					bool exists=vm->checkIfDefined(*(yyvsp[-4].str));
 
@@ -2206,11 +2209,11 @@ yyreduce:
 					}
 					
 					}
-#line 2210 "bison/bis.tab.c"
+#line 2213 "bison/bis.tab.c"
     break;
 
   case 38:
-#line 614 "bison/lang.y"
+#line 664 "bison/lang.y"
                                            {
 					bool exists=vm->checkIfDefined(*(yyvsp[-4].str));
 
@@ -2262,11 +2265,11 @@ yyreduce:
 					}
 					
 					}
-#line 2266 "bison/bis.tab.c"
+#line 2269 "bison/bis.tab.c"
     break;
 
   case 39:
-#line 665 "bison/lang.y"
+#line 715 "bison/lang.y"
                                         {
 							if(declared_funcs.contains(*(yyvsp[-3].str)))
 							{
@@ -2291,39 +2294,39 @@ yyreduce:
 								std::cerr<<"Error text: "<<"Error. Function "+*(yyvsp[-3].str)+" was not declared."<<std::endl;
 							}
 						}
-#line 2295 "bison/bis.tab.c"
+#line 2298 "bison/bis.tab.c"
     break;
 
   case 40:
-#line 689 "bison/lang.y"
+#line 739 "bison/lang.y"
                                                 {
 							OperatorNode* op=new SonarOperator(labirint);
 							(yyval.st)=new Ast(op);
 						}
-#line 2304 "bison/bis.tab.c"
+#line 2307 "bison/bis.tab.c"
     break;
 
   case 41:
-#line 693 "bison/lang.y"
+#line 743 "bison/lang.y"
                                                 {
 							OperatorNode* op=new CompassOperator(labirint);
 							(yyval.st)=new Ast(op);
 						}
-#line 2313 "bison/bis.tab.c"
+#line 2316 "bison/bis.tab.c"
     break;
 
   case 42:
-#line 699 "bison/lang.y"
+#line 749 "bison/lang.y"
                                         {
 					(yyval.st)=(yyvsp[0].st);
 					//vm->popOperand();
 					bison_logger<<"operand with value "<<(yyvsp[0].st)<<std::endl;
 					}
-#line 2323 "bison/bis.tab.c"
+#line 2326 "bison/bis.tab.c"
     break;
 
   case 43:
-#line 704 "bison/lang.y"
+#line 754 "bison/lang.y"
                                         {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uplus, {(yyvsp[0].st)->root}), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2332,22 +2335,22 @@ yyreduce:
 					//vm->popOperand();
 					bison_logger<<"plused operand with value "<<(yyvsp[0].st)<<std::endl;
 					}
-#line 2336 "bison/bis.tab.c"
+#line 2339 "bison/bis.tab.c"
     break;
 
   case 44:
-#line 712 "bison/lang.y"
+#line 762 "bison/lang.y"
                                         {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::uminus, {(yyvsp[0].st)->root}), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//vm->popOperand();
 					//bison_logger<<"minused operand with value "<<-$2<<std::endl;
 					}
-#line 2347 "bison/bis.tab.c"
+#line 2350 "bison/bis.tab.c"
     break;
 
   case 45:
-#line 724 "bison/lang.y"
+#line 774 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::mult, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2355,11 +2358,11 @@ yyreduce:
 					//vm->pushOperand($$);
 					bison_logger<<"product of two expressions with value "<<(yyval.st)<<std::endl;
 				}
-#line 2359 "bison/bis.tab.c"
+#line 2362 "bison/bis.tab.c"
     break;
 
   case 46:
-#line 731 "bison/lang.y"
+#line 781 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::div, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2374,11 +2377,11 @@ yyreduce:
 					bison_logger<<"division of two expressions with value "<<(yyval.st)<<std::endl;
 					//vm->pushOperand($$);
 				}
-#line 2378 "bison/bis.tab.c"
+#line 2381 "bison/bis.tab.c"
     break;
 
   case 47:
-#line 745 "bison/lang.y"
+#line 795 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::plus, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2386,11 +2389,11 @@ yyreduce:
 					//vm->pushOperand($$);
 					bison_logger<<"sum of two expressions with value "<<(yyval.st)<<std::endl;
 				}
-#line 2390 "bison/bis.tab.c"
+#line 2393 "bison/bis.tab.c"
     break;
 
   case 48:
-#line 752 "bison/lang.y"
+#line 802 "bison/lang.y"
                                 {
 					Ast* ost=new Ast(new ArifmeticOperator(ArifmeticType::minus, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
@@ -2398,83 +2401,83 @@ yyreduce:
 					//vm->pushOperand($$);
 					bison_logger<<"difference between two expressions with value "<<(yyval.st)<<std::endl;
 				}
-#line 2402 "bison/bis.tab.c"
+#line 2405 "bison/bis.tab.c"
     break;
 
   case 49:
-#line 759 "bison/lang.y"
+#line 809 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[-1].st);
 					bison_logger<<"expression in brackets with value "<<(yyval.st)<<std::endl;
 					//vm->pushOperand($$);
 				}
-#line 2412 "bison/bis.tab.c"
+#line 2415 "bison/bis.tab.c"
     break;
 
   case 50:
-#line 773 "bison/lang.y"
+#line 823 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::le, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//$$=$1<=$3;
 					bison_logger<<(yyvsp[-2].st)<<"<="<<(yyvsp[0].st)<<": "<<(yyval.st)<<std::endl;
 				}
-#line 2423 "bison/bis.tab.c"
+#line 2426 "bison/bis.tab.c"
     break;
 
   case 51:
-#line 779 "bison/lang.y"
+#line 829 "bison/lang.y"
                                             {
 					Ast* ost=new Ast(new LogicOperator(LogicType::me, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//$$=$1>=$3;
 					bison_logger<<(yyvsp[-2].st)<<">="<<(yyvsp[0].st)<<": "<<(yyval.st)<<std::endl;
 				}
-#line 2434 "bison/bis.tab.c"
+#line 2437 "bison/bis.tab.c"
     break;
 
   case 52:
-#line 785 "bison/lang.y"
+#line 835 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::l, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//$$=$1<$3;
 					bison_logger<<(yyvsp[-2].st)<<"<"<<(yyvsp[0].st)<<": "<<(yyval.st)<<std::endl;
 				}
-#line 2445 "bison/bis.tab.c"
+#line 2448 "bison/bis.tab.c"
     break;
 
   case 53:
-#line 791 "bison/lang.y"
+#line 841 "bison/lang.y"
                                                 {
 					Ast* ost=new Ast(new LogicOperator(LogicType::m, {(yyvsp[-2].st)->root, (yyvsp[0].st)->root}), (yyvsp[-2].st), (yyvsp[0].st));
 					(yyval.st)=ost;
 					//$$=$1>$3;
 					bison_logger<<(yyvsp[-2].st)<<">"<<(yyvsp[0].st)<<": "<<(yyval.st)<<std::endl;
 				}
-#line 2456 "bison/bis.tab.c"
+#line 2459 "bison/bis.tab.c"
     break;
 
   case 54:
-#line 797 "bison/lang.y"
+#line 847 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[-1].st);
 					bison_logger<<"("<<(yyvsp[-1].st)<<")"<<std::endl;
 				}
-#line 2465 "bison/bis.tab.c"
+#line 2468 "bison/bis.tab.c"
     break;
 
   case 55:
-#line 801 "bison/lang.y"
+#line 851 "bison/lang.y"
                                 {
 					(yyval.st)=(yyvsp[0].st);
 					bison_logger<<"expr from logic expr"<<std::endl;
 				}
-#line 2474 "bison/bis.tab.c"
+#line 2477 "bison/bis.tab.c"
     break;
 
   case 56:
-#line 807 "bison/lang.y"
+#line 857 "bison/lang.y"
                       {
 				
 				OperandNode* op=new OperandNode(new Operand(new Var(VarType::tiny, *(yyvsp[-1].str), 0)));
@@ -2483,11 +2486,11 @@ yyreduce:
 				//vm->pushVarToInit(*$1);
 				bison_logger<<"var "<<*(yyvsp[-1].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 2487 "bison/bis.tab.c"
+#line 2490 "bison/bis.tab.c"
     break;
 
   case 57:
-#line 815 "bison/lang.y"
+#line 865 "bison/lang.y"
                    {
 				OperandNode* op=new OperandNode(new Operand(new Var(VarType::tiny, *(yyvsp[0].str), 0)));		
 				(yyval.st)=new Ast(op);
@@ -2495,17 +2498,17 @@ yyreduce:
 				//vm->pushVarToInit(*$1);
 				bison_logger<<"var "<<*(yyvsp[0].str)<<"pushed to init queue."<<std::endl;
 			}
-#line 2499 "bison/bis.tab.c"
+#line 2502 "bison/bis.tab.c"
     break;
 
   case 58:
-#line 822 "bison/lang.y"
+#line 872 "bison/lang.y"
                         {}
-#line 2505 "bison/bis.tab.c"
+#line 2508 "bison/bis.tab.c"
     break;
 
 
-#line 2509 "bison/bis.tab.c"
+#line 2512 "bison/bis.tab.c"
 
       default: break;
     }
@@ -2743,7 +2746,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 825 "bison/lang.y"
+#line 875 "bison/lang.y"
 
 
 

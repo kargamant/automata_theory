@@ -1,107 +1,107 @@
-operand with value 0x55c0cbc7f400
-operand with value 0x55c0cbc7f480
-operand with value 0x55c0cbc88710
-division of two expressions with value 0x55c0cbc88830
-expression in brackets with value 0x55c0cbc88830
-operand with value 0x55c0cbc888d0
-product of two expressions with value 0x55c0cbc888f0
-difference between two expressions with value 0x55c0cbc88ab0
-expression in brackets with value 0x55c0cbc88ab0
-operand_literal: 0x55c0cbc88ab0
-operand with value 0x55c0cbc89740
+operand with value 0x55abfb359420
+operand with value 0x55abfb362650
+operand with value 0x55abfb3627b0
+division of two expressions with value 0x55abfb362910
+expression in brackets with value 0x55abfb362910
+operand with value 0x55abfb3629b0
+product of two expressions with value 0x55abfb3629d0
+difference between two expressions with value 0x55abfb362bd0
+expression in brackets with value 0x55abfb362bd0
+operand_literal: 0x55abfb362bd0
+operand with value 0x55abfb363840
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbc898b0
+operand with value 0x55abfb3639f0
 expr from logic expr
-0x55c0cbc89740<0x55c0cbc898b0: 0x55c0cbc89930
-operand_literal: 0x55c0cbc899f0
+0x55abfb363840<0x55abfb3639f0: 0x55abfb363ae0
+operand_literal: 0x55abfb363ba0
 var distpushed to init queue.
-operand with value 0x55c0cbc8acb0
-operand with value 0x55c0cbc8ae20
-difference between two expressions with value 0x55c0cbc8af40
-expression in brackets with value 0x55c0cbc8af40
+operand with value 0x55abfb364f10
+operand with value 0x55abfb3650c0
+difference between two expressions with value 0x55abfb365220
+expression in brackets with value 0x55abfb365220
 All vars from init queue were intialized
 left_assignment
 var ddistpushed to init queue.
 operand_literal: 32767
-operand with value 0x55c0cbc8bbc0
+operand with value 0x55abfb365ec0
 All vars from init queue were intialized
-operand with value 0x55c0cbc8bdb0
+operand with value 0x55abfb366130
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbc8c040
+operand with value 0x55abfb366400
 expr from logic expr
-0x55c0cbc8bdb0<=0x55c0cbc8c040: 0x55c0cbc8c0c0
-operand with value 0x55c0cbc8c180
+0x55abfb366130<=0x55abfb366400: 0x55abfb3664f0
+operand with value 0x55abfb3665b0
 operand_literal: 360
-operand with value 0x55c0cbc8c3f0
-difference between two expressions with value 0x55c0cbc8c470
-expression in brackets with value 0x55c0cbc8c470
+operand with value 0x55abfb366870
+difference between two expressions with value 0x55abfb366960
+expression in brackets with value 0x55abfb366960
 left_assignment
 left_assignment
-operand with value 0x55c0cbc8d1c0
+operand with value 0x55abfb3676a0
 expr from logic expr
-operand with value 0x55c0cbc8d2a0
+operand with value 0x55abfb367780
 expr from logic expr
-0x55c0cbc8d1c0<0x55c0cbc8d2a0: 0x55c0cbc8d580
-operand with value 0x55c0cbc8d970
+0x55abfb3676a0<0x55abfb367780: 0x55abfb367ae0
+operand with value 0x55abfb367f10
 expr from logic expr
-operand with value 0x55c0cbc8da90
+operand with value 0x55abfb368070
 expr from logic expr
-0x55c0cbc8d970<0x55c0cbc8da90: 0x55c0cbc8dbb0
+0x55abfb367f10<0x55abfb368070: 0x55abfb3681d0
 var temppushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc8eda0
+operand with value 0x55abfb3693e0
 All vars from init queue were intialized
 var scanpushed to init queue.
-operand with value 0x55c0cbc8f0e0
+operand with value 0x55abfb3697a0
 All vars from init queue were intialized
 var heuristicpushed to init queue.
-operand with value 0x55c0cbc8f390
+operand with value 0x55abfb369a90
 All vars from init queue were intialized
 var r32pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc8f5c0
+operand with value 0x55abfb369d00
 All vars from init queue were intialized
 var r16pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc8f880
+operand with value 0x55abfb36a040
 All vars from init queue were intialized
 var r8pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc8fb40
+operand with value 0x55abfb36a380
 All vars from init queue were intialized
 var r4pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc8fe00
+operand with value 0x55abfb36a6c0
 All vars from init queue were intialized
 var r2pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc900c0
+operand with value 0x55abfb36aa00
 All vars from init queue were intialized
 var bit0pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc90380
+operand with value 0x55abfb36ad40
 All vars from init queue were intialized
 var bit1pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc90640
+operand with value 0x55abfb36b080
 All vars from init queue were intialized
 var bit2pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc90900
+operand with value 0x55abfb36b3c0
 All vars from init queue were intialized
 var bit3pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc90bc0
+operand with value 0x55abfb36b700
 All vars from init queue were intialized
 var bit4pushed to init queue.
 operand_literal: 0
-operand with value 0x55c0cbc90e80
+operand with value 0x55abfb36ba40
 All vars from init queue were intialized
 var anglepushed to init queue.
 operand_literal: 30
-operand with value 0x55c0cbc91140
+operand with value 0x55abfb36bd80
 All vars from init queue were intialized
 var angle5pushed to init queue.
 var angle4pushed to init queue.
@@ -113,242 +113,242 @@ All vars from init queue were intialized
 var mindistpushed to init queue.
 var minAnglepushed to init queue.
 operand_literal: 32767
-operand with value 0x55c0cbc91d20
+operand with value 0x55abfb36cba0
 All vars from init queue were intialized
-operand with value 0x55c0cbc91dd0
+operand with value 0x55abfb36cc90
 expr from logic expr
 operand_literal: 1
 expr from logic expr
-0x55c0cbc91dd0<=0x55c0cbc920e0: 0x55c0cbc92180
-operand_literal: 0x55c0cbc92500
+0x55abfb36cc90<=0x55abfb36d050: 0x55abfb36d0f0
+operand_literal: 0x55abfb36d4c0
 left_assignment
-operand_literal: 0x55c0cbc931e0
+operand_literal: 0x55abfb36e200
 left_assignment
-operand_literal: 0x55c0cbc93ec0
+operand_literal: 0x55abfb36ef40
 left_assignment
-operand_literal: 0x55c0cbc94ba0
+operand_literal: 0x55abfb36fc80
 left_assignment
-operand_literal: 0x55c0cbc95880
+operand_literal: 0x55abfb3709c0
 left_assignment
 left_assignment
-operand_literal: 0x55c0cbc97200
+operand_literal: 0x55abfb372560
 left_assignment
-operand with value 0x55c0cbc97c00
+operand with value 0x55abfb372f40
 operand_literal: 2
-operand with value 0x55c0cbc97eb0
-division of two expressions with value 0x55c0cbc97f30
+operand with value 0x55abfb373270
+division of two expressions with value 0x55abfb373360
 left_assignment
-operand_literal: 0x55c0cbc98390
+operand_literal: 0x55abfb373810
 left_assignment
-operand with value 0x55c0cbc98d90
+operand with value 0x55abfb3741f0
 operand_literal: 4
-operand with value 0x55c0cbc99040
-division of two expressions with value 0x55c0cbc990c0
+operand with value 0x55abfb374520
+division of two expressions with value 0x55abfb374610
 left_assignment
-operand_literal: 0x55c0cbc99520
+operand_literal: 0x55abfb374ac0
 left_assignment
-operand with value 0x55c0cbc99f20
+operand with value 0x55abfb3754a0
 operand_literal: 8
-operand with value 0x55c0cbc9a1d0
-division of two expressions with value 0x55c0cbc9a250
+operand with value 0x55abfb3757d0
+division of two expressions with value 0x55abfb3758c0
 left_assignment
-operand_literal: 0x55c0cbc9a6b0
+operand_literal: 0x55abfb375d70
 left_assignment
-operand with value 0x55c0cbc9b0b0
+operand with value 0x55abfb376750
 operand_literal: 16
-operand with value 0x55c0cbc9b360
-division of two expressions with value 0x55c0cbc9b3e0
+operand with value 0x55abfb376a80
+division of two expressions with value 0x55abfb376b70
 left_assignment
-operand_literal: 0x55c0cbc9b840
+operand_literal: 0x55abfb377020
 left_assignment
-operand_literal: 0x55c0cbc9d1b0
-left_assignment
-left_assignment
+operand_literal: 0x55abfb378bf0
 left_assignment
 left_assignment
 left_assignment
-operand with value 0x55c0cbc9d230
+left_assignment
+left_assignment
+operand with value 0x55abfb378ce0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbc9d910
+operand with value 0x55abfb3793c0
 expr from logic expr
-0x55c0cbc9d230<=0x55c0cbc9d910: 0x55c0cbc9db00
+0x55abfb378ce0<=0x55abfb3793c0: 0x55abfb379630
 left_assignment
-operand with value 0x55c0cbc9e0a0
+operand with value 0x55abfb379c20
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbc9e1c0
+operand with value 0x55abfb379d80
 expr from logic expr
-0x55c0cbc9e0a0<=0x55c0cbc9e1c0: 0x55c0cbc9e240
-operand with value 0x55c0cbc9e300
+0x55abfb379c20<=0x55abfb379d80: 0x55abfb379e70
+operand with value 0x55abfb379f30
 operand_literal: 60
-operand with value 0x55c0cbc9e570
-sum of two expressions with value 0x55c0cbc9e5f0
-expression in brackets with value 0x55c0cbc9e5f0
+operand with value 0x55abfb37a1f0
+sum of two expressions with value 0x55abfb37a2e0
+expression in brackets with value 0x55abfb37a2e0
 left_assignment
-operand_literal: 0x55c0cbc9ea50
+operand_literal: 0x55abfb37a790
 left_assignment
-operand with value 0x55c0cbc9f680
+operand with value 0x55abfb37b3a0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbc9f7f0
+operand with value 0x55abfb37b550
 expr from logic expr
-0x55c0cbc9f680<=0x55c0cbc9f7f0: 0x55c0cbc9f870
-operand with value 0x55c0cbc9f930
+0x55abfb37b3a0<=0x55abfb37b550: 0x55abfb37b640
+operand with value 0x55abfb37b700
 operand_literal: 120
-operand with value 0x55c0cbc9fba0
-sum of two expressions with value 0x55c0cbc9fc20
-expression in brackets with value 0x55c0cbc9fc20
+operand with value 0x55abfb37b9c0
+sum of two expressions with value 0x55abfb37bab0
+expression in brackets with value 0x55abfb37bab0
 left_assignment
-operand_literal: 0x55c0cbca0080
+operand_literal: 0x55abfb37bf60
 left_assignment
-operand with value 0x55c0cbca0cb0
+operand with value 0x55abfb37cb70
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbca0e20
+operand with value 0x55abfb37cd20
 expr from logic expr
-0x55c0cbca0cb0<=0x55c0cbca0e20: 0x55c0cbca0ea0
-operand with value 0x55c0cbca0f60
+0x55abfb37cb70<=0x55abfb37cd20: 0x55abfb37ce10
+operand with value 0x55abfb37ced0
 operand_literal: 240
-operand with value 0x55c0cbca11d0
-sum of two expressions with value 0x55c0cbca1250
-expression in brackets with value 0x55c0cbca1250
+operand with value 0x55abfb37d190
+sum of two expressions with value 0x55abfb37d280
+expression in brackets with value 0x55abfb37d280
 left_assignment
-operand_literal: 0x55c0cbca16b0
+operand_literal: 0x55abfb37d730
 left_assignment
-operand with value 0x55c0cbca22e0
+operand with value 0x55abfb37e340
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbca2450
+operand with value 0x55abfb37e4f0
 expr from logic expr
-0x55c0cbca22e0<=0x55c0cbca2450: 0x55c0cbca24d0
-operand with value 0x55c0cbca2590
+0x55abfb37e340<=0x55abfb37e4f0: 0x55abfb37e5e0
+operand with value 0x55abfb37e6a0
 operand_literal: 300
-operand with value 0x55c0cbca2800
-sum of two expressions with value 0x55c0cbca2880
-expression in brackets with value 0x55c0cbca2880
+operand with value 0x55abfb37e960
+sum of two expressions with value 0x55abfb37ea50
+expression in brackets with value 0x55abfb37ea50
 left_assignment
-operand_literal: 0x55c0cbca2ce0
+operand_literal: 0x55abfb37ef00
 left_assignment
-operand_literal: 0x55c0cbca3910
-operand_literal: 0x55c0cbca4410
-operand_literal: 0x55c0cbca47e0
+operand_literal: 0x55abfb37fb10
+operand_literal: 0x55abfb380790
+operand_literal: 0x55abfb380c20
 left_assignment
 left_assignment
-operand with value 0x55c0cbca4860
+operand with value 0x55abfb380d10
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbca4a40
+operand with value 0x55abfb380ef0
 expr from logic expr
-0x55c0cbca4860>0x55c0cbca4a40: 0x55c0cbca4c30
-operand with value 0x55c0cbca57e0
+0x55abfb380d10>0x55abfb380ef0: 0x55abfb381160
+operand with value 0x55abfb381d00
 expr from logic expr
-operand with value 0x55c0cbca5800
+operand with value 0x55abfb381d20
 expr from logic expr
-0x55c0cbca57e0<0x55c0cbca5800: 0x55c0cbca5970
+0x55abfb381d00<0x55abfb381d20: 0x55abfb381ed0
 left_assignment
 left_assignment
-operand with value 0x55c0cbca6e40
+operand with value 0x55abfb383480
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbca6f60
+operand with value 0x55abfb3835e0
 expr from logic expr
-0x55c0cbca6e40>0x55c0cbca6f60: 0x55c0cbca6fe0
-operand with value 0x55c0cbca7b90
+0x55abfb383480>0x55abfb3835e0: 0x55abfb3836d0
+operand with value 0x55abfb384270
 expr from logic expr
-operand with value 0x55c0cbca7bb0
+operand with value 0x55abfb384290
 expr from logic expr
-0x55c0cbca7b90<0x55c0cbca7bb0: 0x55c0cbca7d20
+0x55abfb384270<0x55abfb384290: 0x55abfb384440
 left_assignment
 left_assignment
-operand with value 0x55c0cbca91f0
+operand with value 0x55abfb3859f0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbca9310
+operand with value 0x55abfb385b50
 expr from logic expr
-0x55c0cbca91f0>0x55c0cbca9310: 0x55c0cbca9390
-operand with value 0x55c0cbca9f40
+0x55abfb3859f0>0x55abfb385b50: 0x55abfb385c40
+operand with value 0x55abfb3867e0
 expr from logic expr
-operand with value 0x55c0cbca9f60
+operand with value 0x55abfb386800
 expr from logic expr
-0x55c0cbca9f40<0x55c0cbca9f60: 0x55c0cbcaa0d0
+0x55abfb3867e0<0x55abfb386800: 0x55abfb3869b0
 left_assignment
 left_assignment
-operand with value 0x55c0cbcab5a0
+operand with value 0x55abfb387f60
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbcab6c0
+operand with value 0x55abfb3880c0
 expr from logic expr
-0x55c0cbcab5a0>0x55c0cbcab6c0: 0x55c0cbcab740
-operand with value 0x55c0cbcac2f0
+0x55abfb387f60>0x55abfb3880c0: 0x55abfb3881b0
+operand with value 0x55abfb388d50
 expr from logic expr
-operand with value 0x55c0cbcac310
+operand with value 0x55abfb388d70
 expr from logic expr
-0x55c0cbcac2f0<0x55c0cbcac310: 0x55c0cbcac480
+0x55abfb388d50<0x55abfb388d70: 0x55abfb388f20
 left_assignment
 left_assignment
-operand with value 0x55c0cbcadb50
+operand with value 0x55abfb38a6d0
 expr from logic expr
 operand_literal: 0
-operand with value 0x55c0cbcadc70
+operand with value 0x55abfb38a830
 expr from logic expr
-0x55c0cbcadb50>0x55c0cbcadc70: 0x55c0cbcadcf0
-operand with value 0x55c0cbcae8a0
+0x55abfb38a6d0>0x55abfb38a830: 0x55abfb38a920
+operand with value 0x55abfb38b4c0
 expr from logic expr
-operand with value 0x55c0cbcae8c0
+operand with value 0x55abfb38b4e0
 expr from logic expr
-0x55c0cbcae8a0<0x55c0cbcae8c0: 0x55c0cbcaea30
+0x55abfb38b4c0<0x55abfb38b4e0: 0x55abfb38b690
 left_assignment
 left_assignment
-operand with value 0x55c0cbcaff00
+operand with value 0x55abfb38cc40
 expr from logic expr
 operand_literal: 32767
-operand with value 0x55c0cbcb0020
+operand with value 0x55abfb38cda0
 expr from logic expr
-0x55c0cbcaff00>=0x55c0cbcb0020: 0x55c0cbcb00a0
-operand with value 0x55c0cbcb0160
+0x55abfb38cc40>=0x55abfb38cda0: 0x55abfb38ce90
+operand with value 0x55abfb38cf50
 operand_literal: 180
-operand with value 0x55c0cbcb03d0
-sum of two expressions with value 0x55c0cbcb0450
-expression in brackets with value 0x55c0cbcb0450
+operand with value 0x55abfb38d210
+sum of two expressions with value 0x55abfb38d300
+expression in brackets with value 0x55abfb38d300
 left_assignment
-operand_literal: 0x55c0cbcb08b0
+operand_literal: 0x55abfb38d7b0
 left_assignment
-operand_literal: 0x55c0cbcb14e0
-operand_literal: 0x55c0cbcb1c20
-operand with value 0x55c0cbcb1d60
+operand_literal: 0x55abfb38e3c0
+operand_literal: 0x55abfb38ec00
+operand with value 0x55abfb38edb0
 expr from logic expr
-operand with value 0x55c0cbcb1ed0
+operand with value 0x55abfb38ef30
 expr from logic expr
-0x55c0cbcb1d60<0x55c0cbcb1ed0: 0x55c0cbcb1ff0
-operand with value 0x55c0cbcb2090
+0x55abfb38edb0<0x55abfb38ef30: 0x55abfb38f090
+operand with value 0x55abfb38f130
 expr from logic expr
-operand with value 0x55c0cbcb20b0
+operand with value 0x55abfb38f150
 expr from logic expr
-0x55c0cbcb2090>=0x55c0cbcb20b0: 0x55c0cbcb22f0
-operand with value 0x55c0cbcb2570
+0x55abfb38f130>=0x55abfb38f150: 0x55abfb38f410
+operand with value 0x55abfb38f6d0
 operand_literal: 60
-operand with value 0x55c0cbcb2690
-sum of two expressions with value 0x55c0cbcb2710
-expression in brackets with value 0x55c0cbcb2710
+operand with value 0x55abfb38f830
+sum of two expressions with value 0x55abfb38f920
+expression in brackets with value 0x55abfb38f920
 left_assignment
-operand with value 0x55c0cbcb2c80
+operand with value 0x55abfb38fe60
 expr from logic expr
-operand with value 0x55c0cbcb2da0
+operand with value 0x55abfb38ffc0
 expr from logic expr
-0x55c0cbcb2c80>0x55c0cbcb2da0: 0x55c0cbcb2ec0
-operand with value 0x55c0cbcb2f60
+0x55abfb38fe60>0x55abfb38ffc0: 0x55abfb390120
+operand with value 0x55abfb3901c0
 expr from logic expr
-operand with value 0x55c0cbcb2f80
+operand with value 0x55abfb3901e0
 expr from logic expr
-0x55c0cbcb2f60<=0x55c0cbcb2f80: 0x55c0cbcb31c0
-operand with value 0x55c0cbcb3440
+0x55abfb3901c0<=0x55abfb3901e0: 0x55abfb3904a0
+operand with value 0x55abfb390760
 operand_literal: 60
-operand with value 0x55c0cbcb3560
-difference between two expressions with value 0x55c0cbcb35e0
-expression in brackets with value 0x55c0cbcb35e0
+operand with value 0x55abfb3908c0
+difference between two expressions with value 0x55abfb3909b0
+expression in brackets with value 0x55abfb3909b0
 left_assignment
-operand_literal: 0x55c0cbcb3b20
-operand_literal: 0x55c0cbcb3e80
+operand_literal: 0x55abfb390ef0
+operand_literal: 0x55abfb3912a0
 left_assignment
 left_assignment

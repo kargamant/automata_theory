@@ -656,6 +656,7 @@ int AssigningOperator::execute()
 				{
 				//	std::cout<<"scopchik: "<<std::endl;
 				//	std::cout<<*program_stack->top();
+					dynamic_cast<OperandNode*>(left)->operand->exec(program_stack->top());
 					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(dynamic_cast<OperandNode*>(right)->execute());
 				//	std::cout<<"scopchik: "<<std::endl;
 				//	std::cout<<*program_stack->top();
@@ -664,7 +665,11 @@ int AssigningOperator::execute()
 					//else dynamic_cast<Field*>(dynamic_cast<OperandNode*>(left)->operand->var)->getVar(dynamic_cast<OperandNode*>(left)->operand->i, dynamic_cast<OperandNode*>(left)->operand->j)->value=dynamic_cast<OperandNode*>(right)->execute();
 					
 					if(program_stack!=nullptr && !dynamic_cast<OperandNode*>(left)->operand->isFieldItem) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, dynamic_cast<OperandNode*>(right)->execute());
-					else if(program_stack!=nullptr) dynamic_cast<Field*>(program_stack->top()->getVar(dynamic_cast<OperandNode*>(left)->operand->var->name))->getVar(dynamic_cast<OperandNode*>(left)->operand->i, dynamic_cast<OperandNode*>(left)->operand->j)->value=dynamic_cast<OperandNode*>(right)->execute();
+					else if(program_stack!=nullptr) 
+					{
+						dynamic_cast<OperandNode*>(left)->operand->exec(program_stack->top());
+						dynamic_cast<Field*>(program_stack->top()->getVar(dynamic_cast<OperandNode*>(left)->operand->var->name))->getVar(dynamic_cast<OperandNode*>(left)->operand->i, dynamic_cast<OperandNode*>(left)->operand->j)->value=dynamic_cast<OperandNode*>(right)->execute();
+					}
 
 				//	std::cout<<"scopchik: "<<std::endl;
 				//	std::cout<<*program_stack->top();
@@ -681,9 +686,16 @@ int AssigningOperator::execute()
 			//	try
 			//	{
 					int execution=right->execute();
+					dynamic_cast<OperandNode*>(left)->operand->exec(program_stack->top());
 					dynamic_cast<OperandNode*>(left)->operand->var->changeValue(execution);	
 					dynamic_cast<OperandNode*>(left)->operand->value=execution;
-					if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
+					if(program_stack!=nullptr && !dynamic_cast<OperandNode*>(left)->operand->isFieldItem) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
+					else if(program_stack!=nullptr) 
+					{
+						dynamic_cast<OperandNode*>(left)->operand->exec(program_stack->top());
+						dynamic_cast<Field*>(program_stack->top()->getVar(dynamic_cast<OperandNode*>(left)->operand->var->name))->getVar(dynamic_cast<OperandNode*>(left)->operand->i, dynamic_cast<OperandNode*>(left)->operand->j)->value=execution;
+					}
+					//if(program_stack!=nullptr) program_stack->top()->changeVar(dynamic_cast<OperandNode*>(left)->operand->var->name, execution);
 			//	}
 			//	catch(std::invalid_argument error)
 			//	{

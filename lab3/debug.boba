@@ -1,7 +1,19 @@
-tiny a b<<1,
-a<<1,
-b<<0,
-a<<a>b>>b,
-@a,
-@b,
+field big small ff<<2,
+normal a<<31,
+normal b<<31,
+normal k<<3,
+until a<0 do 
+	b<<31, 
+	until b<0 do 
+		k<<3, 
+		until k<=0 do 
+			ff[a b]<<(ff[a b]*2), 
+			k<<(k-1),
+			. 
+		b<<(b-1),
+		.
+	a<<(a-1),
+	.
+@ff[31 31],
+@ff[4 4],
 .

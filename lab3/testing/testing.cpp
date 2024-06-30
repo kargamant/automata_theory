@@ -789,20 +789,18 @@ TEST_CASE("until loops")
 		parseStr("until 1 do a<<1,..");
 		REQUIRE(vm->getVar("a")->value==256);
 
-		//to be debugged
-	//	parseStr("field small small ff<<-1,.");
-	//	parseStr("a<<32,.");
-	//	parseStr("b<<31,.");
-	//	parseStr("until a<0 do b<<31, a<<(a-1), until b<0 do ff[a b]<<2, b<<(b-1),...");
-	//	std::cout<<*vm;
+		parseStr("field big small ff<<-1,.");
+		parseStr("a<<31,.");
+		parseStr("b<<31,.");
+		parseStr("until a<0 do b<<31, until b<0 do ff[a b]<<2, b<<(b-1),. a<<(a-1),..");
 
-	//	int k=0;
-	//	for(auto& v: dynamic_cast<Field*>(vm->getVar("ff"))->matr)
-	//	{
-	//		std::cout<<"KKKKKK: "<<k<<std::endl;
-	//		REQUIRE(v->value==2);
-	//		k++;
-	//	}
+		int k=0;
+		for(auto& v: dynamic_cast<Field*>(vm->getVar("ff"))->matr)
+		{
+			std::cout<<"KKKKKK: "<<k<<std::endl;
+			REQUIRE(v->value==2);
+			k++;
+		}
 
 		parseStr("b<<3,.");
 		parseStr("c<<5,.");
@@ -839,14 +837,18 @@ TEST_CASE("until loops")
 		REQUIRE(vm->getVar("result")->value==13);
 
 		//to be debugged in a simplier version
-	//	parseStr("a<<32,.");
-	//	parseStr("b<<31,.");
-	//	parseStr("k<<3,.");
-	//	parseStr("until a<0 do b<<32, a<<(a-1), until b<0 do b<<(b-1), k<<4, until k<=0 do k<<(k-1), ff[a b]<<(ff[a b]*ff[a b]),....");
-	//	for(auto& v: dynamic_cast<Field*>(vm->getVar("ff"))->matr)
-	//	{
-	//		REQUIRE(v->value==8);
-	//	}
+		parseStr("a<<31,.");
+		parseStr("b<<31,.");
+		parseStr("k<<3,.");
+		parseStr("until a<0 do b<<31, until b<0 do k<<3, until k<=0 do ff[a b]<<(ff[a b]*2), k<<(k-1),. @-90000, @ff[31 30], @-90000, b<<(b-1),. a<<(a-1),..");
+		std::cout<<*vm;
+		k=0;
+		for(auto& v: dynamic_cast<Field*>(vm->getVar("ff"))->matr)
+		{
+			std::cout<<"KKKKKK: "<<k<<std::endl;
+			REQUIRE(v->value==8);
+			k++;
+		}
 
 		cleanCompileVars();
 	}

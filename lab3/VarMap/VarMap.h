@@ -72,6 +72,8 @@ struct Operand
 	bool isFieldItem=false;
 //	Ast* i_exe=nullptr;
 //	Ast* j_exe=nullptr;
+	std::string i_name;
+	std::string j_name;
 	int i=-1;
 	int j=-1;
 	bool isVar;
@@ -80,8 +82,9 @@ struct Operand
 	Operand(int value=0) : isVar(false), var(nullptr), value(value) {}
 	Operand(Var* var) : isVar(true), var(var), value(var->value) {}
 	Operand(Var* var, int i, int j) : isFieldItem(true), i(i), j(j), isVar(true), var(dynamic_cast<Field*>(var)->getVar(i, j)), value(var->value) {this->var->name=var->name;}
+	Operand(Var* var, const std::string& i_name, const std::string& j_name) : isFieldItem(true), i_name(i_name), j_name(j_name), isVar(true), var(dynamic_cast<Field*>(var)->getVar(0, 0)), value(var->value) {this->var->name=var->name;}
 	//Operand(Var* var, Ast* i, Ast* j) : isFieldItem(true), i_exe(i), j_exe(j), isVar(true), var(dynamic_cast<Field*>(var)), value(var->value) {this->var->name=var->name;}
-	void exec();
+	void exec(VarMap* vm);
 	void updateValue(VarMap* scope=nullptr);
 };
 

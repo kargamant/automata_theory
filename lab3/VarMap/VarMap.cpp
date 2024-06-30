@@ -83,7 +83,11 @@ void Operand::updateValue(VarMap* scope)
 			if(scope->checkIfDefined(var->name)) 
 			{
 				if(!isFieldItem) var->value=scope->getVar(var->name)->value;
-				else var->value=dynamic_cast<Field*>(scope->getVar(var->name))->getVar(i, j)->value;
+				else 
+				{
+					exec(scope);
+					var->value=dynamic_cast<Field*>(scope->getVar(var->name))->getVar(i, j)->value;
+				}
 			}
 			else
 			{
@@ -99,6 +103,19 @@ void Operand::updateValue(VarMap* scope)
 	}
 }
 
+void Operand::exec(VarMap* vm)
+{
+	if(isFieldItem)
+	{
+		if(!i_name.empty()) i=vm->getVar(i_name)->value;
+		if(!j_name.empty()) j=vm->getVar(j_name)->value;
+		std::string old_name=var->name;
+		//std::cout<<"I J: "<<i<<" "<<j<<std::endl;
+		//std::cout<<"Names: "<<i_name<<" "<<j_name<<std::endl;
+		var=dynamic_cast<Field*>(vm->getVar(var->name))->getVar(i, j);
+		var->name=old_name;
+	}
+}
 /*void Operand::exec()
 {
 	i=i_exe->execute();
